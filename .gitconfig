@@ -1,0 +1,17 @@
+[user]
+	name = pabloqpacin
+	email = 110383181+pabloqpacin@users.noreply.github.com
+[http]
+	version = HTTP/2
+[init]
+	defaultBranch = main
+
+
+# ---
+
+# @Fireship tips (https://youtu.be/r_MpUP6aKiQ&ab_channel=Fireship)
+# — Set the default editor (nano, VS Code, etc.)
+# — Customize color output
+# — Create aliases (shortcuts for Git subcommands)
+# — Add endpoint shortcuts for commonly used URLs
+# (https://youtu.be/r_MpUP6aKiQ&ab_channel=Fireship)

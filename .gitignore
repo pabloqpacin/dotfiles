@@ -1,0 +1,7 @@
+# Initial commit
+log/
+*.todo
+
+# should I ADD+ignore more relevant files?
+# (ie. vim-related, bash/zsh-related)
+# guess might when proper bootstrap in place!
