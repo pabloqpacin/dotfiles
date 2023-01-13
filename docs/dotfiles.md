@@ -57,6 +57,8 @@ Default 🥱
 Default 🥱
 
 ### vim 
+" src: https://shapeshed.com/vim-statuslines/
+" src: https://learnvimscriptthehardway.stevelosh.com/chapters/17.html
 -->
 
 ### .zshrc

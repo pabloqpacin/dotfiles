@@ -15,18 +15,16 @@ ZSH_THEME="random"
 # a theme from this variable instead of looking in $ZSH/themes/
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=(
-# "adben" "af-magic" "afowler" "agnoster" "alanpeabody" "amuse" "arrow" "avit" "bureau"
-# "candy-kingdom" "cloud" "clean" "crunch" "cypher"
-# "dallas" "daveverwer" "dieter" "dpoggi" "dst"
-# "edvardm" "eastwood" "essembeh"
-# "fino" "fishy" "flazz" "fletcherm" "frisk" "frontcube"
-# "gallifrey" "garyblessington" "geoffgarside" "half-life" "humza"
-# "itchy" "jispwoso" "jnrowe" "josh" "jreese" "juanghurtado" "junkfood"
-# "kafeitu" "kennethreitz" "kolo" "kphoen" "linuxonly"
-# "macovsky" "macovsky-ruby" "maran" "mh" "michelebologna" "miloshadzic" "mortalscumbag" "murilasso"
-# "obraun" "peepcode" "pygmalion-virtualenv" "refined" "re5et" "rgm" "robbyrussell" "risto"
-# "simple" "skaro" "Soliah" "sonicradish" "sporty_256" "steeef" "sunaku" "sunrise" "superjarin" "strug" "suvash"
-# "theunraveler" "tjkirch_mod" "tonotdo" "trapd00r" "wedisagree" "wezm" "wezm+" "wuffers" "zhann"
+# "3den2" "adben" "af-magic" "afowler" "agnoster" "alanpeabody" "amuse" "apple" "arrow" "avit" "awesomepanda"
+# "bureau" "candy-kingdom" "clean" "cloud" "crunch" "cypher" "dallas" "daveverwer" "dieter" "dogenpunk" "dpoggi"
+# "dst" "edvardm" "eastwood" "essembeh" "example" "fino" "fishy" "flazz" "fletcherm" "frisk" "frontcube" "fwalch"
+# "gallifrey" "gallois" "garyblessington" "geoffgarside" "gozilla" "half-life" "humza" "itchy" "jbergantine"
+# "jispwoso" "jnrowe" "josh" "jreese" "juanghurtado" "junkfood" "kafeitu" "kennethreitz" "kolo" "kphoen" "linuxonly"
+# "macovsky" "macovsky-ruby" "maran" "mgutz" "mh" "michelebologna" "miloshadzic" "minimal" "mlh" "mortalscumbag"
+# "mrtazz" "murilasso" "muse" "nanotech" "nebirhos" "nicoulaj" "norm" "obraun" "peepcode" "pygmalion-virtualenv"
+# "re5et" "refined" "rgm" "robbyrussell" "risto" "simple" "skaro" "smt" "Soliah" "sonicradish" "sporty_256" "steeef"
+# "sunaku" "sunrise" "superjarin" "strug" "suvash" "terminalparty" "theunraveler" "tjkirch_mod" "tonotdo" "trapd00r"
+# "wedisagree" "wezm" "wezm+" "wuffers" "ys" "zhann"
 # )
 
 # Uncomment the following line to use case-sensitive completion.
