@@ -37,7 +37,7 @@ map <Right> <NOP>
   " enable 'markdown.vim'
 
 " Enable mouse motions
-  set mouse=a
+  "set mouse=a
 
 " LEADER commands: \ + <key>
 nnoremap <leader>c :execute "set colorcolumn=" . (&colorcolumn == "" ? "80" : "")<CR>

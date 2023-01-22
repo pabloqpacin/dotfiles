@@ -9,3 +9,6 @@
 	editor = vim
 [alias]
 	god = log --graph --oneline --decorate
+    pretty = log --graph --pretty=format:'%C(auto)%h%d (%cs) %s' --decorate
+    
+    # other Pretty placeholders: %cD, %cn, ...
