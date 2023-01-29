@@ -75,6 +75,28 @@
 - @LearnVimscriptTheHardWay: [Status Lines](https://learnvimscriptthehardway.stevelosh.com/chapters/17.html)
 - @Shapeshed: [Build your own Vim statusline](https://shapeshed.com/vim-statuslines/)
 
+```vim
+" Statusline
+  set laststatus=2
+  set statusline=
+  set statusline=%F         " Path to the file
+  set statusline+=%=        " Switch to the right side
+  set statusline+=%l        " Current line
+  set statusline+=/         " Separator
+  set statusline+=%L        " Total lines
+
+" Git for statusline
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+    let l:branchname = GitBranch()
+    return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+  set statusline+=%{StatuslineGit()}
+```
 
 
 ### .zshrc
