@@ -1,14 +1,24 @@
 [user]
 	name = pabloqpacin
 	email = 110383181+pabloqpacin@users.noreply.github.com
-[http]
-	version = HTTP/2
 [init]
 	defaultBranch = main
-[core]
-	editor = vim
+[http]
+	version = HTTP/2
 [alias]
-	god = log --graph --oneline --decorate
     sup = log --graph --pretty=format:'%C(auto)%h%d (%cs) %s' --decorate
-    
-    # other Pretty placeholders: %cD, %cn, ...
+    lold = log --follow
+
+[core]
+    # editor = nvim
+    pager = delta
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+    line-numbers = true
+    # side-by-side = true
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default

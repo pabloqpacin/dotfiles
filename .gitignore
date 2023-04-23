@@ -1,7 +1,10 @@
-# Initial commit
-log/
-*.todo
+# Cheat
+community/
 
-# Ignore .logs and private
-.log
+# Nvim
+packer_compiled.lua
+
+# Clutter
 private/
+*mock*/
+*.todo

@@ -1,0 +1,4 @@
+# # ~/dotfiles/.zshrc
+#
+# Display man pages with Bat highlighting -- sharpen theme selection...
+export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=default'"
