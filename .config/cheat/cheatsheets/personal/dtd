@@ -1,0 +1,46 @@
+---
+syntax: dtd
+tags: [ASIR]
+---
+
+<!-- XML Prolog -->
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!-- External DTD -->
+<!DOCTYPE mydoc SYSTEM "myfile.dtd">
+
+<!-- All-encompassing DTD -->
+<!DOCTYPE mydoc [
+    <!ELEMENT mydoc (element1+, element2, element3?)>
+    <!ELEMENT element1 (subelement1|subelement2)*>
+    <!ELEMENT subelement1 (#PCDATA)>
+    <!ELEMENT subelement2 (#PCDATA)>
+    <!ELEMENT element2 (#PCDATA)>
+    <!ELEMENT element3 (#PCDATA)>
+    <!ATTLIST subelement1 id ID #REQUIRED>
+    <!ATTLIST subelement2 id IDREFS #REQUIRED>
+    <!ATTLIST element2 name NMTOKENS #REQUIRED>
+    <!ATTLIST element2 description CDATA #IMPLIED>
+    <!ATTLIST element3 color CDATA #FIXED "green">
+    <!ELEMENT linebreak EMPTY>
+]>
+
+<!-- Valid XML -->
+<mydoc>
+    <element1>
+        <subelement1 id="a69"></subelement1>
+    </element1>
+    <element1>
+        <subelement1 id="a420"></subelement1>
+        <subelement2 id="a420"></subelement2>
+    </element1>
+    <element2 name="sup dawg"></element2>
+</mydoc>
+
+
+
+<!-- NOTES ---------------------------------------------------------->
+<!-- ATTLIST CDATA "green" => default value for ATT ----------------->
+<!-- ATTLIST CDATA #FIXED "green" => mandatory value if ATT exists -->
+<!-- ELEMENT linebreak => still requires root element in the DTD ---->
+<!-- ---------------------------------------------------------------->

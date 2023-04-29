@@ -11,8 +11,8 @@ colorize: true
 # Which 'chroma' colorscheme should be applied to the output?
 # Options are available here:
 #   https://github.com/alecthomas/chroma/tree/master/styles
-style: doom-one2
-#style: hrdark, lovelace, nord, paraiso-dark, vulcan
+style: hrdark
+#style: doom-one2, hrdark, lovelace, nord, paraiso-dark, vulcan
   # style: monokai
 
 # Which 'chroma' "formatter" should be applied?

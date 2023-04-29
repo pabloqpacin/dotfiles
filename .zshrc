@@ -6,7 +6,7 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=default'"
 
 # Set $RANDOM_THEME
 ZSH_THEME="random"
-ZSH_THEME_RANDOM_CANDIDATES=( "3den2" "adben" "af-magic" "afowler" "agnoster"
+ZSH_THEME_RANDOM_CANDIDATES=( "3den" "adben" "af-magic" "afowler" "agnoster"
   "alanpeabody" "amuse" "apple" "arrow" "avit" "awesomepanda" "bureau"
   "candy-kingdom" "clean" "cloud" "crunch" "cypher" "dallas" "daveverwer"
   "dieter" "dogenpunk" "dpoggi" "dst" "edvardm" "eastwood" "essembeh" "example"
@@ -44,3 +44,7 @@ fi
 
 source $ZSH/oh-my-zsh.sh
 
+# NVM installation requirements (auto-written)
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
