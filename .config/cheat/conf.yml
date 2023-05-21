@@ -1,7 +1,7 @@
 ---
 # The editor to use with 'cheat -e <sheet>'. Defaults to $EDITOR or $VISUAL.
-editor: /usr/local/bin/nvim
-  # editor: $EDITOR
+editor: $EDITOR
+  # editor: /usr/local/bin/nvim
   # editor: /usr/bin/editor
 
 # Should 'cheat' always colorize output?

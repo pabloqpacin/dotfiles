@@ -2,24 +2,23 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 # Display man pages with Bat highlighting
-export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=default'"
+export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'"
 
 # Set $RANDOM_THEME
 ZSH_THEME="random"
-ZSH_THEME_RANDOM_CANDIDATES=( "3den" "adben" "af-magic" "afowler" "agnoster"
-  "alanpeabody" "amuse" "apple" "arrow" "avit" "awesomepanda" "bureau"
-  "candy-kingdom" "clean" "cloud" "crunch" "cypher" "dallas" "daveverwer"
-  "dieter" "dogenpunk" "dpoggi" "dst" "edvardm" "eastwood" "essembeh" "example"
-  "fino" "fishy" "flazz" "fletcherm" "frisk" "frontcube" "fwalch" "gallifrey"
-  "gallois" "garyblessington" "geoffgarside" "gozilla" "half-life" "humza"
-  "itchy" "jbergantine" "jispwoso" "jnrowe" "josh" "jreese" "juanghurtado"
-  "junkfood" "kafeitu" "kennethreitz" "kolo" "kphoen" "linuxonly" "macovsky"
-  "macovsky-ruby" "maran" "mgutz" "mh" "michelebologna" "miloshadzic" "minimal"
-  "mlh" "mortalscumbag" "mrtazz" "murilasso" "muse" "nanotech" "nebirhos"
-  "nicoulaj" "norm" "obraun" "peepcode" "pygmalion-virtualenv" "re5et"
-  "refined" "rgm" "robbyrussell" "risto" "simple" "skaro" "smt" "Soliah"
-  "sonicradish" "sporty_256" "steeef" "sunaku" "sunrise" "superjarin" "strug"
-  "suvash" "terminalparty" "theunraveler" "tjkirch_mod" "tonotdo" "trapd00r"
+ZSH_THEME_RANDOM_CANDIDATES=( "3den" "adben" "af-magic" "afowler" "alanpeabody"
+  "amuse" "apple" "arrow" "avit" "awesomepanda" "bureau" "candy-kingdom"
+  "clean" "cloud" "crunch" "cypher" "dallas" "daveverwer" "dieter" "dogenpunk"
+  "dpoggi" "dst" "edvardm" "eastwood" "essembeh" "fishy" "flazz" "fletcherm"
+  "frisk" "frontcube" "fwalch" "gallifrey" "gallois" "garyblessington"
+  "geoffgarside" "gozilla" "half-life" "humza" "itchy" "jbergantine" "jispwoso"
+  "jnrowe" "josh" "jreese" "juanghurtado" "junkfood" "kafeitu" "kennethreitz"
+  "kolo" "kphoen" "linuxonly" "macovsky" "macovsky-ruby" "maran" "mgutz" "mh"
+  "michelebologna" "miloshadzic" "minimal" "mlh" "mortalscumbag" "mrtazz"
+  "murilasso" "muse" "nanotech" "nebirhos" "nicoulaj" "norm" "obraun" "peepcode"
+  "pygmalion-virtualenv" "re5et" "refined" "rgm" "robbyrussell" "risto" "simple"
+  "skaro" "smt" "Soliah" "sonicradish" "steeef" "sunaku" "sunrise" "superjarin"
+  "strug" "suvash" "terminalparty" "theunraveler" "tonotdo" "trapd00r"
   "wedisagree" "wezm" "wezm+" "wuffers" "ys" "zhann"
 )
 
@@ -44,7 +43,14 @@ fi
 
 source $ZSH/oh-my-zsh.sh
 
+
 # NVM installation requirements (auto-written)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Python programs (ie. picopins)
+export PATH=$PATH:~/.local/bin
+
+# btw
+neofetch
