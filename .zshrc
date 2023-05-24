@@ -4,23 +4,21 @@ export ZSH="$HOME/.oh-my-zsh"
 # Display man pages with Bat highlighting
 export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'"
 
-# Set $RANDOM_THEME
+# Set $RANDOM_THEME -- pts output << trapd00r linuxonly humza? skaro?
 ZSH_THEME="random"
-ZSH_THEME_RANDOM_CANDIDATES=( "3den" "adben" "af-magic" "afowler" "alanpeabody"
-  "amuse" "apple" "arrow" "avit" "awesomepanda" "bureau" "candy-kingdom"
-  "clean" "cloud" "crunch" "cypher" "dallas" "daveverwer" "dieter" "dogenpunk"
-  "dpoggi" "dst" "edvardm" "eastwood" "essembeh" "fishy" "flazz" "fletcherm"
-  "frisk" "frontcube" "fwalch" "gallifrey" "gallois" "garyblessington"
-  "geoffgarside" "gozilla" "half-life" "humza" "itchy" "jbergantine" "jispwoso"
-  "jnrowe" "josh" "jreese" "juanghurtado" "junkfood" "kafeitu" "kennethreitz"
-  "kolo" "kphoen" "linuxonly" "macovsky" "macovsky-ruby" "maran" "mgutz" "mh"
-  "michelebologna" "miloshadzic" "minimal" "mlh" "mortalscumbag" "mrtazz"
-  "murilasso" "muse" "nanotech" "nebirhos" "nicoulaj" "norm" "obraun" "peepcode"
-  "pygmalion-virtualenv" "re5et" "refined" "rgm" "robbyrussell" "risto" "simple"
-  "skaro" "smt" "Soliah" "sonicradish" "steeef" "sunaku" "sunrise" "superjarin"
-  "strug" "suvash" "terminalparty" "theunraveler" "tonotdo" "trapd00r"
+ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "amuse" "arrow" "avit"
+  "bureau" "clean" "cloud" "crunch" "cypher" "daveverwer" "dieter" "dpoggi" "eastwood"
+  "essembeh" "fishy" "flazz" "fletcherm" "frisk" "frontcube" "gallifrey" "gallois"
+  "geoffgarside" "itchy" "jispwoso" "josh" "jreese" "kennethreitz" "kphoen" "macovsky"
+  "maran" "mh" "miloshadzic" "minimal" "mlh" "mrtazz" "muse" "nanotech" "nicoulaj"
+  "norm" "obraun" "peepcode" "re5et" "refined" "rgm" "risto" "simple" "Soliah"
+  "sunaku" "sunrise" "strug" "terminalparty" "theunraveler" "tonotdo"
   "wedisagree" "wezm" "wezm+" "wuffers" "ys" "zhann"
 )
+# FORMER: 3den adben(fortune) apple awesomepanda candy-kingdom dallas dogenpunk dst
+# edvardm fwalch garyblessington gozilla half-life jbergantine jnrowe juanghurtado
+# junkfood kafeitu kolo mgutz michelebologna mortalscumbag murilasso nebirhos
+# pygmalion-virtualenv robbyrussel smt sonicradish steeef superjarin suvash
 
 # Set custom folder for personal aliases, plugins and themes
 ZSH_CUSTOM="$HOME/dotfiles/zsh"
@@ -44,7 +42,7 @@ fi
 source $ZSH/oh-my-zsh.sh
 
 
-# NVM installation requirements (auto-written)
+# NVM installation requirements -- auto-written after curl
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -52,5 +50,8 @@ export NVM_DIR="$HOME/.nvm"
 # Python programs (ie. picopins)
 export PATH=$PATH:~/.local/bin
 
-# btw
-neofetch
+# ...btw
+# neofetch
+
+# after curl Deno within WSL Ubuntu
+export PATH=$PATH:~/.deno/bin

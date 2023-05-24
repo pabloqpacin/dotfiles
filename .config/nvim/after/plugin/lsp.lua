@@ -1,19 +1,23 @@
 local lsp = require('lsp-zero')
 
+-- Fix Undefined global 'vim'
+lsp.nvim_workspace()
+
 lsp.preset('recommended')
 
 lsp.ensure_installed ({
     'lua_ls',
-    'clangd',
-    -- 'cpptools',
-    -- 'rust_analyzer',
-    'tsserver',
-    'emmet_ls',
-    'cssls',
-    -- 'deno',
-    -- 'html', BAD!!
-    -- 'eslint', INOP!!
     'bashls',
+    -- 'bash-debug-adapter',    -- try after DAP
+    'marksman', -- vws vca=>TOC
+    'emmet_ls', -- html:5, 
+    'cssls',
+    'html',
+    'tsserver',
+    'rust_analyzer',
+    'clangd',
+    -- 'cpptools',  -- need DAP
+    -- 'denols',
     -- 'sqls',
 })
 
@@ -38,6 +42,7 @@ lsp.on_attach(function(client, bufnr)
         print("help")
     local opts = { buffer = bufnr, remap = false }
 
+    -- <C-o> goes back to file from definition
     vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, opts)
     vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts)
     vim.keymap.set('n', '<leader>vws', function() vim.lsp.buf.workspace_symbol() end, opts)

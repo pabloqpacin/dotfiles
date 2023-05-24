@@ -1,19 +1,17 @@
 ---
 # The editor to use with 'cheat -e <sheet>'. Defaults to $EDITOR or $VISUAL.
-editor: $EDITOR
+  # editor: $EDITOR
+  # editor: /usr/bin/nvim
   # editor: /usr/local/bin/nvim
-  # editor: /usr/bin/editor
 
 # Should 'cheat' always colorize output?
 colorize: true
-# colorize: false
 
 # Which 'chroma' colorscheme should be applied to the output?
 # Options are available here:
 #   https://github.com/alecthomas/chroma/tree/master/styles
 style: hrdark
-#style: doom-one2, hrdark, lovelace, nord, paraiso-dark, vulcan
-  # style: monokai
+# styles: doom-one2 hrdark lovelace monokai(default) nord paraiso-dark vulcan
 
 # Which 'chroma' "formatter" should be applied?
 # One of: "terminal", "terminal256", "terminal16m"
@@ -73,6 +71,11 @@ cheatpaths:
   # precedence over the more global cheatsheets.
   - name: personal
     path: /home/pabloqpacin/.config/cheat/cheatsheets/personal
+    tags: [ personal ]
+    readonly: false
+
+  - name: wip
+    path: /home/pabloqpacin/.config/cheat/cheatsheets/wip
     tags: [ personal ]
     readonly: false
 

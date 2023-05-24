@@ -14,7 +14,7 @@ return require('packer').startup(function(use)
     use ('theprimeagen/harpoon')
     use ('mbbill/undotree')
     use ('tpope/vim-fugitive')
-    use ('lewis6991/gitsigns.nvim')
+    use {'lewis6991/gitsigns.nvim', config = function() require('gitsigns').setup() end }
 
     use {
         'VonHeikemen/lsp-zero.nvim',
@@ -27,27 +27,29 @@ return require('packer').startup(function(use)
             run = function()
                 pcall(vim.cmd, 'MasonUpdate')
             end,
-        },
-        {'williamboman/mason-lspconfig.nvim'}, -- Optional
+            },
+            {'williamboman/mason-lspconfig.nvim'}, -- Optional
 
-        -- Autocompletion
-        {'hrsh7th/nvim-cmp'},     -- Required
-        {'hrsh7th/cmp-nvim-lsp'}, -- Required
-        {'L3MON4D3/LuaSnip'},     -- Required
+            -- Autocompletion
+            {'hrsh7th/nvim-cmp'},     -- Required
+            {'hrsh7th/cmp-nvim-lsp'}, -- Required
+            {'L3MON4D3/LuaSnip'},     -- Required
+        }
     }
-}
+
+    use { 'toppair/peek.nvim', run = 'deno task --quiet build:fast' }
+    use { 'manzeloth/live-server' }
+    use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup() end }
+    use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }
+    use { 'nvim-tree/nvim-web-devicons' }
+    use { 'nvim-tree/nvim-tree.lua' }
+    use { 'romgrk/barbar.nvim' }
+
 
 --[[
--- HTML/CSS/JS//XML...
-    -- use ('mattn/emmet-vim') -- HTML stuff
-    -- deno for running JS aka live server ish?
--- use ('tpope/vim-surround')
--- PWSH? SQL?
--- use ('tpope/vim-dadbod') -- MySQL stuff
--- use ('nanotee/sqls.nvim')
--- cpptools, cmake stuff
--- markdown at all
+    -- DAP: debuggin and compilin -- cpptools cmake rust
+    -- XML/JS_html_css: ...live-server -- deno?
+    -- PWSH? SQL?: use ('tpope/vim-dadbod'); use ('nanotee/sqls.nvim')
 --]]
 
 end)
-    

@@ -2,11 +2,13 @@
 # a command-line option that you want to pass to `bat` by default. You can
 # run `bat --help` to get a list of all possible configuration options.
 
+# See .zshrc >> Display man pages with Bat highlighting
+# export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=default'"
+
 # Specify desired highlighting theme (e.g. "TwoDark"). Run `bat --list-themes`
 # for a list of all available themes
 --theme="OneHalfDark"
-# 1337, Coldark-Dark, DarkNeon, Nord, Sublime Snazzy,
-# Visual Studio Dark+, base16,gruvbox-dark, OneHalfDark
+# bat --list-themes | fzf --preview="bat --theme={} --color=always /path/to/file"
 
 # Enable this to use italic text on the terminal. This is not supported on all
 # terminal emulators (like tmux, by default):

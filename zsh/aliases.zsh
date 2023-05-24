@@ -3,11 +3,20 @@ alias supdawg="echo 'not much wbu'"
 dc() { echo -e "\U0001F198"
 }
 
-alias exatl="exa -la --git -I .git -TL"
-alias eatl="exa -la --git -I .git --no-user --no-permissions -TL"
-alias ean="exa -la --git --no-user --no-permissions"
-alias eac="exa -lahU --git"
-alias ea="exa -la --git"
+alias ip="ip -c"
+# alias fd="fdfind"
+# alias mdcat="mdcat -p"
+alias mdp="mdp -i"
 
-# Should rather 'cargo install' or add to PATH as per GH
-alias fd="fdfind"
+alias exa="exa --git --icons"
+alias exad="exa --git --icons -la --no-user --octal-permissions -ShiI .git"
+alias exatl="exa --git --icons --no-user -TL"
+
+alias fzfp="fzf --preview 'bat --color=always {}'"
+alias fzfv="fzf --preview 'bat --color=always {}' --bind 'enter:become(vim {})'"
+fzfhv() { local file
+   file=$(rg --files --hidden | fzf --preview 'bat --color=always {}')
+   [[ -n "$file" ]] && nvim "$file"
+}
+
+# alias kp="keepassxc-cli"
