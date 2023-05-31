@@ -6,6 +6,7 @@ dc() { echo -e "\U0001F198"
 alias ip="ip -c"
 # alias fd="fdfind"
 # alias mdcat="mdcat -p"
+alias treea="tree -aI .git"
 alias mdp="mdp -i"
 
 alias exa="exa --git --icons"

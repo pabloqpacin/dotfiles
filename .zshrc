@@ -6,18 +6,17 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'"
 
 # Set $RANDOM_THEME -- pts output << trapd00r linuxonly humza? skaro?
 ZSH_THEME="random"
-ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "amuse" "arrow" "avit"
-  "bureau" "clean" "cloud" "crunch" "cypher" "daveverwer" "dieter" "dpoggi" "eastwood"
-  "essembeh" "fishy" "flazz" "fletcherm" "frisk" "frontcube" "gallifrey" "gallois"
-  "geoffgarside" "itchy" "jispwoso" "josh" "jreese" "kennethreitz" "kphoen" "macovsky"
-  "maran" "mh" "miloshadzic" "minimal" "mlh" "mrtazz" "muse" "nanotech" "nicoulaj"
-  "norm" "obraun" "peepcode" "re5et" "refined" "rgm" "risto" "simple" "Soliah"
-  "sunaku" "sunrise" "strug" "terminalparty" "theunraveler" "tonotdo"
-  "wedisagree" "wezm" "wezm+" "wuffers" "ys" "zhann"
+ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "arrow" "avit" "bureau" "clean"
+  "cloud" "crunch" "cypher" "daveverwer" "dieter" "dpoggi" "eastwood" "essembeh" "fishy" "flazz"
+  "fletcherm" "frisk" "frontcube" "gallifrey" "gallois"  "geoffgarside" "itchy" "jispwoso" "josh"
+  "jreese" "kennethreitz" "kphoen" "macovsky" "maran" "mh" "miloshadzic" "minimal" "mlh" "muse"
+  "nanotech" "nicoulaj" "norm" "obraun" "peepcode" "re5et" "refined" "rgm" "risto" "simple"
+  "Soliah" "sunaku" "sunrise" "strug" "terminalparty" "theunraveler" "tonotdo" "wedisagree"
+  "wezm" "wezm+" "wuffers" "ys" "zhann"
 )
-# FORMER: 3den adben(fortune) apple awesomepanda candy-kingdom dallas dogenpunk dst
-# edvardm fwalch garyblessington gozilla half-life jbergantine jnrowe juanghurtado
-# junkfood kafeitu kolo mgutz michelebologna mortalscumbag murilasso nebirhos
+# FORMER: 3den adben(fortune) apple amuse awesomepanda candy-kingdom dallas dogenpunk
+# dst edvardm fwalch garyblessington gozilla half-life jbergantine jnrowe juanghurtado
+# junkfood kafeitu kolo mgutz michelebologna mortalscumbag mrtazz murilasso nebirhos
 # pygmalion-virtualenv robbyrussel smt sonicradish steeef superjarin suvash
 
 # Set custom folder for personal aliases, plugins and themes
@@ -55,3 +54,16 @@ export PATH=$PATH:~/.local/bin
 
 # after curl Deno within WSL Ubuntu
 export PATH=$PATH:~/.deno/bin
+
+
+# WSL Ubuntu: grant access to host default browser via wslu -- for Rust book 
+if [[ -n "WSL_DISTRO_NAME" ]]; then
+    # sudo apt install ubuntu-wsl wslu
+    export BROWSER=wslview
+fi
+
+# Termux tweaks -- change cursor and set zsh theme
+if [[ $(uname -o) == "Android" ]]; then
+    ZSH_THEME="kennethreitz"
+    echo '\e[3 q'
+fi 

@@ -40,7 +40,11 @@ map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
 
 
 require'barbar'.setup {
+    -- auto_hide = true,
     tabpages = true,
-    auto_hide = true,
-    exclude_name = {'nvim'}
+    icons = { gitsigns = {
+        added   = {enabled = true, icon = '+'},
+        changed = {enabled = true, icon = '~'},
+        deleted = {enabled = true, icon = '-'},
+    }}
 }

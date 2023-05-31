@@ -1,14 +1,16 @@
 vim.api.nvim_set_keymap('n', '<leader>nt', ':NvimTreeToggle<CR>', { noremap=true, silent=true })
 
 require('nvim-tree').setup {
-    -- disable_netrw = false,
     -- hijack_netrw = false,
     view = {
         width = 32,
-        side = 'right',
-    },
-    filters = { dotfiles = false },
-    git = { ignore = false }
+        side = 'right' },
+    renderer = {icons = { git_placement = 'after' }},
+    git = { ignore = false },
+    filters = {
+        dotfiles = false,
+        custom = { "^\\.git$" }},
+    actions = { open_file = { quit_on_open = true }},
 }
 
 

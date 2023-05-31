@@ -14,7 +14,7 @@
 
 ```bash
 # Important
-ascii curl fzf git htop ipcalc man tldr tmux vim zsh
+ascii btop curl fzf git glances htop ipcalc man tldr tmux vim zsh
 
 # NO APT - Cargo packages // pacman OK -- some require: libssl-dev pkg-config
 bat git-delta exa fd-find mdcat ripgrep
@@ -23,7 +23,7 @@ bat git-delta exa fd-find mdcat ripgrep
 cheat deno glow live-server neovim nvm>node>npm oh-my-zsh packer
 
 # Programming
-binutils binutils-dev build-essential clang gcc gdb hexyl manpages-posix-dev  make mdp ncurses-term python3-pip python3-venv
+binutils binutils-dev build-essential clang gcc gdb hexyl manpages-posix-dev make mdp ncurses-term python3-pip python3-venv    # lldb
 
 # Python
 grip picopins
@@ -32,7 +32,7 @@ grip picopins
 bind9-dnsutils cloud-init dstat iproute2 monkeysphere net-tools netcat-openbsd nmap openssl speedtest-cli whois
 
 # Somewhat useful
-aha finger gnome-tweaks html2text mysql-client mysql-server neofetch progress taskwarrior timewarrior tree who
+aha finger gnome-tweaks html2text logcat lsb-release mysql-client mysql-server neofetch progress taskwarrior timewarrior tree who wslu xclip
 
 # Just for fun
 bsdgames cmatrix cowsay figlet fortune games-console games-rogue lolcat oneko pacvim

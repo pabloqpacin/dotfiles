@@ -154,7 +154,7 @@ sudo systemctl enable vboxservice.service
 # sudo localectl set-x11-keymap es || echo -e "\nsetxkbmap es" >> $HOME/.bashrc
 
 sudo pacman -S alacritty bat exa fzf htop man man-pages neofetch ripgrep tldr tmux unzip zsh
-    # code ttf-fira-mono // glow mdcat mdp // python-pip python-virtualenv 
+    # code firefox ttf-fira-mono // glow mdcat mdp // python-pip python-virtualenv 
 # >> Config files for alacritty bat and zsh are provided in this dotfiles repo <<
 
 git clone https://aur.archlinux.org/yay.git

@@ -6,6 +6,6 @@ packer_compiled.lua
 
 # Clutter
 private/
-*mock*
 *.todo
+*mock*
 *wip*

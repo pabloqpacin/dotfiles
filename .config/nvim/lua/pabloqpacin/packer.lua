@@ -9,6 +9,8 @@ return require('packer').startup(function(use)
     }
 
     use ('navarasu/onedark.nvim')
+    -- use  {'rose-pine/neovim', as = 'rose-pine',
+    --     config = function() vim.cmd('colorscheme rose-pine') end }
     use ('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
     use ('nvim-treesitter/playground')
     use ('theprimeagen/harpoon')
@@ -44,6 +46,10 @@ return require('packer').startup(function(use)
     use { 'nvim-tree/nvim-web-devicons' }
     use { 'nvim-tree/nvim-tree.lua' }
     use { 'romgrk/barbar.nvim' }
+    use {
+        'rcarriga/nvim-dap-ui',
+        requires = { 'mfussenegger/nvim-dap' }
+    }
 
 
 --[[
