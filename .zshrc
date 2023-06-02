@@ -66,4 +66,8 @@ fi
 if [[ $(uname -o) == "Android" ]]; then
     ZSH_THEME="kennethreitz"
     echo '\e[3 q'
-fi 
+fi
+
+
+# Enable zoxide
+eval "$(zoxide init zsh)"

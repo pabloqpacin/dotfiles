@@ -1,8 +1,10 @@
 # Cheat
 community/
 
-# Nvim
+# Nvim Tmux Btop
 packer_compiled.lua
+*/tmux/plugins/*
+btop.log
 
 # Clutter
 private/

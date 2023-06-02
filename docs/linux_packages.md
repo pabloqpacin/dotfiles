@@ -17,10 +17,10 @@
 ascii btop curl fzf git glances htop ipcalc man tldr tmux vim zsh
 
 # NO APT - Cargo packages // pacman OK -- some require: libssl-dev pkg-config
-bat git-delta exa fd-find mdcat ripgrep
+bat git-delta exa fd-find mdcat ripgrep zoxide
 
 # NO APT - other source
-cheat deno glow live-server neovim nvm>node>npm oh-my-zsh packer
+cheat deno glow live-server neovim nvm>node>npm oh-my-zsh packer tpm
 
 # Programming
 binutils binutils-dev build-essential clang gcc gdb hexyl manpages-posix-dev make mdp ncurses-term python3-pip python3-venv    # lldb
