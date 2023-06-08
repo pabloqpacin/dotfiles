@@ -69,5 +69,7 @@ if [[ $(uname -o) == "Android" ]]; then
 fi
 
 
-# Enable zoxide
-eval "$(zoxide init zsh)"
+# Enable zoxide if exists
+if command -v zoxide &>/dev/null; then
+    eval "$(zoxide init zsh)"
+fi

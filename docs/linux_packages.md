@@ -14,9 +14,9 @@
 
 ```bash
 # Important
-ascii btop curl fzf git glances htop ipcalc man tldr tmux vim zsh
+ascii btop curl fzf git htop ipcalc man tldr tmux vim zsh
 
-# NO APT - Cargo packages // pacman OK -- some require: libssl-dev pkg-config
+# NO APT - Cargo packages // pacman OK -- might require: libssl-dev pkg-config
 bat git-delta exa fd-find mdcat ripgrep zoxide
 
 # NO APT - other source
@@ -32,10 +32,10 @@ grip picopins
 bind9-dnsutils cloud-init dstat iproute2 monkeysphere net-tools netcat-openbsd nmap openssl speedtest-cli whois
 
 # Somewhat useful
-aha finger gnome-tweaks html2text logcat lsb-release mysql-client mysql-server neofetch progress taskwarrior timewarrior tree who wslu xclip
+aha finger glances gnome-tweaks html2text logcat lsb-release mysql-client mysql-server neofetch progress taskwarrior timewarrior tree who wslu xclip
 
 # Just for fun
-bsdgames cmatrix cowsay figlet fortune games-console games-rogue lolcat oneko pacvim
+asciiquarium bsdgames cbonsai cmatrix cowsay figlet fortune games-console games-rogue lolcat oneko pacvim
 
 # ??
 awesome fwupd-signed ghostscript p7zip poke readucks tea visualboyadvance wget wsl xxd youtube-dl

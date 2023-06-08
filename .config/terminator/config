@@ -1,0 +1,17 @@
+[global_config]
+    title_transmit_bg_color = '#7777ad'
+    title_transmit_fg_color = '#000000'
+
+[keybindings]
+    page_up = <Ctrl><Shift>k
+    page_down = <Ctrl><Shift>j
+
+[profiles]
+    [[default]]
+        show_titlebar = False
+        font = FiraMono Nerd Font 9
+        background_type = transparent
+        background_darkness = 0.8
+
+
+# https://man.archlinux.org/man/terminator_config.5

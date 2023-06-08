@@ -6,7 +6,6 @@ alias ip="ip -c"
 alias trea="tree -aI .git"
 alias less="less --mouse --wheel-lines=3"
 
-
 alias exa="exa --git --icons"
 alias exad="exa --git --icons -la --no-user --octal-permissions -ShiI .git"
 alias exatl="exa --git --icons --no-user -TL"
