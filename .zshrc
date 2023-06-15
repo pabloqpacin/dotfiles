@@ -7,17 +7,17 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'"
 # Set $RANDOM_THEME -- pts output << trapd00r linuxonly humza? skaro?
 ZSH_THEME="random"
 ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "arrow" "avit" "bureau" "clean"
-  "cloud" "crunch" "cypher" "daveverwer" "dieter" "dpoggi" "eastwood" "essembeh" "fishy" "flazz"
-  "fletcherm" "frisk" "frontcube" "gallifrey" "gallois"  "geoffgarside" "itchy" "jispwoso" "josh"
-  "jreese" "kennethreitz" "kphoen" "macovsky" "maran" "mh" "miloshadzic" "minimal" "mlh" "muse"
-  "nanotech" "nicoulaj" "norm" "obraun" "peepcode" "re5et" "refined" "rgm" "risto" "simple"
-  "Soliah" "sunaku" "sunrise" "strug" "terminalparty" "theunraveler" "tonotdo" "wedisagree"
-  "wezm" "wezm+" "wuffers" "ys" "zhann"
+  "cloud" "crunch" "cypher" "daveverwer" "dieter" "dpoggi" "eastwood" "fishy" "flazz" "fletcherm"
+  "frisk" "frontcube" "gallifrey" "gallois"  "geoffgarside" "itchy" "jispwoso" "josh" "jreese"
+  "kennethreitz" "kphoen" "macovsky" "maran" "mh" "miloshadzic" "minimal" "mlh" "muse"
+  "nanotech" "nicoulaj" "norm" "obraun" "peepcode" "re5et" "refined" "rgm" "risto"
+  "simple" "Soliah" "sunaku" "sunrise" "strug" "terminalparty" "theunraveler"
+  "tonotdo" "wedisagree" "wuffers" "ys" "zhann"
 )
-# FORMER: 3den adben(fortune) apple amuse awesomepanda candy-kingdom dallas dogenpunk
-# dst edvardm fwalch garyblessington gozilla half-life jbergantine jnrowe juanghurtado
+# FORMER: 3den adben(fortune) apple amuse awesomepanda candy-kingdom dallas dogenpunk dst
+# edvardm essembeh fwalch garyblessington gozilla half-life jbergantine jnrowe juanghurtado
 # junkfood kafeitu kolo mgutz michelebologna mortalscumbag mrtazz murilasso nebirhos
-# pygmalion-virtualenv robbyrussel smt sonicradish steeef superjarin suvash
+# pygmalion-virtualenv robbyrussel smt sonicradish steeef superjarin suvash wezm+
 
 # Set custom folder for personal aliases, plugins and themes
 ZSH_CUSTOM="$HOME/dotfiles/zsh"

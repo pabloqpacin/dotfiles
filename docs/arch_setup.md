@@ -232,12 +232,11 @@ sudo systemctl enable sddm
 # i3
 sudo pacman -S dmenu feh i3-gaps i3status lightdm lightdm-gtk-greeter light-locker picom xdg-utils   # noto-fonts-emoji ... nitrogen? wofi? polybar? ... file-managers?
 sudo systemctl enable lightdm
+sudo sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/' /etc/lightdm/lightdm.conf
 
-sudo su
-mkdir /usr/share/wallpapers
-cp /home/pabloqpacin/dotfiles/img/* /usr/share/wallpapers
-sed -i 's/#greeter-session=example-gtk-gnome/greeter-session=lightdm-gtk-greeter/' /etc/lightdm/lightdm.conf
-sed -i 's/#background=/background=\/usr\/share\/wallpapers\/er_nokstella.jpg/' /etc/lightdm/lightdm-gtk-greeter.conf
+sudo mkdir /usr/share/wallpapers
+sudo cp /home/pabloqpacin/dotfiles/img/* /usr/share/wallpapers
+sudo sed -i 's/#background=/background=\/usr\/share\/wallpapers\/er_nokstella.jpg/' /etc/lightdm/lightdm-gtk-greeter.conf
 
 # ln -s ~/dotfiles/.config/i3 ~/.config/i3 << feh picom light-locker
 ```

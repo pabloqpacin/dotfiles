@@ -14,7 +14,7 @@
 
 ```bash
 # Important
-ascii btop curl fzf git htop ipcalc man tldr tmux vim zsh
+btop curl fzf git htop ipcalc man tldr tmux vim zsh
 
 # NO APT - Cargo packages // pacman OK -- might require: libssl-dev pkg-config
 bat git-delta exa fd-find mdcat ripgrep zoxide
@@ -23,7 +23,7 @@ bat git-delta exa fd-find mdcat ripgrep zoxide
 cheat deno glow live-server neovim nvm>node>npm oh-my-zsh packer tpm
 
 # Programming
-binutils binutils-dev build-essential clang gcc gdb hexyl manpages-posix-dev make mdp ncurses-term python3-pip python3-venv    # lldb
+ascii binutils binutils-dev build-essential clang gcc gdb hexyl manpages-posix-dev make ncurses-term python3-pip python3-venv unicode   # lldb
 
 # Python
 grip picopins
@@ -31,17 +31,17 @@ grip picopins
 # Networking
 bind9-dnsutils cloud-init dstat iproute2 monkeysphere net-tools netcat-openbsd nmap openssl speedtest-cli whois
 
+# Coreutils << info coreutils
+df du gawk printenv sed wc
+
 # Somewhat useful
-aha finger glances gnome-tweaks html2text logcat lsb-release mysql-client mysql-server neofetch progress taskwarrior timewarrior tree who wslu xclip
+aha finger glances gnome-tweaks html2text logcat lsb-release mdp mysql-client mysql-server neofetch progress taskwarrior timewarrior tree who wslu xclip
 
 # Just for fun
 asciiquarium bsdgames cbonsai cmatrix cowsay figlet fortune games-console games-rogue lolcat oneko pacvim
 
 # ??
 awesome fwupd-signed ghostscript p7zip poke readucks tea visualboyadvance wget wsl xxd youtube-dl
-
-# ...
-gawk sed
 
 # 1337
 hashcat john john-data

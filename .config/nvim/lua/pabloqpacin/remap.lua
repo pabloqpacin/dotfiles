@@ -1,7 +1,7 @@
 vim.g.mapleader = ' '
 vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
 
-vim.api.nvim_set_keymap('i', 'kj', '<Esc>', { noremap = true })
+vim.keymap.set({'i','v'}, 'kj', '<Esc>', { noremap = true })
 vim.keymap.set('n', '<leader>vb', '<C-v>')  -- VISUAL BLOCK else incompatible WSL & TMUX
 
 -- Move selected lines up & down
@@ -36,3 +36,14 @@ function OpenTerminal()
     vim.cmd('split term://$SHELL')
     vim.cmd('startinsert')
 end
+
+-- Exit terminal mode (ie. for debugging)
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { noremap = true })
+
+--[[
+-- Build and run C++ file
+vim.api.nvim_set_keymap('n', '<leader>br',
+    ':!g++ % -o %< && chmod +x %< && ./%<<CR>',
+    { noremap = true, silent = true })
+    -- not quite OK, doesn't allow user input or such
+--]]
