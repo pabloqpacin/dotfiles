@@ -9,15 +9,15 @@ ZSH_THEME="random"
 ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "arrow" "avit" "bureau" "clean"
   "cloud" "crunch" "cypher" "daveverwer" "dieter" "dpoggi" "eastwood" "fishy" "flazz" "fletcherm"
   "frisk" "frontcube" "gallifrey" "gallois"  "geoffgarside" "itchy" "jispwoso" "josh" "jreese"
-  "kennethreitz" "kphoen" "macovsky" "maran" "mh" "miloshadzic" "minimal" "mlh" "muse"
-  "nanotech" "nicoulaj" "norm" "obraun" "peepcode" "re5et" "refined" "rgm" "risto"
-  "simple" "Soliah" "sunaku" "sunrise" "strug" "terminalparty" "theunraveler"
-  "tonotdo" "wedisagree" "wuffers" "ys" "zhann"
+  "kennethreitz" "kphoen" "macovsky" "maran" "mh" "minimal" "mlh" "muse" "nanotech" "nicoulaj"
+  "norm" "obraun" "peepcode" "re5et" "refined" "rgm" "risto" "simple" "Soliah" "sunaku"
+  "strug" "terminalparty" "theunraveler" "tonotdo" "wedisagree" "wuffers" "zhann"
 )
-# FORMER: 3den adben(fortune) apple amuse awesomepanda candy-kingdom dallas dogenpunk dst
-# edvardm essembeh fwalch garyblessington gozilla half-life jbergantine jnrowe juanghurtado
-# junkfood kafeitu kolo mgutz michelebologna mortalscumbag mrtazz murilasso nebirhos
-# pygmalion-virtualenv robbyrussel smt sonicradish steeef superjarin suvash wezm+
+# FORMER: 3den adben(fortune) apple amuse awesomepanda candy-kingdom dallas dogenpunk
+# dst edvardm essembeh fwalch garyblessington gozilla half-life jbergantine jnrowe
+# juanghurtado junkfood kafeitu kolo mgutz michelebologna miloshadzic mortalscumbag
+# mrtazz murilasso nebirhos pygmalion-virtualenv robbyrussel smt sonicradish steeef
+# sunrise superjarin suvash wezm+ ys
 
 # Set custom folder for personal aliases, plugins and themes
 ZSH_CUSTOM="$HOME/dotfiles/zsh"

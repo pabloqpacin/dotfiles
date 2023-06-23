@@ -1,6 +1,7 @@
 alias fcl="fortune | cowsay -f dragon | lolcat"
 alias supdawg="echo 'not much wbu'"
 dc() { echo -e "\U0001F198" }
+alias clera="echo 'wtf'"
 alias exot="echo 'wtf'"
 
 alias ip="ip -c"
@@ -33,4 +34,5 @@ alias du2="du -sh */*"
 alias dus1="du -sh * | sort -rn"
 alias dus2="du -sh */* | sort -rn"
 
+# alias rpg="battlestar"
 alias dfr="df -h | rg -C 10 -e '/($)'"
