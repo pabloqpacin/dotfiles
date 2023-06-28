@@ -6,18 +6,18 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'"
 
 # Set $RANDOM_THEME -- pts output << trapd00r linuxonly humza? skaro?
 ZSH_THEME="random"
-ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "arrow" "avit" "bureau" "clean"
-  "cloud" "crunch" "cypher" "daveverwer" "dieter" "dpoggi" "eastwood" "fishy" "flazz" "fletcherm"
-  "frisk" "frontcube" "gallifrey" "gallois"  "geoffgarside" "itchy" "jispwoso" "josh" "jreese"
-  "kennethreitz" "kphoen" "macovsky" "maran" "mh" "minimal" "mlh" "muse" "nanotech" "nicoulaj"
-  "norm" "obraun" "peepcode" "re5et" "refined" "rgm" "risto" "simple" "Soliah" "sunaku"
-  "strug" "terminalparty" "theunraveler" "tonotdo" "wedisagree" "wuffers" "zhann"
+ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "arrow" "avit" "bureau"
+  "clean" "cypher" "daveverwer" "dieter" "dpoggi" "eastwood" "fishy" "flazz" "fletcherm"
+  "frisk" "frontcube" "gallifrey" "gallois"  "geoffgarside" "itchy" "jispwoso" "josh"
+  "jreese" "kennethreitz" "kphoen" "macovsky" "mh" "minimal" "mlh" "muse" "nanotech"
+  "nicoulaj" "peepcode" "refined" "rgm" "risto" "simple" "Soliah" "sunaku" "strug"
+  "terminalparty" "theunraveler" "tonotdo" "wedisagree" "wuffers" "zhann"
 )
-# FORMER: 3den adben(fortune) apple amuse awesomepanda candy-kingdom dallas dogenpunk
-# dst edvardm essembeh fwalch garyblessington gozilla half-life jbergantine jnrowe
-# juanghurtado junkfood kafeitu kolo mgutz michelebologna miloshadzic mortalscumbag
-# mrtazz murilasso nebirhos pygmalion-virtualenv robbyrussel smt sonicradish steeef
-# sunrise superjarin suvash wezm+ ys
+# FORMER: 3den adben(fortune) apple amuse awesomepanda candy-kingdom cloud crunch dallas
+# dogenpunk dst edvardm essembeh fwalch garyblessington gozilla half-life jbergantine jnrowe
+# juanghurtado junkfood kafeitu kolo maran mgutz michelebologna miloshadzic mortalscumbag
+# mrtazz murilasso nebirhos norm obraun pygmalion-virtualenv re5et robbyrussel smt
+# sonicradish steeef sunrise superjarin suvash wezm+ ys
 
 # Set custom folder for personal aliases, plugins and themes
 ZSH_CUSTOM="$HOME/dotfiles/zsh"
@@ -73,3 +73,7 @@ fi
 if command -v zoxide &>/dev/null; then
     eval "$(zoxide init zsh)"
 fi
+
+# WSL Ubuntu: enable snap binaries -- neovim
+export PATH="$PATH:/snap/bin"
+

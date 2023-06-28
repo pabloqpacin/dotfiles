@@ -2,6 +2,7 @@ alias fcl="fortune | cowsay -f dragon | lolcat"
 alias supdawg="echo 'not much wbu'"
 dc() { echo -e "\U0001F198" }
 alias clera="echo 'wtf'"
+alias claer="echo 'wtf'"
 alias exot="echo 'wtf'"
 
 alias ip="ip -c"
@@ -36,3 +37,7 @@ alias dus2="du -sh */* | sort -rn"
 
 # alias rpg="battlestar"
 alias dfr="df -h | rg -C 10 -e '/($)'"
+
+if [[ $(cat /etc/os-release | awk -F= '/^NAME=/{ print $2 }' | tr -d '"') == "openSUSE Tumbleweed" ]]; then
+    alias tldr="tldr -t base16"     # installed via npm (WSL)
+fi

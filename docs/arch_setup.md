@@ -93,7 +93,7 @@ mkswap /dev/sda3 && swapon /dev/sda3
 
 mount /dev/sda2 /mnt
 mkdir -p /mnt/boot/efi
-mount /dev/sda2 /mnt/boot/efi
+mount /dev/sda1 /mnt/boot/efi
 ```
 <!--if errors first install the kernel and then mount the boot/efi partition-->
 
@@ -103,7 +103,7 @@ mount /dev/sda2 /mnt/boot/efi
 
 ```bash
 pacstrap /mnt linux linux-firmware base base-devel grub networkmanager neovim git
-    # UEFI: efibootgr
+    # UEFI: efibootmgr
 genfstab -U /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt    # pacman -Q | wc -l

@@ -14,16 +14,16 @@
 
 ```bash
 # Important
-btop curl fzf git htop ipcalc man tldr tmux vim zsh
+btop curl fzf git htop ipcalc man ssh tldr tmux vim zsh     # scp sftp
 
-# NO APT - Cargo packages // pacman OK -- might require: libssl-dev pkg-config
+# NO APT - Cargo packages // pacman or zypper OK -- might require: libssl-dev pkg-config
 bat git-delta exa fd-find mdcat ripgrep zoxide
 
 # NO APT - other source
 cheat deno glow live-server neovim nvm>node>npm oh-my-zsh packer tpm
 
 # Programming
-ascii binutils binutils-dev build-essential clang gcc gdb hexyl manpages-posix-dev make ncurses-term python3-pip python3-venv unicode   # lldb
+ascii binutils (readelf) binutils-dev build-essential clang gcc gdb hexyl manpages-posix-dev make ncurses-term python3-pip python3-venv unicode   # lldb
 
 # Python
 grip picopins
@@ -32,7 +32,7 @@ grip picopins
 bind9-dnsutils cloud-init dstat iproute2 monkeysphere net-tools netcat-openbsd nmap openssl speedtest-cli whois
 
 # Coreutils << info coreutils
-df du gawk printenv sed wc
+df du env|printenv gawk printenv sed wc
 
 # Somewhat useful
 aha finger glances gnome-tweaks html2text logcat lsb-release mdp mysql-client mysql-server neofetch progress taskwarrior timewarrior tree who wslu xclip

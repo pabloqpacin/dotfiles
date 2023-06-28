@@ -8,7 +8,7 @@ window:
   class:
     instance: Alacritty
     general: Alacritty
-  opacity: 0.8
+  opacity: 0.9
 
 scrolling:
   history: 10000
@@ -21,7 +21,7 @@ font:
   bold:
     family: FiraMono Nerd Font
     style:  Bold
-  size: 9
+  size: 8
 draw_bold_text_with_bright_colors: true
 font_dirs:
   - /usr/share/fonts/noto
@@ -32,5 +32,4 @@ key_bindings:
   - { key: J, mods: Control|Shift, action: ScrollLineDown }
   - { key: K, mods: Control|Shift, action: ScrollLineUp }
 
-  # Toggle Vi Mode -- ...
-  
+# Toggle Vi Mode -- ...
