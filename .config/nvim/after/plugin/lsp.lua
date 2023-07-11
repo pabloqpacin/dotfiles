@@ -19,6 +19,8 @@ lsp.ensure_installed ({
     -- 'cpptools',  -- need DAP
     -- 'denols',
     -- 'sqls',
+    'docker_compose_language_service',
+    'dockerls',
 })
 
 local cmp = require('cmp')

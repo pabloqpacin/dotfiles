@@ -37,7 +37,11 @@ alias dus2="du -sh */* | sort -rn"
 
 # alias rpg="battlestar"
 alias dfr="df -h | rg -C 10 -e '/($)'"
+alias wopen="sensible-browser"
+alias wopen="wslview"
 
 if [[ $(cat /etc/os-release | awk -F= '/^NAME=/{ print $2 }' | tr -d '"') == "openSUSE Tumbleweed" ]]; then
     alias tldr="tldr -t base16"     # installed via npm (WSL)
 fi
+
+alias htopp="echo q | htop -C | aha --line-fix | html2text -width 999 | grep -v 'F1Help\|xml version ='"

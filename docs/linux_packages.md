@@ -23,7 +23,7 @@ bat git-delta exa fd-find mdcat ripgrep zoxide
 cheat deno glow live-server neovim nvm>node>npm oh-my-zsh packer tpm
 
 # Programming
-ascii binutils (readelf) binutils-dev build-essential clang gcc gdb hexyl manpages-posix-dev make ncurses-term python3-pip python3-venv unicode   # lldb
+ascii binutils (readelf) binutils-dev build-essential clang gcc gdb hexyl manpages-posix-dev make ncurses-term python-is-python3 python3-pip python3-venv unicode   # lldb - okteta termit
 
 # Python
 grip picopins
@@ -35,13 +35,13 @@ bind9-dnsutils cloud-init dstat iproute2 monkeysphere net-tools netcat-openbsd n
 df du env|printenv gawk printenv sed wc
 
 # Somewhat useful
-aha finger glances gnome-tweaks html2text logcat lsb-release mdp mysql-client mysql-server neofetch progress taskwarrior timewarrior tree who wslu xclip
+aha finger glances gnome-tweaks html2text logcat lsb-release lscpu mdp mysql-client mysql-server neofetch progress taskwarrior timewarrior tree who wslu xclip
 
 # Just for fun
 asciiquarium bsdgames cbonsai cmatrix cowsay figlet fortune games-console games-rogue lolcat oneko pacvim
 
 # ??
-awesome fwupd-signed ghostscript p7zip poke readucks tea visualboyadvance wget wsl xxd youtube-dl
+awesome fwupd-signed ghostscript groff p7zip poke readucks tea visualboyadvance watch wget wsl xxd yes youtube-dl
 
 # 1337
 hashcat john john-data

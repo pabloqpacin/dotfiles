@@ -7,6 +7,7 @@
     - [Windows 11 + WSL2](#windows-11--wsl2)
       - [WSL Ubuntu](#wsl-ubuntu)
       - [WSL Tumbleweed](#wsl-tumbleweed)
+    - [Docker WSL](#docker-wsl)
   - [Disk 0 Linux](#disk-0-linux)
     - [Arch](#arch)
     - [Pop!\_OS 22.04](#pop_os-2204)
@@ -228,11 +229,16 @@ winget install --id Microsoft.VisualStudioCode --source winget      # version 1.
 # winget install --id Google.Chrome --source winget                 # version 114.0.5735.134
 # winget install --id Discord.Discord --source winget               # version 1.0.9013
 # winget install --id Spotify.Spotify --source winget               # version 1.2.14
-# winget install --id KeePassXCTeam.KeePassXC --source winget       # version 2.7.5
 # winget install --id Nextcloud.NextcloudDesktop --source winget    # version 3.8.2
 # winget install --id WiresharkFoundation.Wireshark --source winget # version 4.0.6.0
 # winget search packettracer    # no results
 # winget search neovim          # DON'T -- keep this sh within WSL  # version 0.9.1
+
+winget install --id Microsoft.VCRedist.2015+.x64 --source winget
+winget install --id KeePassXCTeam.KeePassXC --source winget         # version 2.7.5
+winget install --id REALiX.HWiNFO --source winget                   # version 7.46
+# winget install --id CPUID.CPU-Z --source winget                   # version 2.06
+winget install --id Microsoft.PowerToys --source winget             # version 0.70.1
 ```
 
 ```yaml
@@ -241,6 +247,12 @@ Extensions:
   One Dark Pro
   vscode-icons
   WSL
+
+  Docker
+  Dev Containers
+  Remote Development
+
+# Settings: Terminal Integrated Font Size: 12
 ```
 
 <!--
@@ -375,6 +387,45 @@ openSUSE-Tumleweed:     # C:\Windows\system32\wsl.exe -d openSUSE-Tumbleweed
 
 <!-- - [ ] https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-git#git-credential-manager-setup -->
 
+- OneNote => Office365
+
+```yaml
+MS Store: search OneNote
+```
+
+- Hard drive Forensics: [SleuthKit.Autopsy](https://www.sleuthkit.org/autopsy)
+
+```powershell
+winget install --id SleuthKit.Autopsy --source winget
+```
+```yaml
+# Autopsy Setup Wizard
+Installation Folder: C:\Program Files\Autopsy-4.20.0\
+
+# First Startup
+Information: Autopsy stores data about each case in its Central Repository (...)
+Windows Defender Firewall: has blocked some features...
+  OpenJDK Platform Library: Allow on private
+  Autopsy64: Allow on private
+```
+```yaml
+# First case
+Case Name: test01
+Base Directory: D:\autopsy_test
+Case Number: 001
+Examiner: pabloqpacin
+```
+> ERROR: Closes immediately
+
+- Windows sysadmin tools (**Sysinternals Suite**)
+
+```powershell
+winget search sysinternals
+winget install --id 9P7KNL5RWT25 --source msstore
+# winget install --id Microsoft.Sysinternals* --source winget
+```
+
+
 #### WSL Ubuntu
 
 ```bash
@@ -422,6 +473,9 @@ tmux                                # prefix+I to install plugins
 
 sudo apt install wslu --no-install-recommends
 # rustup docs --book
+    # sudo apt install xdg-utils  # for xdg-open -- DON'T, WSLVIEW IS ENOUGH
+
+sudo apt install xclip xsel
 ```
 
 
@@ -481,6 +535,112 @@ sudo mkdir /run/tmux
 echo "Created /run/tmux"
 sudo chmod 1777 /run/tmux
 echo "Granted it 1777 permissions"
+```
+
+<!--
+...
+- .wslconfig
+- wsl.conf
+-->
+
+
+### Docker WSL
+
+- Install
+
+```markdown
+<!-- - https://docs.docker.com/desktop/install/linux-install/ -->
+- https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers
+- https://docs.docker.com/desktop/wsl/
+- https://docs.docker.com/get-started/
+```
+```powershell
+# In Windows host
+# winget install --id Docker.DockerCLI --source winget          # ??
+# winget install --id Docker.DockerDesktop --source winget      # "Installer hash does not match" !!
+```
+```yaml
+# Brave Browser
+docker.com: Download Docker Desktop Installer for Windows
+
+# Downloads
+Docker_Desktop_Installer.exe: double-click
+
+# Installing Docker Desktop 4.21.0 (113844)
+Use WSL 2 instead of Hyper-V: on
+Add shortcut to desktop: off
+# ...   Restart
+```
+
+- Set up
+
+<!-- ```yaml
+# KeePassXC
+Start: Create DB || Open DB || Import from KeePass 1 || Import from 1Password || Import from CSV
+Create: Ex2511_passwerds
+Passwd: ...
+``` -->
+```yaml
+# Docker Hub Sign up
+Username:   # pqp95
+Email:      # ...
+Password:   # KeePassXC
+Agree: on
+```
+```yaml
+# First start
+Docker Subscription Service Agreement: Accept
+Welcome to Docker Desktop: Sign up || Sign in || Continue without signing in
+Role: Student
+Usecases: Learning
+# Starting the Docker Engine
+```
+
+- Getting started
+
+```bash
+# In Ubuntu WSL
+mkdir ~/Workspace/docker_101 && cd $_
+git clone https://github.com/docker/getting-started.git
+# code getting-started
+cd getting-started/app
+nvim Dockerfile
+```
+```Dockerfile
+# syntax=docker/dockerfile:1
+   
+FROM node:18-alpine
+WORKDIR /app
+COPY . .
+RUN yarn install --production
+CMD ["node", "src/index.js"]
+EXPOSE 3000
+```
+```bash
+docker build -t getting-started .
+# docker scout quickvview
+
+docker run -dp 127.0.0.1:3000:3000 getting-started
+docker ps -a    # list all containers
+sensible-browser http://127.0.0.1:3000
+# add a couple items
+docker stop <container_name>
+docker start <container_name>
+```
+```bash
+nvim src/static/js/app.js
+    # modify line 56: "No items yet"
+docker build -t getting started .
+
+docker ps -a    # new not shown
+docker stop <container_name>
+docker rm <container_name>
+
+docker run -dp 127.0.0.1:3000:3000 getting-started
+```
+```bash
+docker image ls
+docker image inspect <foo> | bat -l json
 ```
 
 <hr>
@@ -685,6 +845,31 @@ wget -O - https://github.com/shvchk/poly-dark/raw/master/install.sh | bash
 sudo umount -R /mnt/*
 ```
 
+---
+
+- Overwrite old HDD with zeroes
+
+```bash
+# Mount it and erase its current partitions aye
+# sudo mkdir /mnt/old_hdd
+    # sudo mount /dev/sdc /mnt/old_hdd
+# sudo cfdisk /dev/sdc
+# sudo mkfs.ext4 /dev/sdc
+# sudo mount /dev/sdc /mnt/old_hdd
+
+# No partitions mounted: erase the HDD with zeros
+sudo dd if=/dev/zero of=/dev/sdc bs=4M status=progress
+```
+
+- Toggle WiFi on and off
+
+```bash
+cheat nmcli             # OJO !!
+nmcli radio wifi        # see current status
+nmcli radio wifi off    # toggle WiFi connection off
+```
+
+
 <hr>
 
 
@@ -751,7 +936,7 @@ reboot
 # Rust stuff
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh  # default
 # zsh     # restart Shell
-cargo install bat git-delta exa ripgrep
+cargo install bat fd-find git-delta exa ripgrep
 ln -s ~/dotfiles/.config/bat ~/.config
 ln -s ~/dotfiles/.gitconfig ~/
 ```
