@@ -1,0 +1,12 @@
+{
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "workbench.iconTheme": "vscode-icons",
+    "editor.rulers": [
+        80, 115
+    ],
+    "window.titleBarStyle": "custom",
+    "window.menuBarVisibility": "toggle",
+    "editor.fontSize": 13,
+    "terminal.integrated.fontSize": 13,
+    "workbench.startupEditor": "none"
+}
