@@ -8,9 +8,9 @@ lsp.preset('recommended')
 lsp.ensure_installed ({
     'lua_ls',
     'bashls',
-    -- 'bash-debug-adapter',    -- try after DAP
-    'marksman', -- vws vca=>TOC
-    'emmet_ls', -- html:5, 
+    -- 'bash-debug-adapter',    -- GOOD
+    'marksman', -- :vws :vca=>TOC
+    'emmet_ls', -- :html:5, 
     'cssls',
     'html',
     'tsserver',

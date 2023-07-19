@@ -45,3 +45,7 @@ if [[ $(cat /etc/os-release | awk -F= '/^NAME=/{ print $2 }' | tr -d '"') == "op
 fi
 
 alias htopp="echo q | htop -C | aha --line-fix | html2text -width 999 | grep -v 'F1Help\|xml version ='"
+
+
+alias dpt="dunstctl set-paused true"
+alias dpf="dunstctl set-paused false"

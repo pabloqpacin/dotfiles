@@ -3,11 +3,11 @@
 # WIP -- USE WITH CAUTION!
 # TODO: meet dependencies, error-handling and adapt to given distro
 
+mkdir -p $HOME/.config
+
 rm $HOME/.zshrc
 ln -s $HOME/dotfiles/.zshrc $HOME
 ln -s $HOME/dotfiles/.gitconfig $HOME
-
-mkdir -p $HOME/.config
 ln -s $HOME/dotfiles/.config/bat $HOME/.config
 ln -s $HOME/dotfiles/.config/nvim $HOME/.config
 ln -s $HOME/dotfiles/.config/tmux $HOME/.config
