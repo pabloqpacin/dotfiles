@@ -1,5 +1,7 @@
-# Path to oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# Path to oh-my-zsh installation -- except for NixOS
+if [[ $(cat /etc/os-release | awk -F= '/^NAME=/{ print $2 }' | tr -d '"') != "NixOS" ]]; then
+  export ZSH="$HOME/.oh-my-zsh"
+fi
 
 # Display man pages with Bat highlighting
 export MANPAGER="bat -l man -p --theme=Nord"
@@ -11,13 +13,13 @@ ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "avit" "bureau"
   "daveverwer" "dpoggi" "eastwood" "fishy" "fletcherm" "frisk" "frontcube" "gallifrey"
   "gallois"  "geoffgarside" "itchy" "jispwoso" "josh" "jreese" "kennethreitz" "kphoen"
   "macovsky" "mh" "minimal" "muse" "nanotech" "nicoulaj" "peepcode" "refined" "risto"
-  "simple" "Soliah" "sunaku" "theunraveler" "tonotdo" "wedisagree" "wuffers" "zhann"
+  "simple" "sunaku" "theunraveler" "tonotdo" "wedisagree" "wuffers" "zhann"
 )
 # FORMER: 3den adben(fortune) apple arrow amuse awesomepanda candy-kingdom cloud crunch
 # cypher dallas dieter dogenpunk dst edvardm essembeh flazz fwalch garyblessington gozilla
 # half-life jbergantine jnrowe juanghurtado junkfood kafeitu kolo maran mgutz michelebologna
 # miloshadzic mlh mortalscumbag mrtazz murilasso nebirhos norm obraun pygmalion-virtualenv re5et
-# rgm robbyrussel smt sonicradish steeef strug sunrise superjarin suvash terminalparty wezm+ ys
+# rgm robbyrussel smt Soliah sonicradish steeef strug sunrise superjarin suvash terminalparty wezm+ ys
 
 # Set custom folder for personal aliases, plugins and themes
 ZSH_CUSTOM="$HOME/dotfiles/zsh"

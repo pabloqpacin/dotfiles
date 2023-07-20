@@ -9,7 +9,7 @@ configuration {
 }
 
 
-@import "colors.rasi"
+// @import "colors.rasi"
 
 
 @theme "/dev/null"
