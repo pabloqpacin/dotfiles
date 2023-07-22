@@ -3,5 +3,5 @@ brightness=$(brightnessctl get)
 full_brightness=$(brightnessctl max)
 brightness_percentage=$(expr $brightness \* 100 / $full_brightness)
 
-killall dunst
-notify-send -i /usr/share/icons/Win11-black-dark/status@2x/24/display-brightness-symbolic.svg " Brightness " " $brightness_percentage% "
+# killall dunst
+notify-send -i /usr/share/icons/Win11-black-dark/status@2x/24/display-brightness-symbolic.svg "Brightness" "$brightness_percentage%"

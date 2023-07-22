@@ -1,4 +1,4 @@
 #!/bin/sh
 
-killall dunst
-notify-send -i /usr/share/icons/Win11-black-dark/status/24/volume-level-high.svg " Volume " " $(pamixer --get-volume)% "
+# killall dunst
+notify-send -i /usr/share/icons/Win11-black-dark/status/24/volume-level-high.svg "Volume" "$(pamixer --get-volume)%"

@@ -9,6 +9,7 @@ btop.log
 # Clutter
 private/
 *.todo
+*test*
 *mock*
 *wip*
 

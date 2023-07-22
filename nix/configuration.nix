@@ -61,17 +61,23 @@
     xkbVariant = "";
     enable = true;
     videoDrivers = [ "intel" "nvidia" ];
+    # Finally research :: https://github.com/NixOS/nixpkgs/tree/master/nixos/modules/services/x11/display-managers
     displayManager.gdm = {
       enable = true;
       wayland = true;
     };
+    # See chatGPT chat for theming!! -- just HOME-MANAGER it
   };
 
+  # gtk3 = {
+  #   gtkTheme = "rose-pine-gtk-theme";
+  #   iconTheme = "bar";
+  # };
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.pabloqpacin = {
     isNormalUser = true;
     description = "Pablo Quevedo";
-    extraGroups = [ "networkmanager" "wheel" "wireshark" ];
+    extraGroups = [ "networkmanager" "wheel" "wireshark" "input" ];
     packages = with pkgs; [];
     shell = pkgs.zsh;
   };
@@ -99,29 +105,56 @@
       "nvidia-settings"
     ];
 
-  environment.sessionVariables.NIXOS_OZONE_WL = 1;	# see CODE / Wayland
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";	# see CODE / Wayland
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget --> nix --extra-experimental-features "nix-command flakes" search nixpkgs <pkg>
   environment.systemPackages = with pkgs; [
-    alacritty bat brave btop cheat exa fzf git neofetch ripgrep tldr tmux unzip # vscode
-    dunst brightnessctl rofi-power-menu rofi-wayland swaybg swayidle swaylock-effects waybar
-    efibootmgr nmap nmapsi4 nvme-cli os-prober virtualbox
-    wireplumber pipewire alsa-utils alsa-tools pamixer
-    rustup gnat13 nodejs_20a	# ...
+    home-manager
+    alacritty bat brave btop cheat delta exa fd file fzf git neofetch ripgrep taskwarrior tldr tmux unzip # vscode
+    rofi-power-menu rofi-wayland swaybg swayidle swaylock-effects waybar # mpd
+    libnotify mako dunst brightnessctl
+    polkit_gnome
+    # libsForQt5.polkit-kde-agent # https://nixos.wiki/wiki/Polkit >> ../autostart ?
+    shotman sway-contrib.grimshot gucharmap	# CHOOSE
+    efibootmgr nmap nmapsi4 nvme-cli os-prober virtualbox wireshark-qt		# sqlmap
+    # mysql mysql-workbench 	# https://stackoverflow.com/questions/76006529/how-to-instal-mysql-workbench-on-nixos
+    wireplumber pipewire alsa-utils alsa-tools pamixer pavucontrol
+    rose-pine-gtk-theme lxappearance
+    rustup gnat13 nodejs_20	# ...
     spotify 			# ...
-    vscodium
+    # mpv 			# https://nixos.wiki/wiki/MPV
+    vscodium			# Extensions not applied automatically upon nixos-rebuild
     (vscode-with-extensions.override {
       vscode = vscodium;
       vscodeExtensions = with vscode-extensions; [
         bbenoist.nix
-        enkia.tokyo-night
         vscode-icons-team.vscode-icons
         yzhang.markdown-all-in-one
         naumovs.color-highlight
-        yandeu.five-server
+      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      	# For the sha256: $ nix-prefetch-url --type sha256 <marketplace_version_download_link>
+        {
+	  name = "tokyo-night";
+	  publisher = "enkia";
+	  version = "0.9.9";
+	  sha256 = "1jwy94w0iqy7p5d4hk901hj74pi8wvanz6z2bwwlpb4hfz1zrijm";
+	}
+	# {
+	#   yandeu.five-server
+	# }
       ];
     })
+    # ciscoPacketTracer8
+    # ***
+    # Unfortunately, we cannot download file CiscoPacketTracer_821_Ubuntu_64bit.deb automatically.
+    # Please go to https://www.netacad.com to download it yourself, and add it to the Nix store
+    # using either
+    #   nix-store --add-fixed sha256 CiscoPacketTracer_821_Ubuntu_64bit.deb
+    # or
+    #   nix-prefetch-url --type sha256 file:///path/to/CiscoPacketTracer_821_Ubuntu_64bit.deb
+    # 
+    # ***
 
 
     # Fix Discord in wayland
@@ -129,10 +162,11 @@
       name = "discord";
       text = "${pkgs.discord}/bin/discord --use-gl=desktop";
     })
-    (pkgs.makeDesktopItem {
+    (pkgs.makeDesktopItem {	# No icon tho...
       name = "discord";
       exec = "discord";
       desktopName = "Discord";
+      # icon = "foo";
     })
   ];
 
@@ -155,6 +189,7 @@
 
   # Audio
   security.rtkit.enable = true;
+  security.polkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -185,12 +220,61 @@
   };
 
   programs.wireshark.enable = true;
+
+  # Thunar
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
+  };
+  services = {
+    gvfs.enable = true;
+    tumbler.enable = true;
+  };
   
 
   # Nerd fonts
-  fonts.fonts = with pkgs; [
-    (nerdfonts.override { fonts = [ "FiraMono" "JetBrainsMono" ]; })
+  fonts = {
+    # enableDefaultFonts = true;
+    fonts = with pkgs; [
+      font-awesome
+      noto-fonts-emoji
+      material-design-icons
+      (nerdfonts.override { fonts = [ "FiraMono" "JetBrainsMono" ]; })
+    ];
+    # fontconfig = {		# It worked too well!
+    #   defaultFonts = {
+    #     emoji = [ "Noto Color Emoji" ];
+    #     serif = [ "FiraMono Nerd Font" ];
+    #     sansSerif = [ "FiraMono Nerd Font" ];
+    #     monospace = [ "FiraMono Nerd Font Mono" ];
+    #   };
+    # };
+  };
+
+  nixpkgs.overlays = [
+    (self: super: {
+      waybar = super.waybar.overrideAttrs (oldAttrs: {
+        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+      });
+    })
   ];
+
+  # programs.waybar.package = pkgs.waybar.overrideAttrs (oa: {
+  #   mesonFlags = (oa.mesonFlags or  []) ++ [ "-Dexperimental=true" ];
+  #   patches = (oa.patches or []) ++ [
+  #     (pkgs.fetchpatch {
+  #       name = "fix waybar hyprctl";
+  #       url = "https://aur.archlinux.org/cgit/aur.git/plain/hyprctl.patch?h=waybar-hyprland-git";
+  #       sha256 = "sha256-pY3+9Dhi61Jo2cPnBdmn3NUTSA8bAbtgsk2ooj4y7aQ=";
+  #     })
+  #   ];
+  # });
+
+  # https://github.com/hyprwm/Hyprland/issues/725
+  # https://github.com/NixOS/nixpkgs/issues/157101
 
 
 

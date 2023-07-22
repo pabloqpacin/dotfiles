@@ -1,0 +1,68 @@
+# https://www.mankier.com/5/mako
+
+# makoctl reload
+
+max-history=5
+sort=-time
+
+on-button-left=invoke-default-action
+on-button-middle=none
+on-button-right=dismiss
+on-touch=dismiss
+on-notify=none
+
+font=FiraMono 8.5
+# font=monospace 9
+background-color=#202020DD
+text-color=#CDD6F4
+width=300
+height=2000
+
+outer-margin=0
+margin=25,10,10,10
+padding=5
+border-size=2
+border-color=#4C7899EE
+border-radius=7
+
+progress-color=over #5588AAEE
+icons=1
+max-icon-size=64
+# icon-path=/run/current-system/sw/share/icons/hicolor/
+icon-path=""
+icon-location=left
+markup=1
+
+actions=1
+history=1
+# format=<b>%s</b>\n%b
+# format=(%g) <b>%s</b>\n%b
+text-alignment=left
+
+default-timeout=5000
+ignore-timeout=0
+
+group-by=summary
+max-visible=5
+# output=""
+layer=top
+anchor=top-left
+
+
+[summary=Volume]
+[summary=Brightness]
+
+[urgency=low]
+border-color=#4C7899EE
+
+[urgency=normal]
+# border-color=#d08770EE
+
+[urgency=high]
+border-color=#bf616aEE
+default-timeout=0
+
+# [app-name=Discord actionable]
+# on-button-left=invoke-action discord
+
+# https://github.com/fluix-dev/dotfiles/blob/master/mako/config
