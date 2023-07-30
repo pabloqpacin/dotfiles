@@ -81,3 +81,5 @@ tooltip {
   padding-right: 10px;
 }
 
+#battery.warning { background: #ffaa00; }
+#battery.critical { background: #ff0000; }

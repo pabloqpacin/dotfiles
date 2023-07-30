@@ -186,8 +186,10 @@
     // "on-click": "alacritty -e task burndown.daily"
   },
   "image": {
-    "path":"/home/pabloqpacin/dotfiles/nix/Nix_snowflake.svg.png"
-    // "on-click": ??
+    "path":"/home/pabloqpacin/dotfiles/nix/Nix_snowflake.svg.png",
+    "on-click": "pkill rofi || rofi -modi drun -show drun",
+    "on-click-middle": "pkill rofi || rofi -modi run -show run",
+    "on-click-right": "pkill rofi || rofi -show power-menu -modi power-menu:rofi-power-menu"
   }
 }
 

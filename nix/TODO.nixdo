@@ -1,0 +1,17 @@
+# Gen
+- system theme
+    - HOME: https://stackoverflow.com/questions/38576616/how-to-install-gtk-themes-under-nixos-without-hacky-scripts
+- file manager? --> thunar + extensions
+
+# Nix
+- neovim
+- spotify
+
+# Nix 10x
+- home.manager
+
+
+---
+
+- [About pictures and screenshots](https://discourse.nixos.org/t/screenshots-on-hyprland-on-nixos/29055/5)
+- Maybe swap 'spotify' for 'spotifyd + playerctl + mpd' ??

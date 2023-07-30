@@ -77,7 +77,7 @@
   users.users.pabloqpacin = {
     isNormalUser = true;
     description = "Pablo Quevedo";
-    extraGroups = [ "networkmanager" "wheel" "wireshark" "input" ];
+    extraGroups = [ "networkmanager" "wheel" "wireshark" "input" ];   # vboxusers
     packages = with pkgs; [];
     shell = pkgs.zsh;
   };
@@ -110,14 +110,13 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget --> nix --extra-experimental-features "nix-command flakes" search nixpkgs <pkg>
   environment.systemPackages = with pkgs; [
-    home-manager
+    home-manager cron
     alacritty bat brave btop cheat delta exa fd file fzf git neofetch ripgrep taskwarrior tldr tmux unzip # vscode
     rofi-power-menu rofi-wayland swaybg swayidle swaylock-effects waybar # mpd
     libnotify mako dunst brightnessctl
-    polkit_gnome
-    # libsForQt5.polkit-kde-agent # https://nixos.wiki/wiki/Polkit >> ../autostart ?
+    # polkit_gnome libsForQt5.polkit-kde-agent # https://nixos.wiki/wiki/Polkit >> ../autostart ?
     shotman sway-contrib.grimshot gucharmap	# CHOOSE
-    efibootmgr nmap nmapsi4 nvme-cli os-prober virtualbox wireshark-qt		# sqlmap
+    efibootmgr nmap nmapsi4 nvme-cli os-prober wireshark-qt		# sqlmap; virtualbox *aside*
     # mysql mysql-workbench 	# https://stackoverflow.com/questions/76006529/how-to-instal-mysql-workbench-on-nixos
     wireplumber pipewire alsa-utils alsa-tools pamixer pavucontrol
     rose-pine-gtk-theme lxappearance
@@ -279,11 +278,9 @@
 
 
   # List services that you want to enable:
-
-  # {
-  #   virtualisation.virtualbox.host.enable = true;
-  #   users.extraGroups.vboxusers.members = [ "pabloqpacin" ];
-  # }
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.guest.enable = true;
+  users.extraGroups.vboxusers.members = [ "pabloqpacin" ];
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
