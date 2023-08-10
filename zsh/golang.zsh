@@ -2,7 +2,12 @@
 # https://go.dev/doc/install
 
 
-# wget -c https://golang.org/dl/go1.15.2.linux-amd64.tar.gz
+# cd /tmp \
+#  && wget -c https://golang.org/dl/go1.21.0.linux-amd64.tar.gz \
+#  && sudo rm -rf /usr/local/go \
+#  && sudo tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz \
+#  && source ~/dotfiles/zsh/golang.zsh
+
 # sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz && rm go.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 

@@ -11,16 +11,17 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'"
 ZSH_THEME="random"
 ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "avit" "bureau"
   "clean" "daveverwer" "dpoggi" "eastwood" "fletcherm" "frontcube" "gallifrey"
-  "gallois" "geoffgarside" "itchy" "josh" "jreese" "kennethreitz" "kphoen"
-  "macovsky" "mh" "minimal" "muse" "nanotech" "nicoulaj" "peepcode" "refined"
-  "risto" "simple" "theunraveler" "tonotdo" "wedisagree" "wuffers" "zhann"
+  "gallois" "geoffgarside" "itchy" "josh" "kennethreitz" "kphoen" "macovsky"
+  "mh" "minimal" "muse" "nanotech" "nicoulaj" "peepcode" "refined" "risto"
+  "simple" "theunraveler" "tonotdo" "wedisagree" "wuffers" "zhann"
 )
-# FORMER: 3den adben(fortune) apple arrow amuse awesomepanda candy-kingdom cloud crunch cypher
-# dallas dieter dogenpunk dst edvardm essembeh fishy flazz frisk fwalch garyblessington gozilla
-# half-life jbergantine jispwoso jnrowe juanghurtado junkfood kafeitu kolo maran mgutz michelebologna
-# miloshadzic mlh mortalscumbag mrtazz murilasso nebirhos norm obraun pygmalion-virtualenv re5et rgm
-# robbyrussel smt Soliah sonicradish steeef strug sunaku sunrise superjarin suvash terminalparty wezm+ ys
-# BEST: alanpeabody daveverwer muse nicoulaj
+# FORMER: 3den adben(fortune) apple arrow amuse awesomepanda candy-kingdom cloud
+# crunch cypher dallas dieter dogenpunk dst edvardm essembeh fishy flazz frisk fwalch
+# garyblessington gozilla half-life jbergantine jispwoso jnrowe jreese juanghurtado junkfood
+# kafeitu kolo maran mgutz michelebologna miloshadzic mlh mortalscumbag mrtazz murilasso nebirhos
+# norm obraun pygmalion-virtualenv re5et rgm robbyrussel smt Soliah sonicradish steeef strug sunaku
+# sunrise superjarin suvash terminalparty wezm+ ys
+# BEST: alanpeabody daveverwer geoffgarside muse nicoulaj
 
 # Set custom folder for personal aliases, plugins and themes
 ZSH_CUSTOM="$HOME/dotfiles/zsh"

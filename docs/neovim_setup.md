@@ -48,6 +48,16 @@ pacman -S ripgrep || cargo install ripgrep
 # Some LSPs require unzip
 apt install unzip || pacman -S unzip
 
+# Go LSP requires Go -- PopOS how-to
+cd /tmp \
+ && wget -c https://golang.org/dl/go1.15.2.linux-amd64.tar.gz \
+ && sudo rm -rf /usr/local/go \
+ && sudo tar -C /usr/local -xzf go1.15.2.linux-amd64.tar.gz \
+ && source ~/dotfiles/zsh/golang.zsh
+
+# Python LSP requires venv
+sudo apt-get install python3-venv || yay -S python3-venv
+
 # Some LSPs require NPM -- VERIFY LATEST VERSION!
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 nvm install node

@@ -3,13 +3,16 @@ import:
 
 window:
   decorations: None
+  # dimensions:         # meant for VMs
+  #   columns: 80
+  #   lines: 20
   padding:
     x: 5
     y: 5
   class:
     instance: Alacritty
     general: Alacritty
-  opacity: 0.8
+  opacity: 0.70
 
 scrolling:
   history: 20000

@@ -53,10 +53,11 @@ alias htopp="echo q | htop -C | aha --line-fix | html2text -width 999 | grep -v 
 alias sslisten='ss -tul'    # -tuln
 
 alias HH="Hyprland"
-alias dpt="dunstctl set-paused true"
-alias dpf="dunstctl set-paused false"
+# alias dpt="dunstctl set-paused true"
+# alias dpf="dunstctl set-paused false"
 
 # alias gundo="git restore --staged $1 && git restore $1"
 # # The $1 is a placeholder for the first argument you pass to the alias, the filename to unstage with 'gundo filename'
 # # git restore --staged $1: unstage changes made to a file specified by $1.
 # # git restore $1: discard changes made to a file specified by $1.
+
