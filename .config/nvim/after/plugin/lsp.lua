@@ -21,6 +21,9 @@ lsp.ensure_installed ({
     -- 'sqls',
     'docker_compose_language_service',
     'dockerls',
+    'pylsp',
+    'sqlls',    -- config << https://github.com/joe-re/sql-language-server
+    'gopls',
 })
 
 local cmp = require('cmp')

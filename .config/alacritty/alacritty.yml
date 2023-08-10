@@ -2,6 +2,7 @@ import:
   - ~/.config/alacritty/themes/campbell.yaml
 
 window:
+  decorations: None
   padding:
     x: 5
     y: 5
@@ -11,25 +12,24 @@ window:
   opacity: 0.8
 
 scrolling:
-  history: 10000
+  history: 20000
   multiplier: 5
 
 font:
   normal:
-    family: FiraMono Nerd Font
+    family: FiraCode Nerd Font
     style:  Regular
   bold:
-    family: FiraMono Nerd Font
+    family: FiraCode Nerd Font
     style:  Bold
-  size: 10
+  size: 9.5
 draw_bold_text_with_bright_colors: true
 # font_dirs:
 #   - /usr/share/fonts/foo
 
 key_bindings:
+    # - { key: Space, mods: Control|Shift, action: toggleViMode }
   - { key: Return, mods: Super|Shift, action: SpawnNewInstance }
   - { key: J, mods: Control|Shift, action: ScrollLineDown }
   - { key: K, mods: Control|Shift, action: ScrollLineUp }
   - { key: F11, action: ToggleFullscreen }
-
-# Vi Mode ...

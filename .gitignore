@@ -1,5 +1,6 @@
 # Cheat
 community/
+#*wip*
 
 # Nvim Tmux Btop
 packer_compiled.lua
@@ -11,7 +12,6 @@ private/
 *.todo
 *test*
 *mock*
-*wip*
 
 # Hypr
 *vanilla*

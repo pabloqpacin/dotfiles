@@ -10,7 +10,7 @@ require('nvim-tree').setup {
     filters = {
         dotfiles = false,
         custom = { "^\\.git$" }},
-    actions = { open_file = { quit_on_open = true }},
+    -- actions = { open_file = { quit_on_open = true }},
 }
 
 
