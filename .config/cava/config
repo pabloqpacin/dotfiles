@@ -192,8 +192,22 @@ gradient_color_5 = '#cca633'
 gradient_color_6 = '#cc8033'
 gradient_color_7 = '#cc5933'
 gradient_color_8 = '#cc3333'
-
-
+# gradient_color_1 = '#6a1b9a'
+# gradient_color_2 = '#8e24aa'
+# gradient_color_3 = '#ab47bc'
+# gradient_color_4 = '#ba68c8'
+# gradient_color_5 = '#ce93d8'
+# gradient_color_6 = '#d1c4e9'
+# gradient_color_7 = '#e1bee7'
+# gradient_color_8 = '#f57c00'
+# gradient_color_1 = '#d1c4e9'
+# gradient_color_2 = '#ce93d8'
+# gradient_color_3 = '#ba68c8'
+# gradient_color_4 = '#7b1fa2'
+# gradient_color_5 = '#512da8'
+# gradient_color_6 = '#303f9f'
+# gradient_color_7 = '#1a237e'
+# gradient_color_8 = '#ffee58'
 
 [smoothing]
 

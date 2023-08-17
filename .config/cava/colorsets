@@ -1,0 +1,111 @@
+Certainly! Here are three color gradient sets that incorporate shades of purple, dark colors, and a touch of yellow:
+
+Gradient Set 1: Purple-Dark-Yellow
+
+ini
+Copy code
+gradient = 1
+gradient_count = 8
+gradient_color_1 = '#5933cc'
+gradient_color_2 = '#8033cc'
+gradient_color_3 = '#a633cc'
+gradient_color_4 = '#cc33cc'
+gradient_color_5 = '#cc33a6'
+gradient_color_6 = '#cc3380'
+gradient_color_7 = '#cc3359'
+gradient_color_8 = '#cc3333'
+Gradient Set 2: Deep Purple-Yellow
+
+ini
+Copy code
+gradient = 1
+gradient_count = 8
+gradient_color_1 = '#4a148c'
+gradient_color_2 = '#6a1b9a'
+gradient_color_3 = '#8e24aa'
+gradient_color_4 = '#9c27b0'
+gradient_color_5 = '#ab47bc'
+gradient_color_6 = '#ba68c8'
+gradient_color_7 = '#ce93d8'
+gradient_color_8 = '#d50000'
+Gradient Set 3: Muted Purple-Yellow
+
+ini
+Copy code
+gradient = 1
+gradient_count = 8
+gradient_color_1 = '#6a1b9a'
+gradient_color_2 = '#8e24aa'
+gradient_color_3 = '#ab47bc'
+gradient_color_4 = '#ba68c8'
+gradient_color_5 = '#ce93d8'
+gradient_color_6 = '#d1c4e9'
+gradient_color_7 = '#e1bee7'
+gradient_color_8 = '#f57c00'
+You can use any of these gradient sets by copying the corresponding color values into your cava configuration. Feel free to experiment with the sets and adjust the shades to your preference!
+
+
+# foooooooooooooooooooo
+
+
+Gradient Set 4: Muted Blue-Silver-Yellow
+
+ini
+Copy code
+gradient = 1
+gradient_count = 8
+gradient_color_1 = '#283593'
+gradient_color_2 = '#3949ab'
+gradient_color_3 = '#5c6bc0'
+gradient_color_4 = '#7986cb'
+gradient_color_5 = '#90a4ae'
+gradient_color_6 = '#b0bec5'
+gradient_color_7 = '#cfd8dc'
+gradient_color_8 = '#ff6f00'
+Gradient Set 5: Cool Blue-Silver-Yellow
+
+ini
+Copy code
+gradient = 1
+gradient_count = 8
+gradient_color_1 = '#1565c0'
+gradient_color_2 = '#1976d2'
+gradient_color_3 = '#1e88e5'
+gradient_color_4 = '#2196f3'
+gradient_color_5 = '#42a5f5'
+gradient_color_6 = '#64b5f6'
+gradient_color_7 = '#90caf9'
+gradient_color_8 = '#ffeb3b'
+Gradient Set 6: Deep Ocean-Silver-Yellow
+
+ini
+Copy code
+gradient = 1
+gradient_count = 8
+gradient_color_1 = '#01579b'
+gradient_color_2 = '#0277bd'
+gradient_color_3 = '#0288d1'
+gradient_color_4 = '#039be5'
+gradient_color_5 = '#29b6f6'
+gradient_color_6 = '#4fc3f7'
+gradient_color_7 = '#81d4fa'
+gradient_color_8 = '#ffeb3b'
+These sets incorporate more blue and silver tones while maintaining the muted purple and yellow theme. Feel free to use these gradient sets in your cava configuration or modify them to match your preferences!
+
+
+Gradient Set 7: Pale Gray-Yellow-Purple-Blue
+
+ini
+Copy code
+gradient = 1
+gradient_count = 8
+gradient_color_1 = '#f5f5f5'
+gradient_color_2 = '#ffee58'
+gradient_color_3 = '#d1c4e9'
+gradient_color_4 = '#7b1fa2'
+gradient_color_5 = '#512da8'
+gradient_color_6 = '#303f9f'
+gradient_color_7 = '#1a237e'
+gradient_color_8 = '#0d47a1'
+
+

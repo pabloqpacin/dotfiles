@@ -5,47 +5,47 @@ set colorcolumn=80
 autocmd FileType * set colorcolumn=80
 
 " Remap Esc in INSERT mode
-  inore kj <Esc>
-  inore KJ <Esc>
+inore kj <Esc>
+inore KJ <Esc>
 
 " Enable mouse motions
-  set mouse=a
+set mouse=a
 
 " Indentation
-  set expandtab
-  set tabstop=4
-  set shiftwidth=4
-  set softtabstop=4
-  set autoindent
-  set smartindent
-  filetype plugin indent on
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set autoindent
+set smartindent
+filetype plugin indent on
 
 " Searching
-  set hlsearch
-  set incsearch
-  set ignorecase
+set hlsearch
+set incsearch
+set ignorecase
 
 " Fun with <leader>
-  let mapleader = ' '
-  nnoremap <leader>pv :execute ":Explore"<CR>
-  nnoremap <leader>gs :execute ":!git status"<CR>
-  nnoremap <leader>cc :execute 'set colorcolumn=' . (&colorcolumn == "" ? "80" : "")<CR>
+let mapleader = ' '
+nnoremap <leader>pv :execute ":Explore"<CR>
+nnoremap <leader>gs :execute ":!git status"<CR>
+nnoremap <leader>cc :execute 'set colorcolumn=' . (&colorcolumn == "" ? "80" : "")<CR>
 
   
 " Use :RandomColorscheme on startup
-  function! SetRandomColorscheme()
-    let schemes = getcompletion('', 'color')
-    let random_scheme = schemes[rand() % len(schemes)]
-    execute 'colorscheme ' . random_scheme
-    echo "Selected colorscheme: " . random_scheme " WON'T WORK!
-  endfunction  
-  command! RandomColorscheme call SetRandomColorscheme()    
-  autocmd VimEnter * call SetRandomColorscheme()
+function! SetRandomColorscheme()
+  let schemes = getcompletion('', 'color')
+  let random_scheme = schemes[rand() % len(schemes)]
+  execute 'colorscheme ' . random_scheme
+  echo "Selected colorscheme: " . random_scheme " WON'T WORK!
+endfunction  
+command! RandomColorscheme call SetRandomColorscheme()    
+autocmd VimEnter * call SetRandomColorscheme()
 
 " Increment the number under the cursor
-  function! IncrementNumber()
-    execute 'normal \<C-a>'
-  endfunction
+function! IncrementNumber()
+  execute 'normal \<C-a>'
+endfunction
 
 
 

@@ -1,9 +1,11 @@
 # aguu='sudo apt update && sudo apt upgrade'
 # agi='sudo apt install'
+alias updeez='sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y'
 
 alias fcl="fortune | cowsay -f dragon | lolcat"
 alias supdawg="echo 'not much wbu'"
 dc() { echo -e "\U0001F198" }
+alias cbonsie='cbonsai -lt 1'
 alias clera="echo 'wtf'"
 alias claer="echo 'wtf'"
 alias exot="echo 'wtf'"
@@ -31,8 +33,12 @@ alias rg="rg -.S --no-ignore"
 # alias kp="keepassxc-cli"
 # alias fd="fdfind"
 
-tn() { tmux new -s $(pwd | sed 's#.*/##') }
-tw() { cd $HOME/Workspace && tmux -new -s $(pwd | sed 's#.*/##') }
+# tn() { tmux new -s $(pwd | sed 's#.*/##') }
+tn() {
+  session_name=$(pwd | sed 's#.*/##')
+  tmux new-session -s "$session_name" \; split-window -v -p 50 \; select-pane -t 0
+}
+
 
 alias du1="du -sh *"
 alias du2="du -sh */*"
@@ -41,7 +47,7 @@ alias dus2="du -sh */* | sort -rn"
 
 # alias rpg="battlestar"
 alias dfr="df -h | rg -C 10 -e '/($)'"
-alias wfe='explorer.exe .'   # windows-file-explorer
+alias wfe='explorer.exe .'          # windows-file-explorer
 alias wopen="sensible-browser"
 # alias wopen="wslview"
 
@@ -50,7 +56,7 @@ if [[ $(cat /etc/os-release | awk -F= '/^NAME=/{ print $2 }' | tr -d '"') == "op
 fi
 
 alias htopp="echo q | htop -C | aha --line-fix | html2text -width 999 | grep -v 'F1Help\|xml version ='"
-alias sslisten='ss -tul'    # -tuln
+alias sslisten='ss -tul'            # -tuln
 
 alias HH="Hyprland"
 # alias dpt="dunstctl set-paused true"

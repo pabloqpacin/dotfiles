@@ -5,7 +5,7 @@
   "exclusive": true,
   "passtrough": false,
   "gtk-layer-shell": true,
-  "height": 30,
+  "height": 26,
   "spacing": 7,
   "modules-left": [
     "custom/separator",

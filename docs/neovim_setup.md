@@ -50,9 +50,9 @@ apt install unzip || pacman -S unzip
 
 # Go LSP requires Go -- PopOS how-to
 cd /tmp \
- && wget -c https://golang.org/dl/go1.15.2.linux-amd64.tar.gz \
+ && wget -c https://golang.org/dl/go1.21.0.linux-amd64.tar.gz \
  && sudo rm -rf /usr/local/go \
- && sudo tar -C /usr/local -xzf go1.15.2.linux-amd64.tar.gz \
+ && sudo tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz \
  && source ~/dotfiles/zsh/golang.zsh
 
 # Python LSP requires venv

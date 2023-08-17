@@ -1,5 +1,5 @@
 configuration {
-  font:                     "FiraMono Nerd Font Medium 10";
+  font:                     "FiraCode Nerd Font Medium 10";
   show-icons:               true;
   icon-theme:               "Papirus";
   drun-display-format:      "{icon} {name}";
