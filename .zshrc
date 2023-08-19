@@ -7,8 +7,16 @@ fi
 export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'"
 # export MANPAGER="bat -l man -p --theme=Nord"
 
-# Set $RANDOM_THEME -- pts output << trapd00r linuxonly humza? skaro?
-ZSH_THEME="random"
+# Set $RANDOM_THEME -- mind Parrot & Termux
+if [[ $(cat /etc/os-release | awk -F= '/^NAME=/{ print $2 }' | tr -d '"') == "Parrot OS" ]]; then
+  ZSH_THEME="parrot"
+elif [[ $(uname -o) == "Android" ]]; then
+  ZSH_THEME="kennethreitz"
+  echo '\e[3 q'
+else
+  ZSH_THEME="random"
+fi
+
 ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "avit" "bureau"
   "clean" "daveverwer" "dpoggi" "eastwood" "fletcherm" "frontcube" "gallifrey"
   "gallois" "geoffgarside" "itchy" "josh" "kennethreitz" "kphoen" "macovsky"
@@ -21,6 +29,7 @@ ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "avit" "bureau"
 # kafeitu kolo maran mgutz michelebologna miloshadzic mlh mortalscumbag mrtazz murilasso nebirhos
 # norm obraun pygmalion-virtualenv re5et rgm robbyrussel smt Soliah sonicradish steeef strug sunaku
 # sunrise superjarin suvash terminalparty wezm+ ys
+# pts output: trapd00r linuxonly humza? skaro?
 # BEST: alanpeabody daveverwer geoffgarside muse nicoulaj
 
 # Set custom folder for personal aliases, plugins and themes
@@ -74,16 +83,6 @@ fi
 #     # sudo apt install ubuntu-wsl wslu
 #     export BROWSER=wslview
 # fi
-
-# # WSL Ubuntu: enable snap binaries -- neovim
-# export PATH="$PATH:/snap/bin"
-
-
-# Termux tweaks -- change cursor and set zsh theme
-if [[ $(uname -o) == "Android" ]]; then
-    ZSH_THEME="kennethreitz"
-    echo '\e[3 q'
-fi
 
 
 # Return pretty $PATH with: echo $PATH | tr ':' '\n'

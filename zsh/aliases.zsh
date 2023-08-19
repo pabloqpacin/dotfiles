@@ -30,15 +30,12 @@ alias mdp="mdp -i"
 alias bcat="bat -p"
 alias mdcat="mdcat -p"
 alias rg="rg -.S --no-ignore"
-# alias kp="keepassxc-cli"
-# alias fd="fdfind"
 
 # tn() { tmux new -s $(pwd | sed 's#.*/##') }
 tn() {
   session_name=$(pwd | sed 's#.*/##')
   tmux new-session -s "$session_name" \; split-window -v -p 50 \; select-pane -t 0
 }
-
 
 alias du1="du -sh *"
 alias du2="du -sh */*"
@@ -67,3 +64,4 @@ alias HH="Hyprland"
 # # git restore --staged $1: unstage changes made to a file specified by $1.
 # # git restore $1: discard changes made to a file specified by $1.
 
+alias kpc='keepassxc-cli'

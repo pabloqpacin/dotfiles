@@ -20,6 +20,8 @@
 - Rice <!--Race Inspired Cosmetic Enhancements-->
   - @NIX tricks: [How I Made GNOME Look This Clean on Pop!_OS](https://youtu.be/rYQFBCE0aq8)
   - @NiccoLovesLinux: [GNOME Extensions for Productivity, Workflow, and More!](https://youtu.be/A-ot9xk74T4)
+  - KeePassXC
+    - @KeePassXC: [User Manual](https://keepassxc.org/docs/KeePassXC_UserGuide)
 
 
 <!-- MOCKS
@@ -80,14 +82,28 @@ echo 'APT::Get::Show-Versions "true";' | sudo tee /etc/apt/apt.conf.d/99show-ver
 
 
 # Install Brave -- mind the "*.gpg arch=amd64"
-sudo curl -fsSLo /usr/share/keyrings/brave-browser-beta-archive-keyring.gpg https://brave-browser-apt-beta.s3.brave.com/brave-browser-beta-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/brave-browser-beta-archive-keyring.gpg arch=amd64] https://brave-browser-apt-beta.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-beta.list
+sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 sudo apt update
 sudo apt install brave-browser
 
 # Brave --> Download a Nerd Font
 sudo unzip ~/Downloads/FiraCode.zip -d /usr/share/fonts/FiraCodeNerd
 fc-cache -fv
+
+
+# Install a local password manager
+sudo apt install keepassxc
+mkdir .KPXC && cd $_
+keepassxc-cli db-create -p database.kdbx
+keepassxc-cli open database.kdbx
+  # $ mkdir database somegroup
+  # $ add -u someusername --url https://somesite.web -g somegroup/entryname
+  # $ show -s entryname
+
+# If baremetal, fix Videos not playing mp4
+sudo apt remove gstreamer1.0-vaapi
+
 
 # If VM... Devices: Insert Guest Additions CD image... && open media
 ./autorun.sh

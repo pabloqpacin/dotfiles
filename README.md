@@ -27,18 +27,20 @@ https://github.com/gasech/hyprland-dots
    1. Neofetch
    2. Codium
 
+x. Arch 32
 
  -->
 
 
 ## *NIX environment
 
-- See my [docs](/docs/) for a **multiboot walkthrough** going over dependencies and tweaks
+- See the [docs](/docs/) for a **multiboot walkthrough** going over dependencies and tweaks
 
 | Component     | Software
 | :--           | :--
 | **Browser**   | Brave
-| **Shell**     |<span style="font-weight: normal; text-decoration: none;">zsh + ohmyzsh</span>
+| **Passmgr**   | [KeePassXC](https://keepassxc.org/)
+| **Shell**     | zsh + ohmyzsh
 | **Terminal**  | alacritty + tmux
 | **Font**      | FiraCode Nerd Font
 | **DE/WM**     | Cosmic & Hyprland
@@ -49,7 +51,6 @@ https://github.com/gasech/hyprland-dots
 
 ## Boxes setup
 
-- In addition my Android runs [*Termux*](https://termux.dev/en/) and my Pentium IV dual-boots *Windows XP* and [*Arch_32*](https://archlinux32.org) btw
 
 ```mermaid
 flowchart LR
@@ -60,6 +61,7 @@ EX2511[EX2511 humble laptop]
 WSLd[Windows 11: WSL Debian]
 WSLt[Windows 11: WSL Tumbleweed]
 
+
              GL76 ..- WSLd
 MACHINES ..- GL76 --> NixOS
              GL76 --- Pop!_OS
@@ -67,9 +69,22 @@ MACHINES ..- GL76 --> NixOS
 MACHINES ..- EX2511 --> Arch
              EX2511 ..- WSLt
 
-Pop!_OS -.-> Kali{Kali}
+Pop!_OS -.-> Parrot{Parrot}
 NixOS ..- Hyprland
 Arch ..- Hyprland
+
+
+Android[MAR-LX1A smartphone]
+Pentium[Pentium IV oldie goldie]
+WinXP[Windows XP]
+
+
+MACHINES..- Pentium --> Arch32[Arch 32] ..- i3
+            Pentium ..- WinXP[Windows XP]
+            
+MACHINES..- Android -.-> Termux
+            
+click Pentium "https://youtu.be/nyHKHrXjybA" "This is a YouTube link"
 
 ```
 
