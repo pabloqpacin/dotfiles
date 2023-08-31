@@ -85,6 +85,7 @@ MACHINES..- Pentium --> Arch32[Arch 32] ..- i3
 MACHINES..- Android -.-> Termux
             
 click Pentium "https://youtu.be/nyHKHrXjybA" "This is a YouTube link"
+click EX2511 "https://icecat.biz/en/p/acer/nx.ef6eb.006/extensa-notebooks-4713392421143-ex2511-55pf-30284410.html" "Specs (mind RAM & SSD upgrades)"
 
 ```
 

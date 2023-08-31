@@ -1,4 +1,4 @@
-/* code/codium settings.json */
+// vscode/vscodium: settings.json
 
 {
     "telemetry.telemetryLevel": "crash",
@@ -16,19 +16,7 @@
     "window.menuBarVisibility": "toggle",
     "workbench.iconTheme": "vscode-icons",
     "workbench.colorTheme": "One Dark Pro Darker",
-    "vsicons.dontShowNewVersionMessage": true,
-  }
-  
-
-/* EXTENSIONS -- ./CachedExtensionVSIXs
-- bbenoist.nix-1.0.1-universal
-- bierner.markdown-mermaid-1.19.0-universal
-- bpruitt-goddard.mermaid-markdown-syntax-highlighting-1.5.2-universal
-- enkia.tokyo-night-1.0.1-universal
-- naumovs.color-highlight-2.6.0-universal
-- tomoki1207.pdf-1.2.2-universal
-- tonybaloney.vscode-pets-1.9.1-universal
-- vscode-icons-team.vscode-icons-12.5.0-universal
-- yzhang.markdown-all-in-one-3.5.1-universal
-- zhuangtongfa.material-theme-3.16.0-universal
-*/
+    "vsicons.dontShowNewVersionMessage": true
+    // "markdown-preview-enhanced.previewTheme": "atom-dark.css",
+    // "markdown.preview.fontSize": 11,
+}

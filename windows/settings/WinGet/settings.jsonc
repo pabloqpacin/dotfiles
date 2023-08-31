@@ -1,0 +1,13 @@
+// C:\Users\User\AppData\Local\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\settings.json
+
+{
+    "$schema": "https://aka.ms/winget-settings.schema.json",
+
+    // For documentation on these settings, see: https://aka.ms/winget-settings
+    // "source": { "autoUpdateIntervalInMinutes": 5 },
+    
+    "telemetry": { "disable": true },
+    "network": { "downloader": "wininet" },
+    "visual": { "progressBar": "rainbow" }
+
+}

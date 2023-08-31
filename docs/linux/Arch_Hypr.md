@@ -1,7 +1,6 @@
 # Arch Linux
 
 
-
 - [Arch Linux](#arch-linux)
   - [documentation](#documentation)
   - [live installation](#live-installation)
@@ -127,6 +126,8 @@ ip link
 
 # Config WiFi if necessary
 sudo nmtui
+# $ nmcli radio wifi                            # see status
+# $ nmcli radio wifi off                        # turn on/off
 
 # To ssh from another machine:
 # $ systemctl enable --now sshd && passwd root
@@ -445,3 +446,19 @@ sudo pacman -S virtualbox virtualbox-guest-iso              # 2) virtualbox-host
     # $ exa /usr/lib/virtualbox/additions/VBoxGuestAdditions.iso
     # $ sudo nvim /etc/default/grub >> add itb=off ...
 ```
+
+<!--
+- Overwrite old HDD with zeroes
+
+```bash
+# Mount it and erase its current partitions aye
+# sudo mkdir /mnt/old_hdd
+    # sudo mount /dev/sdc /mnt/old_hdd
+# sudo cfdisk /dev/sdc
+# sudo mkfs.ext4 /dev/sdc
+# sudo mount /dev/sdc /mnt/old_hdd
+
+# No partitions mounted: erase the HDD with zeros
+sudo dd if=/dev/zero of=/dev/sdc bs=4M status=progress
+```
+ -->

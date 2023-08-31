@@ -19,10 +19,10 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 -- Paste selected A into selected B and preserve A
 vim.keymap.set('x', '<leader>p', "\"_dP")
 
--- Prompt for 'chmod 111'
+-- Prompt for 'chmod +x'
 vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>', { silent = true })
 
--- Word under cursosr is picked for substitution-global
+-- Word under cursor is picked for substitution-global
 vim.keymap.set('n', '<leader>s', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>')
 
 -- ...

@@ -69,6 +69,17 @@ Accounts:
 Top Bar: Battery --> Hybrid Graphics
 ```
 
+<!--
+```yaml
+# Gnome terminal
+New profile: mine: Set as default
+  Font size: 10
+  Built-in schemes: Gray on black
+  Use transparent background: 30%
+  Palette: Built-in schemes: Tango
+```
+ -->
+
 ```bash
 sudo nano /etc/hostname
 
@@ -80,7 +91,6 @@ sudo apt update -y \
 echo 'APT::Get::Show-Versions "true";' | sudo tee /etc/apt/apt.conf.d/99show-versions
   # $ sudo apt upgrade -V
 
-
 # Install Brave -- mind the "*.gpg arch=amd64"
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
@@ -90,7 +100,6 @@ sudo apt install brave-browser
 # Brave --> Download a Nerd Font
 sudo unzip ~/Downloads/FiraCode.zip -d /usr/share/fonts/FiraCodeNerd
 fc-cache -fv
-
 
 # Install a local password manager
 sudo apt install keepassxc
@@ -103,7 +112,6 @@ keepassxc-cli open database.kdbx
 
 # If baremetal, fix Videos not playing mp4
 sudo apt remove gstreamer1.0-vaapi
-
 
 # If VM... Devices: Insert Guest Additions CD image... && open media
 ./autorun.sh
@@ -152,7 +160,15 @@ Extensions:
   Transparent Top Bar:
     - Top Bar Opacity: 36%
     - Opaque top bar when a window touches it: no
-  # Hide Top Bar: ...
+  Hide Top Bar: <3 top yes; 3 down no; 100 both>
+
+# More Brave extensions
+chrome.google.com/webstore:
+  KeePassXC-Browser: ...  # https://keepassxc.org/docs/KeePassXC_GettingStarted#_setup_browser_integration)
+  Dark Reader:
+    - Enabled by Default: no
+    - Detect dark theme: yes
+    # Now just activate when needed
 ```
 
 <!-- ```yaml
@@ -161,10 +177,10 @@ Extensions:
 ``` -->
 
 
-- Manage shell environment
+- Manage shell environment: packages, zsh, nvim
 
 ```bash
-# Install the basics
+# Install them basics
 sudo apt install alacritty btop cava flameshot fzf ripgrep tldr tmux zsh    # taskwarrior
 sudo apt install neofetch --no-install-recommends
 tldr --update
@@ -199,6 +215,13 @@ ln -s ~/dotfiles/.config/nvim ~/.config
 ```
 
 ```bash
+# Set up Tmux plugins
+git clone --depth 1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+tmux    # $ C-b + I --> Install plugins
+
+# Python basics -- nvim lowkey required
+sudo apt-get install python3-pip python3-venv --no-install-recommends
+
 # Install Golang
 cd /tmp \
  && wget -c https://golang.org/dl/go1.21.0.linux-amd64.tar.gz \
@@ -210,17 +233,10 @@ cd /tmp \
 env CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf@latest
 lf -doc | bat -l sh
 
-# Set up Tmux plugins
-git clone --depth 1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-tmux    # $ C-b + I --> Install plugins
-
 # Install npm
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 nvm install node
 # $ npm install --global live-server
-
-# Python basics
-sudo apt-get install python3-pip python3-venv --no-install-recommends
 
 # Build and set up Neovim
 sudo apt-get install build-essential cmake gettext ninja-build unzip
@@ -243,9 +259,9 @@ cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua
 ```yaml
 # Desktop apps
 Pop Shop:
-  - Steam: deb pkg    # Proton 8
-  - Discord: deb pkg
   - Spotify: flatpak
+  - Discord: deb pkg
+  - Steam: deb pkg    # Proton 8
 ```
 
 ```bash
@@ -259,15 +275,66 @@ sudo apt update && sudo apt install codium
 
 # Alternatively $ sudo apt-get install code
 ```
-
 ```bash
-# Install some important tools
+# Misc
+sudo apt-get install libssl-dev && \
+ cargo install mdcat
+
+cd /tmp \
+  && wget https://github.com/cheat/cheat/releases/download/4.4.0/cheat-linux-amd64.gz \
+  && gunzip cheat-linux-amd64.gz \
+  && chmod +x cheat-linux-amd64 \
+  && sudo mv cheat-linux-amd64 /usr/local/bin/cheat
+  # symlink config and personal cheatsheets
+```
+```bash
+# Networking tools
 sudo apt-get install nmap nmapsi4 openssh-server wireshark  && \
  sudo usermod -aG wireshark username
 
-sudo apt install virtualbox virtualbox-ext-pack virtualbox-guest-additions-iso
-
-# Cheat...
+sudo apt install nftables traceroute whois
 ```
 
+```bash
+# Virtualization tools
+sudo apt install virtualbox virtualbox-ext-pack virtualbox-guest-additions-iso
+
+# TODO: KVM
+```
+
+<!--
+- New partititons
+
+```yaml
+Disks:
+Create unallocated 150GB: Pop_Steam_Games Ext4
+# Install AC6 unto it -- Create Application Shortcut
+```
+
+> Brave Extension: https://github.com/darkreader/darkreader
+ -->
+
+- Set up [powershell](https://learn.microsoft.com/en-us/powershell/scripting/install/install-ubuntu?view=powershell-7.3) & oh-my-posh
+
+```bash
+sudo apt-get update
+sudo apt-get install -y wget apt-transport-https software-properties-common
+
+# Download, register and delete the Microsoft repository GPG keys
+wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+
+sudo apt-get update
+sudo apt-get install -y powershell
+
+# $ pwsh
+```
+```bash
+# $ mkdir -p ~/.local/bin
+# $ export PATH=$PATH:$HOME/.local/bin
+curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin
+
+# ...
+```
 

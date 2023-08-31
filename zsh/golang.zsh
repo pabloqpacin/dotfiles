@@ -8,11 +8,14 @@
 #  && sudo tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz \
 #  && source ~/dotfiles/zsh/golang.zsh
 
-export PATH=$PATH:/usr/local/go/bin
 
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOPATH/bin
+
+if [[ ":$PATH:" != *":$GOBIN:"* ]]; then
+    export PATH=$PATH:$GOBIN
+    export PATH=$PATH:/usr/local/go/bin
+fi
 
 # $ mkdir -p $GOPATH/{bin,pkg,src}
 # $ mkdir -p $GOPATH/src/github.com/pabloqpacin

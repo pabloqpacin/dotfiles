@@ -1,3 +1,6 @@
+local OS = package.config:sub(1,1) == "\\" and "Windows" or "Linux"
+
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
@@ -11,7 +14,10 @@ vim.opt.wrap = false
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir" -- auto created OK
+if OS == "Linux" then
+    vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+else vim.opt.undodir = os.getenv("LOCALAPPDATA") .. "/nvim-data/undodir"
+end
 vim.opt.undofile = true
 
 vim.opt.hlsearch = false

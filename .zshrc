@@ -10,6 +10,7 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'"
 # Set $RANDOM_THEME -- mind Parrot & Termux
 if [[ $(cat /etc/os-release | awk -F= '/^NAME=/{ print $2 }' | tr -d '"') == "Parrot OS" ]]; then
   ZSH_THEME="parrot"
+  export PATH=$PATH:/sbin
 elif [[ $(uname -o) == "Android" ]]; then
   ZSH_THEME="kennethreitz"
   echo '\e[3 q'
@@ -20,8 +21,8 @@ fi
 ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "avit" "bureau"
   "clean" "daveverwer" "dpoggi" "eastwood" "fletcherm" "frontcube" "gallifrey"
   "gallois" "geoffgarside" "itchy" "josh" "kennethreitz" "kphoen" "macovsky"
-  "mh" "minimal" "muse" "nanotech" "nicoulaj" "peepcode" "refined" "risto"
-  "simple" "theunraveler" "tonotdo" "wedisagree" "wuffers" "zhann"
+  "mh" "minimal" "muse" "nanotech" "nicoulaj" "peepcode" "refined" "simple"
+  "theunraveler" "tonotdo" "wedisagree" "wuffers" "zhann"
 )
 # FORMER: 3den adben(fortune) apple arrow amuse awesomepanda candy-kingdom cloud
 # crunch cypher dallas dieter dogenpunk dst edvardm essembeh fishy flazz frisk fwalch
@@ -54,24 +55,25 @@ fi
 source $ZSH/oh-my-zsh.sh
 
 
-# Enable zoxide if exists
-if command -v zoxide &>/dev/null; then
-    eval "$(zoxide init zsh)"
-fi
-
-
 # NVM installation requirements -- auto-written after curl
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Enable zoxide if exists
+if command -v zoxide &>/dev/null; then
+    eval "$(zoxide init zsh)"
+fi
 
-# Python programs (ie. picopins)
-export PATH=$PATH:~/.local/bin
+# Python programs (ie. picopins), oh-my-posh
+if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+  export PATH=$PATH:$HOME/.local/bin
+fi
 
-# after curl Deno within WSL Ubuntu
-export PATH=$PATH:~/.deno/bin
-
+# Deno stuff -- peek.nvim
+if [[ ":$PATH:" != *":$HOME/.deno/bin:"* ]]; then
+  export PATH=$PATH:$HOME/.deno/bin
+fi
 
 # Browser for Debian WSL
 if [[ $WSL_DISTRO_NAME == "Debian" ]]; then
@@ -83,6 +85,5 @@ fi
 #     # sudo apt install ubuntu-wsl wslu
 #     export BROWSER=wslview
 # fi
-
 
 # Return pretty $PATH with: echo $PATH | tr ':' '\n'

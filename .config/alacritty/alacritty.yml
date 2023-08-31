@@ -1,5 +1,6 @@
 import:
   - ~/.config/alacritty/themes/campbell.yaml
+  # - ~/.config/alacritty/themes/blood_moon.yaml
 
 window:
   decorations: None
@@ -12,7 +13,7 @@ window:
   class:
     instance: Alacritty
     general: Alacritty
-  opacity: 0.70
+  opacity: 0.75
 
 scrolling:
   history: 20000
