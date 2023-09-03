@@ -1,52 +1,79 @@
 # dotfiles
 
-<!-- TODO
-
-- Tweak waybar >> https://github.com/hyper-dot/Arch-Hyprland
-  - Add screenshots
-- Dependencies
-  - ok as is?
- -->
-
-
 ## Screenshots 
+
+<details>
+<summary>Click to view</summary>
 
 > WIP
 
 <!--
-
 https://github.com/lauroro/hyprland-dotfiles
+https://github.com/hyper-dot/Arch-Hyprland
 https://github.com/gasech/hyprland-dots
+ -->
+<!--
+### Arch Hyprland
+### Arch32 i3
+### NixOS Hyprland
+### Pop!_OS
+- devilspie: codium
+![a](/img/screenshots/a)
 
-1. NixOS desktop: tiling & floating
-   1. neofetch
-   2. steam
-   3. codium
 
-2. PopOS
-   1. Neofetch
-   2. Codium
+#### alacritty
+#### btop
+#### bat
+#### **neovim**
+#### mako
+#### rofi
+#### waybar
+#### *zsh*
 
-x. Arch 32
-
+### Windows 11
+#### *powershell*
+#### windows terminal
+#### winget
  -->
 
 
-## *NIX environment
+</details>
+
+
+## Shell environment & Desktop utitilies
 
 - See the [docs](/docs/) for a **multiboot walkthrough** going over dependencies and tweaks
+
+### Shared
 
 | Component     | Software
 | :--           | :--
 | **Browser**   | Brave
 | **Passmgr**   | [KeePassXC](https://keepassxc.org/)
+| **Font**      | FiraCode Nerd Font
+| **Editor**    | code\|codium & nvim (LSPs + DAPs)
+| **Misc**      | bat bottom cheat exa fzf lf ripgrep tldr zoxide
+
+#### *NIX
+
+| Component     | Software
+| :--           | :--
 | **Shell**     | zsh + ohmyzsh
 | **Terminal**  | alacritty + tmux
-| **Font**      | FiraCode Nerd Font
 | **DE/WM**     | Cosmic & Hyprland
-| **Editor**    | codium & nvim (LSPs + DAPs)
-| **Misc**      | bat btop cheat exa fzf lf ripgrep tldr
 | **Hyprland**  | hypr mako rofi swaybg thunar waybar
+<!-- | **Tools**     | KVM -->
+
+#### Windows environment
+
+| Component     | Software
+| :--           | :--
+| **Pkgmgr**    | winget <!--& choco-->
+| **Edition**   | Home \| Pro N <!--something WSL-->
+| **Shell**     | pwsh + ohmyposh
+| **Terminal**  | Windows Terminal
+| **Tools**     | <!--cpu-z hwinfo--> powertoys sysinternals
+<!-- | **OS tools**  | ... -->
 
 
 ## Boxes setup

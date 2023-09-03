@@ -1,7 +1,7 @@
 # aguu='sudo apt update && sudo apt upgrade'
 # agi='sudo apt install'
 alias updeez='sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y'
-alias showpath="echo $PATH | tr ':' '\n'"
+showpath() { echo $PATH | tr ':' '\n' }
 
 alias fcl="fortune | cowsay -f dragon | lolcat"
 alias supdawg="echo 'not much wbu'"
@@ -65,6 +65,7 @@ alias HH="Hyprland"
 # # git restore --staged $1: unstage changes made to a file specified by $1.
 # # git restore $1: discard changes made to a file specified by $1.
 
-alias kpc='keepassxc-cli'
-
 alias nmapkenobi="nmap -p- -sS -sC -sV --open --min-rate 5000 -n -vvv -Pn"  # add IP
+alias cargo-update="cargo install-update -a"
+alias kpc='keepassxc-cli'
+alias dneo="neo -D"

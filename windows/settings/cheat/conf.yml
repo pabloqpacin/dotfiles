@@ -1,0 +1,17 @@
+# VANILLA:
+editor: notepad
+colorize: false
+style: monokai
+formatter: terminal256
+pager: more
+cheatpaths:
+  - $env:APPDATA\cheat\cheatsheets\community
+  - $env:APPDATA\cheat\cheatsheets\personal
+
+
+# TWEAKT
+editor: nvim
+colorize: true
+style: hrdark
+formatter: terminal256
+pager: less
