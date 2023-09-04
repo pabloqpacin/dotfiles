@@ -38,7 +38,9 @@ ZSH_CUSTOM="$HOME/dotfiles/zsh"
 
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
-plugins=(git nmap ubuntu)
+plugins=(git nmap ubuntu
+  zsh-autosuggestions zsh-syntax-highlighting
+)
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then

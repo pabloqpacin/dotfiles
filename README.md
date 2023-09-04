@@ -26,6 +26,7 @@ https://github.com/gasech/hyprland-dots
 #### bat
 #### **neovim**
 #### mako
+#### man
 #### rofi
 #### waybar
 #### *zsh*
@@ -44,36 +45,67 @@ https://github.com/gasech/hyprland-dots
 
 - See the [docs](/docs/) for a **multiboot walkthrough** going over dependencies and tweaks
 
-### Shared
-
-| Component     | Software
-| :--           | :--
-| **Browser**   | Brave
-| **Passmgr**   | [KeePassXC](https://keepassxc.org/)
-| **Font**      | FiraCode Nerd Font
-| **Editor**    | code\|codium & nvim (LSPs + DAPs)
-| **Misc**      | bat bottom cheat exa fzf lf ripgrep tldr zoxide
-
-#### *NIX
-
-| Component     | Software
-| :--           | :--
-| **Shell**     | zsh + ohmyzsh
-| **Terminal**  | alacritty + tmux
-| **DE/WM**     | Cosmic & Hyprland
-| **Hyprland**  | hypr mako rofi swaybg thunar waybar
-<!-- | **Tools**     | KVM -->
-
-#### Windows environment
-
-| Component     | Software
-| :--           | :--
-| **Pkgmgr**    | winget <!--& choco-->
-| **Edition**   | Home \| Pro N <!--something WSL-->
-| **Shell**     | pwsh + ohmyposh
-| **Terminal**  | Windows Terminal
-| **Tools**     | <!--cpu-z hwinfo--> powertoys sysinternals
-<!-- | **OS tools**  | ... -->
+<table>
+    <thead>
+        <tr>
+            <th><b>Component</b></th>
+            <th>Linux</th>
+            <th>Windows (<a href="https://github.com/microsoft/winget-cli">WinGet</a>)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><b>Browser</b></td>
+            <td colspan="2">Brave</td>
+        </tr>
+        <tr>
+            <td><b>Passmgr</b></td>
+            <td colspan=2><a href="https://keepassxc.org/">KeePassXC</a></td>
+        </tr>
+        <tr>
+            <td><b>Shell</b></td>
+            <td>zsh + ohmyzsh</td>
+            <td>pwsh + ohmyposh</td>
+        </tr>
+        <tr>
+            <td><b>Terminal</b></td>
+            <td>alacritty + tmux</td>
+            <td>Windows Terminal</td>
+        </tr>
+        <tr>
+            <td><b>Font</b></td>
+            <td colspan="2">FiraCode Nerd Font</td>
+        </tr>
+        <tr>
+        <tr>
+            <td><b>DE/WM</b></td>
+            <td>Cosmic & Hyprland</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><b>Hyprland</b></td>
+            <td>hypr mako rofi swaybg thunar waybar</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><b>Editor</b></td>
+            <td colspan="2">vscode | codium & neovim (LSPs + DAPs)</td>
+        </tr>
+        <tr>
+            <td><b>Shell Misc</b></td>
+            <td colspan="2">bat bottom cheat exa fzf lf ripgrep tldr zoxide</td>
+        </tr>
+        <tr>
+            <td><b>Other Misc</b></td>
+            <td>flameshot nmapsi4</td>
+            <td>sysinternals powertoys</td>
+        </tr>
+        <!-- <tr>
+            <td><b>More Misc</b></td>
+            <td colspan="2">Wireshark -- KVM Hyper-V</td>
+        </tr> -->
+    </tbody>
+</table>
 
 
 ## Boxes setup

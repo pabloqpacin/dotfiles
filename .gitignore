@@ -15,3 +15,7 @@ private/
 
 # Hypr
 *vanilla*
+
+# Zsh repos
+zsh/plugins/*
+

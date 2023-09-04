@@ -48,8 +48,9 @@ function cheet ($sheet) {
   cheat $sheet | bat -p -l sh
 }
 
+
 ########## env. vars
-$NVIM = "$env:HOMEPATH\dotfiles\.config\nvim"   # $NVIM = "$env:LocalAppData\nvim"
+$NVIM = "$env:HOMEPATH\dotfiles\.config\nvim"       # $NVIM = "$env:LocalAppData\nvim"
 $isAdmin = ([System.Security.Principal.WindowsPrincipal] [System.Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
   if ($isAdmin) { Write-Host "Running with Administrator privileges" }
 
@@ -57,7 +58,8 @@ $isAdmin = ([System.Security.Principal.WindowsPrincipal] [System.Security.Princi
 ########## env. paths
 $pathsToAdd = @(
   "$env:LocalAppData\Microsoft\WinGet\Packages",
-  "$env:ProgramFiles\Neovim\bin"
+  "$env:ProgramFiles\Neovim\bin",
+  "$env:ProgramFiles\Wireshark"
 )
 
 foreach ($path in $pathsToAdd) {

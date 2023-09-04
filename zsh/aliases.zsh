@@ -69,3 +69,6 @@ alias nmapkenobi="nmap -p- -sS -sC -sV --open --min-rate 5000 -n -vvv -Pn"  # ad
 alias cargo-update="cargo install-update -a"
 alias kpc='keepassxc-cli'
 alias dneo="neo -D"
+
+bindkey -s '\e^E' "source ~/dotfiles/scripts/zsh-toggle_plugs.sh\n"
+  # Toggle autosuggestions & syntax highlighting with Ctrl+Alt+E

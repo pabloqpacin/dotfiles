@@ -22,3 +22,6 @@
     conflictstyle = diff3
 [diff]
     colorMoved = default
+
+[safe]
+    directory = C:/Users/Pablo/dotfiles
