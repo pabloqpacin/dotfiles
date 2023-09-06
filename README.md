@@ -5,6 +5,8 @@
 <details>
 <summary>Click to view</summary>
 
+<br>
+
 > WIP
 
 <!--
@@ -45,12 +47,13 @@ https://github.com/gasech/hyprland-dots
 
 - See the [docs](/docs/) for a **multiboot walkthrough** going over dependencies and tweaks
 
+
 <table>
     <thead>
         <tr>
-            <th><b>Component</b></th>
+            <th>Component</th>
             <th>Linux</th>
-            <th>Windows (<a href="https://github.com/microsoft/winget-cli">WinGet</a>)</th>
+            <th>Windows (<a style="font-weight:normal" href="https://github.com/microsoft/winget-cli">WinGet</a>)</th>
         </tr>
     </thead>
     <tbody>

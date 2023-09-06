@@ -1,11 +1,12 @@
 ########## NOTES
 # - This script should be run after tweaking WinGet and installing PowerShell v7
 # - Github SSH authentication isn't meant for VMs
-# - TODO: Terminal settings, cheat
+# - TODO: Terminal settings, cheat, [lf](https://pkg.go.dev/github.com/gokcehan/lf)
 
 <#
   - curl https://raw.githubusercontent.com/pabloqpacin/dotfiles/main/windows/scripts/SW_install-symlink.ps1 --output self.ps1
   - .\self.ps1
+  - rm self.ps1
 #>
 
 
@@ -34,7 +35,7 @@ Non-admin session detected. Consider running PWSH as admin to avoid confirmation
 and to ensure symlinks are applied and fonts are installed. Continue? (Y/N)" }
         while ($userInput -ne "Y" -and $userInput -ne "N")
     if ($userInput -eq "N") { exit 0 }
-}
+};  $userInput = $null
 
 
 ########## Basics and dotfiles repo + symlink .gitconfig & $PROFILE
@@ -50,6 +51,7 @@ do { $userInput = Read-Host "Do you want to install 'VSCode', 'VSCodium', 'both'
 if ($userInput -eq "vscode") { winget install Microsoft.VisualStudioCode --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders"' }
     elseif ($userInput -eq "vscodium") { winget install VSCodium }
     elseif ($userInput -eq "both") { winget install VSCodium; winget install Microsoft.VisualStudioCode --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders"' }
+    $userInput = $null
 
     reloadPath
 
@@ -62,7 +64,7 @@ if ($userInput -eq "Y") {
 } else {
     Write-Host "Cloning dotfiles via HTTPS. You won't be able to push changes."
     git clone https://github.com/pabloqpacin/dotfiles.git "$env:HOMEPATH\dotfiles"
-}
+};  $userInput = $null
 
 New-Item -ItemType SymbolicLink -Target "$env:HOMEPATH\dotfiles\.gitconfig" -Path "$env:HOMEPATH\.gitconfig"
 
@@ -72,9 +74,13 @@ New-Item -ItemType SymbolicLink -Target "$env:HOMEPATH\dotfiles\windows\Microsof
 
 
 ########## Custom Shell Environment
-winget install jftuga.less sharkdp.bat clement.bottom dandavison.delta fzf gitui 'ripgrep gnu' tldr zoxide
+winget install jftuga.less sharkdp.bat clement.bottom dandavison.delta `
+               fzf golang.go gitui gokcehan.lf 'ripgrep gnu' tldr zoxide
 
     reloadPath
+
+go install github.com/cheat/cheat/cmd/cheat@latest
+    # cheat -y; cat $env:HOMEPATH\dotfiles\.config\cheat\conf.yaml; nvim $env:APPDATA\cheat\conf.yaml
 
 zoxide add dotfiles
 # tealdeer-windows-x86_64-msvc.exe --update     # Error: invalid peer certificate: UnknownIssuer
@@ -82,24 +88,18 @@ New-Item -ItemType SymbolicLink -Target "$env:HOMEPATH\dotfiles\.config\bat" -Pa
 New-Item -ItemType SymbolicLink -Target "$env:HOMEPATH\dotfiles\.config\gitui" -Path "$env:APPDATA\gitui"
 New-Item -ItemType SymbolicLink -Target "$env:HOMEPATH\dotfiles\.config\bottom" -Path "$env:APPDATA\bottom"
 
-Write-Host "Almost there. Installing Golang, then installing 'lf' and 'cheat'. Terminal might get cluttery."
-cd $env:HOMEPATH; .\dotfiles\windows\scripts\golang_install.ps1
-
-    reloadPath
-
-$env:CGO_ENABLED = '0'
-go install -ldflags="-s -w" github.com/gokcehan/lf@latest
-
-go install github.com/cheat/cheat/cmd/cheat@latest
-# cat $env:HOMEPATH\dotfiles\.config\cheat\conf.yaml; nvim $env:APPDATA\cheat\conf.yaml
-
-Write-Host "Installing 'FiraCode Nerd Font'"
-cd $env:HOMEPATH; .\dotfiles\windows\scripts\nerdfont_install.ps1
+do { $userInput = Read-Host "`nAlmost there. Install 'FiraCode Nerd Font'? (Y/N)" }
+    while ($userInput -ne "Y" -and $userInput -ne "N")
+if ($userInput -eq "Y") { cd $env:HOMEPATH; .\dotfiles\windows\scripts\nerdfont_install.ps1 }
+    $userInput = $null
 
 
-########## Neovim
-# winget install Neovim.Neovim.Nightly        # "Installer hash does not match"
-    # ... WIP
+do { $userInput = Read-Host "`nLast thing. Set up Neovim? (Y/N)" }
+    while ($userInput -ne "Y" -and $userInput -ne "N")
+
+if ($userInput -eq "Y") {
+    Start-Process -FilePath "pwsh" -ArgumentList "$env:HOMEPATH\dotfiles\windows\scripts\neovim_setup.ps1" -Wait
+} else { Write-Host "You can find the Neovim setup script at '$env:HOMEPATH\dotfiles\windows\scripts\neovim_setup.ps1'." }
 
 
 ########## Wrap-up

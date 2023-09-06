@@ -19,3 +19,5 @@ private/
 # Zsh repos
 zsh/plugins/*
 
+# Fortunes -- https://github.com/shlomif/fortune-mod/tree/master/fortune-mod/datfiles
+docs/fortunes/*

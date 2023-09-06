@@ -26,7 +26,7 @@ function glols { git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s 
 function showPath { $env:PATH -replace ';', "`n" }
 function showEnv { Get-ChildItem Env: | ForEach-Object { $_.Name } }
 function showHist { bat -l ps1 (Get-PSReadlineOption).HistorySavePath }
-function showTLDR { ls $env:LocalAppData\tealdeer\tealdeer\tldr-pages\pages\windows | bat -l log }
+function showTLDR { ls $env:LOCALAPPDATA\tealdeer\tealdeer\tldr-pages\pages\windows | bat -l log }
 
 function reloadPath {
   $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH","MACHINE") + ";" + [System.Environment]::GetEnvironmentVariable("PATH","USER")
@@ -48,18 +48,28 @@ function cheet ($sheet) {
   cheat $sheet | bat -p -l sh
 }
 
+function ff {         # pip install fortune; .\dotfiles\windows\scripts\fortunes_curl.ps1
+  $fortune_file = Get-ChildItem -Path "$env:HOMEPATH\dotfiles\docs\fortunes" | Get-Random
+  Write-Host "[$($fortune_file.Name)]"
+  fortune $fortune_file.FullName
+}
+
 
 ########## env. vars
-$NVIM = "$env:HOMEPATH\dotfiles\.config\nvim"       # $NVIM = "$env:LocalAppData\nvim"
+$NVIM = "$env:HOMEPATH\dotfiles\.config\nvim"       # $NVIM = "$env:LOCALAPPDATA\nvim"
+$fixThemes =  "$env:HOMEPATH\dotfiles\windows\scripts\omp_NOPE.ps1"
 $isAdmin = ([System.Security.Principal.WindowsPrincipal] [System.Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
   if ($isAdmin) { Write-Host "Running with Administrator privileges" }
 
 
 ########## env. paths
 $pathsToAdd = @(
-  "$env:LocalAppData\Microsoft\WinGet\Packages",
-  "$env:ProgramFiles\Neovim\bin",
-  "$env:ProgramFiles\Wireshark"
+  "$env:LOCALAPPDATA\Microsoft\WinGet\Packages",
+  # "$env:LOCALAPPDATA\Microsoft\WinGet\Links",     # https://github.com/ziglang/zig/issues/16670
+  "$env:PROGRAMFILES\Neovim\bin",
+  "$env:PROGRAMFILES\Wireshark",
+  # "$env:LOCALAPPDATA\cheat",                      # if script but using GO atm
+  "$env:SYSTEMDRIVE\msys64\mingw64\bin"
 )
 
 foreach ($path in $pathsToAdd) {
@@ -79,7 +89,7 @@ if (Test-Path($ChocolateyProfile)) {
 ########## oh-my-posh
 $random_Theme = ""
 $randomThemeCandidates=@(
-#  'blueish', 'catppuccin_macchiato', 'craver',
+#  'blueish', 'bubblesextra', 'catppuccin_macchiato', 'craver',
 #  'huvix', 'kali', 'microverse-power', 'negligible', 'nu4a',
 #  'pararussel', 'patriksvensson', 'peru', 'poshmon',
 #  'powerlevel10k_lean', 'powerlevel10k_rainbow', 'powerline',

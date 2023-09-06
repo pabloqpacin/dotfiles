@@ -187,7 +187,7 @@ tldr --update
 
 # Them Rust packages
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh      # default
-cargo install bat exa fd-find git-delta zoxide
+cargo install bat bottom exa fd-find git-delta gitui zoxide
     # https://github.com/rust-lang/cargo/issues/2729
 
 # Set up SSH auth for Github
@@ -212,6 +212,10 @@ ln -s ~/dotfiles/.config/alacritty ~/.config
 ln -s ~/dotfiles/.config/lf ~/.config
 ln -s ~/dotfiles/.config/tmux ~/.config
 ln -s ~/dotfiles/.config/nvim ~/.config
+
+# Install zsh plugins
+git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git $HOME/dotfiles/zsh/plugins/zsh-autosuggestions
+git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/dotfiles/zsh/plugins/zsh-syntax-highlighting
 ```
 
 ```bash
@@ -260,7 +264,7 @@ cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua
 # Desktop apps
 Pop Shop:
   - Spotify: flatpak
-  - Discord: deb pkg
+  - Discord: flatpak
   - Steam: deb pkg    # Proton 8
 ```
 
@@ -286,10 +290,19 @@ cd /tmp \
   && chmod +x cheat-linux-amd64 \
   && sudo mv cheat-linux-amd64 /usr/local/bin/cheat
   # symlink config and personal cheatsheets
+
+git clone https://github.com/st3w/neo
+cd neo && sudo apt update
+sudo apt install autoconf build-essential libncurses-dev \
+ && ./autogen.sh \
+ && ./configure \
+ && make \
+ && sudo make install
+cd .. && rm -rf neo
 ```
 ```bash
 # Networking tools
-sudo apt-get install nmap nmapsi4 openssh-server wireshark  && \
+sudo apt-get install nmap nmapsi4 openssh-server wireshark tshark  && \
  sudo usermod -aG wireshark username
 
 sudo apt install nftables traceroute whois
@@ -310,17 +323,15 @@ Disks:
 Create unallocated 150GB: Pop_Steam_Games Ext4
 # Install AC6 unto it -- Create Application Shortcut
 ```
-
-> Brave Extension: https://github.com/darkreader/darkreader
  -->
 
-- Set up [powershell](https://learn.microsoft.com/en-us/powershell/scripting/install/install-ubuntu?view=powershell-7.3) & oh-my-posh
 
 ```bash
+# Install PowerShell -- https://learn.microsoft.com/en-us/powershell/scripting/install/install-ubuntu?view=powershell-7.3
 sudo apt-get update
 sudo apt-get install -y wget apt-transport-https software-properties-common
 
-# Download, register and delete the Microsoft repository GPG keys
+  # Download, register and delete the Microsoft repository GPG keys
 wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
 sudo dpkg -i packages-microsoft-prod.deb
 rm packages-microsoft-prod.deb
@@ -328,13 +339,13 @@ rm packages-microsoft-prod.deb
 sudo apt-get update
 sudo apt-get install -y powershell
 
-# $ pwsh
-```
-```bash
-# $ mkdir -p ~/.local/bin
-# $ export PATH=$PATH:$HOME/.local/bin
-curl -s https://ohmyposh.dev/install.sh | bash -s -- -d ~/.local/bin
+pwsh
 
-# ...
-```
 
+# Install oh-my-posh prompt & symlink config
+mkdir -p $HOME/.local/bin
+curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin
+
+ln -s ~/dotfiles/.config/powershell ~/.config
+# $ mkdir $HOME/.cache/oh-my-posh/themes/NOPE   -- mv NOPE themes
+```

@@ -1,0 +1,24 @@
+# Script variables
+$CHEAT = "$env:LOCALAPPDATA\cheat"
+$pkg = "cheat-windows-amd64.exe"
+$pkgURL = "https://github.com/cheat/cheat/releases/download/4.4.0/$pkg.zip"
+
+
+# Check for cheat.exe & download if applicable
+if (Test-Path -Path $CHEAT\cheat.exe) {
+    Write-Host "Cheat executable already exists. Script terminated."
+    Get-ChildItem $CHEAT\cheat.exe; exit 0
+} else {
+    Invoke-WebRequest -URI $pkgURL -OutFile "$env:TEMP\$pkg.zip"
+}
+
+# Extract cheat.exe.zip & add it to PATH location
+Expand-Archive -Path "$env:TEMP\$pkg.zip" -DestinationPath $CHEAT
+Rename-Item -Path $CHEAT\$pkg -NewName "$CHEAT\cheat.exe"
+
+    # Ensure $PROFILE adds "$env:LOCALAPPDATA\cheat" to PATH
+    reloadPath
+
+Write-Host "Say YES to all"
+cheat
+# TODO: tweak & symlink config

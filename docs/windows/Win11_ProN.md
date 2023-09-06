@@ -6,13 +6,16 @@
   - [post-install config](#post-install-config)
     - [Windows Desktop](#windows-desktop)
     - [Basic Environment](#basic-environment)
-    - [Shell Environment](#shell-environment)
+    - [Proper Environment](#proper-environment)
+      - [WSL](#wsl)
+      - [Docker](#docker)
+      - [Hyper-V / VirtualBox](#hyper-v--virtualbox)
 
 
 > - **NOTE 1:** `winget`-heavy approach
 > - **NOTE 2:** ditching Home for the Pro N edition
 > - **NOTE 3:** Home won't allow for Sandbox or Hyper-V
-> - **NOTE 4:** VirtualBox VMs don't allow for WSL|Docker apparently
+> - **NOTE 4:** VirtualBox VMs apparently don't allow for WSL|Docker
 > - **NOTE 5:** Accounts --> offline anon for VMs, licenced personal for bare-metal
 > - **NOTE 6:** getting to grips with the PowerShell environment -- even on my [Pop!_OS](/docs/linux/Pop!_OS.md) box
 
@@ -26,6 +29,8 @@
 
 
 ## live-installation
+
+<details>
 
 - VM settings
 
@@ -52,7 +57,7 @@ Enable PAE/NX: yes
 
 ```yaml
 # Set: Lang Locale Keyboard
-Activate Windows: I don't have a product key
+Activate Windows: "I don't have a product key"
 Operating System: Windows 11 Pro N                          # Home OK
 Type of installation: Customised
   # Drive X: HDD for backups
@@ -105,11 +110,15 @@ File Explorer: .\VBoxWindowsAdditions-amd64.exe   # C:\Program Files\Oracle\Virt
 # ...
 ``` -->
 
+</details>
+
 
 ## post-install config
 
 
 ### Windows Desktop
+
+<details>
 
 - Tweak them settings & system update (GUI)
 
@@ -182,13 +191,12 @@ installer: NVIDIA Graphics Driver and GeForce Experience
     # NVIDIA Login :: Google account
 ```
 
+</details>
+
 
 ### Basic Environment
 
-<!-- - PowerShell 101: [WinGet](/windows/settings/WinGet/settings.jsonc), dotfiles, [$PROFILE](/windows/Microsoft.PowerShell_profile.ps1), shell & system packages -->
-
-
-- Tweak WinGet & install PowerShell 7
+- Tweak WinGet, install PowerShell 7
 
 ```powershell
 $PSVersionTable             # PSVersion: 5.1
@@ -196,7 +204,7 @@ $PROFILE                  # C:\Users\User(\OneDrive)\Documents\WindowsPowerShell
 
 winget --info; winget settings
 
-<#  // notepad.exe $env:LocalAppData\Packages\Microsoft.DesktopAppInstaller_...\settings.json
+<#  // notepad.exe $env:LOCALAPPDATA\Packages\Microsoft.DesktopAppInstaller_...\settings.json
   "telemetry": { "disable": true },
   "network": { "downloader": "wininet" },
   "visual": { "progressBar": "rainbow" }
@@ -219,182 +227,90 @@ $PROFILE | Select-Object *      # ...
 #>
 
 winget list; winget update
-winget upgrade --all
 ```
 
-- Install Brave, clone them dotfiles, tweak VSCode & Windows Terminal
-
-<!--
-(exe|msi): Add Open with Code action to Windows Explorer menu 
-# todo: ~~git~~ + GH auth + ~~dotfiles~~
-# $ winget install neofetch
-
-
-# $ winget install devcom.lua
-# $ winget install gnuwin32.tree -- DON'T!!!
-# https://mark0.net/soft-trid-e.html << file command... sec vul
-winget show exiftool
-
-libre office
- -->
-
+- Github SSH auth & installation script -- run `pwsh` as administrator
 
 ```powershell
-winget install Microsoft.VCRedist.2015+.x64
-winget install VSCode Brave.Brave
-winget install Git.Git
+# Set up SSH auth for Github
+ssh-keygen -t ed25519 -C "my@email.com"     # skip
+cat ~/.ssh/id_25519.pub
+  # github.com > profile settings > add New SSH
+ssh -T git@github.com                    # yes
 
-git clone https://github.com/pabloqpacin/dotfiles "$env:HOMEPATH\dotfiles"
-
-New-Item -ItemType SymbolicLink -Target "$env:HOMEPATH\dotfiles\.gitconfig" -Path "$env:HOMEPATH\.gitconfig"
-New-Item -ItemType SymbolicLink -Target "$env:HOMEPATH\dotfiles\.config\powershell\Microsoft.PowerShell_profile.ps1" -Path "$PROFILE"   # VERIFY
-
-<#
-  - Download, extract and install a NerdFont -- https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraCode.zip
-  - Install VSCode extensions as needed -- https://github.com/pabloqpacin/dotfiles/blob/main/.config/code/User/extensions.log
-#>
-```
-<details>
-
-```jsonc
-// VSCode|VSCodium settings -- tweak as needed
-
-{
-    "telemetry.telemetryLevel": "crash",
-    "explorer.confirmDragAndDrop": false,
-    "explorer.confirmDelete": false,
-    "workbench.startupEditor": "none",
-    "editor.fontFamily": "FiraCode Nerd Font",
-    // "terminal.integrated.fontSize": 13,
-    // "editor.fontSize": 13,
-    "editor.rulers": [
-      80, 115       
-    ],
-    "window.zoomLevel": -0.5,
-    "workbench.iconTheme": "vscode-icons",
-    "workbench.colorTheme": "One Dark Pro Darker",
-    "vsicons.dontShowNewVersionMessage": true
-} 
+# Curl and run big time script
+curl https://raw.githubusercontent.com/pabloqpacin/dotfiles/main/windows/scripts/SW_install-symlink.ps1 --output self.ps1
+.\self.ps1;   # rm self.ps1
 ```
 
-```jsonc
-// Windows Terminal settings -- WSL is dealt with later on
+- Tweak Brave, Terminal & VSCode
+  - **Terminal**: tweak [settings.json](/windows/settings/Terminal/settings.jsonc)
+  - **VSCode**: tweak [settings.json](/.config/code/User/settings.jsonc) and install the relevant [extensions](/.config/code/User/extensions.log)
+  - **Brave**: enable the '*Dark Reader*' and '*KeePassXC*' extensions
 
-{
-  // "actions": [ <tmux-like vim-motions> ],
-  "defaultProfile": "<pwsh>",
-  "launchMode": "maximized",
-  "profiles":
-  {
-    "list":
-    [
-      {
-        "font": { "size": 10.0, "face": "FiraCode Nerd Font" },
-        "name": "PowerShell",
-        "opacity": 80
-      },
-      { "name": "Azure Cloud Shell" },
-      { "name": "Command Prompt" },
-      { "name": "Windows PowerShell", "hidden": true },
-      /* WSL
-          - Debian
-          - openSUSE-Tumbleweed
-          - Ubuntu
-          - Kali
-          - ... Arch?
-          - ... Nix?
-      */
-    ]
-  },
-  // "schemes": [ ... ]
-  // "themes": [ ... ]
-    "useAcrylicInTabRow": true
-}
+
+### Proper Environment
+
+- Tweak Taskbar for proper keybinds (`Win+number`)
+
+```yaml
+Taskbar:
+  1: Terminal
+  2: Brave
+  3: Code
+  4: ...
 ```
 
-</details>
-
-
-### Shell Environment
-
-- Basic cross-platform utitilies
+- Complete setup post-scripts
 
 ```powershell
-winget install fzf zoxide
-winget install 'ripgrep gnu'
-winget install dandavison.delta
-winget install sharkdp.bat jftuga.less
-
-mkdir $env:AppData\bat
-echo '--theme="OneHalfDark"' >> $env:AppData\bat\config
-
-winget install tldr
+# Verify TLDR and Neovim
 tldr --update
+nvim $PROFILE
+
+# Python & fortunes
+python -m pip list
+python -m pip install --upgrade pip
+pip install fortune
+  # cd $env:HOMEPATH\dotfiles; .\windows\scripts\fortunes_curl.ps1
+  # curl https://raw.githubusercontent.com/bmc/fortunes/master/fortunes --output $HOMEPATH\dotfiles\docs\fortunes\fortunes_bmc
+
+# Chocolatey
+  # Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+    # choco install mingw -y
+
+# Misc packages
+winget install keepassxc `
+               nmap npcap wireshark `
+               autohotkey.autohotkey `
+               cpuid.cpu-z realix.hwinfo
+
+# Sysinternals & Powertoys
+winget install 9P7KNL5RWT25 --source msstore          # Sysinternals Suite
+winget install Microsoft.Powertoys --source winget      # tweak 'Run at startup' -- see 'TaskScheduler'/logon
+
 ```
-- Neovim setup -- prep Chocolatey
 
-```powershell
-winget install Neovim.Neovim.Nightly
-git clone https://github.com/wbthomason/packer.nvim "$env:LocalAppData\nvim-data\site\pack\packer\start\packer.nvim"
-
-winget install 'nvm for windows'
-nvm install node
-nvm use <20.5.1>
-
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-choco install mingw -y
-
-New-Item -ItemType SymbolicLink -Target "$env:HOMEPATH\dotfiles\.config\nvim" -Path "$env:LocalAppData\nvim"
-cd $env:LOCALAPPDATA\nvim; nvim lua\pabloqpacin\packer.lua
-  # :so :PackerSync :MasonUpdate
-```
-
-<!-- - Set up oh-my-posh
-
-```powershell
-# TODO
-``` -->
-
-<!-- BUILD lf LOL
-$env:CGO_ENABLED = '0'
-go install -ldflags="-s -w" github.com/gokcehan/lf@latest -->
+#### WSL
+#### Docker
+#### Hyper-V / VirtualBox
 
 <!-- 
-# $ choco install python vscode git WSL2 openssh openvpn
-# winget install llvm clangd
+# $ choco install WSL2 openssh openvpn
+# $ winget install imhex SleuthKit.Autopsy
+# $ winget install neo-cowsay neofetch devcom.lua gnuwin32.tree(NOPE) exiftool libreoffice
+# https://mark0.net/soft-trid-e.html << file command... sec vul
 
-# keepassxc cli??
+
  -->
 
-- Proper workstation
-
-```powershell
-# winget install imhex
-winget install KeePassXC
-winget install npcap wireshark
-# winget install SleuthKit.Autopsy
-winget install CPUID.CPU-Z REALiX.HWiNFO
-winget install 9P7KNL5RWT25 --source msstore          # Sysinternals Suite
-winget install Microsoft.Powertoys --source winget    # tweak 'Run at startup' -- see 'TaskScheduler'/logon
-```
-
 <!-- 
----
-
-
-### Pro Environment
-
-- aye: wsl docker hyper-v sandbox -->
-
-<!--
-
-
-
 - TODO: virtualbox
 
-```powershell
-winget install Oracle.VirtualBox --source winget
-```
+$ winget install Oracle.VirtualBox --source winget
+
+Pro Environment
+- aye: wsl docker hyper-v sandbox
 
 - TODO: WSL 'Docker Desktop'
 
@@ -464,5 +380,5 @@ Add shortcut to desktop: no
 
 # ... Restart
 ```
-
+-->
 
