@@ -1,0 +1,6 @@
+# Create and push new branch
+git checkout -b new-branch
+git push origin new-branch
+
+# Git rename
+git mv OLD-FILENAME NEW-FILENAME

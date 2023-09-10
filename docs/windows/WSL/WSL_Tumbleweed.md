@@ -15,7 +15,7 @@ sudo zypper refresh && \
 
 # Important packages
 sudo zypper install cmake gcc-c++ git
-sudo zypper install bat exa fzf git-delta neofetch neovim ripgrep
+sudo zypper install bat exa fzf git-delta neofetch neovim ripgrep tldr tmux zoxide
 ```
 
 - Now CUSTOM ENVIRONMENT

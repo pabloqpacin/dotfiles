@@ -1,0 +1,38 @@
+> WIP
+
+script to clear $env:TEMP
+
+<#
+Configuring the frequency of removing files from the %TEMP% directory in Windows involves adjusting the system's built-in settings or using scripts or tools to automate the process. Here's how you can do it:
+
+Option 1: Configure via Disk Cleanup:
+
+Press the Windows + R keys to open the Run dialog.
+Type cleanmgr and press Enter. This will open the Disk Cleanup utility.
+Select the drive where Windows is installed (usually C:) and click OK.
+Disk Cleanup will analyze the drive and present you with a list of files to delete.
+Scroll down and select "Temporary files."
+Click OK and then confirm the deletion.
+Keep in mind that Disk Cleanup provides a manual way to remove temporary files and doesn't have a built-in scheduling feature.
+
+Option 2: Use Task Scheduler:
+
+You can create a scheduled task to run a script or command that cleans up the %TEMP% directory at a specific interval.
+
+Press Windows + S and search for "Task Scheduler." Open it.
+In the right-hand Actions pane, click "Create Basic Task."
+Follow the wizard to set the task's name, description, and schedule (daily, weekly, etc.).
+Select "Start a Program" when asked for the action to perform.
+Browse for the script or command that deletes files in the %TEMP% directory. A common command is del /F /Q %TEMP%\*.*.
+Complete the wizard and save the task.
+Option 3: Use Third-Party Tools:
+
+There are third-party tools and scripts available that can help you automate the cleanup of temporary files. Some tools, like CCleaner, provide more advanced options for managing temporary files.
+
+Before making any changes to your system's cleanup processes, be cautious and ensure that you're not deleting essential files. While cleaning up temporary files can free up disk space, deleting the wrong files can lead to issues.
+
+Remember that Windows does have some built-in mechanisms for managing temporary files, and excessive cleaning might not be necessary for most users. It's a good idea to regularly review your system's disk space and take action as needed.
+
+
+#>
+

@@ -1,6 +1,6 @@
 import:
-  - ~/.config/alacritty/themes/campbell.yaml
-  # - ~/.config/alacritty/themes/blood_moon.yaml
+  - /home/pabloqpacin/.config/alacritty/themes/campbell.yaml
+  # GOOD: blood_moon cambpell github_dark_colorblind midnight-haze monokai_charcoal rose-pine tokyo-night-storm
 
 window:
   decorations: None

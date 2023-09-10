@@ -1,0 +1,77 @@
+> WIP
+
+<#
+    - https://xkln.net/blog/powershell-module-deployment/
+    - https://stackoverflow.com/questions/5103211/when-to-choose-development-of-a-powershell-module-over-powershell-script
+    - https://learn.microsoft.com/en-us/powershell/scripting/developer/module/understanding-a-windows-powershell-module?view=powershell-7.3
+#>
+
+
+function Invoke-HistoryFilter {
+    param(
+        [string]$filter
+    )
+
+    $filteredHistory = Get-History | Where-Object { $_.CommandLine -like "$filter*" }
+
+    if ($filteredHistory.Count -eq 0) {
+        return
+    }
+
+    $selectedIndex = 0
+    $selectedHistory = $filteredHistory[$selectedIndex]
+    $originalInput = $selectedHistory.CommandLine
+
+    while ($true) {
+        $key = $host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown').Character
+
+        if ($key -eq [char]::Enter) {
+            Write-Host ""
+            return $selectedHistory.CommandLine
+        }
+
+        if ($key -eq [char]::UpArrow) {
+            if ($selectedIndex -gt 0) {
+                $selectedIndex--
+                $selectedHistory = $filteredHistory[$selectedIndex]
+                Write-Host -NoNewline ("`r" + (" " * $originalInput.Length))
+                Write-Host -NoNewline ("`r" + $selectedHistory.CommandLine)
+            }
+        }
+
+        if ($key -eq [char]::DownArrow) {
+            if ($selectedIndex -lt ($filteredHistory.Count - 1)) {
+                $selectedIndex++
+                $selectedHistory = $filteredHistory[$selectedIndex]
+                Write-Host -NoNewline ("`r" + (" " * $originalInput.Length))
+                Write-Host -NoNewline ("`r" + $selectedHistory.CommandLine)
+            }
+        }
+    }
+}
+
+##############3
+
+# TODO: Have Get-Help open with bat -l man...
+
+###############3
+
+function Get-Tree {
+    param (
+        [string]$Path = (Get-Location),
+        [int]$Indent = 0
+    )
+    
+    $items = Get-ChildItem -Path $Path
+    
+    foreach ($item in $items) {
+        $indentation = ' ' * $Indent
+        Write-Output "$indentation$item"
+        
+        if ($item.PSIsContainer) {
+            Get-Tree -Path $item.FullName -Indent ($Indent + 2)
+        }
+    }
+}
+
+Get-Tree

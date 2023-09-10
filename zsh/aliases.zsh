@@ -67,8 +67,12 @@ alias HH="Hyprland"
 
 alias nmapkenobi="nmap -p- -sS -sC -sV --open --min-rate 5000 -n -vvv -Pn"  # add IP
 alias cargo-update="cargo install-update -a"
+alias fup='flatpak update'
 alias kpc='keepassxc-cli'
 alias dneo="neo -D"
 
+# Toggle autosuggestions & syntax highlighting with Ctrl+Alt+E
 bindkey -s '\e^E' "source ~/dotfiles/scripts/zsh-toggle_plugs.sh\n"
-  # Toggle autosuggestions & syntax highlighting with Ctrl+Alt+E
+
+# Change alacritty theme
+bindkey -s '\e^A' "source ~/dotfiles/scripts/alacritty-random_theme.sh\n"

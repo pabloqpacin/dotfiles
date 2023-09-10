@@ -68,6 +68,7 @@ if ($userInput -eq "Y") {
 
 New-Item -ItemType SymbolicLink -Target "$env:HOMEPATH\dotfiles\.gitconfig" -Path "$env:HOMEPATH\.gitconfig"
 
+# TODO: OneDrive CHECK
 if (-not (Test-Path -Path $env:HOMEPATH\Documents\PowerShell -PathType Container)) {
     New-Item -Path $env:HOMEPATH\Documents\PowerShell -ItemType Directory }     # https://www.faqforge.com/powershell/create-directory-with-powershell
 New-Item -ItemType SymbolicLink -Target "$env:HOMEPATH\dotfiles\windows\Microsoft.PowerShell_profile.ps1" -Path "$env:HOMEPATH\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"

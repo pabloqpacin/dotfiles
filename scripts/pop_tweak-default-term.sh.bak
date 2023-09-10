@@ -1,0 +1,9 @@
+#!/bin/sh
+
+file=/usr/share/applications/org.gnome.Terminal.desktop
+    # WRONG FILE
+
+bat -P $file || cat $file
+#sed -i 's/^Exec/'
+sudo sed -i '/Exec/s/gnome-terminal/alacritty/' $file
+bat -P $file || cat $file

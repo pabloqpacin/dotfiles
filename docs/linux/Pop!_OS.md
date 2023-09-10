@@ -88,6 +88,8 @@ sudo apt update -y \
   && sudo apt autoremove -y \
   && sudo apt autoclean -y
 
+# $ sudo update-alternatives --config x-terminal-emulator
+
 echo 'APT::Get::Show-Versions "true";' | sudo tee /etc/apt/apt.conf.d/99show-versions
   # $ sudo apt upgrade -V
 
@@ -302,8 +304,11 @@ cd .. && rm -rf neo
 ```
 ```bash
 # Networking tools
-sudo apt-get install nmap nmapsi4 openssh-server wireshark tshark  && \
+sudo apt-get install ipcalc nmap nmapsi4 openssh-server wireshark tshark  && \
  sudo usermod -aG wireshark username
+
+# https://wiki.safing.io/en/Portmaster/Install/Linux
+curl -fsSL https://updates.safing.io/latest/linux_all/packages/install.sh | sudo bash
 
 sudo apt install nftables traceroute whois
 ```

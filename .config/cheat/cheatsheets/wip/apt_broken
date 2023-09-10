@@ -1,0 +1,7 @@
+# Fix broken package manager due to pkg bad state
+sudo dpkg -i --force-overwrite /path/to/pkg.deb
+sudo dpkg -P pkg
+sudo apt --fix-broken install
+sudo apt clean
+sudo apt autoclean
+sudo apt autoremove

@@ -17,10 +17,10 @@
 btop curl fzf git htop ipcalc man ssh tldr tmux vim zsh     # scp sftp
 
 # NO APT - Cargo packages // pacman or zypper OK -- might require: libssl-dev pkg-config
-bat git-delta exa fd-find mdcat ripgrep zoxide
+bat bottom exa fd-find git-delta gitui mdcat ripgrep zoxide
 
 # NO APT - other source
-cheat deno glow live-server neovim nvm>node>npm oh-my-zsh packer tpm
+cheat deno glow live-server neo neovim nvm>node>npm oh-my-zsh packer tpm
 
 # Programming
 ascii binutils (readelf) binutils-dev build-essential clang gcc gdb hexyl manpages-posix-dev make ncurses-term python-is-python3 python3-pip python3-venv unicode   # lldb - okteta termit
@@ -29,7 +29,7 @@ ascii binutils (readelf) binutils-dev build-essential clang gcc gdb hexyl manpag
 grip picopins
 
 # Networking
-bind9-dnsutils cloud-init dstat iproute2 monkeysphere net-tools netcat-openbsd nmap openssl speedtest-cli whois
+bind9-dnsutils cloud-init dig dstat iproute2 monkeysphere net-tools netcat-openbsd nmap openssl speedtest-cli whois
 
 # Coreutils << info coreutils
 df du env|printenv gawk printenv sed wc

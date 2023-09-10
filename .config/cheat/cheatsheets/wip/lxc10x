@@ -1,0 +1,34 @@
+---
+syntax: bash
+tags: [HTB]
+---
+
+# Create an ubuntu container
+lxc-create -n linuxcontainer -t ubuntu
+
+# List all existing containers
+lxc-ls
+
+# Stop a running container.
+lxc-stop -n <container>
+
+# Start a stopped container.
+lxc-start -n <container>
+
+# Restart a running container.
+lxc-restart -n <container>
+
+# Manage container storage
+lxc-config -n <container name> -s storage
+
+# Manage container network settings
+lxc-config -n <container name> -s network
+
+# Manage container security settings
+lxc-config -n <container name> -s security
+
+# Connect to a container.
+lxc-attach -n <container>
+
+# Connect to a container and share a specific directory or file.
+lxc-attach -n <container> -f /path/to/share

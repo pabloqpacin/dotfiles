@@ -53,6 +53,8 @@ Enable PAE/NX: yes
 # ...
 ``` -->
 
+> If unsupported, try [bypassing TPM checks](https://www.tomshardware.com/how-to/bypass-windows-11-tpm-requirement)...
+
 - Windows installation
 
 ```yaml
@@ -149,6 +151,7 @@ Settings:
 
 MS Store:
   Library: Get updates & Update all
+  # Especially 'App Installer' for WinGet=>1.5
 ```
 
 - Debloat Windows 11 (Home|Pro)
@@ -166,8 +169,12 @@ Settings:
       ON: Spotify
 ```
 
-- If baremetal: manage disks, drivers & install them desktop apps
+- If baremetal: fix time, manage disks, drivers & install them desktop apps
 
+```powershell
+# Fix two hours behind if multiboot -- https://wiki.archlinux.org/title/System_time#UTC_in_Microsoft_Windows
+reg add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TimeZoneInformation" /v RealTimeIsUniversal /d 1 /t REG_DWORD /f
+```
 ```yaml
 # Better keep the OS and the Data apart dawg
 Disk Management:
@@ -281,9 +288,10 @@ pip install fortune
 
 # Misc packages
 winget install keepassxc `
-               nmap npcap wireshark `
                autohotkey.autohotkey `
-               cpuid.cpu-z realix.hwinfo
+               cpuid.cpu-z realix.hwinfo `
+               nmap npcap wireshark portmaster `
+               gitkraken `
 
 # Sysinternals & Powertoys
 winget install 9P7KNL5RWT25 --source msstore          # Sysinternals Suite
@@ -294,6 +302,42 @@ winget install Microsoft.Powertoys --source winget      # tweak 'Run at startup'
 #### WSL
 #### Docker
 #### Hyper-V / VirtualBox
+
+---
+
+- Nested virtualization:
+
+```powershell
+# Windows 11 Pro HOST --> Hyper-V --> Windows 11 Home Guest --------- SUCCESS
+Enable-WindowsOptionalFeature -FeatureName "Microsoft-Hyper-V" -All -Online
+# GUI: Turn Windows optional feature: Virtual Machine platform
+Set-VMProcessor -VMName 'Win11' -ExposeVIrtualizationExtensions $true
+
+# GUEST:  -- might need to create new Virtual Network Switch...
+wsl --install -d Debian
+
+# # HOST:
+# wsl --install -d Debian
+```
+
+```powershell
+# Windows 11 Pro HOST --> VirtualBox --> Windows 11 Home Guest ----- FAIL
+# GUI: Turn Windows optional feature: Virtual Machine platform
+cd $env:PROGRAMFILES\Oracle\VirtualBox; .\VBoxManage.exe modifyvm 'Win11' --nested-hw-virt on
+
+# GUEST:
+wsl --install -d Debian
+```
+
+```powershell
+```
+
+    - foo
+  - Windows 11 Pro HOST --> WSL
+
+
+
+---
 
 <!-- 
 # $ choco install WSL2 openssh openvpn

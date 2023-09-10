@@ -1,0 +1,11 @@
+# Edit vanilla $PROFILE
+notepad $PROFILE
+
+# Reload $PROFILE
+. $PROFILE
+
+
+# expand upon 'which'
+(Get-Command -Name mkdir).Definition
+Get-Command -Name mkdir -ShowCommandInfo
+

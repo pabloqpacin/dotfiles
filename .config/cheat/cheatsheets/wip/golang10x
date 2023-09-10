@@ -1,0 +1,26 @@
+---
+syntax: bash
+tags: [Golang, 2023-Q3]
+---
+
+# Install go
+sudo apt-get update
+sudo apt-get install golang
+
+# Set up environment
+echo 'export GOPATH=$HOME/go' >> ~/.zshrc
+echo 'export PATH=$PATH:$GOPATH/bin' >> ~/.zshrc
+source ~/.zshrc
+
+mkdir -p $GOPATH/{bin,pkg,src}
+mkdir -p $GOPATH/src/github.com/pabloqpacin
+cd $_ && nvim hw.go
+
+# package main
+# import "fmt"
+# func main() { fmt.Println("Hello, World!")}
+
+go run hw.go        # executable binary in memory
+# go build wg.go    # executable in same dir as src file
+
+

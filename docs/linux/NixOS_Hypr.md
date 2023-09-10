@@ -97,6 +97,7 @@ parted /dev/nvme0n1 -- mklabel gpt
 parted foo -- mkpart ESP fat32 1MB 1024MB           # Boot part: first 1GB
 parted foo -- set 1 esp on
 parted foo -- mkpart swap linux-swap 1024MB 5120MB  # Swap part: next 4GB
+    # ENSURE SWAP is OK for MULTIBOOT
 parted foo -- mkpart root ext4 5120MB 404720MB      # Root part: next 400GB
 
 mkswap -L swap /dev/nvme0n1p2

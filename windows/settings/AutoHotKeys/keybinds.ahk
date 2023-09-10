@@ -16,3 +16,6 @@
     Run 'brave.exe'
     ; TODO: PID to focus
 }
+
+
+; TODO: code window transparency

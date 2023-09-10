@@ -1,9 +1,9 @@
 ### Admin warning
 if (-not ($isAdmin)) {
-  do { $userInput = Read-Host "Non-admin session detected. Run as admin to avoid prompts apply symlinks. Continue? (Y/N)" }
+  do { $userInput = Read-Host "Non-admin session detected. Run as admin to avoid prompts & apply symlinks. Continue? (Y/N)" }
     while ($userInput -ne "Y" -and $userInput -ne "N")
   if ($userInput -eq "N") { exit 0 }
-}
+}; $userInput = $null
 
 
 ### Install Neovim & Packer

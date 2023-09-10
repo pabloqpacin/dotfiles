@@ -1,0 +1,7 @@
+---
+syntax: bash
+---
+
+# Rename files 10x
+for file in *.example; do mv "$file" "${file%.example}"; done
+
