@@ -9,7 +9,7 @@
     - [Proper Environment](#proper-environment)
       - [WSL](#wsl)
       - [Docker](#docker)
-      - [Hyper-V / VirtualBox](#hyper-v--virtualbox)
+      - [Hyper-V ](#hyper-v-)
 
 
 > - **NOTE 1:** `winget`-heavy approach
@@ -48,12 +48,80 @@ Skip Unattended Installation: yes
 Enable 3D Acceleration: no
 Enable PAE/NX: yes
 ```
+```yaml
+# KVM/QEMU -- https://getlabsdone.com/how-to-install-windows-11-on-kvm
+
+# Install Hypervisor
+sudo apt install bridge-utils virt-manager libosinfo-bin
+
+# Download latest drivers --> https://github.com/virtio-win/virtio-win-pkg-scripts/blob/master/README.md
+
+# Create Win11 VM
+Virtual Disk: from SATA for VirtIO
+Virtual Network Interface: from e1000e to virtio
+
+Hardware:
+  Graphics: from Spice to VNC
+  Storage:Manage: /home/pabloqpacin/Downloads/virtio-win-0.1.229.iso
+    Device: from Disk to CDROM
+  TPM: from CRB to TIS 2.0
+
+Boot order: CDROM1 VirtIO1 CDROM2
+CPUs: vCPU4, sockets1, cores2, threads2
+Overview: Chipset ~~from Q35 to i440FX~~ /usr/share/OVMF/OVMF_CODE_4M.secboot.fd
+
+# BEGIN INSTALLATION
+
+Type: Custom
+Load driver: E:\amd64\w11\viostor.inf
+Disk 1 (UNALLOCATED): Next
+
+# ... no internet
+Shift+F10 (CMD): oobe\bypassnro
+
+# local account...
+
+Device Manager:
+  Other Drivers:
+    - Ethernet: update (E:\)
+    - ... else: udpate (E:\)
+  Display adaptor:
+    - Microsoft: update (E:\)
+
+# Shutdown
+
+CDROM1: remove
+CDROM2: remove
+
+# For snapshots, change XML 'os' from 'pflash' to 'rom', take snapshot, then change again ([src](https://www.reddit.com/r/kvm/comments/9s6jt4/unable_to_create_snapshots/))
+```
+
+<!--
+VMware keyz
+1F0N8-D6202-MJ829-0J9Z6-2LHHF
+NZ212-6T04L-4JDG8-0AAQ4-8GRNA
+HF0XU-82114-4JEX0-0T256-3U816
+-->
+
 <!-- ```yaml
-# Other Hypervisors -- KVM
-# ...
+# VMWare (Windows Host)
+
+# IF HYPER-V ENABLED (NOT IF VANILLA(~~WSL~~)...):: Turn Windows features:: Windows Hypervisor Platform
+
+VMware: new default locations (..\Downloads\VMware VMs)
+  New VM:
+    options: encrypt
+    add hardware:
+      - TPM
+      # Processors: Virtualize intel VTX
+
+# https://superuser.com/questions/1578372/run-wsl2-inside-vmware-workstation-15
+# ?? wsl Host **incompatible** wsl Guest ?? 
 ``` -->
 
-> If unsupported, try [bypassing TPM checks](https://www.tomshardware.com/how-to/bypass-windows-11-tpm-requirement)...
+
+<!-- > If unsupported, try [bypassing TPM checks](https://www.tomshardware.com/how-to/bypass-windows-11-tpm-requirement)... -->
+
 
 - Windows installation
 
@@ -159,7 +227,7 @@ MS Store:
 ```yaml
 # TODO: double-check
 Start Menu:
-  Uninstall: Instagram Messenger Netflix Prime_Video
+  Uninstall: Instagram Linkedin Messenger Netflix Prime_Video
 
 Settings:
   Apps:
@@ -291,50 +359,55 @@ winget install keepassxc `
                autohotkey.autohotkey `
                cpuid.cpu-z realix.hwinfo `
                nmap npcap wireshark portmaster `
-               gitkraken `
+               gitkraken 7zip.7zip `
 
 # Sysinternals & Powertoys
 winget install 9P7KNL5RWT25 --source msstore          # Sysinternals Suite
 winget install Microsoft.Powertoys --source winget      # tweak 'Run at startup' -- see 'TaskScheduler'/logon
 
+go install crg.eti.br/go/neko@latest  # https://github.com/crgimenes/neko
 ```
-
-#### WSL
-#### Docker
-#### Hyper-V / VirtualBox
-
 ---
 
-- Nested virtualization:
+> WIP: Nested virtualization
+
+
+#### WSL
 
 ```powershell
-# Windows 11 Pro HOST --> Hyper-V --> Windows 11 Home Guest --------- SUCCESS
-Enable-WindowsOptionalFeature -FeatureName "Microsoft-Hyper-V" -All -Online
-# GUI: Turn Windows optional feature: Virtual Machine platform
-Set-VMProcessor -VMName 'Win11' -ExposeVIrtualizationExtensions $true
-
-# GUEST:  -- might need to create new Virtual Network Switch...
+# wsl --update
 wsl --install -d Debian
-
-# # HOST:
-# wsl --install -d Debian
 ```
 
+#### Docker
+
 ```powershell
-# Windows 11 Pro HOST --> VirtualBox --> Windows 11 Home Guest ----- FAIL
+winget install docker.dockerdesktop
+```
+
+#### Hyper-V <!--/ VirtualBox-->
+
+- If Windows Pro: Sandbox & Hyper-V
+
+```powershell
+# Enable Sandbox
+Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online
+
+# Enable Hyper-V
+Enable-WindowsOptionalFeature -FeatureName "Microsoft-Hyper-V" -All -Online
+
+# Enable nested virtualization for WSL on Windows VM via Hyper-V
+Set-VMProcessor -VMName 'Win11' -ExposeVIrtualizationExtensions $true
+  # GUI: Turn Windows optional feature: Virtual Machine platform
+
+# For them Hyper-V VMs, might need to "create new Virtual Network Switch"
+```
+
+<!-- ```powershell
+# Windows 11 Home HOST -- VirtualBox -- Windows 11 Home Guest ----- FAIL
 # GUI: Turn Windows optional feature: Virtual Machine platform
 cd $env:PROGRAMFILES\Oracle\VirtualBox; .\VBoxManage.exe modifyvm 'Win11' --nested-hw-virt on
-
-# GUEST:
-wsl --install -d Debian
-```
-
-```powershell
-```
-
-    - foo
-  - Windows 11 Pro HOST --> WSL
-
+``` -->
 
 
 ---
@@ -353,15 +426,6 @@ wsl --install -d Debian
 
 $ winget install Oracle.VirtualBox --source winget
 
-Pro Environment
-- aye: wsl docker hyper-v sandbox
-
-- TODO: WSL 'Docker Desktop'
-
-```powershell
-# TODO: wsl --update; wsl --install
-# TODO: winget install 'Docker Desktop'
-```
 
 - Set up Windows Sandbox, Hyper-V & WSL -- mind actual GUI -- **VirtualBox INOP**
 
@@ -375,9 +439,6 @@ vboxmanage modifyvm <VMName> --nested-hw-virt on
 Set-VMProcessor -VMName <VMName> -ExposeVirtualizationExtensions $true
 ```
 ```powershell
-# Install Windows Sandbox -- !Home
-Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online
-
 # Install Hyper-V -- !Home
 Enable-WindowsOptionalFeature -FeatureName "Microsoft-Hyper-V" -All -Online
     # $ DISM /Online /Enable-Feature /All /FeatureName:Microsoft-Hyper-V

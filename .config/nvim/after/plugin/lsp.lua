@@ -25,6 +25,7 @@ lsp.ensure_installed ({
     'sqlls',    -- config << https://github.com/joe-re/sql-language-server
     'gopls',
     'powershell_es',    -- TODO: install pwsh on Linux
+    -- 'arduino_language_server',
 })
 
 local cmp = require('cmp')

@@ -31,4 +31,5 @@
 --map-syntax "/etc/*:Bourne Again Shell (bash)"
 --map-syntax "*.conf:Bourne Again Shell (bash)"
 --map-syntax "**/config:Bourne Again Shell (bash)"
+--map-syntax "*ino:C"
 # bat --list-languages

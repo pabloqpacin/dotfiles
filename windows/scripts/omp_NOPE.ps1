@@ -7,8 +7,9 @@ if (-not (Test-Path -Path $NOPE -PathType Container)) {
 $themesToDelete = @(
   'cinnamon', 'cloud-native-azure', 'capr4n', 'chips', 'cobalt2', 'dark-blood', 'free-ukraine',
   'gmay', 'hotstick.minimal', 'hul10', 'if_tea', 'jonnychipz', 'jtracey93', 'jv_sitecorian',
-  'lambdageneration', 'larserikfinholt', 'lightgreen', 'M365Princess', 'montys', 'quick-term',
-  'rudolfs-dark', 'rudolfs-light', 'slim', 'sonicboom_light', 'stelbent-compact.minimal',
+  'lambdageneration', 'larserikfinholt', 'lightgreen', 'M365Princess', 'montys',
+  'powerlevel10k_classic' 'quick-term', 'rudolfs-dark', 'rudolfs-light',
+  'slim', 'slimfat', 'sonicboom_light', 'stelbent-compact.minimal',
   'wholespace'
 )
 

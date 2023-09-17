@@ -43,7 +43,7 @@ Live ISO installer:
   Keyboard: Spanish Default
   Install:
     Create Partition:
-      nvme0n1p4: 409600 MiB -- PopOS -- ext4
+      nvme0n1p4: 409600 MiB -- PopOS -- ext4  # 1 TB !!
     Define Partitions:          # don't format any!
       - /dev/nvme0n1p4: /
       - /dev/nvme0n1p2: swap
@@ -183,7 +183,7 @@ chrome.google.com/webstore:
 
 ```bash
 # Install them basics
-sudo apt install alacritty btop cava flameshot fzf ripgrep tldr tmux zsh    # taskwarrior
+sudo apt install alacritty btop cava flameshot ripgrep tldr tmux zsh    # taskwarrior -- fzf with Go!
 sudo apt install neofetch --no-install-recommends
 tldr --update
 
@@ -234,6 +234,9 @@ cd /tmp \
  && sudo rm -rf /usr/local/go \
  && sudo tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz \
  && source ~/dotfiles/zsh/golang.zsh
+
+# Install FZF
+go install github.com/junegunn/fzf@latest
 
 # Build lf
 env CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf@latest

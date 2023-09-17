@@ -10,10 +10,12 @@ Set-Alias gs Get-Service
 Set-Alias which Get-Command
 Set-Alias opendir Invoke-Item
 Set-Alias tldr tealdeer-windows-x86_64-msvc.exe
+Set-Alias acli arduino-cli
 
 
 ########## functions
 function wup { winget upgrade --all }
+function pkill ($proc) { Stop-Process -Name "$proc" }
 
 function gh ($command) { Get-Help $command -Full | bat -l $((@("man","ps1") | Get-Random)) --theme Nord }
 function props ($file) { Get-Item $file -Force | Format-List * }
@@ -53,6 +55,8 @@ function ff {         # pip install fortune; .\dotfiles\windows\scripts\fortunes
   Write-Host "[$($fortune_file.Name)]"
   fortune $fortune_file.FullName
 }
+
+function nek { neko -scale 1 -speed 3 & }
 
 
 ########## env. vars

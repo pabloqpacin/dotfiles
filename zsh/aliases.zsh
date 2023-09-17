@@ -49,9 +49,9 @@ alias wfe='explorer.exe .'          # windows-file-explorer
 alias wopen="sensible-browser"
 # alias wopen="wslview"
 
-if [[ $(cat /etc/os-release | awk -F= '/^NAME=/{ print $2 }' | tr -d '"') == "openSUSE Tumbleweed" ]]; then
-    alias tldr="tldr -t base16"     # installed via npm (WSL)
-fi
+# if [[ $(cat /etc/os-release | awk -F= '/^NAME=/{ print $2 }' | tr -d '"') == "openSUSE Tumbleweed" ]]; then
+#     alias tldr="tldr -t base16"     # installed via npm (WSL)
+# fi
 
 alias htopp="echo q | htop -C | aha --line-fix | html2text -width 999 | grep -v 'F1Help\|xml version ='"
 alias sslisten='ss -tul'            # -tuln
@@ -76,3 +76,18 @@ bindkey -s '\e^E' "source ~/dotfiles/scripts/zsh-toggle_plugs.sh\n"
 
 # Change alacritty theme
 bindkey -s '\e^A' "source ~/dotfiles/scripts/alacritty-random_theme.sh\n"
+
+# Fix pipewire --  https://support.system76.com/articles/audio
+bindkey -s '\e^P' "systemctl --user restart wireplumber pipewire pipewire-pulse\n"
+
+
+# Python stuff
+pipup() { for package in $(pip freeze); do pip install --upgrade $package; done }
+pip_freeze () {
+    DATE=$(date)
+    echo -e "\n================================\n$DATE\n" >> $HOME/dotfiles/py/pip-pop.log
+    pip freeze >> $HOME/dotfiles/py/pip-pop.log
+}
+
+alias acli="arduino-cli"
+alias pinsa="picopins --all"

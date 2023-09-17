@@ -39,7 +39,8 @@ return require('packer').startup(function(use)
         }
     }
 
-    -- use { 'toppair/peek.nvim', run = 'deno task --quiet build:fast' }
+    use { 'jghauser/follow-md-links.nvim' }
+    use { 'toppair/peek.nvim', run = 'deno task --quiet build:fast' }
     -- use { 'manzeloth/live-server' }
     use { 'windwp/nvim-autopairs', config = function() require('nvim-autopairs').setup() end }
     use { 'norcalli/nvim-colorizer.lua', config = function() require('colorizer').setup() end }

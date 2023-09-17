@@ -20,27 +20,27 @@ fi
 
 ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "avit" "bureau"
   "clean" "daveverwer" "dpoggi" "eastwood" "fletcherm" "frontcube" "gallifrey"
-  "gallois" "geoffgarside" "itchy" "josh" "kennethreitz" "kphoen" "macovsky"
-  "mh" "minimal" "muse" "nanotech" "nicoulaj" "peepcode" "refined" "simple"
+  "gallois" "geoffgarside" "itchy" "kennethreitz" "kphoen" "macovsky"
+  "mh" "minimal" "muse" "nanotech" "peepcode" "refined" "simple"
   "theunraveler" "tonotdo" "wedisagree" "wuffers" "zhann"
 )
-# FORMER: 3den adben(fortune) apple arrow amuse awesomepanda candy-kingdom cloud
-# crunch cypher dallas dieter dogenpunk dst edvardm essembeh fishy flazz frisk fwalch
-# garyblessington gozilla half-life jbergantine jispwoso jnrowe jreese juanghurtado junkfood
-# kafeitu kolo maran mgutz michelebologna miloshadzic mlh mortalscumbag mrtazz murilasso nebirhos
-# norm obraun pygmalion-virtualenv re5et rgm robbyrussel smt Soliah sonicradish steeef strug sunaku
-# sunrise superjarin suvash terminalparty wezm+ ys
+# FORMER: 3den adben(fortune) apple arrow amuse awesomepanda candy-kingdom cloud crunch cypher
+# dallas dieter dogenpunk dst edvardm essembeh fishy flazz frisk fwalch garyblessington gozilla
+# half-life jbergantine jispwoso jnrowe josh jreese juanghurtado junkfood kafeitu kolo maran
+# mgutz michelebologna miloshadzic mlh mortalscumbag mrtazz murilasso nebirhos nicoulaj norm
+# obraun pygmalion-virtualenv re5et rgm robbyrussel smt Soliah sonicradish steeef strug
+# sunaku sunrise superjarin suvash terminalparty wezm+ ys
 # pts output: trapd00r linuxonly humza? skaro?
-# BEST: alanpeabody daveverwer geoffgarside muse nicoulaj
 
 # Set custom folder for personal aliases, plugins and themes
 ZSH_CUSTOM="$HOME/dotfiles/zsh"
 
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
-plugins=(git nmap ubuntu
+plugins=(
+  git nmap ubuntu tmux        # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/tmux
   zsh-autosuggestions zsh-syntax-highlighting
-)
+) # docker
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
