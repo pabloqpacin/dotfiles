@@ -92,7 +92,7 @@ https://github.com/gasech/hyprland-dots
         </tr>
         <tr>
             <td><b>Editor</b></td>
-            <td colspan="2">vscode | codium & neovim (LSPs + DAPs)</td>
+            <td colspan="2">vscode/vscodium & neovim (LSPs + DAPs)</td>
         </tr>
         <tr>
             <td><b>Shell Misc</b></td>

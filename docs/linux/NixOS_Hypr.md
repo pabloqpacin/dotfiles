@@ -52,23 +52,23 @@ loadkeys es
 - Config Wifi [SKIPPED]
 
 ```bash
-ip a
-# ifconfig
-# nmtui
-# systemctl stop NetworkManager
-
-sudo systemctl start wpa_supplicant
-wpa_cli
-# tldr wpa_cli
-
-# scan  || scan_results
-add_network
-set_network 0 ssid "myhomenetwork"
-set_network 0 psk "mypassword"
-set_network 0 key_mgmt WPA-PSK
-enable_network 0
-# see: <3>CTRL-EVENT-CONNECTED - Connection to 32:85:ab:ef:24:5c completed [id=0 id_str=]
-quit
+# ip a
+# # ifconfig
+# # nmtui
+# # systemctl stop NetworkManager
+# 
+# sudo systemctl start wpa_supplicant
+# wpa_cli
+# # tldr wpa_cli
+# 
+# # scan  || scan_results
+# add_network
+# set_network 0 ssid "myhomenetwork"
+# set_network 0 psk "mypassword"
+# set_network 0 key_mgmt WPA-PSK
+# enable_network 0
+# # see: <3>CTRL-EVENT-CONNECTED - Connection to 32:85:ab:ef:24:5c completed [id=0 id_str=]
+# quit
 ```
 
 - Define partitions & file system

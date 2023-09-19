@@ -305,6 +305,14 @@ sudo apt install autoconf build-essential libncurses-dev \
  && sudo make install
 cd .. && rm -rf neo
 ```
+
+```bash
+# Arduino stuff --    https://github.com/pabloqpacin/C-eazy
+flatpak install cc.arduino.IDE
+curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | BINDIR=~/.local/bin sh
+sudo useradd -aG dialout $USER  # https://arduino.stackexchange.com/questions/739/arduino-program-only-works-when-run-as-root
+# arduino-cli config init     # && ln -s ...
+```
 ```bash
 # Networking tools
 sudo apt-get install ipcalc nmap nmapsi4 openssh-server wireshark tshark  && \

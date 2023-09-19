@@ -1,5 +1,5 @@
 ---
-syntax: powershell
+syntax: ps1
 tags: [homelab, ssh, windows]
 ---
 
@@ -35,3 +35,6 @@ https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_
 https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_server_configuration
 https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement
 #>
+
+# Connect to WSL -- https://superuser.com/questions/1714736/cannot-run-wsl2-over-ssh-on-windows-11
+ssh -J @<ip_windows_host> <wsl_username>@localhost

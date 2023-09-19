@@ -94,6 +94,8 @@ CDROM1: remove
 CDROM2: remove
 
 # For snapshots, change XML 'os' from 'pflash' to 'rom', take snapshot, then change again ([src](https://www.reddit.com/r/kvm/comments/9s6jt4/unable_to_create_snapshots/))
+
+# TODO: tweak screen resolution -- https://gitlab.com/qemu-project/qemu/-/issues/731
 ```
 
 <!--
@@ -236,6 +238,23 @@ Settings:
       OFF: MS_Edge MS_Teams Steam Discord
       ON: Spotify
 ```
+```sh
+# notepad C:\Windows\System32\drivers\etc\hosts --  https://youtu.be/IJr2DcffquI
+127.0.0.1       localhost
+::1             localhost
+127.0.0.1       data.microsoft.com
+127.0.0.1       msftconnecttest.com
+127.0.0.1       azureedge.net
+127.0.0.1       activity.windows.com
+127.0.0.1       bingapis.com
+127.0.0.1       msedge.net
+127.0.0.1       assets.msn.com
+127.0.0.1       scorecardresearch.com
+127.0.0.1       edge.microsoft.com
+127.0.0.1       data.msn.com
+
+# Edge: Clear browsing data
+```
 
 - If baremetal: fix time, manage disks, drivers & install them desktop apps
 
@@ -377,6 +396,10 @@ go install crg.eti.br/go/neko@latest  # https://github.com/crgimenes/neko
 ```powershell
 # wsl --update
 wsl --install -d Debian
+
+# Enable systemd -- https://gist.github.com/djfdyuruiry/6720faa3f9fc59bfdf6284ee1f41f950
+sudo echo -e "[boot]\nsystemd=true" >> /etc/wsl.conf
+  # https://learn.microsoft.com/en-us/windows/wsl/wsl-config#wslconf
 ```
 
 #### Docker

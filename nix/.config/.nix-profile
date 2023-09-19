@@ -1,0 +1,16 @@
+# echo $NIX_PROFILES
+  # /nix/var/nix/profiles/default/etc/profile.d/nix.sh
+  # /home/pabloqpacin/.nix-profile
+
+# tree ~/.nix-profile
+  # * --> /nix/store/1234-home-manager-path/*
+
+# lf ~/.nix-profile
+  # - bin
+  # - etc
+  # - lib
+  # - libexec
+  # - sbin
+  # - share --  !!
+  # - manifest.nix
+  # - rplugin.vim
