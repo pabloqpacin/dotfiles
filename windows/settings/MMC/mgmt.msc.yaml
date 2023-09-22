@@ -1,0 +1,21 @@
+# https://academy.hackthebox.com/module/49/section/463
+
+MMC:
+  File: Add or Remove Snap-ins  # Manage Local Computer
+    - certmgr: Certificate Manager                # SYSTEM
+    - comexp: Component Services                  # HARDWARE
+    - compmgmt: Computer Management               # SYSTEM
+    - diskmgmt: Disk Management                   # HARDWARE
+    - dsa: Active Directory Users and Computers   # USERS and GROUPS
+    - dvmgmt: Device Manager                      # HARDWARE
+    - eventvwr: Event Viewer                      # PROCESSES
+    - gpedit: Group Policy                        # USERS and GROUPS
+    - lusrmgr: Local Users and Groups             # USERS and GROUPS
+    - printmanagement: Print Management           # INTERNET
+    - secpol: Local Security Policy               # SYSTEM
+    - services: Services                          # PROCESSES
+    - taskschd: Task Scheduler                    # PROCESSES
+    - wf: Windows Firewall and Advanced Security  # INTERNET
+
+  File: Save As
+    - $env:APPDATA\Microsoft\Windows\Start Menu\Programs\Administrative Tools: mgmt.msc

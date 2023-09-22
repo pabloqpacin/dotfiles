@@ -10,6 +10,7 @@
       - [WSL](#wsl)
       - [Docker](#docker)
       - [Hyper-V ](#hyper-v-)
+      - [AppLocker](#applocker)
 
 
 > - **NOTE 1:** `winget`-heavy approach
@@ -285,6 +286,13 @@ installer: NVIDIA Graphics Driver and GeForce Experience
     # NVIDIA Login :: Google account
 ```
 
+- If VM, install OpenGL drivers
+
+```powershell
+winget search opengl
+winget install 9NQPSL29BFFF     # OpenCLTM and OpenGL Compatibility Pack
+```
+
 </details>
 
 
@@ -381,11 +389,19 @@ winget install keepassxc `
                gitkraken 7zip.7zip `
 
 # Sysinternals & Powertoys
-winget install 9P7KNL5RWT25 --source msstore          # Sysinternals Suite
-winget install Microsoft.Powertoys --source winget      # tweak 'Run at startup' -- see 'TaskScheduler'/logon
+winget install 9P7KNL5RWT25 --accept-package-agreements     # Sysinternals Suite
+winget install Microsoft.Powertoys                          # tweak 'Run at startup' -- see 'TaskScheduler'/logon
 
 go install crg.eti.br/go/neko@latest  # https://github.com/crgimenes/neko
 ```
+
+- If VM, tweak `nmap` with `--unprivileged` ([src](https://stackoverflow.com/questions/59571784/after-installing-nmap-dnet-failed-to-open-device-eth0))
+
+```powershell
+# nmap --iflist
+nmap --unprivileged -Pn localhost
+```
+
 ---
 
 > WIP: Nested virtualization
@@ -431,6 +447,10 @@ Set-VMProcessor -VMName 'Win11' -ExposeVIrtualizationExtensions $true
 # GUI: Turn Windows optional feature: Virtual Machine platform
 cd $env:PROGRAMFILES\Oracle\VirtualBox; .\VBoxManage.exe modifyvm 'Win11' --nested-hw-virt on
 ``` -->
+
+---
+
+#### AppLocker
 
 
 ---

@@ -75,8 +75,10 @@ New-Item -ItemType SymbolicLink -Target "$env:HOMEPATH\dotfiles\windows\Microsof
 
 
 ########## Custom Shell Environment
-winget install jftuga.less sharkdp.bat clement.bottom dandavison.delta `
-               fzf golang.go gitui gokcehan.lf 'ripgrep gnu' tldr zoxide
+winget install jftuga.less sharkdp.bat clement.bottom
+               dandavison.delta eza-community.eza fzf
+               golang.go gitui gokcehan.lf
+               'ripgrep gnu' tldr zoxide
 
     reloadPath
 

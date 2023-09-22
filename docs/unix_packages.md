@@ -17,7 +17,7 @@
 btop curl fzf git htop ipcalc man ssh tldr tmux vim zsh     # scp sftp
 
 # NO APT - Cargo packages // pacman or zypper OK -- might require: libssl-dev pkg-config
-bat bottom exa fd-find git-delta gitui mdcat ripgrep zoxide
+bat bottom exa eza fd-find git-delta gitui mdcat ripgrep zoxide
 
 # NO APT - other source
 cheat deno glow live-server neo neovim nvm>node>npm oh-my-zsh packer tpm

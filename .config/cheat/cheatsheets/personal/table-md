@@ -1,0 +1,35 @@
+---
+syntax: html
+tags: [ASIR]
+---
+
+| C1 R1         | C2 R1 |
+| C1 R2         | C2 R2 |
+| C1 (R3        | C2 R3 |
+|        / R4)  | C2 R4 |
+
+<table>
+    <thead>
+        <tr>
+            <th>C1 R1</th>
+            <th>C2 R1</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="font-weight:bold">C1 R2</td>
+            <td>C2 R2</td>
+        </tr>
+        <tr>
+            <td rowspan="2"><b>C1 (R3 & R4)</b></td>
+            <td>C2 R3</td>
+        </tr>
+        <tr>
+            <td>C2 R4</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>

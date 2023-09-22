@@ -36,13 +36,11 @@
         { "command": { "action": "resizePane", "direction": "down" }, "keys": "alt+shift+j" },
         { "command": { "action": "resizePane", "direction": "up" }, "keys": "alt+shift+k" },
         { "command": { "action": "resizePane", "direction": "right" }, "keys": "alt+shift+l" },
-                     { "command": "togglePaneZoom", "keys": "ctrl+shift+z" },
+        { "command": "togglePaneZoom", "keys": "ctrl+shift+z" },
         { "command": { "action": "splitPane", "split": "right" }, "keys": "alt+shift+plus" },
-        { "command": { "action": "splitPane", "split": "right", "splitMode": "duplicate" },
-            "keys": "ctrl+alt+shift+d" },       // "keys": "alt+shift+"
+        { "command": { "action": "splitPane", "split": "right", "splitMode": "duplicate" }, "keys": "ctrl+alt+shift+d" },       // "keys": "alt+shift+"
         { "command": { "action": "splitPane", "split": "down" }, "keys": "alt+shift+-" },
-        { "command": { "action": "splitPane", "split": "down","splitMode": "duplicate" },
-            "keys": "ctrl+alt+shift+d" }
+        { "command": { "action": "splitPane", "split": "down","splitMode": "duplicate" }, "keys": "ctrl+alt+shift+d" }
 
     ],
     // "copyOnSelect": false,

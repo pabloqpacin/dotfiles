@@ -4,16 +4,16 @@ import:
 
 window:
   decorations: None
-  # dimensions:         # meant for VMs
-  #   columns: 80
-  #   lines: 20
+  dimensions:
+    columns: 130
+    lines: 40
   padding:
     x: 5
     y: 5
   class:
     instance: Alacritty
     general: Alacritty
-  opacity: 0.75
+  opacity: 0.80
 
 scrolling:
   history: 20000
@@ -28,7 +28,7 @@ font:
     # family: FiraCode Nerd Font
     family: CaskaydiaCove Nerd Font
     style:  Bold
-  size: 10
+  size: 9.5
 draw_bold_text_with_bright_colors: true
 # font_dirs:
 #   - /usr/share/fonts/foo

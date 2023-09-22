@@ -1,0 +1,65 @@
+---
+syntax: ps1
+tags: [homelab]
+---
+
+####### @pentestTV: NMAP Crash Course -- https://youtu.be/OseLMP88QFA
+### - Reconnaissance
+###   - Weaponization
+###     - Delivery
+###       - Exploitation
+###         - Installation
+###           - Command & Control
+###             - Actions on Objectives
+
+# -------------------------------------------------
+
+### Identify:
+### 1. Responsive Systems
+### 2. Applications on Systems
+### 3. Application Version Info
+### 4. System OS and Version
+
+# Ping scan: -sP
+nmap -sP scanme.nmap.org            # 1 host up
+
+# TCP 3-Way handshake: -sT
+nmap -sT scanme.nmap.org            # 4 ports/services open 
+
+# TCP SYN scan: -sS
+sudo nmap -sS -p 80,443 192.168.1.0/24
+
+# Application Version scan: -sV
+nmap -sV scanme.nmap.org            # OpenSSH Ub., Apache httpd Ub., ...
+
+# OS
+sudo nmap -O scanme.nmap.org
+
+# -------------------------------------------------
+
+##### https://nmap.org/nsedoc/lib
+#### https://nmap.org/nsedoc/scripts
+### https://nmap.org/book/nse-usage.html
+## [ auth broadcast brute default discovery dos exploit external fuzzer intrusive malware safe version vuln ]
+
+# Default: identd-owners, http-auth, and ftp-anon
+nmap --script=default scanme.nmap.org || nmap -sC scanme.nmap.org
+
+# http-*
+nmap --script "http-*" scanme.nmap.org
+
+# ssh
+nmap --script "(ssh* and not brute)" scanme.nmap.org
+nmap --script "(default or vuln) and ssh*,ssh-auth-methods" scanme.nmap.org
+
+# -------------------------------------------------
+
+# Telnet scripts:
+# - telnet-brute
+# - telnet-encryption
+# - telnet-ntlm-info
+
+# -------------------------------------------------
+
+# List interfaces!
+nmap --iflist

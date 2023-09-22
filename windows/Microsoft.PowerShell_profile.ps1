@@ -20,6 +20,10 @@ function pkill ($proc) { Stop-Process -Name "$proc" }
 function gh ($command) { Get-Help $command -Full | bat -l $((@("man","ps1") | Get-Random)) --theme Nord }
 function props ($file) { Get-Item $file -Force | Format-List * }
 
+function eza { eza --icons }
+function ezad { eza --icons -la -ShiI .git --no-user --octal-permissions --git }
+function ezatal ($level) { eza --icons -laI .git --no-user --no-permissions --no-filesize --git -TL $level }
+
 function gst { git status }
 function ga ($file) { git add $file }
 function glol { git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" }
@@ -60,6 +64,7 @@ function nek { neko -scale 1 -speed 3 & }
 
 
 ########## env. vars
+$env:PAGER = 'less.exe'
 $NVIM = "$env:HOMEPATH\dotfiles\.config\nvim"       # $NVIM = "$env:LOCALAPPDATA\nvim"
 $fixThemes =  "$env:HOMEPATH\dotfiles\windows\scripts\omp_NOPE.ps1"
 $isAdmin = ([System.Security.Principal.WindowsPrincipal] [System.Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
@@ -118,8 +123,11 @@ function Set-RandomPoshTheme {
 
 Set-RandomPoshTheme
 
-
 <#
 - https://gist.github.com/timdeschryver/c78c02750f068a8d8154d9d60b070ffa
 - https://github.com/JanDeDobbeleer/oh-my-posh/issues/4156
 #>
+
+
+########## HTB
+Import-Module $env:HOMEPATH\dotfiles\windows\modules\HTB.psm1
