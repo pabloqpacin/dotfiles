@@ -40,7 +40,9 @@
         { "command": { "action": "splitPane", "split": "right" }, "keys": "alt+shift+plus" },
         { "command": { "action": "splitPane", "split": "right", "splitMode": "duplicate" }, "keys": "ctrl+alt+shift+d" },       // "keys": "alt+shift+"
         { "command": { "action": "splitPane", "split": "down" }, "keys": "alt+shift+-" },
-        { "command": { "action": "splitPane", "split": "down","splitMode": "duplicate" }, "keys": "ctrl+alt+shift+d" }
+        { "command": { "action": "splitPane", "split": "down","splitMode": "duplicate" }, "keys": "ctrl+alt+shift+d" },
+        { "command": "scrollDown", "keys": "ctrl+shift+j" },
+        { "command": "scrollUp", "keys": "ctrl+shift+k" }
 
     ],
     // "copyOnSelect": false,

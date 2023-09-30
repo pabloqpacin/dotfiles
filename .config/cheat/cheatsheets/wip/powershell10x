@@ -9,3 +9,5 @@ notepad $PROFILE
 (Get-Command -Name mkdir).Definition
 Get-Command -Name mkdir -ShowCommandInfo
 
+# rename all files within a directory
+get-childitem -Path *.txt | rename-item -NewName {$_.name -replace ".txt",".md"}

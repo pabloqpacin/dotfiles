@@ -393,6 +393,9 @@ winget install 9P7KNL5RWT25 --accept-package-agreements     # Sysinternals Suite
 winget install Microsoft.Powertoys                          # tweak 'Run at startup' -- see 'TaskScheduler'/logon
 
 go install crg.eti.br/go/neko@latest  # https://github.com/crgimenes/neko
+
+# PWSH stuff
+Find-Module -Name AdminToolbox | Install-Module   # Y
 ```
 
 - If VM, tweak `nmap` with `--unprivileged` ([src](https://stackoverflow.com/questions/59571784/after-installing-nmap-dnet-failed-to-open-device-eth0))

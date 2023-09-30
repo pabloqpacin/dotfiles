@@ -16,11 +16,26 @@ Set-Alias acli arduino-cli
 ########## functions
 function wup { winget upgrade --all }
 function pkill ($proc) { Stop-Process -Name "$proc" }
+function symlink ($source, $link) { New-Item -ItemType SymbolicLink -Target $source -Path $link }
 
-function gh ($command) { Get-Help $command -Full | bat -l $((@("man","ps1") | Get-Random)) --theme Nord }
+function touch ($file) { New-Item -Path (Join-Path -Path $PWD -ChildPath $file) -ItemType File }
+function perms ($file) { (Get-ACL $file).Access | Format-Table -AutoSize }
 function props ($file) { Get-Item $file -Force | Format-List * }
 
-function eza { eza --icons }
+function showPath { $env:PATH -replace ';', "`n" }
+function showModPath { $env:PSModulePath -replace ';', "`n" }
+function showEnv { Get-ChildItem Env: | ForEach-Object { $_.Name } }
+function showHist { bat -l ps1 (Get-PSReadlineOption).HistorySavePath }
+
+function reloadPath {
+  $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH","MACHINE") + ";" + [System.Environment]::GetEnvironmentVariable("PATH","USER")
+}
+
+function gh ($command) { Get-Help $command -Full | bat -l $((@("man","ps1") | Get-Random)) --theme Nord }
+function cheet ($sheet) { cheat $sheet | bat -l $((@("sh", "man","ps1") | Get-Random)) --theme Nord }
+function showTLDR { ls $env:LOCALAPPDATA\tealdeer\tealdeer\tldr-pages\pages\windows | bat -l log }
+
+function ezz { eza --icons }
 function ezad { eza --icons -la -ShiI .git --no-user --octal-permissions --git }
 function ezatal ($level) { eza --icons -laI .git --no-user --no-permissions --no-filesize --git -TL $level }
 
@@ -29,44 +44,25 @@ function ga ($file) { git add $file }
 function glol { git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" }
 function glols { git log --graph --pretty="%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset" --stat }
 
-function showPath { $env:PATH -replace ';', "`n" }
-function showEnv { Get-ChildItem Env: | ForEach-Object { $_.Name } }
-function showHist { bat -l ps1 (Get-PSReadlineOption).HistorySavePath }
-function showTLDR { ls $env:LOCALAPPDATA\tealdeer\tealdeer\tldr-pages\pages\windows | bat -l log }
-
-function reloadPath {
-  $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH","MACHINE") + ";" + [System.Environment]::GetEnvironmentVariable("PATH","USER")
-}
-
-function whichDef ($command) { (Get-Command -Name $command).Definition }
-function whichInf ($command) { Get-Command -Name $command -ShowCommandInfo }
-
-function symlink ($source, $link) {
-  New-Item -ItemType SymbolicLink -Target $source -Path $link
-}   # Admin-only process -- can't edit $link directly
-
-function touch ($file) {
-  $path = Join-Path -Path $PWD -ChildPath $file
-  New-Item -Path $path -ItemType File
-}
-
-function cheet ($sheet) {
-  cheat $sheet | bat -p -l sh
-}
-
+function nek { neko -scale 1 -speed 3 & }
 function ff {         # pip install fortune; .\dotfiles\windows\scripts\fortunes_curl.ps1
   $fortune_file = Get-ChildItem -Path "$env:HOMEPATH\dotfiles\docs\fortunes" | Get-Random
-  Write-Host "[$($fortune_file.Name)]"
-  fortune $fortune_file.FullName
+  Write-Host "[$($fortune_file.Name)]"; fortune $fortune_file.FullName
 }
 
-function nek { neko -scale 1 -speed 3 & }
-
+# function whichDef ($command) { (Get-Command -Name $command).Definition }
+# function whichInf ($command) { Get-Command -Name $command -ShowCommandInfo }
+# function rawSite ($link) { Invoke-WebRequest -Uri "$link" -Method GET | fl RawContent }
+# function mkpsd { New-ModuleManifest -Path C:\Users\MTanaka\Documents\WindowsPowerShell\Modules\quick-recon\quick-recon.psd1 -PassThru }
+# function findExtension ($extension) { Get-ChildItem -Path $($PWD) -File -Recurse -ErrorAction SilentlyContinue | where {($_.Name -like "*.$extension")} }
+# function findFilez { Get-Childitem -Path $($PWD) -File -Recurse -ErrorAction SilentlyContinue | where {($_.Name -like "*.txt" -or $_.Name -like "*.py" -or $_.Name -like "*.ps1" -or $_.Name -like "*.md" -or $_.Name -like "*.csv")} }
 
 ########## env. vars
 $env:PAGER = 'less.exe'
+$MaximumHistoryCount = 10000
 $NVIM = "$env:HOMEPATH\dotfiles\.config\nvim"       # $NVIM = "$env:LOCALAPPDATA\nvim"
 $fixThemes =  "$env:HOMEPATH\dotfiles\windows\scripts\omp_NOPE.ps1"
+# $ModulesPath = If (Test-Path "$env:HOMEPATH\OneDrive\Documents") { Join-Path $env:HOMEPATH\OneDrive\Documents PowerShell\Modules } Else { Join-Path $env:HOMEPATH\Documents PowerShell\Modules }
 $isAdmin = ([System.Security.Principal.WindowsPrincipal] [System.Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
   if ($isAdmin) { Write-Host "Running with Administrator privileges" }
 
@@ -98,19 +94,14 @@ if (Test-Path($ChocolateyProfile)) {
 ########## oh-my-posh
 $random_Theme = ""
 $randomThemeCandidates=@(
-#  'blueish', 'bubblesextra', 'catppuccin_macchiato', 'craver',
-#  'huvix', 'kali', 'microverse-power', 'negligible', 'nu4a',
-#  'pararussel', 'patriksvensson', 'peru', 'poshmon',
-#  'powerlevel10k_lean', 'powerlevel10k_rainbow', 'powerline',
-#  'space', 'sorin', 'tiwahu', 'tonybaloney', 'uew', 'wopian' 'xtoys', 'zash'
+#  'blueish', 'bubblesextra', 'catppuccin_macchiato', 'craver', 'huvix', 'kali', 'microverse-power', 'negligible',
+#  'nu4a', 'pararussel', 'patriksvensson', 'peru', 'poshmon', 'powerlevel10k_lean', 'powerlevel10k_rainbow',
+#  'powerline', 'space', 'sorin', 'tiwahu', 'tonybaloney', 'uew', 'wopian' 'xtoys', 'zash'
 )
 
 function Set-RandomPoshTheme {
   $themeFiles = Get-ChildItem -Path $env:POSH_THEMES_PATH -Filter '*.omp.json' -File
-
-  if ($themeFiles.Count -eq 0) {
-    Write-Host "No theme files found in '$env:POSH_THEMES_PATH'."; return
-  }
+  if ($themeFiles.Count -eq 0) { Write-Host "No theme files found in '$env:POSH_THEMES_PATH'."; return }
 
   if ($randomThemeCandidates -and $randomThemeCandidates.Count -gt 0) {
     $global:RANDOM_THEME = $randomThemeCandidates | Get-Random } else {
@@ -123,11 +114,9 @@ function Set-RandomPoshTheme {
 
 Set-RandomPoshTheme
 
-<#
-- https://gist.github.com/timdeschryver/c78c02750f068a8d8154d9d60b070ffa
-- https://github.com/JanDeDobbeleer/oh-my-posh/issues/4156
-#>
-
 
 ########## HTB
-Import-Module $env:HOMEPATH\dotfiles\windows\modules\HTB.psm1
+Import-Module Microsoft.PowerShell.LocalAccounts -UseWindowsPowerShell 3>$null  # https://devblogs.microsoft.com/scripting/understanding-streams-redirection-and-write-host-in-powershell && https://devblogs.microsoft.com/scripting/powertip-suppress-powershell-module-import-warning-messages/
+# Import-Module AdminToolbox        # Find-Module -Name AdminToolbox | Install-Module
+Import-Module $env:HOMEPATH\dotfiles\windows\Modules\HTB_WinFun
+

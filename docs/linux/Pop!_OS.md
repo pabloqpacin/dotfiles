@@ -365,3 +365,9 @@ curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin
 ln -s ~/dotfiles/.config/powershell ~/.config
 # $ mkdir $HOME/.cache/oh-my-posh/themes/NOPE   -- mv NOPE themes
 ```
+
+```bash
+# Install Gitkraken
+flatpak install gitkraken
+
+```
