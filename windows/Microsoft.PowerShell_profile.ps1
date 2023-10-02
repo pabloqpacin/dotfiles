@@ -57,14 +57,15 @@ function ff {         # pip install fortune; .\dotfiles\windows\scripts\fortunes
 # function findExtension ($extension) { Get-ChildItem -Path $($PWD) -File -Recurse -ErrorAction SilentlyContinue | where {($_.Name -like "*.$extension")} }
 # function findFilez { Get-Childitem -Path $($PWD) -File -Recurse -ErrorAction SilentlyContinue | where {($_.Name -like "*.txt" -or $_.Name -like "*.py" -or $_.Name -like "*.ps1" -or $_.Name -like "*.md" -or $_.Name -like "*.csv")} }
 
+
 ########## env. vars
 $env:PAGER = 'less.exe'
 $MaximumHistoryCount = 10000
 $NVIM = "$env:HOMEPATH\dotfiles\.config\nvim"       # $NVIM = "$env:LOCALAPPDATA\nvim"
 $fixThemes =  "$env:HOMEPATH\dotfiles\windows\scripts\omp_NOPE.ps1"
-# $ModulesPath = If (Test-Path "$env:HOMEPATH\OneDrive\Documents") { Join-Path $env:HOMEPATH\OneDrive\Documents PowerShell\Modules } Else { Join-Path $env:HOMEPATH\Documents PowerShell\Modules }
 $isAdmin = ([System.Security.Principal.WindowsPrincipal] [System.Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
   if ($isAdmin) { Write-Host "Running with Administrator privileges" }
+$PSMods = If (Test-Path "$env:HOMEPATH\OneDrive\Documents") { Join-Path $env:HOMEPATH\OneDrive\Documents PowerShell\Modules } Else { Join-Path $env:HOMEPATH\Documents PowerShell\Modules }
 
 
 ########## env. paths
