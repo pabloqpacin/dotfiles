@@ -5,7 +5,7 @@
   "exclusive": true,
   "passtrough": false,
   "gtk-layer-shell": true,
-  "height": 26,
+  "height": 22,
   "spacing": 7,
   "modules-left": [
     "custom/separator",
@@ -186,7 +186,8 @@
     // "on-click": "alacritty -e task burndown.daily"
   },
   "image": {
-    "path":"/home/pabloqpacin/dotfiles/nix/Nix_snowflake.svg.png",
+    // "path":"/home/pabloqpacin/.config/waybar/img/Nix_snowflake.svg.png",
+    "path":"/home/pabloqpacin/.config/waybar/img/Arch-linux.png",
     "on-click": "pkill rofi || rofi -modi drun -show drun",
     "on-click-middle": "pkill rofi || rofi -modi run -show run",
     "on-click-right": "pkill rofi || rofi -show power-menu -modi power-menu:rofi-power-menu"

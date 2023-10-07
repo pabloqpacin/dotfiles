@@ -1,3 +1,18 @@
+---
+syntax: bash
+tags: [ASIR]
+---
+
+# Take repo from local to remote
+git init
+  # Github: new
+git remote add
+git remote add origin git@github.com:foo/bar.git
+git fetch
+git pull origin main
+git add foo; git commit -m "bar"
+git push --set-upstream origin main
+
 # Create and push new branch
 git checkout -b new-branch
 git push origin new-branch

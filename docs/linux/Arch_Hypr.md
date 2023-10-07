@@ -432,13 +432,13 @@ cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua
 
 ```bash
 # Install desktop applications
-sudo pacman -S code
+yay -S vscodium || sudo pacman -S code
 sudo pacman -S discord steam    # 2) lib32-nvidia-utils
 sudo pacman -S spotify-launcher spotifyd
     # $ yay -Si librespot mpd
 
 # Install lab stuff
-yay -S nmap zenmap
+yay -S nmap zenmap grc
 sudo pacman -S wireshark-qt \
   && sudo usermod -aG wireshark username
 
@@ -462,3 +462,10 @@ sudo pacman -S virtualbox virtualbox-guest-iso              # 2) virtualbox-host
 sudo dd if=/dev/zero of=/dev/sdc bs=4M status=progress
 ```
  -->
+
+```bash
+# sudo pacman -S flameshot xdg-desktop-portal xdg-desktop-portal-wlr
+sudo pacman -S feh
+yay -S grimshot
+# yay -S w3m-imgcat
+```

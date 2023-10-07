@@ -265,12 +265,13 @@ cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua
 
 - Workstation vibes -- see [code/codium settings.json](/.config/code/User/settings.jsonc)
 
-```yaml
-# Desktop apps
-Pop Shop:
-  - Spotify: flatpak
-  - Discord: flatpak
-  - Steam: deb pkg    # Proton 8
+```bash
+# Pop!_Shop OK
+flatpak install spotify
+flatpak install discord
+flatpak install gitkraken
+flatpak install flathub com.github.IsmaelMartinez.teams_for_linux
+sudo apt install steam  # Proton 8
 ```
 
 ```bash
@@ -366,8 +367,9 @@ ln -s ~/dotfiles/.config/powershell ~/.config
 # $ mkdir $HOME/.cache/oh-my-posh/themes/NOPE   -- mv NOPE themes
 ```
 
-```bash
-# Install Gitkraken
-flatpak install gitkraken
+- Fix webcam for Teams
 
+```bash
+flatpak search teams
+flatpak install flathub com.github.IsmaelMartinez.teams_for_linux
 ```

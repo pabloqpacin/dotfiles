@@ -7,7 +7,18 @@
 
 <br>
 
-> WIP
+
+- **Arch i3**: pacman -Syu & Neovim (telescope, nvimtree, peek)
+
+![nvim_telescope](/img/screenshots/i3-nvim_telescope.png)
+![nvim_peek](/img/screenshots/i3-nvim_peek.png)
+![i3_pacman](/img/screenshots/i3-pacman.png)
+
+- **Arch Hyprland**: Brave & Neovim (LSPs, DAPs) & neofetch,btm,batman,eza
+
+![codium-nvim](/img/screenshots/hypr-vscodium_nvimLSP.png)
+![foo](/img/screenshots/hypr-brave_nvimLSP.png)
+![foo](/img/screenshots/hypr-neofetch_man_btm_eza.png)
 
 <!--
 https://github.com/lauroro/hyprland-dotfiles
@@ -76,8 +87,8 @@ https://github.com/gasech/hyprland-dots
             <td>Windows Terminal</td>
         </tr>
         <tr>
-            <td><b>Font</b></td>
-            <td colspan="2">FiraCode Nerd Font</td>
+            <td><b>Nerd Fonts</b></td>
+            <td colspan="2">FiraCode & CaskaydiaCove</td>
         </tr>
         <tr>
         <tr>
@@ -100,7 +111,7 @@ https://github.com/gasech/hyprland-dots
         </tr>
         <tr>
             <td><b>Other Misc</b></td>
-            <td>flameshot nmapsi4</td>
+            <td>flameshot grimshot nmapsi4</td>
             <td>sysinternals powertoys</td>
         </tr>
         <!-- <tr>

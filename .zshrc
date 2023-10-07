@@ -27,10 +27,10 @@ ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "avit" "bureau"
 # FORMER: 3den adben(fortune) apple arrow amuse awesomepanda candy-kingdom cloud crunch cypher
 # dallas dieter dogenpunk dst edvardm essembeh fishy flazz frisk fwalch garyblessington gozilla
 # half-life jbergantine jispwoso jnrowe josh jreese juanghurtado junkfood kafeitu kolo maran
-# mgutz michelebologna miloshadzic mlh mortalscumbag mrtazz murilasso nebirhos nicoulaj norm
-# obraun pygmalion-virtualenv re5et rgm robbyrussel smt Soliah sonicradish steeef strug
-# sunaku sunrise superjarin suvash terminalparty wezm+ ys
-# pts output: trapd00r linuxonly humza? skaro?
+# mgutz michelebologna miloshadzic mlh mortalscumbag mrtazz murilasso nebirhos nicoulaj
+# norm obraun pygmalion-virtualenv re5et rgm robbyrussel smt Soliah sonicradish steeef
+# strug sunaku sunrise superjarin suvash terminalparty wezm+ ys
+# PTS output: trapd00r linuxonly humza skaro
 
 # Set custom folder for personal aliases, plugins and themes
 ZSH_CUSTOM="$HOME/dotfiles/zsh"

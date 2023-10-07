@@ -1,5 +1,5 @@
 configuration {
-  font:                     "FiraCode Nerd Font Medium 10";
+  font:                     "FiraCode Nerd Font Medium 8";
   show-icons:               true;
   icon-theme:               "Papirus";
   drun-display-format:      "{icon} {name}";
@@ -50,7 +50,7 @@ element-text {
 }
 
 element-icon {
-  size: 14;
+  size: 12;
   padding: 0 10 0 0;
   background-color: transparent;
 }

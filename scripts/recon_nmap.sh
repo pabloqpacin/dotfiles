@@ -1,15 +1,19 @@
 #!/bin/bash
 
 echo -e "\n----###############################################################----"
-echo -e "#########~~~~~{     R3C0N NM4P v1.1  by @pabloqpacin    }~~~~~#########"
+echo -e "#########~~~~~{     R3C0N NM4P v1.2  by @pabloqpacin    }~~~~~#########"
 echo -e "----###############################################################----\n"
 
-# Session addresses & argument target_list
-net=$(ip route | grep 'src' | awk '{print $1}' | head -n 1)
-ip=$(ip route get 1 | awk '{print $7}')
+# Basic addresses throughout session
 targets=("_gateway" "localhost" "scanme.nmap.org")
-target_scan=""
+distro=$(grep '^ID=' /etc/os-release | awk -F '=' '{print $2}')
+ip=$(ip route get 1 | awk '{print $7}')
+if [[ $distro != 'arch' ]]
+    then net=$(ip route | grep 'src' | awk '{print $1}' | head -n 1)
+    else net=$(ip route | grep 'link' | awk '{print $1}')
+fi  # Because diff output since diff 'iproute2' version or $(ip -V)
 
+# Targets and $1 list
 echo -e "#  NOTE: Run './recon_nmap.sh target_list.txt' to add extra targets.  #\n"
 if [ -n "$1" ]
     then target_list="$1"
@@ -19,12 +23,10 @@ if [ -n "$1" ]
 fi
 
 # Logging scans
-log_dir=/tmp/recon
+log_dir=/tmp/recon; mkdir $log_dir &>/dev/null
 log_name=$(date +%Y-%m-%d)
 log_temp="$log_dir/scan.txt"
 log="$log_dir/$log_name.txt"
-
-mkdir $log_dir &>/dev/null
 
 # Determine whether to 'grc' -- https://github.com/garabik/grc
 if command -v grc &>/dev/null
@@ -35,8 +37,7 @@ fi
 # Fetch interfaces
 read -p "Scan network interfaces? [y/N] " opt
 if [[ $opt == "Y" || $opt == "y" ]]
-then
-    $nmap --iflist
+    then $nmap --iflist
 fi
 
 # 0)
@@ -109,7 +110,7 @@ function exit_script {
     exit 0
 }
 
-# Determine target for every scan
+# Determine target for every scan -- https://www.gnu.org/software/bash/manual/html_node/Arrays.html; https://opensource.com/article/18/5/you-dont-know-bash-intro-bash-arrays
 function target_prompt {
     read -p "Enter target IPv4, domain name or keyword (net, ip, t1 t2 ...): " target_answer
 
@@ -175,7 +176,8 @@ do
     # echo -e "\t7)   *WIP*                          --script"
     echo -e "\t8) Sam scan -----------------------> nmap -p- -sCV -Pn -T4 ..."
     echo -e "\t9) Custom command."
-    echo -e "\tl) Clear screen."
+    echo -e "\ts) Clear screen."
+    echo -e "\tr) Read log."
     echo -e "\t*) Exit.\n"
     
     read -p "Select action: " opt
@@ -190,10 +192,37 @@ do
         "5") target_prompt; Version_scan_target $target_scan ;;
         "8") target_prompt; Sam_scan $target_scan ;;
         "9") custom_command ;;
-        "l") clear ;;
+        "s") clear ;;
+        "r") less $log ;;
         "*") exit_script ;;
     esac
 
 done
+
+
+###################### ~~~ ######################
+
+###########
+# function tee_out { tee -a $log_dir/$log_name.txt }
+# function sed_del { sed -i '/Script/d' $log }
+# TODO: send the flag as parameter to all functions; then the functions call another function to create the output if flag=1
+###########
+
+# Actions available:
+# Enter IP or menu items (1), (2), etc.
+# -- Now there will be a short list with the relevant IPs as per the existing interfaces
+# -- and the resulting addresses of previous scans.
+# -- That means a dedicated file should be created to store such "menu items"
+# --[[ this is no task for a mere bash script... feeling rusty... ]]
+# 
+# 
+
+#############
+
+# OTHER NOTES
+# current scans only report on 1000 ports then? and the rest?? why 8000 tho?
+# 
+
+
 
 

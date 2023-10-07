@@ -96,3 +96,16 @@ pip_freeze () {
 
 alias acli="arduino-cli"
 alias pinsa="picopins --all"
+
+showhist() { awk -F ';' '{print $2}' ~/.zsh_history | bat -l bash -p }
+
+rm_except() {
+    local extensions=("$@")  # Get the list of extensions passed as arguments
+    local find_cmd="find . -maxdepth 1 -type f ! -name 'this_one'"
+    # Add the exclusion for each extension
+    for ext in "${extensions[@]}"; do
+        find_cmd+=" ! -name '*.$ext'"
+    done
+    # Execute the find command with the constructed options
+    eval "$find_cmd -exec rm -f {} \;"
+}
