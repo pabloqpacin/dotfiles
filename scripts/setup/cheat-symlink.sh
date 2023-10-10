@@ -20,5 +20,5 @@ rmdir $cheatpath/cheatsheets/personal
 ln -s $dotpath/cheatsheets/personal $cheatpath/cheatsheets/
 ln -s $dotpath/cheatsheets/wip $cheatpath/cheatsheets/
 
-echo -e "\n\nThis is '~/.config/cheat' AFTER the script:"
+echo -e "\nThis is '~/.config/cheat' AFTER the script:"
 $print $cheatpath

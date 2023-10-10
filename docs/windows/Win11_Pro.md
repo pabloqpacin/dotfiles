@@ -1,7 +1,7 @@
-# Windows 11 Pro N
+# Windows 11 Pro
 
 
-- [Windows 11 Pro N](#windows-11-pro-n)
+- [Windows 11 Pro](#windows-11-pro)
   - [live-installation](#live-installation)
   - [post-install config](#post-install-config)
     - [Windows Desktop](#windows-desktop)
@@ -14,7 +14,7 @@
 
 
 > - **NOTE 1:** `winget`-heavy approach
-> - **NOTE 2:** ditching Home for the Pro N edition
+> - **NOTE 2:** ditching Home for the Pro edition
 > - **NOTE 3:** Home won't allow for Sandbox or Hyper-V
 > - **NOTE 4:** VirtualBox VMs apparently don't allow for WSL|Docker
 > - **NOTE 5:** Accounts --> offline anon for VMs, licenced personal for bare-metal
@@ -131,7 +131,7 @@ VMware: new default locations (..\Downloads\VMware VMs)
 ```yaml
 # Set: Lang Locale Keyboard
 Activate Windows: "I don't have a product key"
-Operating System: Windows 11 Pro N                          # Home OK
+Operating System: Windows 11 Pro                          # Home OK
 Type of installation: Customised
   # Drive X: HDD for backups
   # Drive Y: 2TB NVMe for Linux
@@ -209,8 +209,8 @@ Settings:
     Taskbar:
       - Items: OFF Search TaskView Widgets Chat
       - Behavior: Automatically hide the taskbar
-    Start:
-      - Folders: ON Settings
+    # Start:
+    #   - Folders: ON Settings
   Privacy and Security:
     For developers:
       - File Explorer: ON all

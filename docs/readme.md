@@ -28,16 +28,17 @@
 - Mind the software selection in terms of CPU and GPU firmware
 - Mind them differences between a vm and a baremetal installation
 - One dedicated drive for Windows and another one with GRUB for them Linux distros
-- Pretty basic *NixOS* setup atm, looking forward to incorporate **home-manager** and more
-- Also looking forward to incorporate **cron**, a backup system and a proper password manager
+- Tried multiboot (Arch+Windows & ProxmoxVE) but GRUB won't create a menu entry for Proxmox
+<!-- - Pretty basic *NixOS* setup atm, looking forward to incorporate **home-manager** and more
+- Also looking forward to incorporate **cron**, a backup system and a proper password manager -->
 
 ### steps
 
 
 1. If existing OS, back up everything as we'll fully format the drives
 2. Take a look at the BIOS/UEFI boot and secure-boot settings
-3. Install [Windows 11](/docs/windows/Win11_ProN.md) to drive A
-   - Get a Home version licence, choose Home or Pro N
+3. Install [Windows 11](/docs/windows/Win11_Pro.md) to drive A
+   - Get a Home version licence, choose Home or Pro
    - Repartition the disk. There will be a boot partition and a primary C:\\. Create a another D:\\ partition for Data. Let's keep it clean.
 4. Install [Arch Linux or NixOS](/docs/linux/) to drive B
    - The fun begins

@@ -266,9 +266,10 @@ cd .. && rm -rf yay
 yay -S brave-bin cheat-bin --nocleanmenu --nodiffmenu   # 2) noto-fonts
 
 # Install fave software
-sudo pacman -S alacritty bat btop exa fzf git-delta lf man man-pages \
+sudo pacman -S alacritty bat btop eza fzf git-delta lf man man-pages \
                openssh ripgrep tldr tmux ttf-firacode-nerd unzip zsh \
-               python-pip python  # includes python-venv
+               python-pip python \  # includes python-venv
+               inetutils
 
 # Update tldr and vanilla cheatsheets
 tldr --update
@@ -341,7 +342,7 @@ sudo pacman -S thunar thunar-volman thunar-archive-plugin gvfs file-roller tumbl
 
 ```bash
 # i3
-sudo pacman -S dmenu feh i3-gaps i3status lightdm lightdm-gtk-greeter \
+sudo pacman -S devilspie dmenu feh i3-gaps i3status lightdm lightdm-gtk-greeter
                light-locker picom xdg-utils brightnessctl pamixer pulseaudio
 
 sudo systemctl --global mask pulseaudio.socket
@@ -404,6 +405,7 @@ ln -s ~/dotfiles/.config/tmux ~/.config
 ln -s ~/dotfiles/.config/alacritty ~/.config
 
 # i3 config
+ln -s ~/dotfiles/.devilspie ~/
 ln -s ~/dotfiles/.config/i3 ~/.config
 
 # Hyprland dotfiles
@@ -425,14 +427,16 @@ nvm install node
   # $ npm install --global live-server
 
 # Set up neovim
+sudo pacman -S deno webkit2gtk
 yay -S nvim-packer-git --nocleanmenu --nodiffmenu
 cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua
 # $ :so && :PackerSync && :PackerCompile && :MasonUpdate
+  # Fix Peek
 ```
 
 ```bash
 # Install desktop applications
-yay -S vscodium || sudo pacman -S code
+yay -S vscodium-bin || sudo pacman -S code
 sudo pacman -S discord steam    # 2) lib32-nvidia-utils
 sudo pacman -S spotify-launcher spotifyd
     # $ yay -Si librespot mpd
@@ -443,7 +447,7 @@ sudo pacman -S wireshark-qt \
   && sudo usermod -aG wireshark username
 
 sudo pacman -S virtualbox virtualbox-guest-iso              # 2) virtualbox-host-dkms
-    # $ exa /usr/lib/virtualbox/additions/VBoxGuestAdditions.iso
+    # $ ls /usr/lib/virtualbox/additions/VBoxGuestAdditions.iso
     # $ sudo nvim /etc/default/grub >> add itb=off ...
 ```
 
@@ -464,8 +468,8 @@ sudo dd if=/dev/zero of=/dev/sdc bs=4M status=progress
  -->
 
 ```bash
-# sudo pacman -S flameshot xdg-desktop-portal xdg-desktop-portal-wlr
-sudo pacman -S feh
-yay -S grimshot
-# yay -S w3m-imgcat
+# Pictures and img
+yay -S grimshot feh
+# $ yay -S w3m-imgcat
+# $ sudo pacman -S flameshot xdg-desktop-portal xdg-desktop-portal-wlr
 ```

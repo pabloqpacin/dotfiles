@@ -6,7 +6,7 @@ showpath() { echo $PATH | tr ':' '\n' }
 alias fcl="fortune | cowsay -f dragon | lolcat"
 alias supdawg="echo 'not much wbu'"
 dc() { echo -e "\U0001F198" }
-alias cbonsie='cbonsai -lt 1'
+alias cbon='cbonsai -lt 1'
 alias clera="echo 'wtf'"
 alias claer="echo 'wtf'"
 alias exot="echo 'wtf'"
@@ -15,15 +15,10 @@ alias ip="ip -c"
 alias trea="tree -aI .git"
 alias less="less --mouse --wheel-lines=3"
 
-# alias exa="exa --icons"
-# alias exad="exa --icons -la -ShiI .git --no-user --octal-permissions --git"
-# alias exatl="exa --icons -TL"
-# alias exatal="exa --icons -laI .git --no-user --no-permissions --no-filesize --git -TL"
-
 alias eza="eza --icons"
-alias ezad="eza --icons -la -ShiI .git --no-user --octal-permissions --git"
+alias ezad="eza --icons -la -ShiI .git --no-user --octal-permissions --group-directories-first --git"
 alias ezatl="eza --icons -TL"
-alias ezatal="eza --icons -laI .git --no-user --no-permissions --no-filesize --git -TL"
+alias ezatal="eza --icons -laI .git --no-user --no-permissions --no-filesize --group-directories-first --git -TL"
 
 alias fzfp="fzf --preview 'bat --color=always {}'"
 alias fzfv="fzf --preview 'bat --color=always {}' --bind 'enter:execute(nvim {})'"
@@ -77,10 +72,10 @@ alias kpc='keepassxc-cli'
 alias dneo="neo -D"
 
 # Toggle autosuggestions & syntax highlighting with Ctrl+Alt+E
-bindkey -s '\e^E' "source ~/dotfiles/scripts/zsh-toggle_plugs.sh\n"
+bindkey -s '\e^E' "source ~/dotfiles/scripts/setup/zsh-toggle_plugs.sh\n"
 
 # Change alacritty theme
-bindkey -s '\e^A' "source ~/dotfiles/scripts/alacritty-random_theme.sh\n"
+bindkey -s '\e^A' "source ~/dotfiles/scripts/setup/alacritty-random_theme.sh\n"
 
 # Fix pipewire --  https://support.system76.com/articles/audio
 bindkey -s '\e^P' "systemctl --user restart wireplumber pipewire pipewire-pulse\n"

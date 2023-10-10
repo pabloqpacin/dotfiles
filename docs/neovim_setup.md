@@ -140,15 +140,11 @@ cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua
 ### Tweak `peek.nvim`
 
 ```bash
-# cd ~/.local/share/nvim/site/pack/packer/start/peek.nvim && deno task --quiet build:fast
-
 # PR Hotfix -- https://github.com/toppair/peek.nvim/pull/50/commits/f23200c241b06866b561150fa0389d535a4b903d
 cd ~/.local/share/nvim/site/pack/packer/start/peek.nvim
-
 nvim app/src/markdownit.ts
-    # import MarkdownIt from 'https://esm.sh/markdown-it@13.0.1?no-dts';
-    # import MarkdownIt from 'https://esm.sh/markdown-it@12.3.2';
-
+  # NOP -- import MarkdownIt from 'https://esm.sh/markdown-it@13.0.1?no-dts';
+  # YUP -- import MarkdownIt from 'https://esm.sh/markdown-it@12.3.2';
 nvim deno.json
   #   "lib": ["dom", "deno.ns", "deno.unstable"]
   # },
@@ -156,6 +152,7 @@ nvim deno.json
   #   "node:punycode": "https://deno.land/x/punycode/punycode.js"
   # },
   # "fmt": {
+deno task --quiet build:fast
 ```
 
 ### DAPs

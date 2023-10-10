@@ -14,10 +14,10 @@
 
 ```bash
 # Important
-btop curl fzf git htop ipcalc man ssh tldr tmux vim zsh     # scp sftp
+btop curl fzf git htop ipcalc man ssh tldr termshark tmux vim zsh     # scp sftp
 
 # NO APT - Cargo packages // pacman or zypper OK -- might require: libssl-dev pkg-config
-bat bottom exa eza fd-find git-delta gitui mdcat ripgrep zoxide
+bat bottom eza fd-find git-delta gitui mdcat ripgrep zoxide
 
 # NO APT - other source
 cheat deno glow live-server neo neovim nvm>node>npm oh-my-zsh packer tpm
@@ -34,8 +34,11 @@ bind9-dnsutils cloud-init dig dstat iproute2 monkeysphere net-tools netcat-openb
 # Coreutils << info coreutils
 df du env|printenv gawk printenv sed wc
 
+# System mgmt
+stat
+
 # Somewhat useful
-aha finger glances gnome-tweaks html2text logcat lsb-release lscpu mdp mysql-client mysql-server neofetch progress taskwarrior timewarrior tree who wslu xclip zshmisc
+aha finger glances gnome-tweaks grc html2text logcat lsb-release lscpu mdp mysql-client mysql-server neofetch progress taskwarrior timewarrior tree who wslu xclip zshmisc
 
 # Just for fun
 asciiquarium bsdgames cbonsai cmatrix cowsay figlet fortune games-console games-rogue lolcat oneko pacvim

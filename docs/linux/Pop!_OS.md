@@ -128,7 +128,7 @@ reboot
 ```bash
 sudo apt install acpi cbonsai gnome-tweaks devilspie unclutter-xfixes
 unclutter -idle 3 &
-ln -s ~/dotfiles/.devilspie ~
+ln -s ~/dotfiles/.devilspie ~/
 # Startup Applications >> Add: devilspie
 ```
 
@@ -189,7 +189,7 @@ tldr --update
 
 # Them Rust packages
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh      # default
-cargo install bat bottom exa fd-find git-delta gitui zoxide
+cargo install bat bottom eza fd-find git-delta gitui zoxide
     # https://github.com/rust-lang/cargo/issues/2729
 
 # Set up SSH auth for Github
@@ -373,3 +373,13 @@ ln -s ~/dotfiles/.config/powershell ~/.config
 flatpak search teams
 flatpak install flathub com.github.IsmaelMartinez.teams_for_linux
 ```
+<!-- ```bash
+# # INOP
+# sudo apt install ffmpeg v4l2loopback-dkms v4l-utils
+# sudo modprobe v4l2loopback
+# ffmpeg -f v4l2 -i /dev/video0 -vf format=yuv420p,scale=1280x720 -f v4l2 /dev/video1
+# ffmpeg -f v4l2 -i /dev/video0 -vf "format=yuv420p,scale=1280:720" -c:v rawvideo -pix_fmt yuv420p -f v4l2 /dev/video1\
+# v4l2-ctl --list-formats-ext -d /dev/video0
+# v4l2-ctl --list-formats-ext -d /dev/video1
+# sudo nvim /etc/gdm3/custom.conf
+``` -->

@@ -14,9 +14,9 @@
 ![nvim_peek](/img/screenshots/i3-nvim_peek.png)
 ![i3_pacman](/img/screenshots/i3-pacman.png)
 
-- **Arch Hyprland**: Brave & Neovim (LSPs, DAPs) & neofetch,btm,batman,eza
+- **Arch Hyprland**: Brave, Neovim (LSPs, DAPs) & neofetch,btm,batman,eza
 
-![codium-nvim](/img/screenshots/hypr-vscodium_nvimLSP.png)
+<!-- ![codium-nvim](/img/screenshots/hypr-vscodium_nvimLSP.png) -->
 ![foo](/img/screenshots/hypr-brave_nvimLSP.png)
 ![foo](/img/screenshots/hypr-neofetch_man_btm_eza.png)
 
@@ -107,7 +107,7 @@ https://github.com/gasech/hyprland-dots
         </tr>
         <tr>
             <td><b>Shell Misc</b></td>
-            <td colspan="2">bat bottom cheat exa fzf lf ripgrep tldr zoxide</td>
+            <td colspan="2">bat bottom cheat eza fzf lf ripgrep tldr zoxide</td>
         </tr>
         <tr>
             <td><b>Other Misc</b></td>
@@ -162,14 +162,17 @@ click EX2511 "https://icecat.biz/en/p/acer/nx.ef6eb.006/extensa-notebooks-471339
 
 ```
 
-
-
 <!--
-
 ```mermaid
-
 = Win 11 Home = WSL Debian
 = Win 11 Pro = WSL Tumbleweed
-
 ```
  -->
+
+
+<!-- ## Dev Tools
+
+### R3C0N NM4P
+
+- Arguments
+- Screenshot -->

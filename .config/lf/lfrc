@@ -1,14 +1,13 @@
 ### CUSTOM
 
 set icons
+set hidden true
 set previewer ~/.config/lf/pv.sh
 # map i $~/.config/lf/pv.sh $f | less -RX
 
 
 ### documentation
 # - @Brodie Robertson: [Lf File Manager Will Always Be My Favourite](https://youtu.be/6Gq6wsz8o_k)
-
-
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
