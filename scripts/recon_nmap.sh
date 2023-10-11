@@ -1,13 +1,16 @@
 #!/bin/bash
 
 echo -e "\n----###############################################################----"
-echo -e "#########~~~~~{     R3C0N NM4P v1.2  by @pabloqpacin    }~~~~~#########"
+echo -e "#########~~~~~{     R3C0N NM4P v1.3  by @pabloqpacin    }~~~~~#########"
 echo -e "----###############################################################----\n"
 
 # Basic addresses throughout session
 targets=("_gateway" "localhost" "scanme.nmap.org")
-distro=$(grep '^ID=' /etc/os-release | awk -F '=' '{print $2}')
-ip=$(ip route get 1 | awk '{print $7}')
+distro=$(awk -F '=' 'NR == 3 {print $2}' /etc/os-release 2>/dev/null || uname -o)
+if [[ $distro != 'Android' ]]
+    then ip=$(ip route get 1 | awk '{print $7}')
+    else ip=$(ip route get 1 | awk '{print $9}')
+fi
 if [[ $distro != 'arch' ]]
     then net=$(ip route | grep 'src' | awk '{print $1}' | head -n 1)
     else net=$(ip route | grep 'link' | awk '{print $1}')
@@ -105,7 +108,7 @@ function custom_command {
 function exit_script {
     read -p "Delete $log_dir? [Y/n] " opt
     if [[ $opt == "Y" || $opt == "y" || $opt == "" ]]
-        then rm -rf /tmp/recon
+        then rm -rf $log_dir
     fi
     exit 0
 }

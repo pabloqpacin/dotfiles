@@ -6,26 +6,25 @@ lsp.nvim_workspace()
 lsp.preset('recommended')
 
 lsp.ensure_installed ({
-    'lua_ls',
+--  'arduino_language_server',
     'bashls',
-    -- 'bash-debug-adapter',    -- GOOD
-    'marksman', -- :vws :vca=>TOC
-    'emmet_ls', -- :html:5, 
-    'cssls',
-    'html',
-    'tsserver',
-    'rust_analyzer',
+--  'bash-debug-adapter',       -- GOOD
     'clangd',
-    -- 'cpptools',  -- need DAP
-    -- 'denols',
-    -- 'sqls',
-    'docker_compose_language_service',
+--  'cpptools',                 -- need DAP
+    'cssls',
+--  'denols',
     'dockerls',
-    'pylsp',
-    'sqlls',    -- config << https://github.com/joe-re/sql-language-server
+    'docker_compose_language_service',
+    'emmet_ls',                 -- :html:5, 
     'gopls',
-    'powershell_es',    -- TODO: install pwsh on Linux
-    -- 'arduino_language_server',
+    'html',
+    'lua_ls',
+    'marksman',                 -- :vws :vca=>TOC
+    'powershell_es',
+    'pylsp',
+    'rust_analyzer',
+    'sqlls',                    -- https://github.com/joe-re/sql-language-server
+    'tsserver',
 })
 
 local cmp = require('cmp')

@@ -1,22 +1,28 @@
-// vscode/vscodium: settings.json
-
 {
     "telemetry.telemetryLevel": "crash",
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
     "workbench.startupEditor": "none",
     "editor.fontFamily": "FiraCode Nerd Font",
-    // "terminal.integrated.fontSize": 13,
-    // "editor.fontSize": 13,
     "editor.rulers": [
       80, 115       
     ],
-    "window.zoomLevel": -0.5,
-    // "window.titleBarStyle": "custom",
     "window.menuBarVisibility": "toggle",
     "workbench.iconTheme": "vscode-icons",
-    "workbench.colorTheme": "One Dark Pro Darker",
-    "vsicons.dontShowNewVersionMessage": true
+    "workbench.colorTheme": "One Dark Pro",
+    "vsicons.dontShowNewVersionMessage": true,
+    "files.exclude": {
+      "**/.git": false
+      // "**/.svn": true,
+      // "**/.hg": true,
+      // "**/CVS": true,
+      // "**/.DS_Store": true,
+      // "**/Thumbs.db": true
+    },
+    "window.zoomLevel": -0.5
+    // "editor.fontSize": 13,
+    // "terminal.integrated.fontSize": 13,
     // "markdown-preview-enhanced.previewTheme": "atom-dark.css",
     // "markdown.preview.fontSize": 11,
+    // "window.titleBarStyle": "custom",
 }

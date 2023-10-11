@@ -127,23 +127,36 @@ bat ~/.termux/termux.properties
 
 ```bash
 pkg install \
-    bat cbonsai cmatrix eza fzf git git-delta htop iproute2 lf man
-    openssh neofetch neovim nmap ripgrep tealdeer tmux tree
+    bat cbonsai cmatrix eza fd fzf git git-delta htop iproute2 lf man
+    openssh neofetch neovim nmap ripgrep tealdeer tmux tree zoxide
     # gitui python zsh
 
 tldr --update
+zoxide add dotfiles
 
 # bat $PREFIX/etc/bash.bashrc
 ```
 ```bash
-# TODO: nvim dependencies
+# Neovim dependencies
+pkg install build-essential nodejs python
+#           deno go powershell
 
+# Packer
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+```
+```bash
 git clone https://github.com/pabloqpacin/dotfiles
+source ~/dotfiles/scripts/setup/termux-misc.sh
 
 # ln -s ~/.bashrc ~/
 ln -s ~/.gitconfig ~/
 ln -s ~/dotfiles/.config/bat ~/.config
 ln -s ~/dotfiles/.config/lf ~/.config
+ln -s ~/dotfiles/.config/nvim ~/.config
+
+cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua
+# $ :so && :PackerSync && :PackerCompile && :MasonUpdate
 ```
 
 - Config SSH ([src](https://wiki.termux.com/wiki/Remote_Access))
@@ -159,7 +172,7 @@ sshd
 
 ```bash
 # Client computer
-map -sV -Pn 192.168.1.33
+nmap -sV -Pn 192.168.1.33
 ssh u0_a390@192.168.1.33 -p 8022
 ```
 
@@ -183,6 +196,7 @@ pkill httpd
 
 - .bashrc
 - htop...
+- https://wiki.termux.com/wiki/PRoot#Installing_Linux_distributions
 - https://www.geeksforgeeks.org/how-to-use-aircrack-ng-in-termux/
 - https://wiki.termux.com/wiki/Graphical_Environment
 - https://wiki.termux.com/wiki/Package_Management
