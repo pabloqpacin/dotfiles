@@ -19,12 +19,12 @@ else
 fi
 
 ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "avit" "bureau"
-  "clean" "daveverwer" "dpoggi" "eastwood" "fletcherm" "frontcube" "gallifrey"
-  "gallois" "geoffgarside" "itchy" "kennethreitz" "kphoen" "macovsky"
-  "mh" "minimal" "muse" "nanotech" "peepcode" "refined" "simple"
-  "theunraveler" "tonotdo" "wedisagree" "wuffers" "zhann"
+  "daveverwer" "dpoggi" "eastwood" "fletcherm" "frontcube" "gallifrey" "gallois"
+  "geoffgarside" "itchy" "kennethreitz" "kphoen" "macovsky" "mh" "minimal"
+  "muse" "nanotech" "peepcode" "refined" "simple" "theunraveler" "tonotdo"
+  "wedisagree" "wuffers" "zhann"
 )
-# FORMER: 3den adben(fortune) apple arrow amuse awesomepanda candy-kingdom cloud crunch cypher
+# FORMER: 3den adben(fortune) apple arrow amuse awesomepanda candy-kingdom clean cloud crunch cypher
 # dallas dieter dogenpunk dst edvardm essembeh fishy flazz frisk fwalch garyblessington gozilla
 # half-life jbergantine jispwoso jnrowe josh jreese juanghurtado junkfood kafeitu kolo maran
 # mgutz michelebologna miloshadzic mlh mortalscumbag mrtazz murilasso nebirhos nicoulaj

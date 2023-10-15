@@ -41,8 +41,8 @@ function system_update {
 function base_apt_packages {
     $sa_install neofetch --no-install-recommends
     $sa_install build-essential
-    $sa_install curl git openssh-server wget
-    $sa_install devilspie grc nmap ripgrep tldr tmux zsh
+    $sa_install curl git openssh-server wget    # net-tools
+    $sa_install devilspie grc ipcalc nmap ripgrep tldr tmux zsh
     if [[ ! -d $HOME/.local/share/tldr ]]; then
         tldr --update
     fi
@@ -173,11 +173,40 @@ function symlink_dotfiles {
     ln -s ~/dotfiles/.config/bottom ~/.config
     ln -s ~/dotfiles/.config/alacritty ~/.config
     ln -s ~/dotfiles/.config/powershell ~/.config
-    ln -s ~/dotfiles/.config/code/User/settings.json ~/.config/VSCodium/User
+    rm ~/.config/VSCodium/User/settings.json && \
+      ln -s ~/dotfiles/.config/code/User/settings.json ~/.config/VSCodium/User
     # source ~/dotfiles/scripts/setup/cheat_symlink.sh
     # SHELL: bash or zsh config
         # profile ...
     # devilspie bs
+}
+
+function install_docker {
+    if ! command -v docker &>/dev/null; then
+        echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Docker${RESET}${YELLOW} ####################${RESET}"
+        # https://docs.docker.com/desktop/install/ubuntu/
+        $sa_update
+        $sa_install ca-certificates curl gnupg
+        sudo install -m 0755 -d /etc/apt/keyrings
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        sudo chmod a+r /etc/apt/keyrings/docker.gpg
+        echo \
+        "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+        "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        $sa_update
+        $sa_install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+        # systemctl --user start docker-desktop || systemctl --user enable docker-desktop
+        # docker compose version; docker --version; docker version
+        # sudo docker run hello-world
+        # sudo usermod -aG docker $USER
+        wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.24.2-amd64.deb
+        $sa_update
+        $sa_install ./docker-desktop-*.deb
+        rm docker-desktop-*
+    else
+        echo -e "\n${YELLOW}########## ${GREEN}${BOLD}Docker${RESET}${YELLOW} is already installed ##########${RESET}"
+    fi
 }
 
 
@@ -213,7 +242,7 @@ This script will install these packages and their dependencies in order:
 - neofetch
 - curl git openssh-server wget
 - build-essential (binutils g++ gcc make manpages-dev)
-- devilspie grc nmap ripgrep tldr tmux zsh
+- devilspie grc ipcalc nmap ripgrep tldr tmux zsh
 - cheat
 - rust toolchain (cargo rust-std rustc)
 - bat bottom eza git-delta zoxide
@@ -226,6 +255,7 @@ This script will install these packages and their dependencies in order:
 - # nvm node npm
 - # go lf # cheat
 - powershell
+- Docker
 "
 
 # echo -e "\nYou can have all 'apt-get install' prompts accepted by default
@@ -252,6 +282,8 @@ install_powershell
 build_neovim
 # setup_neovim
 # install_docker
+    # # IF VM!!!
+    #     VBoxManage modifyvm UbuntuClient --nested-hw-virt on
 # # python
 # # go
 # symlink_dotfiles

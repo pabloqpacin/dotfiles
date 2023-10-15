@@ -28,11 +28,8 @@ VM:
   # Enable PAE/NX: ...
   Network: Bridged
 ```
+> See [Proxmox setup](/docs/Proxmox_VE.md)
 
-```yaml
-# Proxmox VE
-
-```
 
 - Installation Wizard
 

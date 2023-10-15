@@ -323,6 +323,8 @@ sudo apt-get install ipcalc nmap nmapsi4 openssh-server wireshark tshark  && \
 curl -fsSL https://updates.safing.io/latest/linux_all/packages/install.sh | sudo bash
 
 sudo apt install nftables traceroute whois
+
+sudo apt install iperf3
 ```
 
 ```bash
@@ -383,3 +385,15 @@ flatpak install flathub com.github.IsmaelMartinez.teams_for_linux
 # v4l2-ctl --list-formats-ext -d /dev/video1
 # sudo nvim /etc/gdm3/custom.conf
 ``` -->
+
+- LibreOffice language
+
+```yaml
+# LibreOffice Writer
+Tools:
+  Language:
+    For All Text:
+      More:
+        Default Languages for Documents:
+          Western: Spanish (Spain)
+```

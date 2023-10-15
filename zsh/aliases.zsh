@@ -92,7 +92,9 @@ pip_freeze () {
 alias acli="arduino-cli"
 alias pinsa="picopins --all"
 
+show_wifi() { nmcli device wifi list }
 showhist() { awk -F ';' '{print $2}' ~/.zsh_history | bat -l bash -p }
+count_lines() { find . -type f -exec cat {} \; | wc -l }
 
 rm_except() {
     local extensions=("$@")  # Get the list of extensions passed as arguments

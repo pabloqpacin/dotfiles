@@ -6,15 +6,9 @@ echo -e "----###############################################################----
 
 # Basic addresses throughout session
 targets=("_gateway" "localhost" "scanme.nmap.org")
-distro=$(awk -F '=' 'NR == 3 {print $2}' /etc/os-release 2>/dev/null || uname -o)
-if [[ $distro != 'Android' ]]
-    then ip=$(ip route get 1 | awk '{print $7}')
-    else ip=$(ip route get 1 | awk '{print $9}')
-fi
-if [[ $distro != 'arch' ]]
-    then net=$(ip route | grep 'src' | awk '{print $1}' | head -n 1)
-    else net=$(ip route | grep 'link' | awk '{print $1}')
-fi  # Because diff output since diff 'iproute2' version or $(ip -V)
+net=$(ip route | grep 'link src' | head -n1 | awk '{print $1}')
+ip=$(ip route | grep 'link src' | head -n1 | awk '{print $9}')
+# distro=$(awk -F '=' 'NR == 3 {print $2}' /etc/os-release 2>/dev/null || uname -o)
 
 # Targets and $1 list
 echo -e "#  NOTE: Run './recon_nmap.sh target_list.txt' to add extra targets.  #\n"
@@ -205,20 +199,7 @@ done
 
 ###################### ~~~ ######################
 
-###########
-# function tee_out { tee -a $log_dir/$log_name.txt }
-# function sed_del { sed -i '/Script/d' $log }
-# TODO: send the flag as parameter to all functions; then the functions call another function to create the output if flag=1
-###########
 
-# Actions available:
-# Enter IP or menu items (1), (2), etc.
-# -- Now there will be a short list with the relevant IPs as per the existing interfaces
-# -- and the resulting addresses of previous scans.
-# -- That means a dedicated file should be created to store such "menu items"
-# --[[ this is no task for a mere bash script... feeling rusty... ]]
-# 
-# 
 
 #############
 
