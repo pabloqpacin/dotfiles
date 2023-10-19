@@ -129,8 +129,9 @@ reboot
 sudo apt install acpi cbonsai gnome-tweaks devilspie unclutter-xfixes
 unclutter -idle 3 &
 ln -s ~/dotfiles/.devilspie ~/
-# Startup Applications >> Add: devilspie
+ln -s ~/dotfiles/.config/autostart ~/.config
 ```
+<!-- gnome-session-properties -->
 
 ```yaml
 # System

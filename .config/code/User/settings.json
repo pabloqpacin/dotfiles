@@ -5,24 +5,25 @@
     "workbench.startupEditor": "none",
     "editor.fontFamily": "FiraCode Nerd Font",
     "editor.rulers": [
-      80, 115       
+        80, 115       
     ],
     "window.menuBarVisibility": "toggle",
     "workbench.iconTheme": "vscode-icons",
     "workbench.colorTheme": "One Dark Pro",
     "vsicons.dontShowNewVersionMessage": true,
     "files.exclude": {
-      "**/.git": false
-      // "**/.svn": true,
-      // "**/.hg": true,
-      // "**/CVS": true,
-      // "**/.DS_Store": true,
-      // "**/Thumbs.db": true
+        "**/.git": false
+        // "**/.svn": true,
+        // "**/.hg": true,
+        // "**/CVS": true,
+        // "**/.DS_Store": true,
+        // "**/Thumbs.db": true
     },
-    "window.zoomLevel": -0.5
+    "window.zoomLevel": -1,
     // "editor.fontSize": 13,
     // "terminal.integrated.fontSize": 13,
     // "markdown-preview-enhanced.previewTheme": "atom-dark.css",
     // "markdown.preview.fontSize": 11,
     // "window.titleBarStyle": "custom",
+    "markdown-pdf.headerTemplate": "<div style=\"font-size: 9px; margin-left: 1cm;\">Pablo Quevedo Pacin</div> <div style=\"font-size: 9px; margin-left: auto; margin-right: 1cm; \">%%ISO-DATE%%</div>"
 }

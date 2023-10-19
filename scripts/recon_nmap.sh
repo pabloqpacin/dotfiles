@@ -200,13 +200,11 @@ done
 ###################### ~~~ ######################
 
 
-
-#############
-
-# OTHER NOTES
-# current scans only report on 1000 ports then? and the rest?? why 8000 tho?
-# 
-
-
-
-
+# if [[ $distro != 'Android' ]]
+#     then ip=$(ip route get 1 | awk '{print $7}')
+#     else ip=$(ip route get 1 | awk '{print $9}')
+# fi
+# if [[ $distro != 'arch' ]]
+#     then net=$(ip route | grep 'src' | awk '{print $1}' | head -n 1)
+#     else net=$(ip route | grep 'link' | awk '{print $1}')
+# fi  # Because diff output since diff 'iproute2' version or $(ip -V)

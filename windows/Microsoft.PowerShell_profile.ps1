@@ -75,7 +75,8 @@ $pathsToAdd = @(
   "$env:PROGRAMFILES\Neovim\bin",
   "$env:PROGRAMFILES\Wireshark",
   # "$env:LOCALAPPDATA\cheat",                      # if script but using GO atm
-  "$env:SYSTEMDRIVE\msys64\mingw64\bin"
+  "$env:SYSTEMDRIVE\msys64\mingw64\bin",
+  "$env:PROGRAMFILES\MySQL\MySQL Server 8.0\bin"
 )
 
 foreach ($path in $pathsToAdd) {

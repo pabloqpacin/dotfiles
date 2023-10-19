@@ -108,7 +108,7 @@
 > - **NOTE 1**: humble first-ever installation
 > - **NOTE 2**: if hardware runs Legacy BIOS, VMs should do too; if hardware runs UEFI, VMs should do too <!-- because odd and unexpected outcomes when it comes to memory allocation, CPU instructions or Hardware sharing and pass-through -->
 > - **NOTE 3**: for them VMs, overassigning resources isn't denying them elsewhere ([thin provisioning](https://en.wikipedia.org/wiki/Thin_provisioning)). <!--OVERALLOCATION is GOOD as long as within HW BOUNDARIES-->
-> - **NOTE 4**: Network Bridge == network path between VM, through Proxmox, out to a physical network adapter (NIC). <br> Virtual Switch == ...
+> - **NOTE 4**: Network Bridge == network path between VM, through Proxmox, out to a physical network adapter (NIC).
 
 
 | VM Settings   | Legacy    | UEFI
@@ -184,9 +184,16 @@ Management Network Config:
 ## post-install configuration
 
 ```bash
-# apt update        # ?!
-apt install grc htop lf neofetch nmap
-lscpu
+# Comment out Enterprise sources tampering with 'apt update'
+sed -i '/enterprise/s/^/# /' /etc/apt/sources.list/.d/cepth.list
+sed -i '/enterprise/s/^/# /' /etc/apt/sources.list/.d/pve-enterprise.list
+echo 'APT::Get::Show-Versions "true";' | tee /etc/apt/apt.conf.d/99show-versions
+
+# lscpu
+
+apt update
+apt install grc btop lf nmap
+apt install neofetch --no-install-recommends
 ```
 
 ---

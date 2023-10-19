@@ -106,3 +106,6 @@ rm_except() {
     # Execute the find command with the constructed options
     eval "$find_cmd -exec rm -f {} \;"
 }
+
+
+# alias stat='grc stat'
