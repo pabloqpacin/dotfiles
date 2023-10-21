@@ -21,12 +21,12 @@ scrolling:
 
 font:
   normal:
-    # family: FiraCode Nerd Font
-    family: CaskaydiaCove Nerd Font
+    family: FiraCode Nerd Font
+    # family: CaskaydiaCove Nerd Font
     style:  Regular
   bold:
-    # family: FiraCode Nerd Font
-    family: CaskaydiaCove Nerd Font
+    family: FiraCode Nerd Font
+    # family: CaskaydiaCove Nerd Font
     style:  Bold
   size: 9.5
 draw_bold_text_with_bright_colors: true
