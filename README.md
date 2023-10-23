@@ -20,16 +20,12 @@ See the [docs](/docs/) for a **multiboot walkthrough** going over dependencies a
 ### Arch Hyprland
 
 <!-- ![codium-nvim](/img/screenshots/hypr-vscodium_nvimLSP.png) -->
-![foo](/img/screenshots/hypr-brave_nvimLSP.png)
-![foo](/img/screenshots/hypr-neofetch_man_btm_eza.png)
-
-### Pop!_OS COSMIC
-
-> WIP
+![hypr-nvim_brave](/img/screenshots/hypr-brave_nvimLSP.png)
+![hypr-misc](/img/screenshots/hypr-neofetch_man_btm_eza.png)
 
 ### Debian_X95
 
-> WIP
+![Debian_X95](/img/screenshots/debianX95.png)
 
 <!--
 https://github.com/lauroro/hyprland-dotfiles

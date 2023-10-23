@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo -e "\n----################################################################----"
-echo -e "#########~~~~~{     DebUbu-base v1.2  by @pabloqpacin    }~~~~~#########"
+echo -e "#########~~~~~{     DebUbu-base v1.3  by @pabloqpacin    }~~~~~#########"
 echo -e "----################################################################----\n"
 
 ### Tested and good to run on Debian 12, Ubuntu 22.04 and Pop!_OS 22.04 (freshly installed VMs):
@@ -11,8 +11,8 @@ echo -e "----################################################################---
 ### Prerequirements:
 ### - Docker if VM: VBoxManage modifyvm <VMname> --nested-hw-virt on
 ### - Debian: sudo permissions
-### - PopOS: —
 ### - Ubuntu: —
+### - PopOS: —
 
 ################################################################################
 #                                  FUNCTIONS                                   # 
@@ -21,9 +21,8 @@ echo -e "----################################################################---
 function log_df {
     date >> $df_log
     echo -e "Currently installed packages: $(dpkg -l | wc -l)" >> $df_log
-    df -h >> $df_log
-    # dpkg -l .. apt list --installed .. snap list .. flatpak list .. cargo install --list .. python? .. npm?
-    echo -e "\n" >> $df_log
+        # dpkg -l .. apt list --installed .. snap list .. flatpak list .. cargo install --list .. python? .. npm?
+    df -h >> $df_log; echo -e "\n" >> $df_log
 }
 
 function secs_to_mins {
@@ -38,17 +37,17 @@ function system_update {
         echo 'APT::Get::Show-Versions "true";' | sudo tee /etc/apt/apt.conf.d/99show-versions
     fi
     sudo apt-get update && \
-      sudo apt-get upgrade -y && \
-      # sudo apt-get full-upgrade -y && \             # full-upgrade good on Debian?
-      sudo apt-get autoremove -y && \
-      sudo apt-get autoclean -y
+        sudo apt-get upgrade -y && \
+        # sudo apt-get full-upgrade -y && \             # full-upgrade ...
+        sudo apt-get autoremove -y && \
+        sudo apt-get autoclean -y
 }
 
 function base_apt_packages {
     $sa_install neofetch oneko --no-install-recommends
     $sa_install build-essential
     $sa_install curl git openssh-server wget    # net-tools
-    $sa_install devilspie grc ipcalc nmap nmapsi4 ripgrep tldr tmux zsh
+    $sa_install devilspie grc ipcalc nmap nmapsi4 ripgrep tldr tmux zsh # btop
     # $sa_install wireshark tshark && sudo usermod -aG wireshark $USER
     $sa_install python3-pip python3-venv --no-install-recommends
     if [[ ! -d $HOME/.local/share/tldr ]]; then
@@ -76,10 +75,10 @@ function install_rust_tools {
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Rust Toolchain${RESET}${YELLOW} (accept '${RED}default${RESET}${YELLOW}') ####################${RESET}"
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Rust pkgs${RESET}${YELLOW} ####################${RESET}"
-        $HOME/.cargo/bin/cargo install bat bottom eza git-delta zoxide
+        $HOME/.cargo/bin/cargo install bat bottom eza git-delta zoxide  # fd-find
     else
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Rust pkgs${RESET}${YELLOW} ####################${RESET}"
-        $HOME/.cargo/bin/cargo install bat bottom eza git-delta zoxide
+        $HOME/.cargo/bin/cargo install bat bottom eza git-delta zoxide  # fd-find
     fi
 }
 
@@ -186,10 +185,10 @@ function install_docker {
         # https://docs.docker.com/desktop/install/ubuntu/
         $sa_update && $sa_install ca-certificates curl gnupg  # gnome-terminal
         sudo install -m 0755 -d /etc/apt/keyrings
-        curl -fsSL https://download.docker.com/linux/$docker_var/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        curl -fsSL https://download.docker.com/linux/$docker_distro/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
         sudo chmod a+r /etc/apt/keyrings/docker.gpg
         echo \
-            "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/$docker_var \
+            "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/$docker_distro \
             "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
             sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
         $sa_update && $sa_install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
@@ -219,19 +218,19 @@ function build_neovim {
 function dotfiles_shell {
     if [[ ! -d $HOME/dotfiles ]]; then
         git clone --depth 1 https://github.com/pabloqpacin/dotfiles $HOME/dotfiles
-        zoxide add dotfiles
+        # zoxide add dotfiles
     fi
     if [[ ! -L $HOME/.zshrc ]]; then
-        read -p "
-Apply ZSH configuration? [Y/n] " opt
+        echo ""; read -p "Apply ZSH configuration? [Y/n] " opt
         if [[ $opt == "Y" || $opt == "y" || $opt = "" ]]; then
             yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-            rm $HOME/.zshrc && ln -s $HOME/dotfiles/.zshrc $HOME/
+            rm ~/.zshrc && ln -s ~/dotfiles/.zshrc ~/
             mkdir $HOME/dotfiles/zsh/plugins
             git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions $HOME/dotfiles/zsh/plugins/zsh-autosuggestions
             git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting $HOME/dotfiles/zsh/plugins/zsh-syntax-highlighting
             bash $HOME/dotfiles/scripts/setup/omz-msg_random_theme.sh
-            sudo chsh -s $(which zsh)
+            sudo chsh -s $(which zsh) $USER
+            zoxide add dotfiles
         # else
         #     # oh my bash ...
         fi
@@ -257,8 +256,8 @@ function dotfiles_config {
     fi
 
     # Powershell
-    if command -v pwsh &>/dev/null; then
-        mkdir -p $HOME/.local/bin
+    if command -v pwsh &>/dev/null && [ ! -e $HOME/.local/bin/oh-my-posh ]; then
+        mkdir -p $HOME/.local/bin &>/dev/null
         curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin
         ln -s ~/dotfiles/.config/powershell ~/.config
     fi
@@ -271,7 +270,7 @@ function dotfiles_config {
         codium &
         sleep 2 && pkill codium
         # rm $HOME/.config/VSCodium/User/settings.json && \
-        ln -s $HOME/dotfiles/.config/code/User/settings.json $HOME/.config/VSCodium/User
+        ln -s ~/dotfiles/.config/code/User/settings.json ~/.config/VSCodium/User
     fi
 }
 
@@ -279,6 +278,12 @@ function dotfiles_neovim {
     if ! command -v npm &>/dev/null; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}npm${RESET}${YELLOW} ####################${RESET}"
         $sa_install npm
+
+            ### ISSUE: Ubuntu version is too old for nvim.bashls
+            ### main PopOS box --> node --version && npm --version == 20.5.0  - 9.8.0
+            ### debianVM --------> "                             " == 18.13.0 - 9.2.0
+            ### ubuntuVM --------> "                             " == 12.22.9 - 8.5.1
+
         # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
         # source $HOME/.${current_shell}rc && nvm install node
     else
@@ -290,9 +295,9 @@ function dotfiles_neovim {
     else
         echo -e "\n${YELLOW}########## ${GREEN}${BOLD}deno${RESET}${YELLOW} is already installed ##########${RESET}"
     fi
-        if [[ ! -d $HOME/.local/share/nvim/site/pack/packer ]]; then
+    if [[ ! -d $HOME/.local/share/nvim/site/pack/packer ]]; then
         git clone --depth 1 https://github.com/wbthomason/packer.nvim \
-        ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+         ~/.local/share/nvim/site/pack/packer/start/packer.nvim
     fi
     ln -s $HOME/dotfiles/.config/nvim $HOME/.config
     read -p "
@@ -310,6 +315,12 @@ function setup_chicago95 {
     # xfconf-query -c xsettings -p /Net/ThemeName -s "Helvetica Regular 8"
 }
 
+function debian_devilspie {
+    cat ~/.devilspie/window_transparency.ds > dp_tmp && \
+        cat dp_tmp >> ~/.devilspie/window_transparency.ds && \
+        sed -i '6,/Codium/{s/Codium/Alacritty/}' ~/.devilspie/window_transparency.ds && \
+        rm dp_tmp
+}
 
 ################################################################################
 #                                   RUNTIME                                    # 
@@ -322,13 +333,14 @@ distro=$(grep "^ID=" /etc/os-release | awk -F '=' '{print $2}')
 current_shell=$(echo $SHELL | awk -F '/' '{print $NF}')
 # current_shell=$(ps -p $$ -o comm= | awk '{print $1}')
 desktop=$XDG_CURRENT_DESKTOP
-docker_var=""
+docker_distro=""
 case $distro in
-    "debian") docker_var='debian' ;;
-    "ubuntu" | "pop") docker_var='ubuntu' ;;
+    "debian") docker_distro='debian' ;;
+    "ubuntu" | "pop") docker_distro='ubuntu' ;;
 esac
 
 # Tested on:
+#   - OS ============== $distro == $desktop
 #   - Debian (xfce) --> debian --- XFCE
 #   - Ubuntu ---------> ubuntu --- ubuntu:GNOME
 #   - PopOS ----------> pop ------ pop:GNOME
@@ -345,10 +357,6 @@ YELLOW='\e[33m'
 
 sa_install=""
 sa_update="sudo apt-get update"
-# super_up='sudo apt-get update && \
-#       sudo apt-get full-upgrade -y && \
-#       sudo apt-get autoremove -y && \
-#       sudo apt-get autoclean -y'
 
 echo -e "\n${CYAN}### Logging ${RED}${BOLD}STARTING${RESET}${CYAN} disk usage to '${RED}${BOLD}$df_log${RESET}${CYAN}' ###${RESET}\n"
 log_df
@@ -371,15 +379,18 @@ install_firacode_nerdfont
 install_alacritty
 install_docker
 case $distro in
-    # "debian") install_powershell_deb;;
-    "ubuntu" | "pop") install_powershell_ubupop;;
+    # "debian") install_powershell_deb ;;
+    "ubuntu" | "pop") install_powershell_ubupop ;;
 esac
 build_neovim
 dotfiles_shell
 dotfiles_config
 dotfiles_neovim
-if [[ $desktop == "XFCE" && $(xfconf-query -c xfwm4 -p /general/theme) != 'Chicago95' ]]
-    then setup_chicago95
+if [[ $desktop == "XFCE" && $(xfconf-query -c xfwm4 -p /general/theme) != 'Chicago95' ]]; then
+    setup_chicago95
+    case $distro in
+        "debian") debian_devilspie ;;
+    esac
 fi
 
 echo -e "\n${CYAN}### Logging ${RED}${BOLD}FINAL${RESET}${CYAN} disk usage to '${RED}${BOLD}$df_log${RESET}${CYAN}' ###${RESET}"
