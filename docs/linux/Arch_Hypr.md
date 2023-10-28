@@ -266,8 +266,8 @@ cd .. && rm -rf yay
 yay -S brave-bin cheat-bin --nocleanmenu --nodiffmenu   # 2) noto-fonts
 
 # Install fave software
-sudo pacman -S alacritty bat btop eza fzf git-delta lf man man-pages \
-               openssh ripgrep tldr tmux ttf-firacode-nerd unzip zsh \
+sudo pacman -S alacritty bat btop eza fzf git-delta less lf man man-pages \
+               openssh ripgrep tldr tmux ttf-firacode-nerd unzip zoxide zsh \
                python-pip python \  # includes python-venv
                inetutils
 

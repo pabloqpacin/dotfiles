@@ -9,7 +9,7 @@ Invoke-Expression (& { (zoxide init powershell | Out-String) })
 Set-Alias gs Get-Service
 Set-Alias which Get-Command
 Set-Alias opendir Invoke-Item
-Set-Alias tldr tealdeer-windows-x86_64-msvc.exe
+# Set-Alias tldr tealdeer-windows-x86_64-msvc.exe
 Set-Alias acli arduino-cli
 
 

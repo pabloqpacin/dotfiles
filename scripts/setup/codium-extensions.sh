@@ -4,8 +4,9 @@ extensions=(
 'zhuangtongfa.material-theme' 'vscode-icons-team.vscode-icons'
 'yzhang.markdown-all-in-one' 'yzane.markdown-pdf' 'tomoki1207.pdf'
 'bierner.markdown-mermaid' 'bpruitt-goddard.mermaid-markdown-syntax-highlighting'
-'naumovs.color-highlight' 'yandeu.five-server'
+'naumovs.color-highlight' 'ms-vscode.live-server'
 'bbenoist.nix'
+# DOCKER
 )
 
 for i in "${!extensions[@]}"; do

@@ -9,7 +9,7 @@ git init
 git remote add
 git remote add origin git@github.com:foo/bar.git
 git fetch
-git pull origin main
+git pull origin main                    # fatal: couldn't find remote ref main
 git add foo; git commit -m "bar"
 git push --set-upstream origin main
 

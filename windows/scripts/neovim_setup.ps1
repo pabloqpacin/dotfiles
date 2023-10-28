@@ -40,6 +40,7 @@ do {
 
 ### Apply the config
 New-Item -ItemType SymbolicLink -Target "$env:HOMEPATH\dotfiles\.config\nvim" -Path "$env:LOCALAPPDATA\nvim"
+# cd $NVIM\after\plugin && mv nvimtree.lua nvimtree.lua.bak
 
 $anyInput = Read-Host "
 Time to install them plugins. Skip error messages with <Enter> and type in ':so' and ':PackerSync'.

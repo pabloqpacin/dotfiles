@@ -48,11 +48,13 @@ function base_apt_packages {
     $sa_install build-essential
     $sa_install curl git openssh-server wget    # net-tools
     $sa_install devilspie grc ipcalc nmap nmapsi4 ripgrep tldr tmux zsh # btop
-    # $sa_install wireshark tshark && sudo usermod -aG wireshark $USER
     $sa_install python3-pip python3-venv --no-install-recommends
     if [[ ! -d $HOME/.local/share/tldr ]]; then
         tldr --update
     fi
+    # $sa_install wireshark tshark && sudo usermod -aG wireshark $USER
+    # $sa_install keepassxc && mkdir ~/KPXC && xdg-open https://keepassxc.org/docs/KeePassXC_UserGuide#_setup_browser_integration
+    # $sa_install flameshot
 }
 
 function install_cheat {
@@ -137,16 +139,17 @@ function install_brave {
     fi
 }
 
-function install_firacode_nerdfont {
-    if [[ ! -d /usr/share/fonts/FiraCodeNerd ]]; then
+function install_nerdfonts {
+    if [[ ! -d /usr/share/fonts/FiraCodeNerd && ! -d /usr/share/fonts/CascadiaCodeNerd ]]; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}FiraCode Nerd Font${RESET}${YELLOW} ####################${RESET}"
-        wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraCode.zip \
-            || curl -O -L https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraCode.zip
-        sudo unzip FiraCode.zip -d /usr/share/fonts/FiraCodeNerd
-        rm FiraCode.zip
+        wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraCode.zip
+        sudo unzip FiraCode.zip -d /usr/share/fonts/FiraCodeNerd && rm FiraCode.zip
+        echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}CaskaydiaCove Nerd Font${RESET}${YELLOW} ####################${RESET}"
+        wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/CascadiaCode.zip
+        sudo unzip CascadiaCode.zip -d /usr/share/fonts/CascadiaCodeNerd && rm CascadiaCode.zip
         fc-cache -f
     else
-        echo -e "\n${YELLOW}########## ${GREEN}${BOLD}FiraCode${RESET}${YELLOW} is already installed ##########${RESET}"
+        echo -e "\n${YELLOW}########## ${GREEN}${BOLD}FiraCode${RESET}${YELLOW} & ${GREEN}${BOLD}CaskaydiaCove${RESET}${YELLOW} are already installed ##########${RESET}"
         # fc-cache; fc-list | grep "FiraCode" | head -n 1
     fi
 }
@@ -375,7 +378,7 @@ install_rust_tools
 install_golang_tools
 install_vscodium
 install_brave
-install_firacode_nerdfont
+install_nerdfonts
 install_alacritty
 install_docker
 case $distro in

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+### ojo $OMB_THEME_RANDOM_SELECTED
+
 themes_dir="$HOME/.oh-my-bash/themes"
 inop_themes=(
     'bobby' 'dos' 'doubletime_multiline_pyonly' 'emperor' 'hawaii50'

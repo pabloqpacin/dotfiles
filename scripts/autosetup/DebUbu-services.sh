@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo -e "\n----################################################################----"
-echo -e "#######~~~~~{     DebUbu-services v1.1  by @pabloqpacin    }~~~~~#######"
+echo -e "#######~~~~~{     DebUbu-services v1.2  by @pabloqpacin    }~~~~~#######"
 echo -e "----################################################################----\n"
 
 ### Tested successfully on Ubuntu 22.04 (fresh VM post DebUbu-base):
@@ -83,11 +83,7 @@ function config_mysql {
     else
         echo -e "\n${YELLOW}########## ${GREEN}${BOLD}$mysql_conf${RESET}${YELLOW} already exists ##########${RESET}"
     fi
-}
-
-# # https://www.nginx.com/resources/wiki/start/topics/recipes/wordpress/
-# function foo_nginx {
-# }
+}   # mysql_safe_stuff?
 
 # https://ubuntu.com/tutorials/install-and-configure-wordpress#1-overview
     # Note that this sets the ownership to the user www-data, which is potentially insecure, such as when your server hosts multiple sites with different maintainers. You should investigate using a user per website in such scenarios and make the files readable and writable to only those users. This will require configuring PHP-FPM to launch a separate instance per site each running as the site’s user account. In such setup the wp-config.php should (read: if you do it differently you need a good reason) be readonly to the site owner and group and other permissions set to no-access (chmod 400). This is beyond the scope of this guide, however.
@@ -106,7 +102,13 @@ function install_apache_php_wordpress {
     fi
 }
 
-function wordpress_config {
+# # @ChristianLempa: Nginx < Docker (https://www.youtube.com/watch?v=7GTYB8RVYBc)
+# # https://www.nginx.com/resources/wiki/start/topics/recipes/wordpress/
+# function foo_nginx {
+# }
+
+    # The line 'Require all granted' allows access from all IP addresses
+function config_apache_wordpress {
     if [[ ! -e /etc/apache2/sites-available/wordpress.conf ]]; then
         echo -e "\n${YELLOW}########## Enabling ${RED}${BOLD}wordpress${RESET}${YELLOW} site on ${RED}${BOLD}apache2${RESET}${YELLOW} ####################${RESET}"
         echo "<VirtualHost *:80>
@@ -132,7 +134,7 @@ function wordpress_config {
     fi
 }
 
-function wordpress_database {
+function config_mysql_wordpress {
     if [[ ! -e $wp_config_file ]]; then
         echo -e "\n${YELLOW}########## Enabling ${RED}${BOLD}wordpress${RESET}${YELLOW} database on ${RED}${BOLD}mysql${RESET}${YELLOW} ####################${RESET}"       
         echo -e "\n== Let's create the ${CYAN}new user${RESET} '${BOLD}wordpress${RESET}' for mysql-server =="
@@ -171,7 +173,7 @@ function wordpress_database {
     fi
 }
 
-function wordpress_dashboard {
+function start_wordpress {
         echo -e "\n${YELLOW}########## Time to ${RED}${BOLD}wordpress${RESET}${YELLOW} GUI ####################${RESET}"       
         echo -e "== On the browser, provide the ${BLUE}new info${RESET} along these lines =="
         echo -e "Site Title: Wordpressey
@@ -240,9 +242,9 @@ esac
 case $setup_wordpress in
     '1') 
         install_apache_php_wordpress &&
-        wordpress_config &&
-        wordpress_database &&
-        wordpress_dashboard
+        config_apache_wordpress &&
+        config_mysql_wordpress &&
+        start_wordpress
     ;;
 esac
 

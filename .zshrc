@@ -1,46 +1,40 @@
-# Path to oh-my-zsh installation -- except for NixOS
-if [[ $(cat /etc/os-release | awk -F= '/^NAME=/{ print $2 }' | tr -d '"') != "NixOS" ]]; then
+# Account for: Arch Debian Kali Nix Parrot Pop Termux Ubuntu
+distro=$(grep -s "^ID=" /etc/os-release | awk -F '=' '{print $2}')
+case $distro in '') distro='termux' ;; esac           # termux-info
+
+# Path to oh-my-zsh installation
+if [[ $distro != "NixOS" ]]; then
   export ZSH="$HOME/.oh-my-zsh"
 fi
 
 # Display man pages with Bat highlighting
-export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'"
-# export MANPAGER="bat -l man -p --theme=Nord"
+case $distro in
+  "arch") export MANPAGER="bat -l man -p --theme=Nord" ;;
+  *) export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'" ;;
+esac
 
-# Set $RANDOM_THEME -- mind Parrot & Termux
-if [[ $(cat /etc/os-release | awk -F= '/^NAME=/{ print $2 }' | tr -d '"') == "Parrot OS" ]]; then
-  ZSH_THEME="parrot"
-  export PATH=$PATH:/sbin
-elif [[ $(uname -o) == "Android" ]]; then
-  ZSH_THEME="kennethreitz"
-  echo '\e[3 q'
-else
-  ZSH_THEME="random"
-fi
+# Set $RANDOM_THEME
+case $distro in
+  "parrot") ZSH_THEME="parrot"; export PATH=$PATH:/sbin ;;
+  "termux") ZSH_THEME="kennethreitz"; echo '\e[3 q' ;;
+  *)        ZSH_THEME="random" ;;
+esac
 
-ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "avit" "bureau"
-  "daveverwer" "dpoggi" "eastwood" "fletcherm" "frontcube" "gallifrey" "gallois"
-  "geoffgarside" "itchy" "kennethreitz" "kphoen" "macovsky" "mh" "minimal"
-  "muse" "nanotech" "peepcode" "refined" "simple" "theunraveler" "tonotdo"
-  "wedisagree" "wuffers" "zhann"
+# Them Baddest themes
+ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "avit" "daveverwer"
+  "dpoggi" "eastwood" "fletcherm" "frontcube" "gallifrey" "gallois" "geoffgarside" "itchy"
+  "kennethreitz" "kphoen" "macovsky" "mh" "minimal" "muse" "nanotech" "peepcode" "refined"
+  "simple" "theunraveler" "tonotdo" "wedisagree" "wuffers" "zhann"
 )
-# FORMER: 3den adben(fortune) apple arrow amuse awesomepanda candy-kingdom clean cloud crunch cypher
-# dallas dieter dogenpunk dst edvardm essembeh fishy flazz frisk fwalch garyblessington gozilla
-# half-life jbergantine jispwoso jnrowe josh jreese juanghurtado junkfood kafeitu kolo maran
-# mgutz michelebologna miloshadzic mlh mortalscumbag mrtazz murilasso nebirhos nicoulaj
-# norm obraun pygmalion-virtualenv re5et rgm robbyrussel smt Soliah sonicradish steeef
-# strug sunaku sunrise superjarin suvash terminalparty wezm+ ys
-# PTS output: trapd00r linuxonly humza skaro
 
 # Set custom folder for personal aliases, plugins and themes
 ZSH_CUSTOM="$HOME/dotfiles/zsh"
 
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# See $ZSH/plugins & $ZSH_CUSTOM/plugins
 plugins=(
-  git nmap ubuntu tmux        # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/tmux
+  git nmap ubuntu tmux  # docker
   zsh-autosuggestions zsh-syntax-highlighting
-) # docker
+)
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then

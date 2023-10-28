@@ -1,0 +1,75 @@
+- Arch USB
+- cargo manpages
+- msys2 on windows terminal ?
+  - https://github.com/msys2/MSYS2-packages/issues/1684
+  - https://superuser.com/questions/1505610/msys-shell-in-windows-terminal-preview
+- PROXMOX
+- pwsh linux
+  - https://learn.microsoft.com/en-us/powershell/scripting/install/install-ubuntu?view=powershell-7.3
+  - https://github.com/PProvost/vim-ps1
+- wsl ssh -- https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_server_configuration
+- win gsudo -- https://github.com/gerardog/gsudo#usage-from-wsl-windows-subsystem-for-linux
+- win vscode transparent
+  - https://github.com/microsoft/vscode/issues/12578
+  - https://dev.to/emmanuelnk/how-to-be-cool-and-make-vscode-transparent-56ib
+  - https://benjaminwhiteside.com/2019/11/29/dark-transparent-visual-studio-code/
+  - https://ourcodeworld.com/articles/read/669/how-to-make-the-visual-studio-code-window-transparent-in-windows
+  - https://stackoverflow.com/questions/38031369/is-there-a-way-to-make-the-visual-studio-code-window-transparent
+  - https://github.com/illixion/vscode-vibrancy-continued
+  - https://www.autohotkey.com/docs/v2/lib/WinSetTransparent.htm
+- ELSE
+  - https://www.cygwin.com/
+  - https://github.com/hashicorp/vagrant
+  - mysql? -- docker
+  - dotfiles: colors.reg
+- Nix
+  - system theme: [home](https://stackoverflow.com/questions/38576616/how-to-install-gtk-themes-under-nixos-without-hacky-scripts)
+  - file manager? --> thunar + extensions
+  - home.manager
+  - neovim
+  - spotify: maybe... spotifyd + playerctl + mpd
+  - [About pictures and screenshots](https://discourse.nixos.org/t/screenshots-on-hyprland-on-nixos/29055/5)
+- KVM autoresize
+  - https://stackoverflow.com/questions/41990600/virt-manager-guest-resize-not-working
+  - https://superuser.com/questions/1725915/auto-resize-vm-with-windows-greyed-out-since-graphics-type-vnc-does-not-supp
+
+> OG: 28dbbbe (2023-09-10)
+
+---
+
+> hey is it possible to compress a number of files into one applying encryption, commit that one file to a public git repository, keeping the contents a secret as per encryption, then pull the compressed file and unlocking and uncompressing it on my machine
+
+Yes, it is possible to compress multiple files into one, apply encryption to that compressed file, commit it to a public Git repository, and later pull and decrypt it on your local machine. However, there are a few considerations and best practices to keep in mind:
+
+1. **Select an Encryption Method**: You'll need to choose an encryption method and tool to encrypt your compressed file. Popular options include GPG (GnuPG), OpenSSL, or other encryption tools. Be sure to use a strong and secure encryption method and protect your encryption keys.
+
+2. **Create a Secure Workflow**: Ensure that your encryption keys and passwords are stored securely. Avoid hardcoding sensitive information in your code or Git repository.
+
+3. **Use a `.gitignore` File**: Create a `.gitignore` file to exclude sensitive files and directories, including encryption keys and passwords, from being committed to the Git repository.
+
+4. **Commit Encrypted Files**: After encrypting the compressed file, commit it to your public Git repository. The file will be stored in its encrypted form.
+
+5. **Version Control**: Remember that the entire history of your Git repository will be publicly accessible. While the contents of the encrypted file are secret, the fact that it exists and its history (commit messages, file sizes, timestamps, etc.) will be visible.
+
+6. **Pull and Decrypt**: To retrieve and decrypt the file on your local machine, you can use the same encryption tool you used for encryption. Provide the necessary decryption key or password to unlock the file. Then, you can decompress it if it was originally compressed.
+
+Here's a simplified example of the workflow:
+
+1. Compress and encrypt your files:
+
+```bash
+tar -czf archive.tar.gz file1 file2
+gpg -c archive.tar.gz
+```
+
+2. Commit the encrypted file to your Git repository.
+
+3. On your local machine, pull the encrypted file and decrypt it:
+
+```bash
+git pull origin master
+gpg -d archive.tar.gz.gpg > archive.tar.gz
+tar -xzf archive.tar.gz
+```
+
+Please be aware of the security considerations when handling encrypted data and keys. Always use strong encryption methods, protect your keys, and follow best practices for handling sensitive information. Additionally, consider the implications of sharing encrypted data in a public Git repository, as the metadata may still reveal some information.
