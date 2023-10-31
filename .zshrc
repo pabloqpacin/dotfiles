@@ -22,9 +22,9 @@ esac
 
 # Them Baddest themes
 ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "avit" "daveverwer"
-  "dpoggi" "eastwood" "fletcherm" "frontcube" "gallifrey" "gallois" "geoffgarside" "itchy"
-  "kennethreitz" "kphoen" "macovsky" "mh" "minimal" "muse" "nanotech" "peepcode" "refined"
-  "simple" "theunraveler" "tonotdo" "wedisagree" "wuffers" "zhann"
+  "dpoggi" "eastwood" "fletcherm" "frontcube" "gallifrey" "gallois" "geoffgarside"
+  "kennethreitz" "kphoen" "macovsky" "mh" "minimal" "muse" "nanotech" "peepcode"
+  "refined" "simple" "theunraveler" "tonotdo" "wedisagree" "wuffers" "zhann"
 )
 
 # Set custom folder for personal aliases, plugins and themes
@@ -32,7 +32,7 @@ ZSH_CUSTOM="$HOME/dotfiles/zsh"
 
 # See $ZSH/plugins & $ZSH_CUSTOM/plugins
 plugins=(
-  git nmap ubuntu tmux  # docker
+  archlinux git nmap tmux ubuntu    # docker
   zsh-autosuggestions zsh-syntax-highlighting
 )
 

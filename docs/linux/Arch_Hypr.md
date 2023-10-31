@@ -266,10 +266,9 @@ cd .. && rm -rf yay
 yay -S brave-bin cheat-bin --nocleanmenu --nodiffmenu   # 2) noto-fonts
 
 # Install fave software
-sudo pacman -S alacritty bat btop eza fzf git-delta less lf man man-pages \
-               openssh ripgrep tldr tmux ttf-firacode-nerd unzip zoxide zsh \
-               python-pip python \  # includes python-venv
-               inetutils
+sudo pacman -S alacritty bat btop eza fzf git-delta inetutils less lf man man-pages \
+               openssh python-pip python ripgrep tldr tmux ttf-firacode-nerd \
+               ttf-cascadia-code-nerd unzip zoxide zsh
 
 # Update tldr and vanilla cheatsheets
 tldr --update
@@ -473,3 +472,86 @@ yay -S grimshot feh
 # $ yay -S w3m-imgcat
 # $ sudo pacman -S flameshot xdg-desktop-portal xdg-desktop-portal-wlr
 ```
+
+---
+
+<!-- # bash + zsh .. profile env
+
+> IDEA: common aliases & functions where applicable (DRY code)
+
+```bash
+curl oh-my-bash
+cd dotfiles && git mv .bashrc .bashrc.old
+mv ~/.bashrc ~/dotfiles
+ln -s ~/dotfiles/.bashrc ~/
+ga .bashrc
+```
+
+```bash
+sudo pacman -Syu inetutils  # hostname command
+
+sudo pacman -Syu docker && \
+  sudo systemctl enable docker && \
+  sudo usermod -aG docker $USER
+
+yay -S ttf-cascadia-code-nerd
+```
+
+---
+
+
+# SUPER WIP (solid-zsh)
+
+- Docker
+
+```bash
+sudo pacman -S docker
+sudo usermod -aG docker $USER
+
+# docker pull portainer/portainer
+# docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
+# xdg-open http://localhost:9000
+
+### DOCKERIZE ALL HE STUFF BELOW!!!
+```
+
+- Mariadb
+
+```bash
+# https://wiki.archlinux.org/title/MariaDB
+
+sudo pacman -S mariadb
+mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql; # ls /etc/my.cnf.d/server.cnf
+  # root@localhost == no pass ... need to be system's root user
+  # mysql@localhost == no pass ... need to be system's mysql user
+
+sudo systemctl enable --now systemctl
+sudo mariadb-secure-installation
+  # Current pass for root: <enter>
+  # Switch to unix_socket auth: <enter>
+  # Change root pass: <enter>                 # changeme
+  # Remove anon users: <enter>
+  # Disallow root login remotely: <enter>
+  # Remove test database and access to it: <enter>
+  # Reload privilege tables now: <enter>
+
+mariadb -u root -p
+  # CREATE DATABASE wordpress;
+  # CREATE USER wordpress@localhost IDENTIFIED BY 'some_pass';
+  # GRANT ALL PRIVILEGES ON wordpress.* TO wordpress@localhost;
+  # flush privileges;
+```
+
+```bash
+sudo systemctl enable --now nginx
+xdg-open http://localhost   # /usr/share/nginx/html/index.html
+```
+```bash
+# sudo pacman -S nginx mariadb php-fpm    # mysql ... pacman -Ss "php-" | grep "sql"
+
+# sudo pacman wordpress   # https://wiki.archlinux.org/title/Wordpresshttps://wiki.archlinux.org/title/Wordpresshttps://wiki.archlinux.org/title/Wordpresshttps://wiki.archlinux.org/title/Wordpresshttps://wiki.archlinux.org/title/Wordpress
+
+# sudo mariadb-secure-installation
+```
+
+> FOO THIS SHIT; LET?S DOCKERIZE -->

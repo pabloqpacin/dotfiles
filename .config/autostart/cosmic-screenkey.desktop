@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Exec=screenkey
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=screenkey-cosmic
+Name=screenkey-cosmic
+Comment[en_US]=Enable codium transparency
+Comment=Enable codium transparency
+

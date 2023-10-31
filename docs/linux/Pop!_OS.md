@@ -35,8 +35,6 @@
 
 ## live installation
 
-
-
 ```yaml
 Live ISO installer:
   Language: English US
@@ -172,6 +170,7 @@ chrome.google.com/webstore:
     - Enabled by Default: no
     - Detect dark theme: yes
     # Now just activate when needed
+  SimpleLogin: for ProtonMail           # (!)
 ```
 
 <!-- ```yaml
@@ -397,4 +396,32 @@ Tools:
       More:
         Default Languages for Documents:
           Western: Spanish (Spain)
+```
+
+
+<!-- - USERS AND STUFF
+
+```bash
+# sudo mkdir /home/ztore
+
+# sudo useradd -mg users whoami
+# sudo passwd whoami      # supdawg
+# su whoami
+
+# sudo chown :libvirt-qemu /media/pabloqpacin/ASIR/KVM_VMs
+# sudo chmod 0771 /media/pabloqpacin/ASIR
+# sudo chmod 0770 /media/pabloqpacin
+``` -->
+
+- OBS
+
+```bash
+flatpak install com.obsproject.Studio
+flatpak install kdenlive
+
+sudo apt-get install screenkey
+ln -s ~/dotfiles/.config/screenkey.json ~/.config
+    # Use left + right CTRL keys to HIDE PASSWORDS !!
+
+sudo apt-get install fortune-mod
 ```

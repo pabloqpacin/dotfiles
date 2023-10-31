@@ -107,5 +107,8 @@ rm_except() {
     eval "$find_cmd -exec rm -f {} \;"
 }
 
+alias sy="screenkey &; disown"
+alias sys="screenkey --show-settings"
+alias syk="pkill screenkey"
 
 # alias stat='grc stat'
