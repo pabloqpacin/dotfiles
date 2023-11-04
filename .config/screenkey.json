@@ -19,12 +19,12 @@
     "multiline": false,
     "vis_shift": false,
     "vis_space": true,
-    // "geometry": [
-    //     1420,
-    //     540,
-    //     500,
-    //     45
-    // ],
+    "geometry": [
+        635,
+        952,
+        655,
+        34
+    ],
     "screen": 0,
     "start_disabled": false,
     "mouse": false,

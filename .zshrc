@@ -8,10 +8,12 @@ if [[ $distro != "NixOS" ]]; then
 fi
 
 # Display man pages with Bat highlighting
-case $distro in
-  "arch") export MANPAGER="bat -l man -p --theme=Nord" ;;
-  *) export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'" ;;
-esac
+if command -v bat &>/dev/null; then
+  case $distro in
+    "arch") export MANPAGER="bat -l man -p --theme=Nord" ;;
+    *) export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'" ;;
+  esac
+fi
 
 # Set $RANDOM_THEME
 case $distro in
@@ -23,8 +25,8 @@ esac
 # Them Baddest themes
 ZSH_THEME_RANDOM_CANDIDATES=( "af-magic" "afowler" "alanpeabody" "avit" "daveverwer"
   "dpoggi" "eastwood" "fletcherm" "frontcube" "gallifrey" "gallois" "geoffgarside"
-  "kennethreitz" "kphoen" "macovsky" "mh" "minimal" "muse" "nanotech" "peepcode"
-  "refined" "simple" "theunraveler" "tonotdo" "wedisagree" "wuffers" "zhann"
+  "kennethreitz" "macovsky" "mh" "minimal" "muse" "nanotech" "peepcode" "refined"
+  "simple" "theunraveler" "tonotdo" "wedisagree" "wuffers" "zhann"
 )
 
 # Set custom folder for personal aliases, plugins and themes

@@ -1,4 +1,4 @@
-set number relativenumber
+" set relativenumber
 syntax on && syntax enable
 
 set colorcolumn=80
@@ -37,10 +37,10 @@ function! SetRandomColorscheme()
   let schemes = getcompletion('', 'color')
   let random_scheme = schemes[rand() % len(schemes)]
   execute 'colorscheme ' . random_scheme
-  echo "Selected colorscheme: " . random_scheme " WON'T WORK!
+  echo "Selected colorscheme: " . random_scheme
 endfunction  
-command! RandomColorscheme call SetRandomColorscheme()    
-autocmd VimEnter * call SetRandomColorscheme()
+" command! RandomColorscheme call SetRandomColorscheme()    
+" autocmd VimEnter * call SetRandomColorscheme()
 
 " Increment the number under the cursor
 function! IncrementNumber()
@@ -89,3 +89,7 @@ endfunction
   "endfunction
   "
   "  set statusline+=%{StatuslineGit()}
+  "
+  "  =======x=======
+  "  GOOD_COLO: darkblue pablo RON torte zellner
+  "  BAD_COLO: morning murphy

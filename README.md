@@ -2,6 +2,7 @@
 
 <!--
     TODO: blend zsh and bash configuration (aliases, variables, functions)
+    TODO: scripts/autosetup: keep base, try move else elsewhere
 -->
 
 See the [docs](/docs/) for a **multiboot walkthrough** going over dependencies and tweaks.
@@ -12,15 +13,6 @@ Also see [scripts](/scripts/) and [windows/scripts](/windows/scripts/) for **aut
 
 <details>
 <summary>Click to view</summary>
-
-
-### NixOS Hyprland
-
-![nixos-hypr_desktop](/img/screenshots/nixos-hypr_desktop.png)
-
-### Debian_X95
-
-![Debian_X95](/img/screenshots/debianX95.png)
 
 ### Arch i3
 
@@ -33,6 +25,14 @@ Also see [scripts](/scripts/) and [windows/scripts](/windows/scripts/) for **aut
 <!-- ![codium-nvim](/img/screenshots/hypr-vscodium_nvimLSP.png) -->
 ![hypr-nvim_brave](/img/screenshots/hypr-brave_nvimLSP.png)
 ![hypr-misc](/img/screenshots/hypr-neofetch_man_btm_eza.png)
+
+### Debian_X95
+
+![Debian_X95](/img/screenshots/debianX95.png)
+
+### NixOS Hyprland
+
+![nixos-hypr_desktop](/img/screenshots/nixos-hypr_desktop.png)
 
 
 <!--
@@ -174,15 +174,15 @@ HOMELAB --- DebX95[/Debian X95/]
 click Pentium "https://youtu.be/nyHKHrXjybA" "This is a YouTube link"
 click EX2511 "https://icecat.biz/en/p/acer/nx.ef6eb.006/extensa-notebooks-4713392421143-ex2511-55pf-30284410.html" "Specs (mind RAM & SSD upgrades)"
 
+```
 
-Microcontrollers(Microcontrollers)
+<!-- Microcontrollers>Microcontrollers]
 UNO(Arduino UNO)
 Pico(Raspberry Pi Pico)
 
 Microcontrollers ..- Pico
-Microcontrollers ..- UNO
+Microcontrollers ..- UNO -->
 
-```
 
 <!-- 
 <table style="text-align: center;">

@@ -1,0 +1,4 @@
+session_log="/tmp/dhcp-$(date +%T).log"
+exec > >(tee $session_log)
+exec 2>&1
+

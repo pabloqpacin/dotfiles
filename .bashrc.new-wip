@@ -1,0 +1,21 @@
+
+# curl ohmybash
+
+if [[ ... ]]; then
+    export EDITOR='nvim'
+else
+    export EDITOR='nvim'
+fi
+
+export NVM ...
+[ -s ... ]
+[ -s ... ]
+
+eval "$(zoxide init bash)"
+
+
+fzfhv () {
+        local file
+        file=$(rg --files --hidden | fzf --preview 'bat --color=always {}')
+        [[ -n "$file" ]] && nvim "$file"
+}

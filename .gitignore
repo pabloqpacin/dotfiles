@@ -12,6 +12,7 @@ private/
 *.todo
 *test*
 *mock*
+py/
 
 # Hypr
 *vanilla*
@@ -21,3 +22,6 @@ zsh/plugins/*
 
 # Fortunes -- https://github.com/shlomif/fortune-mod/tree/master/fortune-mod/datfiles
 docs/fortunes/*
+
+# MISC
+target_list.*
