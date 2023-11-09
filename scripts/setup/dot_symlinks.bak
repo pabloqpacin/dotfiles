@@ -1,0 +1,5 @@
+# symlink_forfiles() {
+#     for file in /usr/share/doc/*kitty*; do
+#         ln -s "$file" "$HOME/dotfiles/.config/"
+#     done
+# }

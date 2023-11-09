@@ -5,8 +5,8 @@ extensions=(
 'yzhang.markdown-all-in-one' 'yzane.markdown-pdf' 'tomoki1207.pdf'
 'bierner.markdown-mermaid' 'bpruitt-goddard.mermaid-markdown-syntax-highlighting'
 'naumovs.color-highlight' 'ms-vscode.live-server'
+'msazuretools.vscode-docker'
 'bbenoist.nix'
-# DOCKER
 )
 
 for i in "${!extensions[@]}"; do

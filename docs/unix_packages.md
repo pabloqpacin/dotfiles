@@ -41,7 +41,7 @@ stat
 aha finger glances gnome-tweaks grc html2text logcat lsb-release lscpu mdp mysql-client mysql-server neofetch progress taskwarrior timewarrior tree who wslu xclip zshmisc
 
 # Just for fun
-asciiquarium bsdgames cbonsai cmatrix cowsay figlet fortune games-console games-rogue lolcat oneko pacvim
+asciiquarium bsdgames cbonsai cmatrix cowsay figlet fortune games-console games-rogue lavat-git lolcat oneko pacvim
 
 # ??
 awesome fwupd-signed ghostscript groff p7zip poke readucks tea visualboyadvance watch wget wsl xxd yes youtube-dl

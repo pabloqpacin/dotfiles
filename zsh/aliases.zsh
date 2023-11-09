@@ -111,4 +111,5 @@ alias sy="screenkey &; disown"
 alias sys="screenkey --show-settings"
 alias syk="pkill screenkey"
 
+alias chx="chmod +x"
 # alias stat='grc stat'

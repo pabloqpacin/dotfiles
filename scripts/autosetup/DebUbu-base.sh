@@ -52,7 +52,7 @@ function base_apt_packages {
     if [[ ! -d $HOME/.local/share/tldr ]]; then
         tldr --update
     fi
-    # $sa_install wireshark tshark && sudo usermod -aG wireshark $USER
+    # $sa_install wireshark tshark && sudo usermod -aG wireshark $USER      # WARNING: non-sudo? yes
     # $sa_install keepassxc && mkdir ~/KPXC && xdg-open https://keepassxc.org/docs/KeePassXC_UserGuide#_setup_browser_integration
     # $sa_install flameshot
 }
@@ -195,11 +195,11 @@ function install_docker {
             "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
             sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
         $sa_update && $sa_install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-            # systemctl --user start docker-desktop || systemctl --user enable docker-desktop
-            # docker compose version; docker --version; docker version; sudo docker run hello-world
+            # docker compose version; docker --version; docker version; sudo docker run hello-world     # systemctl status docker
             sudo usermod -aG docker $USER
         wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.24.2-amd64.deb
         $sa_update && $sa_install ./docker-desktop-4.24.2-amd64.deb && rm docker-desktop-4.24.2-amd64.deb
+            # systemctl --user start docker-desktop || systemctl --user enable docker-desktop 
     else
         echo -e "\n${YELLOW}########## ${GREEN}${BOLD}Docker${RESET}${YELLOW} is already installed ##########${RESET}"
     fi
@@ -234,12 +234,14 @@ function dotfiles_shell {
             bash $HOME/dotfiles/scripts/setup/omz-msg_random_theme.sh
             sudo chsh -s $(which zsh) $USER
             zoxide add dotfiles
+        dotfiles_config         # TODO: take this function call outta this function asap
         # else
         #     # oh my bash ...
         fi
     fi
 }
 
+######## TODO: proper condition statements bout symlinks and such -- ATM called by Question/Prompt above
 function dotfiles_config {
     # Fix cheat --  source ~/dotfiles/scripts/setup/cheat_symlink.sh
     bash $HOME/dotfiles/scripts/setup/cheat-symlink.sh
@@ -274,6 +276,7 @@ function dotfiles_config {
         sleep 2 && pkill codium
         # rm $HOME/.config/VSCodium/User/settings.json && \
         ln -s ~/dotfiles/.config/code/User/settings.json ~/.config/VSCodium/User
+    dotfiles_neovim     # TODO: fix too eww
     fi
 }
 
@@ -387,8 +390,8 @@ case $distro in
 esac
 build_neovim
 dotfiles_shell
-dotfiles_config
-dotfiles_neovim
+    # dotfiles_config
+    # dotfiles_neovim
 if [[ $desktop == "XFCE" && $(xfconf-query -c xfwm4 -p /general/theme) != 'Chicago95' ]]; then
     setup_chicago95
     case $distro in

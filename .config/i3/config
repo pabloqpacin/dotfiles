@@ -1,6 +1,6 @@
 ########## i3 CONFIG ##########
 
-exec --no-startup-id feh --bg-fill --randomize ~/dotfiles/img/wallpapers/
+exec --no-startup-id feh --bg-fill ~/dotfiles/img/wallpapers/er_moon.jpg        # --randomize
 exec --no-startup-id picom -b
 exec --no-startup-id devilspie
 exec --no-startup-id light-locker
