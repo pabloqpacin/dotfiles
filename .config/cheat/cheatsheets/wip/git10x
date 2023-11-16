@@ -19,3 +19,11 @@ git push origin new-branch
 
 # Git rename
 git mv OLD-FILENAME NEW-FILENAME
+
+# ==========
+ 
+# # Git submodules
+# git submodule add <repository-url> <submodule-path>
+# git submodule update --init --recursive
+# git submodule update --recursive --remote
+

@@ -8,6 +8,7 @@ window:
     columns: 130
       # columns: 100    # VMs
     lines: 40
+      # lines: 80       # VMs: Fedora
       # lines: 36       # VMs
   padding:
     x: 5

@@ -8,25 +8,25 @@
     "persist": false,
     "window": null,
     "font_desc": "Sans Bold",
-    "font_size": "medium",
+    "font_size": "small",
     "font_color": "white",
     "bg_color": "black",
     "opacity": 0.8,
     "key_mode": "composed",
     "bak_mode": "baked",
-    "mods_mode": "normal",
+    "mods_mode": "win",
     "mods_only": false,
     "multiline": false,
     "vis_shift": false,
     "vis_space": true,
     "geometry": [
-        635,
-        952,
-        655,
-        34
+        988,
+        976,
+        914,
+        40
     ],
     "screen": 0,
     "start_disabled": false,
     "mouse": false,
-    "button_hide_duration": 1
+    "button_hide_duration": 1.0
 }

@@ -58,3 +58,11 @@ brave code(...) gns3 ida imhex keepassxc monero packettracer virtualbox wireshar
 echo q | htop | aha --black --line-fix > htop.html
 echo q | htop -C | aha --line-fix | html2text -width 999 | grep -v "F1Help\|xml version=" > ~/htop-output01.txt
 ```
+
+```bash
+# eDEX-UI -- on VMs
+git clone https://github.com/GitSquared/edex-ui
+cd edex-ui &&
+    npm run install-linux &&
+    npm run start
+```

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo -e "\n----###############################################################----"
-echo -e "########~~~~~{     R3C0N NM4P v0.1.6  by @pabloqpacin    }~~~~~########"
+echo -e "########~~~~~{     R3C0N NM4P v0.1.7  by @pabloqpacin    }~~~~~########"
 echo -e "----###############################################################----\n"
 
 ### Tested successfully on: Arch Debian PopOS Ubuntu (VMs)
@@ -12,20 +12,40 @@ echo -e "----###############################################################----
 #                                  VARIABLES                                   # 
 ################################################################################
 
-ip=$(hostname -i | awk '{print $1}')
-net=$(ip route | grep $ip | tail -1 | awk '{print $1}')
-target_list=''
-targets=("_gateway" "localhost" "scanme.nmap.org")
-nmap=''
-hyp=''
-
 log_dir='/tmp/recon'
 log_tmp="$log_dir/scan.txt"
 log="$log_dir/$(date +%F).txt"
 
+distro=$(grep -s "^ID=" /etc/os-release | awk -F '=' '{print $2}')
+
+case $distro in
+    'debian') ip=$(hostname -I | awk '{print $1}') ;;
+    *)        ip=$(hostname -i | awk '{print $1}') ;;
+esac
+
+net=$(ip route | grep $ip | tail -1 | awk '{print $1}')
+
+target_list=''
+targets=("_gateway" "localhost" "scanme.nmap.org")
+
+nmap='nmap'
+hyp=''
+
 ################################################################################
 #                                  FUNCTIONS                                   # 
 ################################################################################
+
+set_variables() {
+    if command -v grc &>/dev/null; then nmap="grc nmap"; fi
+
+    echo -e "#  NOTE: Run './recon_nmap.sh target_list.txt' to add extra targets.  #\n"
+    if [ -n "$1" ]
+        then target_list="$1"
+        while IFS= read -r line
+            do targets+=("$line")
+        done < "$target_list"
+    fi
+}
 
 set_new_target() {
     while true
@@ -105,20 +125,10 @@ exit_script() {
 
 mkdir $log_dir &>/dev/null
 
-if command -v grc &>/dev/null; then nmap="grc nmap"; else nmap="nmap"; fi
-
-echo -e "#  NOTE: Run './recon_nmap.sh target_list.txt' to add extra targets.  #\n"
-if [ -n "$1" ]
-    then target_list="$1"
-    while IFS= read -r line
-        do targets+=("$line")
-    done < "$target_list"
-fi
+set_variables
 
 read -p "Scan network interfaces? [y/N] " opt
-if [[ $opt == "Y" || $opt == "y" ]]
-    then $nmap --iflist
-fi
+case $opt in [Yy]) $nmap --iflist ;; esac
 
 while true; do
     if [[ -e $log_temp ]]

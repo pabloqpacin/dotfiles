@@ -65,6 +65,13 @@ alias HH="Hyprland"
 # # git restore --staged $1: unstage changes made to a file specified by $1.
 # # git restore $1: discard changes made to a file specified by $1.
 
+if command -v grc &>/dev/null; then
+    alias docker="grc docker"
+    alias nmap="grc nmap"
+    alias ping="grc ping"
+    alias stat="grc stat"
+fi
+
 alias nmapkenobi="nmap -p- -sS -sC -sV --open --min-rate 5000 -n -vvv -Pn"  # add IP
 alias cargo-update="cargo install-update -a"
 alias fup='flatpak update'
@@ -112,4 +119,12 @@ alias sys="screenkey --show-settings"
 alias syk="pkill screenkey"
 
 alias chx="chmod +x"
-# alias stat='grc stat'
+showports() { bat /etc/services }
+
+show_pc_model() {
+    if [ -e /sys/devices/virtual/dmi/id/product_name ]; then
+        cat /sys/devices/virtual/dmi/id/product_name
+    elif [ -e /sys/firmware/devicetree/base/model ]; then
+          cat /sys/firmware/devicetree/base/model;
+    fi
+}

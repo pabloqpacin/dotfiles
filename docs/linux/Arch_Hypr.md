@@ -356,6 +356,11 @@ sudo nvim /etc/lightdm/lightdm.conf
 #    && sudo sed -i 's/#background=/background=\/usr\/share\/wallpapers\/er_nokstella.jpg/' /etc/lightdm/lightdm-gtk-greeter.conf
 
 # $ ln -s ~/dotfiles/.config/i3 ~/.config/i3
+
+yay -S lxappearance rose-pine-gtk-theme papirus-icon-theme thunar
+# lxappearance...
+
+# https://unix.stackexchange.com/questions/150853/how-to-set-gtk-icon-theme-in-i3
 ```
 
 ```bash

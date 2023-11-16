@@ -2,8 +2,8 @@
 
 file=$HOME/.oh-my-zsh/themes/random.zsh-theme
 
-cat $file | grep -e "loaded"
+grep -e "loaded" $file
 sed -i '/loaded/s/^/# /' $file
-cat $file | grep -e "loaded"
+grep -e "loaded" $file
 
 # Won't work on NixOS...

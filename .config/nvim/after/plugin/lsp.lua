@@ -9,7 +9,7 @@ lsp.ensure_installed ({
 --  'arduino_language_server',
     'bashls',
 --  'bash-debug-adapter',       -- GOOD
-    'clangd',
+--  'clangd',
 --  'cpptools',                 -- need DAP
     'cssls',
 --  'denols',

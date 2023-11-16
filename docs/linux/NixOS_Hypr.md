@@ -95,14 +95,15 @@ parted /dev/nvmeXnY -- rm 3
 
 parted /dev/nvme0n1 -- mklabel gpt
 parted foo -- mkpart ESP fat32 1MB 1024MB           # Boot part: first 1GB
-parted foo -- set 1 esp on
+parted foo -- set 1 ESP on
 parted foo -- mkpart swap linux-swap 1024MB 5120MB  # Swap part: next 4GB
     # ENSURE SWAP is OK for MULTIBOOT
-parted foo -- mkpart root ext4 5120MB 404720MB      # Root part: next 400GB
+# parted foo -- mkpart root ext4 5120MB 404720MB      # Root part: next 400GB
+parted foo -- mkpart root ext4 5120MB -1s           # Root part: remaining disk
 
-mkswap -L swap /dev/nvme0n1p2
-mkfs.fat -F 32 -n boot /dev/nvme0n1p1
-mkfs.ext4 -L nixos /dev/nvme0n1p3
+mkswap -L SWAP /dev/nvme0n1p2
+mkfs.fat -F 32 -n BOOT /dev/nvme0n1p1
+mkfs.ext4 -L NIXOS /dev/nvme0n1p3
 
 mount /dev/nvme0n1p3 /mnt
 mkdir -p /mnt/boot

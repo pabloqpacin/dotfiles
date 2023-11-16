@@ -1,10 +1,10 @@
-" set relativenumber
+set relativenumber
 syntax on && syntax enable
 
 set colorcolumn=80
 autocmd FileType * set colorcolumn=80
 
-" Remap Esc in INSERT mode
+" Remap Esc in INSERT and VISUAL modes
 inoremap kj <Esc>
 vnoremap kj <Esc>
 
