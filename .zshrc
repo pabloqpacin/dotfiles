@@ -18,7 +18,7 @@ fi
 # Set $RANDOM_THEME
 case $distro in
   "parrot") ZSH_THEME="parrot"; export PATH=$PATH:/sbin ;;
-  "termux") ZSH_THEME="kennethreitz"; echo '\e[3 q' ;;
+  # "termux") ZSH_THEME="kennethreitz"; echo '\e[3 q' ;;
   *)        ZSH_THEME="random" ;;
 esac
 

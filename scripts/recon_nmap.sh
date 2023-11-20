@@ -1,51 +1,62 @@
 #!/bin/bash
 
 echo -e "\n----###############################################################----"
-echo -e "########~~~~~{     R3C0N NM4P v0.1.7  by @pabloqpacin    }~~~~~########"
+echo -e "########~~~~~{     R3C0N NM4P v0.1.8  by @pabloqpacin    }~~~~~########"
 echo -e "----###############################################################----\n"
 
 ### Tested successfully on: Arch Debian PopOS Ubuntu (VMs)
-### TODO: nmap scripts
-### TODO: verbosity
+# TODO: nmap scripts
+# TODO: verbosity
 
-################################################################################
-#                                  VARIABLES                                   # 
-################################################################################
+########## VARIABLES & FUNCTIONS ##########
 
-log_dir='/tmp/recon'
-log_tmp="$log_dir/scan.txt"
-log="$log_dir/$(date +%F).txt"
+set_variables(){
 
-distro=$(grep -s "^ID=" /etc/os-release | awk -F '=' '{print $2}')
+        # Get distro for compatibility reasons
+    distro=$(grep -s "^ID=" /etc/os-release | awk -F '=' '{print $2}')
+    case $distro in '') distro='termux' ;; esac
 
-case $distro in
-    'debian') ip=$(hostname -I | awk '{print $1}') ;;
-    *)        ip=$(hostname -i | awk '{print $1}') ;;
-esac
+        # Get host & network IPv4 addresses
+    case $distro in
+                 'termux') ip=$(   ip route | awk '{print $9}') ;;
+             'pop'|'arch') ip=$(hostname -i | awk '{print $1}') ;;
+        'debian'|'ubuntu') ip=$(hostname -I | awk '{print $1}') ;;
+                        *) ip=$(hostname -i | awk '{print $1}') ;;
+    esac
+    net=$(ip route | grep $ip | grep kernel | awk '{print $1}')
 
-net=$(ip route | grep $ip | tail -1 | awk '{print $1}')
+        # Integrate target-lists!!
+    targets=("_gateway" "localhost" "scanme.nmap.org")
 
-target_list=''
-targets=("_gateway" "localhost" "scanme.nmap.org")
-
-nmap='nmap'
-hyp=''
-
-################################################################################
-#                                  FUNCTIONS                                   # 
-################################################################################
-
-set_variables() {
-    if command -v grc &>/dev/null; then nmap="grc nmap"; fi
-
-    echo -e "#  NOTE: Run './recon_nmap.sh target_list.txt' to add extra targets.  #\n"
     if [ -n "$1" ]
         then target_list="$1"
         while IFS= read -r line
             do targets+=("$line")
         done < "$target_list"
     fi
+
+        # Logging scans if possible
+    log_dir='/tmp/recon'
+    log_temp="$log_dir/scan.txt"
+    log="$log_dir/$(date +%F).txt"
+
+    if [ $distro != 'termux' ]
+        then do_log="-oN $log_temp"
+        else do_log=""
+    fi
+
+        # Colorize output if possible
+    if command -v grc &>/dev/null;
+        then nmap="grc nmap"
+        else nmap="nmap"
+    fi
 }
+
+scan_interfaces() {
+    read -p "Scan network interfaces? [y/N] " opt
+    case $opt in [Yy]) $nmap --iflist ;; esac
+}
+
 
 set_new_target() {
     while true
@@ -55,28 +66,28 @@ set_new_target() {
     done
 }
 
-open_scan () {
-    $nmap $hyp --open $1 -oN $log_tmp
+open_scan() {
+    $nmap $hyp --open $1 $do_log
 }
 
 ping_scan() {
-    $nmap -sP $1 -oN $log_tmp
+    $nmap -sP $1 $do_log
 }
 
 tcp_scan() {
-    $nmap $hyp -sT $1 -oN $log_tmp
+    $nmap $hyp -sT $1 $do_log
 }
 
 syn_scan() {
-    sudo $nmap $hyp -sS $1 -oN $log_tmp
+    sudo $nmap $hyp -sS $1 $do_log
 }
 
 version_scan() {
-    $nmap $hyp -sV $1 -oN $log_tmp
+    $nmap $hyp -sV $1 $do_log
 }
 
 sam_scan() {
-    $nmap -p- -sCV -Pn $1 -oN $log_tmp
+    $nmap -p- -sCV -Pn $1 $do_log
 }
 
 target_prompt() {
@@ -112,23 +123,19 @@ custom_command() {
 }
 
 exit_script() {
-    read -p "Delete $log_dir? [Y/n] " opt
-    if [[ $opt == "Y" || $opt == "y" || $opt == "" ]]
-        then rm -rf $log_dir
-    fi
+    read -p "Delete $log_dir? [y/N] " opt
+    case $opt in [Yy]) rm -rf $log_dir ;; esac
     exit 0
 }
 
-################################################################################
-#                                   RUNTIME                                    # 
-################################################################################
+########## RUNTIME ##########
 
-mkdir $log_dir &>/dev/null
+echo -e "#  NOTE: Run like 'bash recon_nmap.sh target_list.txt' to add extra targets.\n"
 
 set_variables
+mkdir -p $log_dir &>/dev/null
 
-read -p "Scan network interfaces? [y/N] " opt
-case $opt in [Yy]) $nmap --iflist ;; esac
+scan_interfaces
 
 while true; do
     if [[ -e $log_temp ]]
@@ -160,39 +167,22 @@ while true; do
     read -p "Select action: " opt
 
     case $opt in
-        "0") set_new_target ;;
-        "1") target_prompt; ask_fullscan; open_scan $target_scan ;;
-        "2") target_prompt; ask_fullscan; ping_scan $target_scan ;;
-        "3") target_prompt; ask_fullscan; tcp_scan $target_scan ;;
-        "4") target_prompt; ask_fullscan; syn_scan $target_scan ;;
-        "5") target_prompt; ask_fullscan; version_scan $target_scan ;;
-        "8") target_prompt; ask_fullscan; sam_scan $target_scan ;;
-        "9") custom_command ;;
-        "s") clear ;;
-        "r") less $log ;;
+        0) set_new_target ;;
+        1) target_prompt; ask_fullscan; open_scan $target_scan ;;
+        2) target_prompt; ask_fullscan; ping_scan $target_scan ;;
+        3) target_prompt; ask_fullscan; tcp_scan $target_scan ;;
+        4) target_prompt; ask_fullscan; syn_scan $target_scan ;;
+        5) target_prompt; ask_fullscan; version_scan $target_scan ;;
+        8) target_prompt; ask_fullscan; sam_scan $target_scan ;;
+        9) custom_command ;;
+        s) clear ;;
+        r) less $log ;;
         "*") exit_script ;;
     esac
 
 done
 
-
-###################### ~~~ ######################
-
-# if [[ $distro != 'Android' ]]
-#     then ip=$(ip route get 1 | awk '{print $7}')
-#     else ip=$(ip route get 1 | awk '{print $9}')
-# fi
-# if [[ $distro != 'arch' ]]
-#     then net=$(ip route | grep 'src' | awk '{print $1}' | head -n 1)
-#     else net=$(ip route | grep 'link' | awk '{print $1}')
-# fi  # Because diff output since diff 'iproute2' version or $(ip -V)
-
-
-# int_up=    WHICHEVER IS UP IN ip a || WHEREVER THERES AN IPv6
-# TODO: verify if the logic: variable>function call>reassignment(later call)>runtime... is fine or is it broken.
-#       If broken, need to have defined whether --p before the "Action call" !!!
-#       Also, instead of using a variable, use a function to return the flag as $2 or smth....
-# EDIT: IT SEEMS TO WORK AS EXPECTED!!
+# =========x=========
 
 ### OJO: UbuntuVM (WP) con 'python3 -m http.server'; un 'nmap -p- localhost' produce un error en varios archivos de '/usr/lib/python3.10/' (socketserver.py, http/server.py, socketserver.py, socket.py)
 ### TODO: is 'opt' good enough? Safe? Should it be "nulled" after each function?

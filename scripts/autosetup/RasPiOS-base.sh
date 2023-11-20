@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo -e "\n-----#################################################################-----"
-echo -e "#########~~~~~{     RasPiOS-base v0.1.1  by @pabloqpacin    }~~~~~#########"
+echo -e "#########~~~~~{     RasPiOS-base v0.1.2  by @pabloqpacin    }~~~~~#########"
 echo -e "-----#################################################################-----\n"
 
 ### Good for Raspberry Pi OS Lite (64-bit) on Raspberry Pi 5
@@ -20,7 +20,6 @@ echo -e "-----#################################################################-
 # - no brave because TTY (no DE/WM)
 
 # - overclocking 3GHz: https://www.youtube.com/watch?v=K6dWE2x4viw (@ETAPrime)
-
 
 ########## VARIABLES ##########
 
@@ -61,7 +60,8 @@ update_system() {
         echo 'APT::Get::Show-Versions "true";' | sudo tee /etc/apt/apt.conf.d/99show-versions
     fi
     $sa_update && sudo apt-get upgrade -y &&
-        sudo apt-get autoremove -y && sudo apt-get autoclean -y
+        sudo apt-get autoremove -y &&
+        sudo apt-get autoclean -y
 }
 
 install_base_apt() {
@@ -70,6 +70,7 @@ install_base_apt() {
         $sa_install build-essential && should_reboot=1
     fi
    
+    $sa_install libssl-dev
     $sa_install curl git openssh-server wget
     $sa_install neofetch --no-install-recommends
     $sa_install btop grc ipcalc nmap ripgrep tldr tmux tree 
@@ -81,9 +82,9 @@ install_base_apt() {
     fi
 }
 
-clone_dotfiles () {
+clone_dotfiles() {
     if [ ! -d ~/dotfiles ]; then
-        git clone https://github.com/pabloqpacin/dotfiles; fi
+        git clone --depth 1 https://github.com/pabloqpacin/dotfiles; fi
     
     if [ ! -d ~/.config ]; then
         mkdir ~/.config &>/dev/null; fi
@@ -104,7 +105,7 @@ setup_zsh() {
     
     if [ ! -d ~/.oh-my-zsh ]; then
         yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-        bash $HOME/dotfiles/scripts/setup/omz-msg_random_theme.sh               # not found
+        bash $HOME/dotfiles/scripts/setup/omz-msg_random_theme.sh
     fi
     
     if [[ $current_shell != 'zsh' ]]; then
@@ -142,13 +143,14 @@ install_base_cargo() {
 
     if ! command -v bat &>/dev/null || ! command -v eza &>/dev/null || ! command -v delta &>/dev/null || ! command -v zoxide &>/dev/null; then
 
-        read -p "Build cargo packages [bat eza git-delta zoxide] if don't exist (~10 min.)? [Y/n] " opt      
+        read -p "Build cargo packages [bat eza git-delta zoxide] if don't exist? [Y/n] (~10 min.) " opt      
 
         case $opt in 'Y' | 'y' | '')
             if ! command -v bat &>/dev/null; then $HOME/.cargo/bin/cargo install bat; fi
             if ! command -v eza &>/dev/null; then $HOME/.cargo/bin/cargo install eza; fi
             if ! command -v delta &>/dev/null; then $HOME/.cargo/bin/cargo install git-delta; fi
             if ! command -v zoxide &>/dev/null; then $HOME/.cargo/bin/cargo install zoxide; fi
+            if ! command -v cargo install-update -a &>/dev/null; then $HOME/.cargo/bin/cargo install cargo-update; fi
         esac
 
     fi
@@ -194,10 +196,10 @@ setup_nvim__npm() {
     fi
 
     if ! command -v nvim &>/dev/null; then
-        $sa_update && $sa_install build-essential cmake gettext ninja-build unzip
+        $sa_update && $sa_install build-essential cmake gettext ninja-build unzip && should_reboot=1
         cd $HOME && git clone --depth 1 https://github.com/neovim/neovim.git &&
             cd neovim && make CMAKE_BUILD_TYPE=Release &&
-            sudo make install && cd $HOME && sudo rm -rf neovim
+            sudo make install && cd $HOME && rm -rf neovim
     fi
 
     if [ ! -d ~/.local/share/nvim/site/pack/packer/start/packer.nvim ]; then
@@ -206,13 +208,13 @@ setup_nvim__npm() {
     
     if [ ! -L ~/.config/nvim ]; then
         ln -s ~/dotfiles/.config/nvim ~/.config
-        read -p "Skip messages with Enter, then do :so :PackerUpdate ... " null
+        read -p "Skip messages with Enter, then do :so :PackerUpdate :qa ... " null
         nvim ~/.config/nvim/lua/pabloqpacin/packer.lua
     fi
         
 }
 
-# Docker as in Debian as per https://docs.docker.com/engine/install/raspberry-pi-os/
+# Docker as for Debian as per https://docs.docker.com/engine/install/raspberry-pi-os/
 install_docker() {
     if ! command -v docker &>/dev/null; then
         # for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove $pkg; done
@@ -237,16 +239,28 @@ install_docker() {
 setup_containers() {
 
     if ! docker ps -a --format '{{.Names}}' | grep -q "portainer"; then
-        docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer-ce
+        sudo docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer-ce
     fi
 
     if ! docker ps -a --format '{{.Names}}' | grep -q "mysql-container"; then
-        docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=changeme -e MYSQL_ROOT_HOST='%' -d -p 3306:3306 -v mysql_data:/var/lib/mysql mysql
+        sudo docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=changeme -e MYSQL_ROOT_HOST='%' -d -p 3306:3306 -v mysql_data:/var/lib/mysql mysql
             # docker volume inspect mysql_data
     fi
 
+    # if ! docker ps -a --format '{{.Names}}' | grep -q "grafana"; then
+    #     docker run -d -p 9090:9090 --name prometheus prom/prometheus
+    # fi
+
+    # if ! docker ps -a --format '{{.Names}}' | grep -q "grafana"; then
+    #     sudo docker run -d -p 3000:3000 --name grafana grafana/grafana
+    # fi
+
+    # if command -v docker &>/dev/null; then docker ps -a; fi
+
 }
 
+# setup_casaOS() { curl -fsSL https://get.casaos.io | sudo bash }
+# setup_nixpkgs() {}
 
 ########### RUNTIME ###########
 
@@ -265,8 +279,9 @@ setup_nvim__npm
 install_docker
 setup_containers
 
-case $should_reboot in 1) echo -e "\nkindly reboot" ;; esac
+if command -v neofetch &>/dev/null; then neofetch; fi
 
+case $should_reboot in 1) echo -e "\nkindly reboot" ;; esac
 
 # ==========x==========
 

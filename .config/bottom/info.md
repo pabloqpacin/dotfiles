@@ -5,8 +5,8 @@
 | :--           | :--
 | e             | expand widget
 | Ctrl+DirKeys  | Focus to other widget
-| H J K L       | Focus to other widget
-| W A S D       | Focus to other widget
+| H J K L       | "                   "
+| W A S D       | "                   "
 | +, -, =       | zoom in/out/reset -- time range
 | P             | full Process command
 | /             | search Processes

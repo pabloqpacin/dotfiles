@@ -189,7 +189,7 @@ tldr --update
 
 # Them Rust packages
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh      # default
-cargo install bat bottom eza fd-find git-delta gitui zoxide
+cargo install cargo-update bat bottom eza fd-find git-delta gitui zoxide
     # https://github.com/rust-lang/cargo/issues/2729
 
 # Set up SSH auth for Github

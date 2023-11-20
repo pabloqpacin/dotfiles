@@ -5,7 +5,7 @@ import:
 window:
   decorations: None
   dimensions:
-    columns: 130
+    columns: 160
       # columns: 100    # VMs
     lines: 40
       # lines: 80       # VMs: Fedora
