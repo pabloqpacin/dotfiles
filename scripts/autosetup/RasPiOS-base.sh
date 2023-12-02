@@ -238,13 +238,18 @@ install_docker() {
 
 setup_containers() {
 
+    if ! command -v docker &>/dev/null; then return 1; fi
+
     if ! docker ps -a --format '{{.Names}}' | grep -q "portainer"; then
+            # docker volume ls
         sudo docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer-ce
     fi
 
     if ! docker ps -a --format '{{.Names}}' | grep -q "mysql-container"; then
+            # docker volume inspect mysql_data && docker volume rm mysql_data
         sudo docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=changeme -e MYSQL_ROOT_HOST='%' -d -p 3306:3306 -v mysql_data:/var/lib/mysql mysql
-            # docker volume inspect mysql_data
+            # docker start mysql-container
+            # mysql -h 127.0.0.1 -u root -p
     fi
 
     # if ! docker ps -a --format '{{.Names}}' | grep -q "grafana"; then

@@ -66,3 +66,19 @@ cd edex-ui &&
     npm run install-linux &&
     npm run start
 ```
+
+<!-- - ASIR: DNS...
+
+```bash
+ping fping; host dig nslookup
+
+```
+
+- Linux Desktop (Pop)
+
+```bash
+agi fancontrol          # ...
+apt show collectd-core
+
+
+``` -->

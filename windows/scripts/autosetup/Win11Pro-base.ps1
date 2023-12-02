@@ -1,10 +1,14 @@
+
+Write-Host "`n------####################################################################------"
+Write-Host "#########~~~~~{       Win11Pro-base v0.1.2  by @pabloqpacin      }~~~~~#########"
+Write-Host "------####################################################################------`n"
+
 ########## NOTES
 # - This script should be run after tweaking WinGet and installing PowerShell v7
 # - Github SSH authentication isn't meant for VMs
-# - TODO: Terminal settings, cheat, [lf](https://pkg.go.dev/github.com/gokcehan/lf)
 
 <#
-  - curl https://raw.githubusercontent.com/pabloqpacin/dotfiles/main/windows/scripts/SW_install-symlink.ps1 --output self.ps1
+  - curl https://raw.githubusercontent.com/pabloqpacin/dotfiles/main/windows/scripts/autosetup/Win11Pro-base.ps1 --output self.ps1
   - .\self.ps1
   - rm self.ps1
 #>
@@ -94,7 +98,7 @@ New-Item -ItemType SymbolicLink -Target "$env:HOMEPATH\dotfiles\.config\bottom" 
 
 do { $userInput = Read-Host "`nAlmost there. Install 'FiraCode Nerd Font'? (Y/N)" }
     while ($userInput -ne "Y" -and $userInput -ne "N")
-if ($userInput -eq "Y") { cd $env:HOMEPATH; .\dotfiles\windows\scripts\nerdfont_install.ps1 }
+if ($userInput -eq "Y") { cd $env:HOMEPATH; .\dotfiles\windows\scripts\setup\nerdfont-helper.ps1 }
     $userInput = $null
 
 
@@ -102,8 +106,8 @@ do { $userInput = Read-Host "`nLast thing. Set up Neovim? (Y/N)" }
     while ($userInput -ne "Y" -and $userInput -ne "N")
 
 if ($userInput -eq "Y") {
-    Start-Process -FilePath "pwsh" -ArgumentList "$env:HOMEPATH\dotfiles\windows\scripts\neovim_setup.ps1" -Wait
-} else { Write-Host "You can find the Neovim setup script at '$env:HOMEPATH\dotfiles\windows\scripts\neovim_setup.ps1'." }
+    Start-Process -FilePath "pwsh" -ArgumentList "$env:HOMEPATH\dotfiles\windows\scripts\setup\neovim-winget.ps1" -Wait
+} else { Write-Host "You can find the Neovim setup script at '$env:HOMEPATH\dotfiles\windows\scripts\setup\neovim-winget.ps1'." }
 
 
 ########## Wrap-up
@@ -113,3 +117,6 @@ if ($userInput -eq "Y") {
 $endTime = Get-Date
 $elapsedTimeMinutes = [math]::Round(($endTime - $startTime).TotalMinutes, 2)
 Write-Host "Script execution time: $elapsedTimeMinutes minutes"
+
+########## NOTES
+# - TODO: Terminal settings, cheat, [lf](https://pkg.go.dev/github.com/gokcehan/lf)     # ...

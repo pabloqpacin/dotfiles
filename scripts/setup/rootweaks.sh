@@ -10,8 +10,9 @@ if [[ $HOME != "/root" ]]
 fi
 
 ## Symlink .vimrc for a decent Neovim experiences
-mkdir -p $HOME/.config/nvim
-ln -s $home_user/dotfiles/.vimrc $HOME/.config/nvim/init.vim
+#mkdir -p $HOME/.config/nvim
+#ln -s $home_user/dotfiles/.vimrc $HOME/.config/nvim/init.vim
+ln -s $home_user/dotfiles/.vimrc $HOME/
 
 ## Add cargo & go binaries to Root's $PATH
 echo '

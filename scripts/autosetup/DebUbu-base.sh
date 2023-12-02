@@ -75,7 +75,7 @@ function install_cheat {
 function install_rust_tools {
     if ! command -v cargo &>/dev/null; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Rust Toolchain${RESET}${YELLOW} (accept '${RED}default${RESET}${YELLOW}') ####################${RESET}"
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Rust pkgs${RESET}${YELLOW} ####################${RESET}"
         $HOME/.cargo/bin/cargo install bat bottom eza git-delta zoxide  # fd-find
     else

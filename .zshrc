@@ -24,9 +24,9 @@ esac
 
 # Them Baddest themes
 ZSH_THEME_RANDOM_CANDIDATES=( "afowler" "alanpeabody" "avit" "daveverwer" "dpoggi"
-  "eastwood" "fletcherm" "frontcube" "gallifrey" "gallois" "geoffgarside" "macovsky"
-  "mh" "minimal" "muse" "nanotech" "peepcode" "refined" "simple" "theunraveler"
-  "tonotdo" "wedisagree" "wuffers" "zhann"
+  "eastwood" "fletcherm" "gallois" "geoffgarside" "macovsky" "mh" "minimal" "muse"
+  "nanotech" "refined" "simple" "theunraveler" "tonotdo"
+  "wedisagree" "wuffers" "zhann"
 )
 
 # Set custom folder for personal aliases, plugins and themes

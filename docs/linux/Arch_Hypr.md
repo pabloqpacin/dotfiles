@@ -48,6 +48,8 @@ TODO --- foo
   -  `rofi`, `dunstrc`: [ericmurphyxyz](https://github.com/ericmurphyxyz/dotfiles)
   - `hypr`: [hypr-dot](https://github.com/hyper-dot/Arch-Hyprland), [lauroro](https://github.com/lauroro/hyprland-dotfiles)
   - `waybar`: [gasech](https://github.com/gasech/hyprland-dots)
+- btrfs
+  - ...
 
 
 
@@ -111,9 +113,26 @@ ln -s ~/dotfiles/.config/cheat/cheatsheets/personal ~/.config/cheat/cheatsheets/
 # localectl list-x11-keymap-layouts
 # sudo localectl set-x11-keymap es || echo -e "\nsetxkbmap es" >> $HOME/.bashrc
 
-
 ```
  -->
+
+
+ - Check hardware specs
+
+```bash
+lscpu | less
+free -h
+```
+
+- Wifi...
+
+```bash
+iwctl
+device list
+station wlan0 scan
+station wlan0 get-networks
+station wlan0 connect MOVISTAR_C600
+```
 
 - Manage disks and install a base system
 
@@ -240,6 +259,7 @@ Ensure bootable OS:
   If baremetal multiboot check BIOS/UEFI settings:
     - all machines: Boot order --> GRUB before Windows
     # - EX2511: SecureBoot ON, Restore SB, Select UEFI as trusted (../GRUB/grubx64.efi), SB OFF
+    # - EX2511: if Proxmox... HDD2 > EFI - proxmox > grubx64.efi
   Further boot problems: run `efibootmgr` from the Arch live ISO
 ```
 
@@ -367,6 +387,12 @@ yay -S lxappearance rose-pine-gtk-theme papirus-icon-theme thunar
 # Gnome
 sudo pacman -S gdm
 sudo systemctl enable gdm
+sudo pacman -S gnome gnome-tweaks # gnome-browser-connector
+  # gnome-tweaks: scaling_factor==0.75, middle_click_paste==off
+  # gnome keybinds: launch_web_browser==Super+B, custom_alacritty==Super+T, custom_nautilus==Super+F, custom_codium==Super+C
+yay -S gnome-browser-connector-git
+  # gnome_extensions: panel_free by fthx,
+sudo pacman -Syu xdg-desktop-portal-wlr grim  # virtualbox docker mariadb-clients
 
 # Kde
 sudo pacman -S plasma-desktop sddm
@@ -560,3 +586,20 @@ xdg-open http://localhost   # /usr/share/nginx/html/index.html
 ```
 
 > FOO THIS SHIT; LET?S DOCKERIZE -->
+
+
+- Docker
+
+```bash
+sudo pacman -Syu docker
+```
+
+- Misc
+
+```bash
+sudo pacman -S qbittorrent
+yay -S onlyoffice-bin
+
+sudo pacman -S inxi
+sudo inxi -Fz
+```

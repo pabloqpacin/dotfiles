@@ -6,6 +6,7 @@
 - [Ubuntu](#ubuntu)
   - [live installation](#live-installation)
   - [post-install config](#post-install-config)
+- [DebUbu-services ((WordPress))](#debubu-services-wordpress)
 
 
 ## live installation
@@ -135,4 +136,30 @@ Terminal:
 # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 # nvm install node
 # # $ npm install --global live-server
+```
+
+---
+
+> **WIP**!!!
+
+
+# DebUbu-services ((WordPress))
+
+- `ufw`
+
+```bash
+sudo ip addr add 192.168.1.48/24 dev enp0s3
+
+cd /srv/www/wordpress
+wp option get siteurl       # http://192.168.1.48
+
+# ...
+
+sudo ufw enable
+sudo ufw allow OpenSSH
+sudo ufw allow 80/tcp  # HTTP
+
+# HOST
+xdg-open http://192.168.1.49/course
+
 ```

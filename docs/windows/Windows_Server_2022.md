@@ -1,14 +1,16 @@
 # WinServer22
 
 <!-- > - **NOTE X**: OVA == -->
-> - **NOTE 1**: ISO == Windows Server 2022 Standard Evaluation (10.0.20348.587 / x64 / en-US)
-> - **NOTE 2**: ACTIVATION == 180 days
+<!-- > - **NOTE 1**: ISO == Windows Server 2022 Standard Evaluation (10.0.20348.587 / x64 / en-US) -->
+<!-- > - **NOTE 2**: ACTIVATION == 180 days -->
 
 
 - [WinServer22](#winserver22)
   - [live installation](#live-installation)
   - [post-install config](#post-install-config)
-    - [101](#101)
+    - [configuración escritorio](#configuración-escritorio)
+    - [base](#base)
+    - [dhcp + dns](#dhcp--dns)
 
 
 <!-- ## documentation
@@ -24,14 +26,14 @@
 # VirtualBox
 Skip unattended installation: yes       # TODO: diff
 
-Memory: 8192 MB
+Memory: 4096 MB
 Processors: 4
 Enable EFI: yes
 Hard Disk: VDI 60 GB
 
-Network: Bridged Adapter
-Enable Secure Boot: yes
-Enable PAE/NX: yes
+Network: NAT
+# Enable Secure Boot: yes
+# Enable PAE/NX: yes
 # Enable 3D Acceleration: no
 ```
 
@@ -48,7 +50,11 @@ Enable PAE/NX: yes
 OS Edition: Windows Server 2022 Standard Evaluation (Desktop Experience)
 Installation: Custom    # Next
 ```
-<!-- ```yaml
+<!-- 
+
+=== CORE ===
+
+```yaml
 # C:\Windows\system32\LogonUI.exe
     # Administrator
     # The user's password must be changed before signing in.
@@ -97,7 +103,7 @@ New password:   # susodicho882;;
 ``` -->
 
 ```yaml
-User name: Administrator
+Username: Administrator
 Password: ...
 ```
 
@@ -105,13 +111,87 @@ Password: ...
 
 > Ctrl+Alt+Del on Guest == Right Ctrl+Supr on Host
 
-### 101
-
-- First boot
+### configuración escritorio
 
 ```yaml
-# ...
+Configuracion:
+    Personalizacion:
+        Colores:
+            Color: Oscuro
+        Barra de tareas:
+            Ocultar automaticamente: yes
+            Usar botones pequenos: yes
+    Actualizacion y seguridad:
+        Para programadores:
+            Explorador de archivos: Aplicar 5 casillas
 ```
+
+### base
+
+- brave
+
+```ps1
+$brave_pkg = 'BraveBrowserSetup-BRV011.exe'
+
+Invoke-WebRequest -Uri https://referrals.brave.com/latest/$brave_pkg -OutFile $brave_pkg
+Start-Process $brave_pkg -Wait
+
+Remove-Item $brave_pkg
+```
+
+- vscode
+
+```ps1
+$vscode_pkg = 'VSCodeSetup-x64-1.84.2.exe'
+$vscode_url = 'https://az764295.vo.msecnd.net/stable/1a5daa3a0231a0fbba4f14db7ec463cf99d7768e/'
+Invoke-WebRequest -Uri ($vscode_url + $vscode_pkg) -OutFile $vscode_pkg
+
+# no aplica el argumento 'addcontextmenufolder'
+$arguments = '/SILENT /mergetasks=!runcode,addcontextmenufiles,addcontextmenufolder'
+Start-Process -FilePath $vscode_pkg -ArgumentList $arguments -Wait
+
+Remove-Item $vscode_pkg
+
+# TODO: extensions ...
+```
+
+- Terminal
+
+```ps1
+$lib_pkg = 'Microsoft.VCLibs.x64.14.00.Desktop.appx'
+Invoke-WebRequest -Uri https://aka.ms/$lib_pkg -OutFile $lib_pkg
+Add-AppxPackage $lib_pkg
+
+# $terminal_pkg = 'Microsoft.WindowsTerminal_1.7.1091.0_8wekyb3d8bbwe.msixbundle'
+# Invoke-WebRequest -Uri https://github.com/microsoft/terminal/releases/download/$terminal_pkg -OutFile $terminal_pkg
+$terminal_pkg = 'Microsoft.WindowsTerminal_Win10_1.14.2281.0_8wekyb3d8bbwe.msixbundle'
+Invoke-WebRequest -Uri https://github.com/microsoft/terminal/releases/download/v1.14.2281.0/$terminal_pkg -OutFile $terminal_pkg
+Add-AppxPackage $terminal_pkg
+
+Remove-Item $lib_pkg
+Remove-Item $terminal_pkg
+
+# TODO: settings.json ...
+```
+
+- pwsh7
+
+```ps1
+$pwsh7_pkg = 'PowerShell-7-4-0-win-x64.msixbundle'
+
+Invoke-WebRequest -Uri https://github.com/PowerShell/PowerShell/releases/download/v7.4.0/$pwsh7_pkg -OutFile $pwsh7_pkg
+
+Add-AppxPackage $pwsh7_pkg
+
+Remove-Item $pwsh7_pkg
+```
+
+
+### dhcp + dns
+
+> ...
+
+
 
 <!--
 
