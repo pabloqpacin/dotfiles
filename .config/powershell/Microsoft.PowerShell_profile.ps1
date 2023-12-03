@@ -1,3 +1,7 @@
+########## Modules
+Import-Module ~/dotfiles/windows/Modules/pabloqpacin
+
+
 ########## settings
 function sd { Write-Host "supdawg" }
 Set-PSReadLineOption -Colors @{ Command = 'DarkCyan' }
@@ -5,7 +9,7 @@ Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
 
 ########## aliases
-Set-Alias which Get-Command
+# Set-Alias which Get-Command
 Set-Alias opendir Invoke-Item
 
 
