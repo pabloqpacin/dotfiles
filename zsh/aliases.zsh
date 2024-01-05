@@ -1,5 +1,6 @@
 # aguu='sudo apt update && sudo apt upgrade'
 # agi='sudo apt install'
+
 alias updeez='sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y'
 showpath() { echo $PATH | tr ':' '\n' }
 
@@ -11,7 +12,6 @@ alias clera="echo 'wtf'"
 alias claer="echo 'wtf'"
 alias exot="echo 'wtf'"
 
-alias ip="ip -c"
 alias trea="tree -aI .git"
 alias less="less --mouse --wheel-lines=3"
 
@@ -66,15 +66,16 @@ alias HH="Hyprland"
 # # git restore $1: discard changes made to a file specified by $1.
 
 if command -v grc &>/dev/null; then
-    alias docker="grc docker"
-    alias nmap="grc nmap"
+    alias ip="grc ip -c"
     alias ping="grc ping"
+    alias nmap="grc nmap"
     alias stat="grc stat"
+    alias docker="grc docker"
 fi
 
 alias nmapkenobi="nmap -p- -sS -sC -sV --open --min-rate 5000 -n -vvv -Pn"  # add IP
 alias cargo-update="cargo install-update -a"
-alias fup='flatpak update'
+alias fup='flatpak update -y'
 alias kpc='keepassxc-cli'
 alias dneo="neo -D"
 
@@ -128,3 +129,8 @@ show_pc_model() {
           cat /sys/firmware/devicetree/base/model;
     fi
 }
+
+alias py='python3'
+
+alias xpaste='xclip -o -sel clip'
+

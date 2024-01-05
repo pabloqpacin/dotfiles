@@ -1,6 +1,6 @@
 
 Write-Host "`n------###################################################################------"
-Write-Host "#########~~~~~{     WinServer22-base v0.1.2  by @pabloqpacin    }~~~~~#########"
+Write-Host "#########~~~~~{     WinServer22-base v0.1.3  by @pabloqpacin    }~~~~~#########"
 Write-Host "------###################################################################------`n"
 
 ### Tested successfully on WindowsServer2022 (fresh VBox VM)
@@ -8,6 +8,44 @@ Write-Host "------##############################################################
 # .\server.ps1
 
 ######## FUNCTIONS ########
+
+# Expected usage --> update_path 'C:\Program Files\bat'
+function update_path ($NewPath) {
+
+    $CurrentPath = [System.Environment]::GetEnvironmentVariable("PATH", [System.EnvironmentVariableTarget]::User)
+
+    if ($CurrentPath -notlike "*$NewPath*") {
+
+        $NewPath = $CurrentPath + ";" + $NewPath
+        [System.Environment]::SetEnvironmentVariable("PATH", $NewPath, [System.EnvironmentVariableTarget]::User)
+
+        $env:PATH = $NewPath
+        Write-Host "Directory added to PATH. Please restart your PowerShell session or open a new console window for the changes to take effect."
+
+    } else {
+        Write-Host "Directory is already in PATH."
+    }
+}
+
+function install_vcpp_redist {
+
+            if (-not (tree 'C:\ProgramData\' | Select-String 'vcRuntimeMinimum_amd64')) {
+
+            Write-Output '==( Downloading Visual C++ Redist 2015+ )=='
+            $req_pkg = 'vc_redist.x64.exe'
+            Invoke-WebRequest -Uri https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/$req_pkg -OutFile $req_pkg
+        
+            if ($?) { 
+                Write-Output '==( Installing Visual C++ Redist 2015+ )=='
+                Start-Process $req_pkg -ArgumentList '/silent' -Wait
+                Remove-Item $req_pkg
+            }
+
+        } else {
+                # Write-Output '==( Visual C++ Redist 2015+ is already installed! )=='
+        }
+
+}
 
 function install_vscode {
 
@@ -48,6 +86,11 @@ function install_brave {
     } else {
         Write-Host '== Brave is already installed =='
     }
+
+    # Get-Service | Where-Object { $_.ServiceName -like '*Brave*' } | ForEach-Object {
+    #     Stop-Service $_.ServiceName; Set-Service -Name $_.ServiceName -StartupType Disabled
+    # }
+
 }
 
 function install_pwsh {
@@ -107,14 +150,37 @@ function install_terminal {
     }
 }
 
-function install_nerdfont {
+function install_nerdfonts {
+
+    $exists = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' | Select-String FiraCode)
+
+    if (-not ($exists)) {
+
+        $helper = "https://raw.githubusercontent.com/pabloqpacin/PowerShell_Scripts/master/InstallFonts.ps1"
+
+        Write-Host '== Downloading Nerdfont FiraCode =='
+        Invoke-WebRequest -Uri https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip -OutFile FiraCode.zip
+        Expand-Archive -Path FiraCode.zip -DestinationPath FiraCode
+
+        Set-Location FiraCode
+        Invoke-WebRequest -Uri $helper -OutFile helper.ps1
+        Write-Host '== Installing Nerdfont FiraCode =='
+        .\helper.ps1
+
+        Set-Location ..
+        Remove-Item FiraCode.zip
+        Remove-Item FiraCode -r
+
+    } else {
+        Write-Host '== Nerdfont FiraCode is already installed =='
+    }
 
     $exists = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' | Select-String CaskaydiaCove)
 
     if (-not ($exists)) {
 
         $helper = "https://raw.githubusercontent.com/pabloqpacin/PowerShell_Scripts/master/InstallFonts.ps1"
-        
+
         Write-Host '== Downloading Nerdfont CascadiaCode =='
         Invoke-WebRequest -Uri https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.zip -OutFile CascadiaCode.zip
         Expand-Archive -Path CascadiaCode.zip -DestinationPath CascadiaCode
@@ -123,11 +189,11 @@ function install_nerdfont {
         Invoke-WebRequest -Uri $helper -OutFile helper.ps1
         Write-Host '== Installing Nerdfont CascadiaCode =='
         .\helper.ps1
-        
+
         Set-Location ..
         Remove-Item CascadiaCode.zip
         Remove-Item CascadiaCode -r
-    
+
     } else {
         Write-Host '== Nerdfont CascadiaCode is already installed =='
     }
@@ -158,21 +224,7 @@ function install_neovim {
 
     if (-not (Test-Path 'C:\Program Files\Neovim')) {
 
-        if (-not (tree 'C:\ProgramData\' | Select-String 'vcRuntimeMinimum_amd64')) {
-
-            Write-Output '== (Downloading Neovim requirements [VCRedist2015+]) =='
-            $req_pkg = 'vc_redist.x64.exe'
-            Invoke-WebRequest -Uri https://download.microsoft.com/download/9/3/F/93FCF1E7-E6A4-478B-96E7-D4B285925B00/$req_pkg -OutFile $req_pkg
-        
-            if ($?) { 
-                Write-Output '== (Installing Neovim requirements [VCRedist2015+]) =='
-                Start-Process $req_pkg -ArgumentList '/silent' -Wait
-                Remove-Item $req_pkg
-            }
-
-        } else {
-                Write-Output '== (Neovim requirements [VCRedist2015+] are already installed) =='
-        }
+        install_vcpp_redist
 
         Write-Output '== Downloading Neovim =='
         $pkg = 'nvim-win64.msi'
@@ -210,9 +262,36 @@ function install_git {
     }
 }
 
+function install_misc {
+    # ... eza lf ... 
+
+    if (-not (Test-Path 'C:\Program Files\bat')) {
+
+        install_vcpp_redist
+
+        Write-Output '== Downloading Bat =='
+        $pkg = 'bat-v0.24.0-x86_64-pc-windows-gnu.zip'
+        Invoke-WebRequest -Uri https://github.com/sharkdp/bat/releases/download/v0.24.0/$pkg -OutFile $pkg
+        
+        if ($?) {
+            Write-Output '== Installing Bat =='
+            Expand-Archive -Path $pkg -DestinationPath 'C:\Program Files\'
+            Move-Item "C:\Program Files\bat-v0.24.0-x86_64-pc-windows-gnu" 'C:\Program Files\bat'
+
+            update_path 'C:\Program Files\bat'
+            
+            Remove-Item $pkg
+        }
+
+    } else {
+        Write-Output '== Bat is already installed =='
+        # TODO: .vimrc
+    }
+
+}
+
 # function install_wsl {}
-# function install_dotfiles {}
-# function install_misc { ... bat eza lf ... }
+# function setup_dotfiles { ... pwsh (oh-my-posh) vscode terminal (misc) ... }
 
 function print_end {
     Write-Host "Script completed! Restart the shell/machine before running it again!"
@@ -226,10 +305,12 @@ install_vscode
 install_brave
 install_pwsh
 install_terminal
-install_nerdfont
+install_nerdfonts
 install_nmap
 install_neovim
 install_git
+
+install_misc
 
 print_end
 
@@ -242,3 +323,5 @@ print_end
 # $extensions | ForEach-Object {
 #     Start-Process -FilePath "$vscode_bin" -ArgumentList " --install-extension $_" -Wait
 # }
+
+# $env:PATH -replace ';', "`n"

@@ -13,6 +13,10 @@ git pull origin main                    # fatal: couldn't find remote ref main
 git add foo; git commit -m "bar"
 git push --set-upstream origin main
 
+# From remote to local
+    # Github: new
+git clone git@github.com:pabloqpacin/foo.git
+
 # Create and push new branch
 git checkout -b new-branch
 git push origin new-branch

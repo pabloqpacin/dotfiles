@@ -102,7 +102,7 @@ https://github.com/gasech/hyprland-dots
         <tr>
         <tr>
             <td><b>DE/WM</b></td>
-            <td>Cosmic & Hyprland</td>
+            <td>Gnome (Cosmic) & Hyprland</td>
             <td></td>
         </tr>
         <tr>
@@ -116,12 +116,12 @@ https://github.com/gasech/hyprland-dots
         </tr>
         <tr>
             <td><b>Shell Misc</b></td>
-            <td colspan="2">bat bottom cheat eza fzf lf ripgrep tldr zoxide</td>
+            <td colspan="2">bat bottom btop cheat eza fzf lf ripgrep tldr zoxide</td>
         </tr>
         <tr>
             <td><b>Other Misc</b></td>
             <td>flameshot grimshot nmapsi4</td>
-            <td>sysinternals powertoys</td>
+            <td>powertoys sysinternals zenmap</td>
         </tr>
         <!-- <tr>
             <td><b>More Misc</b></td>

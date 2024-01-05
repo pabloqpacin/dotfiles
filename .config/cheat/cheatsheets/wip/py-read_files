@@ -1,0 +1,16 @@
+---
+syntax: python
+tags: [python, py]
+---
+
+# Open the text file
+with open('sup.txt', 'r') as file:
+    # Read the entire content
+    content = file.read()
+    print(content)
+
+    # Alternatively, read line by line
+    file.seek(0)  # Move the cursor back to the beginning of the file
+    lines = file.readlines()
+    for line in lines:
+        print(line.strip())  # strip() removes leading and trailing whitespaces
