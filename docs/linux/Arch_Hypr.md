@@ -129,6 +129,7 @@ free -h
 ```bash
 iwctl
 device list
+# device wlan0 set-property Powered on
 station wlan0 scan
 station wlan0 get-networks
 station wlan0 connect MOVISTAR_C600
@@ -180,6 +181,8 @@ vim /etc/pacman.conf
 
 # Update the keyring if necessary
 pacman -Sy archlinux-keyring
+# pacman-key --init
+# pacman-key --populate archlinux
 
 # Install the base system -- exclude irrelevant packages (Nvidia if VM, bootloader if NixOS multiboot...)
 pacstrap /mnt linux linux-firmware base base-devel networkmanager neovim neofetch git \
@@ -393,6 +396,7 @@ sudo pacman -S gnome gnome-tweaks # gnome-browser-connector
 yay -S gnome-browser-connector-git
   # gnome_extensions: panel_free by fthx,
 sudo pacman -Syu xdg-desktop-portal-wlr grim  # virtualbox docker mariadb-clients
+sudo pacman -Syu pipewire-alsa pipewire-jack pipewire-pulse     # REMOVES pulseaudio etc -- because YouTube not playing lol
 
 # Kde
 sudo pacman -S plasma-desktop sddm
@@ -602,4 +606,6 @@ yay -S onlyoffice-bin
 
 sudo pacman -S inxi
 sudo inxi -Fz
+
+yay -S dnslookup-bin
 ```

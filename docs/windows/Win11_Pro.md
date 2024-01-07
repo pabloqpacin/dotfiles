@@ -298,7 +298,7 @@ winget install 9NQPSL29BFFF     # OpenCLTM and OpenGL Compatibility Pack
 
 ### Basic Environment
 
-- Tweak WinGet, install PowerShell 7
+- Tweak WinGet, install PowerShell 7 ([check pwsh version](https://petri.com/how-to-check-your-powershell-version/))
 
 ```powershell
 $PSVersionTable             # PSVersion: 5.1

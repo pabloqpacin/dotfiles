@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo -e "\n-----#################################################################-----"
-echo -e "#########~~~~~{     RasPiOS-base v0.1.2  by @pabloqpacin    }~~~~~#########"
+echo -e "#########~~~~~{     RasPiOS-base v0.1.3  by @pabloqpacin    }~~~~~#########"
 echo -e "-----#################################################################-----\n"
 
 ### Good for Raspberry Pi OS Lite (64-bit) on Raspberry Pi 5
@@ -70,7 +70,8 @@ install_base_apt() {
         $sa_install build-essential && should_reboot=1
     fi
    
-    $sa_install libssl-dev
+    $sa_install libssl-dev sysbench
+    $sa_install default-mysql-client
     $sa_install curl git openssh-server wget
     $sa_install neofetch --no-install-recommends
     $sa_install btop grc ipcalc nmap ripgrep tldr tmux tree 
@@ -84,7 +85,7 @@ install_base_apt() {
 
 clone_dotfiles() {
     if [ ! -d ~/dotfiles ]; then
-        git clone --depth 1 https://github.com/pabloqpacin/dotfiles; fi
+        git clone --depth 1 https://github.com/pabloqpacin/dotfiles ~/dotfiles; fi
     
     if [ ! -d ~/.config ]; then
         mkdir ~/.config &>/dev/null; fi
@@ -167,7 +168,7 @@ install_base_go() {
     $sa_update && $sa_install golang
 
     source ~/dotfiles/zsh/golang.zsh
-  
+
     if ! command -v fzf &>/dev/null; then
         go install github.com/junegunn/fzf@latest; fi
     
@@ -238,21 +239,25 @@ install_docker() {
 
 setup_containers() {
 
-    if ! command -v docker &>/dev/null; then return 1; fi
+    if ! command -v docker &>/dev/null; then
+        return 1
+    # else
+    #     docker ps -a
+    fi
 
     if ! docker ps -a --format '{{.Names}}' | grep -q "portainer"; then
             # docker volume ls
         sudo docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer-ce
     fi
 
-    if ! docker ps -a --format '{{.Names}}' | grep -q "mysql-container"; then
-            # docker volume inspect mysql_data && docker volume rm mysql_data
-        sudo docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=changeme -e MYSQL_ROOT_HOST='%' -d -p 3306:3306 -v mysql_data:/var/lib/mysql mysql
-            # docker start mysql-container
-            # mysql -h 127.0.0.1 -u root -p
-    fi
+    # if ! docker ps -a --format '{{.Names}}' | grep -q "mysql-container"; then
+    #         # docker volume inspect mysql_data && docker volume rm mysql_data
+    #     sudo docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=changeme -e MYSQL_ROOT_HOST='%' -d -p 3306:3306 -v mysql_data:/var/lib/mysql mysql
+    #         # docker start mysql-container
+    #         # mysql -h 127.0.0.1 -u root -p
+    # fi
 
-    # if ! docker ps -a --format '{{.Names}}' | grep -q "grafana"; then
+    # if ! docker ps -a --format '{{.Names}}' | grep -q "prometheus"; then
     #     docker run -d -p 9090:9090 --name prometheus prom/prometheus
     # fi
 

@@ -4,12 +4,14 @@
 <!-- > - **NOTE 1**: ISO == Windows Server 2022 Standard Evaluation (10.0.20348.587 / x64 / en-US) -->
 <!-- > - **NOTE 2**: ACTIVATION == 180 days -->
 
+<!-- TODO: windows terminal opacity... -->
 
 - [WinServer22](#winserver22)
   - [live installation](#live-installation)
   - [post-install config](#post-install-config)
     - [configuración escritorio](#configuración-escritorio)
     - [base](#base)
+    - [wsl](#wsl)
     - [dhcp + dns](#dhcp--dns)
 
 
@@ -107,6 +109,8 @@ Username: Administrator
 Password: ...
 ```
 
+> Guest Additions
+
 ## post-install config
 
 > Ctrl+Alt+Del on Guest == Right Ctrl+Supr on Host
@@ -186,6 +190,13 @@ Add-AppxPackage $pwsh7_pkg
 Remove-Item $pwsh7_pkg
 ```
 
+- ELSE
+  - for `nmap`, nerdfonts and `git` --> [WinServer22-base.ps1](/windows/scripts/autosetup/WinServer22-base.ps1)
+
+
+### wsl
+
+<!-- ### hyper-v -->
 
 ### dhcp + dns
 

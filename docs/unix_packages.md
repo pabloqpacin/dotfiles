@@ -35,7 +35,7 @@ bind9-dnsutils cloud-init dig dstat iproute2 monkeysphere net-tools netcat-openb
 df du env|printenv gawk printenv sed wc
 
 # System mgmt
-stat
+stat time type
 
 # Somewhat useful
 aha finger glances gnome-tweaks grc html2text logcat lsb-release lscpu mdp mysql-client mysql-server neofetch progress taskwarrior timewarrior tree who wslu xclip zshmisc
@@ -82,3 +82,11 @@ apt show collectd-core
 
 
 ``` -->
+
+
+```bash
+gh  # https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+
+rsync
+
+```

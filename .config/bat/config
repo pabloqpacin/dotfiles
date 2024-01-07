@@ -33,4 +33,6 @@
 --map-syntax "**/config:Bourne Again Shell (bash)"
 --map-syntax "*ino:C"
 --map-syntax "*jsonc:JSON"
+--map-syntax ".zsh_history:log"
+--map-syntax ".bash_history:Bourne Again Shell (bash)"
 # bat --list-languages

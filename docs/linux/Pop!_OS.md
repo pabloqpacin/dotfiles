@@ -9,6 +9,8 @@
   - [documentation](#documentation)
   - [live installation](#live-installation)
   - [post-install config](#post-install-config)
+    - [Base](#base)
+    - [Desktop](#desktop)
 
 
 ---
@@ -53,6 +55,8 @@ Live ISO installer:
 
 
 ## post-install config
+
+### Base
 
 - First steps
 
@@ -263,10 +267,13 @@ cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua
 # TODO: deno, peek, live-server, ...
 ```
 
+### Desktop
+
 - Workstation vibes -- see [code/codium settings.json](/.config/code/User/settings.jsonc)
 
 ```bash
 # Pop!_Shop OK
+flatpak install anydesk
 flatpak install spotify
 flatpak install discord
 flatpak install gitkraken
@@ -386,7 +393,18 @@ flatpak install flathub com.github.IsmaelMartinez.teams_for_linux
 # sudo nvim /etc/gdm3/custom.conf
 ``` -->
 
-- LibreOffice language
+- LibreOffice config
+
+```md
+# documentation
+- @TheLinuxExperiment: [Make LIBREOFFICE more compatible with MICROSOFT OFFICE & 365](https://www.youtube.com/watch?v=G0che2Az9hw)
+- @libreoffice.org -- extensions
+    - https://superuser.com/questions/1525126/how-to-get-code-block-with-syntax-highlighting-into-libreoffice-writer
+    - [Code Highlighter 2](https://extensions.libreoffice.org/en/extensions/show/5814)
+    - [Extension Manager](https://help.libreoffice.org/7.5/en-US/text/shared/01/packagemanager.html#hd_id3895382)
+- @eBuzzCentral: [LibreOffice – Make It Compatible With MS Office & Office 365 | Layout & Fonts](https://www.youtube.com/watch?v=vjTOFGddtwQ)
+
+```
 
 ```yaml
 # LibreOffice Writer
@@ -396,7 +414,35 @@ Tools:
       More:
         Default Languages for Documents:
           Western: Spanish (Spain)
+View:
+    User interface:
+        UI variant: Tabbed
+Options:  # Alt+F12
+    LibreOffice:
+        View:
+            Icon Style: Yaru mate (SVG)
+
 ```
+
+- LibreOffice extensions...
+
+```bash
+# Find local files
+whereis libreoffice
+    # /etc/libreoffice /usr/share/libreoffice
+
+# Brave --> extensions.libreoffice.org
+wget https://extensions.libreoffice.org/assets/downloads/508/1693681078/codehighlighter2.oxt
+#sudo unopkg add --shared codehighlighter2.oxt
+# Writer --> Extension --> Add: foo.oxt
+
+```
+
+- TODO
+    - [ ] Fine dark mode (icons/theme)
+    - [ ] Code highlighting
+    - [ ] markdown?
+    - [ ] JUST MAKE IT USABLE FOR fine PDFs
 
 
 <!-- - USERS AND STUFF
@@ -424,4 +470,128 @@ ln -s ~/dotfiles/.config/screenkey.json ~/.config
     # Use left + right CTRL keys to HIDE PASSWORDS !!
 
 sudo apt-get install fortune-mod
+```
+
+- Docker
+
+```bash
+$sa_update && $sa_install ca-certificates curl gnupg  # gnome-terminal
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+echo \
+    "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+    "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+$sa_update && $sa_install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+    # docker compose version; docker --version; docker version; sudo docker run hello-world
+    sudo usermod -aG docker $USER
+wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.24.2-amd64.deb
+$sa_update && $sa_install ./docker-desktop-4.24.2-amd64.deb && rm docker-desktop-4.24.2-amd64.deb
+    # systemctl --user start docker-desktop || systemctl --user enable docker-desktop
+```
+
+<!-- ```txt
+[~] sudo systemctl disable --now docker
+[sudo] password for pabloqpacin:
+Sorry, try again.
+[sudo] password for pabloqpacin:
+Synchronizing state of docker.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install disable docker
+Warning: Stopping docker.service, but it can still be activated by:
+  docker.socket
+[~] sudo systemctl disable --now docker.socket
+Removed /etc/systemd/system/sockets.target.wants/docker.socket.
+``` -->
+
+- Raspberry Pi 5
+
+```bash
+# sudo apt install rpi-imager   # version behind!
+
+wget https://downloads.raspberrypi.org/imager/imager_latest_amd64.deb
+sudo dpkg -i imager_latest_amd64.deb && \
+  sudo apt-get install -f
+
+# wget https://downloads.raspberrypi.com/raspios_full_armhf/images/raspios_full_armhf-2023-10-10/2023-10-10-raspios-bookworm-armhf-full.img.xz
+# xz -d file.img.xz
+
+# Open Imager, burn OS to SD
+```
+
+```yaml
+# Imager
+# ...
+```
+
+- https://www.essentialdevtips.com/blog/how-do-you-display-code-snippets-in-microsoft-word/
+
+
+---
+
+- VLC
+  - [skins](https://www.videolan.org/vlc/skins.php)
+  - contributing
+    - [github.com/videolan](https://github.com/videolan/vlc)
+    - [VideoLAN: Contribute](https://www.videolan.org/contribute.html)
+
+---
+
+
+- AnyDesk
+
+```bash
+flatpak install anydesk
+
+# # Install .deb from the browser
+# sudo dpkg -i anydesk_*.deb
+# sudo apt-get install -f
+
+# # http://deb.anydesk.com/howto.html
+# wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | apt-key add -
+#     # WARNING: pat-key is deprecated. Manage keyring files in trusted.gpg.d instead...
+# echo "deb http://deb.anydesk.com/ all main" > /etc/apt/sources.list.d/anydesk-stable.list
+# apt update && apt install anydesk
+```
+
+```bash
+flatpak install onlyoffice
+flatpak install qbittorrent
+```
+
+- Github CLI
+
+```sh
+# # https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+# type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
+# curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+# && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+# && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+# && sudo apt update \
+# && sudo apt install gh -y
+
+```
+
+<!--
+- Proton VPN
+
+```bash
+# flatpak install protonvpn
+wget https://repo.protonvpn.com/debian/dists/stable/main/binary-all/protonvpn-stable-release_1.0.3-2_all.deb
+echo "c68a0b8dad58ab75080eed7cb989e5634fc88fca051703139c025352a6ee19ad  protonvpn-stable-release_1.0.3-2_all.deb" | sha256sum --check -
+sudo dpkg -i protonvpn-stable-release_1.0.3-2_all.deb
+sudo apt install proton-vpn-gnome-desktop       # ...
+
+rm protonvpn-stable-release_1.0.3.-2_all.deb
+sudo dpkg -r protonvpn-stable-release
+sudo rm /etc/apt/sources.list.d/protonvpn-stable.list
+```
+-->
+
+- More Misc.
+
+```bash
+sudo apt-get install audacity
+
+agi gnome-clocks
 ```

@@ -9,7 +9,7 @@ btop.log
 
 # Clutter
 private/
-*.todo
+# *.todo
 *test*
 *mock*
 py/

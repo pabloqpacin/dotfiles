@@ -1,8 +1,10 @@
 #!/bin/bash
 
 echo -e "\n----################################################################----"
-echo -e "#######~~~~~{     DebUbu-services v1.2  by @pabloqpacin    }~~~~~#######"
+echo -e "#######~~~~~{     DebUbu-services v1.3  by @pabloqpacin    }~~~~~#######"
 echo -e "----################################################################----\n"
+
+### https://ubuntu.com/server/docs/lamp-applications
 
 ### Tested successfully on Ubuntu 22.04 (fresh VM post DebUbu-base):
 ### curl https://raw.githubusercontent.com/pabloqpacin/dotfiles/main/scripts/autosetup/DebUbu-services.sh \
@@ -36,8 +38,7 @@ function system_update {
         sudo apt-get autoclean -y
 }
 
-# function install_mysql_wb_deb {
-# }
+# config_ufw() {}
 
 function install_mysql_wb_ubupop {
     if ! command -v mysql &>/dev/null; then
@@ -104,10 +105,9 @@ function install_apache_php_wordpress {
 
 # # @ChristianLempa: Nginx < Docker (https://www.youtube.com/watch?v=7GTYB8RVYBc)
 # # https://www.nginx.com/resources/wiki/start/topics/recipes/wordpress/
-# function foo_nginx {
-# }
+# function foo_nginx {}
 
-    # The line 'Require all granted' allows access from all IP addresses
+    # The line 'Require all granted' should allow access from all IP addresses
 function config_apache_wordpress {
     if [[ ! -e /etc/apache2/sites-available/wordpress.conf ]]; then
         echo -e "\n${YELLOW}########## Enabling ${RED}${BOLD}wordpress${RESET}${YELLOW} site on ${RED}${BOLD}apache2${RESET}${YELLOW} ####################${RESET}"
@@ -191,6 +191,16 @@ Your Email: whoami@test.com"
         # xdg-open https://localhost/wp-admin
             # Posts --> Trash "Hello World!" --> Add New --> Edit --> Publish
         return
+}
+
+function install_wpcli {
+    # https://wp-cli.org/
+    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    php wp-cli.phar --info
+    chmod +x wp-cli.phar && sudo mv wp-cli.phar /usr/local/bin/wp
+    wp --info
+    sudo wp cli update
+    # wp option get home; wp option update siteurl 'http://192.168.1.49';
 }
 
 ################################################################################

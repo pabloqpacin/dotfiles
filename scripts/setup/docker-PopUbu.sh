@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ### Installation only works for Ubuntu-based distros -- for Debian, change 'ubuntu' for 'debian' at install_docker()
+## TODO: check ports regardin mysql
 
 ########### VARIABLES ###########
 docker_volumes="$HOME/Docker_vs"
@@ -28,7 +29,7 @@ install_docker() {
 
 run_portainer() {
     if command -v docker &>/dev/null; then
-        docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
+        docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer-ce
         xdg-open http://localhost:9000  # ADMIN SETUP
     fi
 }
@@ -72,3 +73,4 @@ fi
 #     compose_LEMP4WP
 # fi
 
+# -- grafana

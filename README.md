@@ -107,7 +107,7 @@ https://github.com/gasech/hyprland-dots
         </tr>
         <tr>
             <td><b>Hyprland</b></td>
-            <td>hypr mako rofi swaybg thunar waybar</td>
+            <td>hypr mako rofi swaybg thunar waybar ...</td>
             <td></td>
         </tr>
         <tr>

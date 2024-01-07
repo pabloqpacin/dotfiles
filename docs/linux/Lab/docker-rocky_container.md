@@ -17,6 +17,6 @@ docker exec --it rockycontainer bash
     # dnf install epel-release -y
     # dnf install --setopt=install_weak_deps=False neofetch
 
-docker exec -it --workdir=/root rockycontainer zsh
+docker exec -it --workdir=/root rockycontainer bash
 ```
 
