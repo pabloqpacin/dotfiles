@@ -1,0 +1,48 @@
+Setting up a VLAN (Virtual Local Area Network) at home to segregate your VMs is a good practice for network security and management. Here are some steps and tips to help you set up a VLAN:
+
+1. **Router and Switch Support:**
+   - Ensure that your home router and switch support VLANs. Most modern routers and managed switches do, but it's essential to check the documentation for your specific devices.
+
+2. **Create VLANs on the Switch:**
+   - Access your switch's management interface and create the VLANs you need. Assign each VLAN a unique VLAN ID.
+   - Associate the switch ports connected to the devices in each VLAN with the corresponding VLAN ID.
+
+3. **VLAN Tagging on VMs:**
+   - Configure your VMs to use VLAN tagging. This involves setting the VLAN ID on the network interface of each VM.
+   - The method to configure VLAN tagging can vary depending on the virtualization platform you're using (e.g., VMware, VirtualBox, KVM).
+
+4. **Router Configuration:**
+   - On your router, configure the VLANs and assign IP subnets to each VLAN.
+   - Create virtual interfaces (SVIs - Switched Virtual Interfaces) on the router for each VLAN and assign an IP address to each SVI.
+
+5. **DHCP for Each VLAN:**
+   - If you want each VLAN to have its DHCP server, configure DHCP settings for each SVI on the router.
+   - Alternatively, you can set up a separate DHCP server on your network for each VLAN.
+
+6. **Firewall Rules:**
+   - Consider configuring firewall rules on your router to control traffic between VLANs. This adds an extra layer of security.
+
+7. **Testing:**
+   - Once configured, test the connectivity within each VLAN and ensure that devices in one VLAN cannot directly communicate with devices in another VLAN without passing through the router.
+
+8. **Documentation:**
+   - Keep a record of the VLAN assignments, IP subnets, and any other relevant configurations for future reference.
+
+Here's a simplified example based on the IP addresses you provided:
+
+```plaintext
+# VLAN Configuration
+
+# VLAN 10 - VMs
+192.168.1.41    win11vm
+192.168.1.42    PopVM
+192.168.1.47    ArchVM
+
+# VLAN 20 - Other Devices
+192.168.1.39    termux
+192.168.1.48    pi5
+192.168.1.49    ex2511          # Arch
+# 192.168.1.43    ex2511          # Arch
+```
+
+Remember to adapt the VLAN IDs, IP addresses, and configurations based on your specific network requirements and hardware capabilities. Always refer to the documentation for your router and switch for accurate and detailed instructions.

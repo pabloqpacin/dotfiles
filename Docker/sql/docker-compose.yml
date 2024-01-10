@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-compose
+    environment:
+      MYSQL_ROOT_PASSWORD: changeme
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_compose_data:/var/lib/mysql
+
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb-compose
+    environment:
+      MYSQL_ROOT_PASSWORD: changeme
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - "3307:3306"
+    volumes:
+      - mariadb_compose_data:/var/lib/mysql
+
+volumes:
+  mysql_compose_data:
+  mariadb_compose_data:
+
+
+# docker compose up -d

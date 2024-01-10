@@ -49,9 +49,12 @@ function base_apt_packages {
     $sa_install curl git openssh-server wget    # net-tools
     $sa_install devilspie grc ipcalc nmap nmapsi4 ripgrep tldr tmux zsh # btop
     $sa_install python3-pip python3-venv --no-install-recommends
+    $sa_install mariadb-client
+    
     if [[ ! -d $HOME/.local/share/tldr ]]; then
         tldr --update
     fi
+    
     # $sa_install wireshark tshark && sudo usermod -aG wireshark $USER      # WARNING: non-sudo? yes
     # $sa_install keepassxc && mkdir ~/KPXC && xdg-open https://keepassxc.org/docs/KeePassXC_UserGuide#_setup_browser_integration
     # $sa_install flameshot
@@ -197,8 +200,8 @@ function install_docker {
         $sa_update && $sa_install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
             # docker compose version; docker --version; docker version; sudo docker run hello-world     # systemctl status docker
             sudo usermod -aG docker $USER
-        wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.24.2-amd64.deb
-        $sa_update && $sa_install ./docker-desktop-4.24.2-amd64.deb && rm docker-desktop-4.24.2-amd64.deb
+        # wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.24.2-amd64.deb
+        # $sa_update && $sa_install ./docker-desktop-4.24.2-amd64.deb && rm docker-desktop-4.24.2-amd64.deb
             # systemctl --user start docker-desktop || systemctl --user enable docker-desktop 
     else
         echo -e "\n${YELLOW}########## ${GREEN}${BOLD}Docker${RESET}${YELLOW} is already installed ##########${RESET}"

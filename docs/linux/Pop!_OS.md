@@ -11,6 +11,7 @@
   - [post-install config](#post-install-config)
     - [Base](#base)
     - [Desktop](#desktop)
+    - [Homelab](#homelab)
 
 
 ---
@@ -273,6 +274,7 @@ cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua
 
 ```bash
 # Pop!_Shop OK
+flatpak install slack
 flatpak install anydesk
 flatpak install spotify
 flatpak install discord
@@ -594,4 +596,28 @@ sudo rm /etc/apt/sources.list.d/protonvpn-stable.list
 sudo apt-get install audacity
 
 agi gnome-clocks
+```
+
+### Homelab
+
+- Samba (Pi5)
+
+```bash
+sudo apt install smbclient -y
+
+# sudo pacman -S
+
+```
+
+- SQL
+
+
+```bash
+sudo apt install mariadb-client
+
+sudo docker run -d --name mariadb-container -e MYSQL_ROOT_PASSWORD=changeme -e MYSQL_ROOT_HOST='%' -p 3307:3306 -v mariadb_data:/var/lib/mysql mariadb:latest
+
+mysql -h 127.0.0.1 -P 3307 -u root -p
+
+
 ```

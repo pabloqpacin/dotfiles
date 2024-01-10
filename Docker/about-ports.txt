@@ -1,0 +1,29 @@
+I see, I misunderstood your question. I apologize for the confusion.
+
+Yes, you can change the port on the container side as well. The important thing is to understand the application inside the container and ensure that you're mapping the correct ports.
+
+In your example:
+
+```bash
+sudo docker run --detach \
+    --name mariadb-container \
+    --env MYSQL_ROOT_PASSWORD=my-secret-pw \
+    --publish 3307:3306 \
+    --volume mariadb_data:/var/lib/mysql \
+    mariadb:latest
+```
+
+Here, `--publish 3307:3306` is mapping port 3307 on the host to port 3306 on the container. The port on the container side is 3306, which is the default port for MariaDB/MySQL. If you want to change the port on the container side, you would modify the part after the colon (`:`) in the `-p` option:
+
+```bash
+sudo docker run --detach \
+    --name mariadb-container \
+    --env MYSQL_ROOT_PASSWORD=my-secret-pw \
+    --publish 3307:3308 \  # Change the container port to 3308
+    --volume mariadb_data:/var/lib/mysql \
+    mariadb:latest
+```
+
+Now, you are mapping port 3307 on the host to port 3308 on the container.
+
+** It's worth noting that if you change the container port, you need to ensure that the application inside the container is configured to use that specific port. If it's a database like MariaDB or MySQL, make sure the database server inside the container is configured to listen on the new port. **

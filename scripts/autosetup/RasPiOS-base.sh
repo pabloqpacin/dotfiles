@@ -71,11 +71,11 @@ install_base_apt() {
     fi
    
     $sa_install libssl-dev sysbench
-    $sa_install default-mysql-client
     $sa_install curl git openssh-server wget
     $sa_install neofetch --no-install-recommends
     $sa_install btop grc ipcalc nmap ripgrep tldr tmux tree 
     $sa_install python3-pip python3-venv --no-install-recommends
+    $sa_install mariadb-client # default-mysql-client
 
     if [ ! -d ~/.local/share/tldr ]; then
         mkdir -p ~/.local/share &>/dev/null
@@ -250,22 +250,7 @@ setup_containers() {
         sudo docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer-ce
     fi
 
-    # if ! docker ps -a --format '{{.Names}}' | grep -q "mysql-container"; then
-    #         # docker volume inspect mysql_data && docker volume rm mysql_data
-    #     sudo docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=changeme -e MYSQL_ROOT_HOST='%' -d -p 3306:3306 -v mysql_data:/var/lib/mysql mysql
-    #         # docker start mysql-container
-    #         # mysql -h 127.0.0.1 -u root -p
-    # fi
-
-    # if ! docker ps -a --format '{{.Names}}' | grep -q "prometheus"; then
-    #     docker run -d -p 9090:9090 --name prometheus prom/prometheus
-    # fi
-
-    # if ! docker ps -a --format '{{.Names}}' | grep -q "grafana"; then
-    #     sudo docker run -d -p 3000:3000 --name grafana grafana/grafana
-    # fi
-
-    # if command -v docker &>/dev/null; then docker ps -a; fi
+    # Update: should do Prometheus+Grafana with Docker Compose (via Portainer stack)
 
 }
 

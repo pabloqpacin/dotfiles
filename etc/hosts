@@ -1,22 +1,24 @@
 ######### PopOS - GL76  #########
+127.0.0.1       localhost
+::1             localhost
+127.0.1.1       pop-os.localdomain  pop-os
 
-127.0.0.1   localhost
-::1         localhost
-127.0.1.1   pop-os.localdomain  pop-os
+# Added by Docker Desktop -- To allow the same kube context to work on the host and the container:
+127.0.0.1       kubernetes.docker.internal
 
-# Added by Docker Desktop
-# To allow the same kube context to work on the host and the container:
-127.0.0.1   kubernetes.docker.internal
-# End of section
-
-# HOME NETWORK
+#### HOMELAB
+192.168.1.37    ubuntuserver
+192.168.1.38    self
 192.168.1.39    termux
-192.168.1.47    ArchClient_ArchVBox
+192.168.1.41    win11vm
+192.168.1.42    popvm
+192.168.1.47    archvm
 192.168.1.48    pi5
+192.168.1.49    ex2511          # Arch
+#      .1.43    ex2511          # Arch
 
 
-
-##### SETESUR .. 554==rtsp
+#### SETESUR .. 554==rtsp
 88.12.62.210    setesur
 
 # # Husky

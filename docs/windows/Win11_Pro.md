@@ -533,3 +533,6 @@ Add shortcut to desktop: no
 ```
 -->
 
+```ps1
+winget install mobaxterm
+```

@@ -134,3 +134,4 @@ alias py='python3'
 
 alias xpaste='xclip -o -sel clip'
 
+alias grv='git remote -v'

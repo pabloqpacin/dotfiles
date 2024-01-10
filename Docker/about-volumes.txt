@@ -1,0 +1,28 @@
+Yes, that's correct. If your `docker-compose.yml` file includes a `volumes` section like this:
+
+```yaml
+volumes:
+  mysql_data:
+  mariadb_data:
+```
+
+And in your services, you are referencing these volumes:
+
+```yaml
+services:
+  mysql:
+    ...
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  mariadb:
+    ...
+    volumes:
+      - mariadb_data:/var/lib/mysql
+```
+
+Docker Compose will automatically create named volumes (`mysql_data` and `mariadb_data`) when you run `docker-compose up`. These volumes will persist data on the host machine even if the containers are stopped or removed.
+
+The actual location of these volumes on the host machine will be managed by Docker, and you don't need to specify the host path explicitly. Docker will handle the details, and you can interact with the data through the named volumes.
+
+Remember that named volumes provide a convenient way to manage and share data between containers, and they are designed to abstract away the host machine's filesystem details.
