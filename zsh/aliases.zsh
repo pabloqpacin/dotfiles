@@ -90,6 +90,7 @@ bindkey -s '\e^P' "systemctl --user restart wireplumber pipewire pipewire-pulse\
 
 
 # Python stuff
+alias pipu='pip install -U'
 pipup() { for package in $(pip freeze); do pip install --upgrade $package; done }
 pip_freeze () {
     DATE=$(date)

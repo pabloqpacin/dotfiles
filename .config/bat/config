@@ -30,9 +30,10 @@
 #--map-syntax ".ignore:Git Ignore"
 --map-syntax "/etc/*:Bourne Again Shell (bash)"
 --map-syntax "*.conf:Bourne Again Shell (bash)"
+--map-syntax ".myclirc:Bourne Again Shell (bash)"
 --map-syntax "**/config:Bourne Again Shell (bash)"
---map-syntax "*ino:C"
---map-syntax "*jsonc:JSON"
---map-syntax ".zsh_history:log"
 --map-syntax ".bash_history:Bourne Again Shell (bash)"
+--map-syntax ".zsh_history:log"
+--map-syntax "*jsonc:JSON"
+--map-syntax "*ino:C"
 # bat --list-languages

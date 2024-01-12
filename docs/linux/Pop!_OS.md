@@ -613,11 +613,16 @@ sudo apt install smbclient -y
 
 
 ```bash
-sudo apt install mariadb-client
+# sudo apt install mariadb-client
+pip install -U mycli
 
-sudo docker run -d --name mariadb-container -e MYSQL_ROOT_PASSWORD=changeme -e MYSQL_ROOT_HOST='%' -p 3307:3306 -v mariadb_data:/var/lib/mysql mariadb:latest
+ln -s ~/dotfiles/.myclirc ~/
 
-mysql -h 127.0.0.1 -P 3307 -u root -p
+# sudo docker run -d --name mariadb-container -e MYSQL_ROOT_PASSWORD=changeme -e MYSQL_ROOT_HOST='%' -p 3307:3306 -v mariadb_data:/var/lib/mysql mariadb:latest
+
+mycli -h 127.0.0.1 -P 3307 -u root -p
 
 
 ```
+
+

@@ -1,0 +1,30 @@
+Yes, you can achieve this behavior in tmux by leveraging the `synchronize-panes` command. You can bind a key combination to synchronize the current working directory of the active pane to any new panes you create.
+
+Here's an example tmux configuration that achieves this:
+
+```tmux
+# Enable synchronization of panes by default
+setw -g synchronize-panes on
+
+# Create a key binding to toggle synchronization on/off
+bind-key C-S on
+bind-key C-S off
+
+# Bind a key to open a new horizontal pane with synchronized working directory
+bind-key C-h split-window -h -c "#{pane_current_path}" "tmux setw synchronize-panes on"
+
+# Bind a key to open a new vertical pane with synchronized working directory
+bind-key C-v split-window -c "#{pane_current_path}" "tmux setw synchronize-panes on"
+```
+
+In this configuration:
+
+- `setw -g synchronize-panes on`: Enables synchronization of panes by default.
+- `bind-key C-S on` and `bind-key C-S off`: Bindings to toggle synchronization on and off. You can press `Ctrl-b` followed by `Shift-S` to toggle synchronization.
+
+- `bind-key C-h split-window -h -c "#{pane_current_path}" "tmux setw synchronize-panes on"`: Binds `Ctrl-b`, `Ctrl-h` to open a new horizontal pane with the working directory synchronized to the active pane.
+- `bind-key C-v split-window -c "#{pane_current_path}" "tmux setw synchronize-panes on"`: Binds `Ctrl-b`, `Ctrl-v` to open a new vertical pane with the working directory synchronized to the active pane.
+
+With this configuration, when you open a new pane using the specified key bindings, the new pane will have the same working directory as the active pane, and synchronization will be enabled temporarily.
+
+You can customize the key bindings according to your preferences. The `pane_current_path` variable is used to get the current working directory of the active pane.

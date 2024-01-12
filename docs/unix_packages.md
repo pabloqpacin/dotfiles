@@ -90,3 +90,14 @@ gh  # https://github.com/cli/cli/blob/trunk/docs/install_linux.md
 rsync
 
 ```
+
+- DB client
+
+```bash
+agi mycli
+pip install -U mycli    # linux + windows ??
+winget install mycli    # ??
+# OJO!!! -- https://www.pgcli.com/install
+
+pip install -U pgcli
+```

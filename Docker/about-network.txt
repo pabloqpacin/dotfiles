@@ -1,0 +1,23 @@
+> 2024/01/11
+
+[pabloqpacin:~]$ docker network ls
+NETWORK ID     NAME      DRIVER    SCOPE
+5e9bf9da1df5   bridge    bridge    local
+7b7cede5898d   host      host      local
+d18a2f2bb4fe   none      null      local
+
+
+```bash
+for network in $(docker network ls); do
+    docker network inspect $network
+done
+
+# TODO: improve
+```
+
+- bridge: containers: mysql-container
+- host: containers: none
+- none: containers: none
+
+> mysql-container is the only one runnign atm, I guess more will pop up in the network if started
+

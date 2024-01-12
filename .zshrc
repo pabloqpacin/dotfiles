@@ -85,3 +85,7 @@ fi
 # fi
 
 # Return pretty $PATH with: echo $PATH | tr ':' '\n'
+
+# export LESS="-SRXF" # -- https://www.mycli.net/pager
+# export PAGER="less -SRXF" # -- https://www.mycli.net/pager
+
