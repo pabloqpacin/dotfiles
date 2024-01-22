@@ -208,7 +208,7 @@ function install_nmap {
         Write-Host '== Downloading Nmap =='
         Invoke-WebRequest -uri https://nmap.org/dist/$pkg -outfile $pkg
 
-        if ($?) { 
+        if ($?) {
             Write-Output '== Installing Nmap =='
             Read-Host "Npcap can't be installed with '/SILENT'... Just confirm everything! [Y]"
             Start-Process $pkg -Wait

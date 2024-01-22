@@ -136,3 +136,10 @@ alias py='python3'
 alias xpaste='xclip -o -sel clip'
 
 alias grv='git remote -v'
+
+alias ftail='tail -f'
+
+alias dcu='docker compose up'
+alias dcud='docker compose up -d'
+alias dcd='docker compose down'
+alias dcps='docker compose ps'

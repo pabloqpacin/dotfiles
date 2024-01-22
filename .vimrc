@@ -1,4 +1,5 @@
-set relativenumber
+set number
+" set relativenumber
 syntax on && syntax enable
 
 set colorcolumn=80

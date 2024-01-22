@@ -28,3 +28,7 @@ In this configuration:
 With this configuration, when you open a new pane using the specified key bindings, the new pane will have the same working directory as the active pane, and synchronization will be enabled temporarily.
 
 You can customize the key bindings according to your preferences. The `pane_current_path` variable is used to get the current working directory of the active pane.
+
+---
+
+- https://medium.com/@thehackadda/synchronize-panes-in-tmux-5cd6bc54ca83

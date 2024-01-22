@@ -212,7 +212,7 @@ nvim /etc/hosts
     # append "127.0.0.1         localhost"
 
 nvim /etc/pacman.conf
-    # uncomment Misc options: Color VerbosePkgLists ParallelDownloads=5 -- add ILoveCandy
+    # uncomment Misc options: Color VerbosePkgLists ParallelDownloads=10 -- add ILoveCandy
     # uncoment both the [multilib] and Include lines to enable 'multilib' repo for Steam
 ```
 

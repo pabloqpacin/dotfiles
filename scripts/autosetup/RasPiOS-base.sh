@@ -232,7 +232,9 @@ install_docker() {
     fi
 
     if ! getent group docker | grep -q "$USER"; then                            # if ! groups | grep "docker"; then
-        sudo usermod -aG docker $USER && should_reboot=1; fi
+        sudo usermod -aG docker $USER && newgrp docker
+        should_reboot=1
+    fi
 
     # systemctl status docker; systemctl disable docker
 }

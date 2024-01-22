@@ -23,10 +23,10 @@ case $distro in
 esac
 
 # Them Baddest themes
-ZSH_THEME_RANDOM_CANDIDATES=( "afowler" "alanpeabody" "avit" "daveverwer" "dpoggi"
-  "eastwood" "fletcherm" "gallois" "geoffgarside" "macovsky" "mh" "minimal" "muse"
-  "nanotech" "refined" "simple" "theunraveler" "tonotdo"
-  "wedisagree" "wuffers" "zhann"
+ZSH_THEME_RANDOM_CANDIDATES=( "afowler" "alanpeabody" "avit" "daveverwer"
+  "dpoggi" "eastwood" "fletcherm" "gallois" "geoffgarside" "macovsky" "mh"
+  "minimal" "muse" "nanotech" "refined" "theunraveler" "tonotdo" "wedisagree"
+  "wuffers" "zhann"
 )
 
 # Set custom folder for personal aliases, plugins and themes
@@ -34,7 +34,7 @@ ZSH_CUSTOM="$HOME/dotfiles/zsh"
 
 # See $ZSH/plugins & $ZSH_CUSTOM/plugins
 plugins=(
-  archlinux git nmap tmux ubuntu    # docker
+  archlinux docker git nmap tmux ubuntu docker
   zsh-autosuggestions zsh-syntax-highlighting
 )
 
