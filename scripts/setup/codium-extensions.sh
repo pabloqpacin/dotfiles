@@ -8,7 +8,7 @@ extensions=(
 'bierner.markdown-mermaid' 'bpruitt-goddard.mermaid-markdown-syntax-highlighting'
 'naumovs.color-highlight' 'ms-vscode.live-server'
 'bbenoist.nix' 'rust-lang.rust-analyzer'
-'msazuretools.vscode-docker'
+'ms-azuretools.vscode-docker'
 )
 
 for i in "${!extensions[@]}"; do

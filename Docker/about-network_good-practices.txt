@@ -1,0 +1,64 @@
+> 2024/01/27
+
+When using the `docker network create` command to create Docker networks, it's important to follow some good practices to ensure efficient and secure network configurations. Here are some recommendations:
+
+1. **Use Descriptive Names:**
+   - Choose meaningful and descriptive names for your networks. This makes it easier for you and your team to understand the purpose of each network.
+
+   ```bash
+   docker network create my_app_network
+   ```
+
+2. **Specify Subnet and Gateway (if needed):**
+   - When creating a custom bridge network, consider specifying a subnet and gateway to control the IP address range.
+
+   ```bash
+   docker network create --subnet=192.168.1.0/24 --gateway=192.168.1.1 my_app_network
+   ```
+
+3. **Use User-defined Bridge Networks:**
+   - User-defined bridge networks provide better isolation and control over communication between containers. They also offer DNS resolution between container names.
+
+   ```bash
+   docker network create --driver=bridge my_app_network
+   ```
+
+4. **Attach Containers to Networks during Creation:**
+   - To simplify container creation and management, you can attach containers to networks during the creation process.
+
+   ```bash
+   docker run -d --network=my_app_network --name=my_app_container my_app_image
+   ```
+
+5. **Avoid Using the Default Bridge Network:**
+   - The default bridge network is not recommended for production use due to its limitations. Instead, create custom user-defined bridge networks.
+
+   ```bash
+   docker network create --driver=bridge my_app_network
+   ```
+
+6. **Consider Using Overlay Networks for Swarm Mode:**
+   - If you are working with Docker Swarm, consider using overlay networks for multi-host communication.
+
+   ```bash
+   docker network create --driver=overlay my_swarm_network
+   ```
+
+7. **Check Network Configuration:**
+   - After creating a network, verify its configuration using the `docker network inspect` command.
+
+   ```bash
+   docker network inspect my_app_network
+   ```
+
+8. **Cleanup Unused Networks:**
+   - Periodically clean up unused networks to avoid clutter and potential security risks.
+
+   ```bash
+   docker network prune
+   ```
+
+9. **Secure Sensitive Data in Networks:**
+   - If your application involves sensitive data, ensure that the communication between containers within the network is secure. Consider using encrypted connections and other security measures as needed.
+
+By following these practices, you can create well-organized, secure, and efficient Docker networks for your applications. Adjust these recommendations based on your specific use case and requirements.

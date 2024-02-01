@@ -13,6 +13,17 @@
 > - **NOTE 4:** our actual setup is the **Hyprland** WM (Wayland)
 > - **NOTE 5:** no encryption atm
 
+```md
+if
+  error: zlib: signature from Levente Polyak is unknown trust
+  File /var/cache/pacman/pkg/zlib-x.pkg.tar.zst is corrupted (invalid or corrupted package (PGP signature))
+then
+  pacman -Syy
+  pacman -S archlinux-keyring
+  pacman -Syu
+  # https://www.linode.com/community/questions/22299/arch-upgrade-via-pacman-syu-fails-due-to-error-pam-signature-is-unknown-trust
+```
+
 ---
 
 
@@ -286,16 +297,16 @@ cd yay && makepkg -si
 cd .. && rm -rf yay
 
 # Install web browser and prep cheatsheets -- consider $ keepassxc
-yay -S brave-bin cheat-bin --nocleanmenu --nodiffmenu   # 2) noto-fonts
+yay -S brave-bin cheat-bin --cleanmenu=false --diffmenu=false   # 2) noto-fonts
 
 # Install fave software
-sudo pacman -S alacritty bat btop eza fzf git-delta inetutils less lf man man-pages \
-               openssh python-pip python ripgrep tldr tmux ttf-firacode-nerd \
-               ttf-cascadia-code-nerd unzip zoxide zsh
+sudo pacman -S alacritty bat bottom btop eza fzf git-delta grc inetutils less lf \
+               man man-pages nmap openssh python-pip python ripgrep tldr tmux \
+               ttf-firacode-nerd ttf-cascadia-code-nerd unzip zoxide zsh
 
 # Update tldr and vanilla cheatsheets
 tldr --update
-cheat   # Y and Y
+yes | cheat   # Y and Y
 ```
 
 ```bash
@@ -462,7 +473,7 @@ nvm install node
 
 # Set up neovim
 sudo pacman -S deno webkit2gtk
-yay -S nvim-packer-git --nocleanmenu --nodiffmenu
+yay -S nvim-packer-git --cleanmenu=false --diffmenu=false 
 cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua
 # $ :so && :PackerSync && :PackerCompile && :MasonUpdate
   # Fix Peek
@@ -476,7 +487,7 @@ sudo pacman -S spotify-launcher spotifyd
     # $ yay -Si librespot mpd
 
 # Install lab stuff
-yay -S nmap zenmap grc
+# yay -S zenmap
 sudo pacman -S wireshark-qt \
   && sudo usermod -aG wireshark username
 
@@ -595,7 +606,7 @@ xdg-open http://localhost   # /usr/share/nginx/html/index.html
 - Docker
 
 ```bash
-sudo pacman -Syu docker
+sudo pacman -Syu docker docker-buildx
 ```
 
 - Misc
@@ -609,3 +620,11 @@ sudo inxi -Fz
 
 yay -S dnslookup-bin
 ```
+
+```bash
+yay -S powershell-bin --cleanmenu=false --diffmenu=false
+mkdir $HOME/.local/bin && \
+ curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin
+ln -s ~/dotfiles/.config/powershell ~/.config
+```
+

@@ -1,0 +1,7 @@
+X Subnets:
+  - 2^n >= x
+  - /mask + n
+
+X Hosts:
+  - 2^n-2 >= x
+  - /32 - n

@@ -2,7 +2,7 @@
 # agi='sudo apt install'
 
 alias updeez='sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y'
-showpath() { echo $PATH | tr ':' '\n' }
+showpath() { echo $PATH | tr ':' '\n' | sort }
 
 alias fcl="fortune | cowsay -f dragon | lolcat"
 alias supdawg="echo 'not much wbu'"
@@ -15,6 +15,7 @@ alias exot="echo 'wtf'"
 alias trea="tree -aI .git"
 alias less="less --mouse --wheel-lines=3"
 
+alias ez="eza --icons -1"
 alias eza="eza --icons"
 alias ezad="eza --icons -la -ShiI .git --no-user --octal-permissions --group-directories-first --git"
 alias ezatl="eza --icons -TL"
@@ -139,7 +140,11 @@ alias grv='git remote -v'
 
 alias ftail='tail -f'
 
+alias dps='docker ps'
+alias dils='docker image ls'
+alias dbls='docker volume ls'
+alias dnls='docker network ls'
+alias dcps='docker compose ps'
 alias dcu='docker compose up'
 alias dcud='docker compose up -d'
 alias dcd='docker compose down'
-alias dcps='docker compose ps'

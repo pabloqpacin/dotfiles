@@ -49,7 +49,7 @@ function base_apt_packages {
     $sa_install curl git openssh-server wget    # net-tools
     $sa_install devilspie grc ipcalc nmap nmapsi4 ripgrep tldr tmux zsh # btop
     $sa_install python3-pip python3-venv --no-install-recommends
-    $sa_install mariadb-client
+    $sa_install mycli   # mariadb-client
     
     if [[ ! -d $HOME/.local/share/tldr ]]; then
         tldr --update
@@ -200,6 +200,7 @@ function install_docker {
         $sa_update && $sa_install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
             # docker compose version; docker --version; docker version; sudo docker run hello-world     # systemctl status docker
             sudo usermod -aG docker $USER
+            # newgrp docker
         # wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.24.2-amd64.deb
         # $sa_update && $sa_install ./docker-desktop-4.24.2-amd64.deb && rm docker-desktop-4.24.2-amd64.deb
             # systemctl --user start docker-desktop || systemctl --user enable docker-desktop 

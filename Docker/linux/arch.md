@@ -86,3 +86,11 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 docker exec -it --workdir=/root myarchcontainer zsh
 
 ```
+
+---
+
+## Apasoft
+
+```bash
+docker start -i ubuntu1
+```

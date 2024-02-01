@@ -73,3 +73,9 @@ tar -xzf archive.tar.gz
 ```
 
 Please be aware of the security considerations when handling encrypted data and keys. Always use strong encryption methods, protect your keys, and follow best practices for handling sensitive information. Additionally, consider the implications of sharing encrypted data in a public Git repository, as the metadata may still reveal some information.
+
+---
+
+- https://github.com/akinomyoga/ble.sh
+- https://github.com/ohmybash/oh-my-bash
+- pi i3 -- https://forums.raspberrypi.com/viewtopic.php?t=350074

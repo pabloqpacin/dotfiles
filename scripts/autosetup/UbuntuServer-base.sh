@@ -41,8 +41,9 @@ install_base_apt() {
     $sa_install curl git openssh-server wget
     $sa_install neofetch --no-install-recommends
     $sa_install btop grc ipcalc nmap ripgrep tldr tmux tree 
+    $sa_install bat && sudo mv /usr/bin/batcat /usr/bin/bat
     # $sa_install python3-pip python3-venv --no-install-recommends
-    # $sa_install mariadb-client # default-mysql-client
+    # $sa_install mycli     # default-mysql-client mariadb-client
 
     if [ ! -d ~/.local/share/tldr ]; then
         mkdir -p ~/.local/share &>/dev/null
@@ -135,6 +136,7 @@ install_docker() {
             sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
         $sa_update && $sa_install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
             sudo usermod -aG docker $USER
+            newgrp docker
     fi
 
 }
@@ -152,7 +154,10 @@ install_docker() {
 use_vim() {
 
     if [ ! -L ~/.zshrc ]; then
-        ln -s ~/dotfiles/.vimrc ~/; fi
+        ln -s ~/dotfiles/.vimrc ~/
+    fi
+
+    sed -i 's/nvim/vim/g' ~/.zshrc
 
 }
 

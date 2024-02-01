@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo -e "\n-----#################################################################-----"
-echo -e "#########~~~~~{     RasPiOS-base v0.1.3  by @pabloqpacin    }~~~~~#########"
+echo -e "#########~~~~~{     RasPiOS-base v0.1.4  by @pabloqpacin    }~~~~~#########"
 echo -e "-----#################################################################-----\n"
 
 ### Good for Raspberry Pi OS Lite (64-bit) on Raspberry Pi 5
@@ -247,10 +247,10 @@ setup_containers() {
     #     docker ps -a
     fi
 
-    if ! docker ps -a --format '{{.Names}}' | grep -q "portainer"; then
-            # docker volume ls
-        sudo docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer-ce
-    fi
+    # if ! docker ps -a --format '{{.Names}}' | grep -q "portainer"; then
+    #         # docker volume ls
+    #     sudo docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer-ce
+    # fi
 
     # Update: should do Prometheus+Grafana with Docker Compose (via Portainer stack)
 
@@ -300,3 +300,5 @@ case $should_reboot in 1) echo -e "\nkindly reboot" ;; esac
 #     then bar  # All commands are available
 #     else foo  # At least one command is not available
 # fi
+
+# sudo systemctl disable --now cups

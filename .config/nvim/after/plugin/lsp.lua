@@ -8,18 +8,20 @@ lsp.preset('recommended')
 lsp.ensure_installed ({
 --  'arduino_language_server',
     'bashls',
---  'bash-debug-adapter',       -- GOOD
+--  'bash-debug-adapter',       -- works alright
 --  'clangd',
---  'cpptools',                 -- need DAP
+--  'cpptools',                 -- requires DAP bs
     'cssls',
 --  'denols',
     'dockerls',
     'docker_compose_language_service',
-    'emmet_ls',                 -- :html:5, 
+    'emmet_ls',                 -- provides :html:5
     'gopls',
     'html',
     'lua_ls',
-    'marksman',                 -- :vws :vca=>TOC
+    'marksman',                 -- provides :vws :vca=>TOC
+--  'phpactor',                 -- requires composer pkg
+--  'phpstan',                  -- requires manual Mason installation
     'powershell_es',
     'pylsp',
     'rust_analyzer',

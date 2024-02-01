@@ -274,6 +274,7 @@ cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua
 
 ```bash
 # Pop!_Shop OK
+# flatpak install flathub io.dbeaver.DBeaverCommunity
 flatpak install slack
 flatpak install anydesk
 flatpak install spotify
@@ -625,4 +626,16 @@ mycli -h 127.0.0.1 -P 3307 -u root -p
 
 ```
 
+---
+
+<!-- ### Setesur
+
+```bash
+# SETERA: Convert .mp3 to .wav
+sudo apt-get install \
+    sox
+
+# sox...
+sox --encoding u-law -r 8000 -n nuevo.wav original.mp3
+``` -->
 

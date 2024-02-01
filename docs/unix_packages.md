@@ -29,7 +29,7 @@ ascii binutils (readelf) binutils-dev build-essential clang gcc gdb hexyl manpag
 grip picopins
 
 # Networking
-bind9-dnsutils cloud-init dig dstat iproute2 monkeysphere net-tools netcat-openbsd nmap openssl speedtest-cli whois
+bind9-dnsutils cloud-init dig dstat fierce iproute2 monkeysphere net-tools netcat-openbsd nmap openssl speedtest-cli whois
 
 # Coreutils << info coreutils
 df du env|printenv gawk printenv sed wc
@@ -47,7 +47,7 @@ asciiquarium bsdgames cbonsai cmatrix cowsay figlet fortune games-console games-
 awesome fwupd-signed ghostscript groff p7zip poke readucks tea visualboyadvance watch wget wsl xxd yes youtube-dl
 
 # 1337
-hashcat john john-data
+hashcat john john-data medusa
 
 # GUI software -- perhaps don't install from Terminal
 brave code(...) gns3 ida imhex keepassxc monero packettracer virtualbox wireshark
@@ -101,3 +101,5 @@ winget install mycli    # ??
 
 pip install -U pgcli
 ```
+
+- [ ] [lsof](https://www.youtube.com/watch?v=CyC4_YPfxRc) <!-- @Navek -->

@@ -21,3 +21,8 @@ done
 
 > mysql-container is the only one runnign atm, I guess more will pop up in the network if started
 
+---
+
+> 2024/01/27
+
+- [ ] https://webdock.io/en/docs/how-guides/docker-guides/how-to-create-and-manage-docker-networks-and-docker-volumes
