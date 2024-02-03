@@ -47,7 +47,7 @@ function base_apt_packages {
     $sa_install neofetch oneko --no-install-recommends
     $sa_install build-essential
     $sa_install curl git openssh-server wget    # net-tools
-    $sa_install devilspie grc ipcalc nmap nmapsi4 ripgrep tldr tmux zsh # btop
+    $sa_install ccze devilspie grc ipcalc nmap nmapsi4 ripgrep tldr tmux zsh # btop
     $sa_install python3-pip python3-venv --no-install-recommends
     $sa_install mycli   # mariadb-client
     

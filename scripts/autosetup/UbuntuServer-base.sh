@@ -77,17 +77,14 @@ setup_zsh() {
         bash $HOME/dotfiles/scripts/setup/omz-msg_random_theme.sh
     fi
     
-    if [[ $current_shell != 'zsh' ]]; then
-        sudo chsh -s $(which zsh) $USER; fi
+    # if [[ $current_shell != 'zsh' ]]; then
+    #     sudo chsh -s $(which zsh) $USER; fi
     
     if [ ! -L ~/.zshrc ]; then
         mv ~/.zshrc{,.bak} &&
         ln -s ~/dotfiles/.zshrc ~/
     fi
     
-    if command -v zoxide &>/dev/null; then
-        zoxide add dotfiles; fi
-
     if [ ! -d ~/dotfiles/zsh/plugins ]; then
         mkdir ~/dotfiles/zsh/plugins; fi
     
@@ -153,7 +150,7 @@ install_docker() {
 
 use_vim() {
 
-    if [ ! -L ~/.zshrc ]; then
+    if [ ! -L ~/.vimrc ]; then
         ln -s ~/dotfiles/.vimrc ~/
     fi
 

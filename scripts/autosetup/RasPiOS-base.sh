@@ -73,9 +73,9 @@ install_base_apt() {
     $sa_install libssl-dev sysbench
     $sa_install curl git openssh-server wget
     $sa_install neofetch --no-install-recommends
-    $sa_install btop grc ipcalc nmap ripgrep tldr tmux tree 
+    $sa_install btop ccze grc ipcalc nmap ripgrep tldr tmux tree 
     $sa_install python3-pip python3-venv --no-install-recommends
-    $sa_install mariadb-client # default-mysql-client
+    $sa_install mycli --no-install-recommends   # mariadb-client default-mysql-client
 
     if [ ! -d ~/.local/share/tldr ]; then
         mkdir -p ~/.local/share &>/dev/null
@@ -302,3 +302,7 @@ case $should_reboot in 1) echo -e "\nkindly reboot" ;; esac
 # fi
 
 # sudo systemctl disable --now cups
+
+
+# https://help.realvnc.com/hc/en-us/articles/14110635000221-Raspberry-Pi-5-Bookworm-and-RealVNC-Connect
+# https://github.com/any1/wayvnc

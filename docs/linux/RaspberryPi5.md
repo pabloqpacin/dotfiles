@@ -19,19 +19,11 @@
 hostname: pi5
 username: pabloqpacin
 password: ...
-wireless LAN:
-    SSID: Movistar_C600
-    password: ...
-    wireless LAN country: ES
+wireless LAN: no                  # always Ethernet 
 locale settings:
-    timezone: Europe/Madrid
-    keyboard: es
-
+  timezone: Europe/Madrid
+  keyboard: es
 enable ssh: use password authentication
-options:
-    play sound when finished: no
-    eject media when finished: yes
-    enable telemetry: no
 ```
 
 ### Configuration - `RasPiOS-base.sh`

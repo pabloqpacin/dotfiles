@@ -23,9 +23,9 @@ case $distro in
 esac
 
 # Them Baddest themes
-ZSH_THEME_RANDOM_CANDIDATES=( "afowler" "alanpeabody" "avit" "daveverwer"
-  "dpoggi" "eastwood" "fletcherm" "gallois" "geoffgarside" "macovsky"
-  "mh" "minimal" "muse" "nanotech" "theunraveler" "tonotdo"
+ZSH_THEME_RANDOM_CANDIDATES=( "afowler" "alanpeabody" "avit" "dpoggi"
+  "eastwood" "fletcherm" "gallois" "geoffgarside" "macovsky" "mh"
+  "minimal" "muse" "nanotech" "theunraveler" "tonotdo"
   "wedisagree" "wuffers" "zhann"
 )
 

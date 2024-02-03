@@ -189,6 +189,7 @@ chrome.google.com/webstore:
 ```bash
 # Install them basics
 sudo apt install alacritty btop cava flameshot ripgrep tldr tmux zsh    # taskwarrior -- fzf with Go!
+sudo apt install ccze grc mycli --no-install-recommends
 sudo apt install neofetch --no-install-recommends
 tldr --update
 

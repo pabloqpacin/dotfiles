@@ -295,18 +295,24 @@ sudo timedatectl set-ntp on
 git clone https://aur.archlinux.org/yay.git
 cd yay && makepkg -si
 cd .. && rm -rf yay
+sudo pacman -Rns go
 
-# Install web browser and prep cheatsheets -- consider $ keepassxc
-yay -S brave-bin cheat-bin --cleanmenu=false --diffmenu=false   # 2) noto-fonts
+# Install web browser and prep cheatsheets -- consider $ grimshot keepassxc mycli
+yay -S brave-bin cheat-bin nvim-packer-git --cleanmenu=false --diffmenu=false   # 2) noto-fonts
 
 # Install fave software
-sudo pacman -S alacritty bat bottom btop eza fzf git-delta grc inetutils less lf \
+sudo pacman -S alacritty bat bottom btop eza ccze fzf git-delta grc inetutils less lf \
                man man-pages nmap openssh python-pip python ripgrep tldr tmux \
                ttf-firacode-nerd ttf-cascadia-code-nerd unzip zoxide zsh
 
 # Update tldr and vanilla cheatsheets
 tldr --update
 yes | cheat   # Y and Y
+
+# Docker stuff
+sudo pacman -Syu docker docker-buildx docker-compose
+sudo usermod -aG docker $USER && newgrp docker
+sudo systemctl enable --now docker
 ```
 
 ```bash
@@ -375,7 +381,7 @@ sudo pacman -S thunar thunar-volman thunar-archive-plugin gvfs file-roller tumbl
 
 ```bash
 # i3
-sudo pacman -S devilspie dmenu feh i3-gaps i3status lightdm lightdm-gtk-greeter
+sudo pacman -S devilspie dmenu feh i3-gaps i3status lightdm lightdm-gtk-greeter \
                light-locker picom xdg-utils brightnessctl pamixer pulseaudio
 
 sudo systemctl --global mask pulseaudio.socket
@@ -434,12 +440,16 @@ ssh -T git@github.com                       # yes
 
 # Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sudo chsh -s $(which zsh) $USER
+bash ~/dotfiles/scripts/setup/omz*
+bash ~/dotfiles/zsh/plugins/clone-em.sh
 
 # Clone & symlink them dotfiles
-git clone git@github.com:pabloqpacin/dotfiles.git
+git clone git@github.com/pabloqpacin/dotfiles.git ~/dotfiles
 
 rm .zshrc
 ln -s ~/dotfiles/.zshrc ~
+ln -s ~/dotfiles/.myclirc ~
 ln -s ~/dotfiles/.gitconfig ~
 
 ln -s ~/dotfiles/.config/lf ~/.config
@@ -473,7 +483,6 @@ nvm install node
 
 # Set up neovim
 sudo pacman -S deno webkit2gtk
-yay -S nvim-packer-git --cleanmenu=false --diffmenu=false 
 cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua
 # $ :so && :PackerSync && :PackerCompile && :MasonUpdate
   # Fix Peek
@@ -512,12 +521,12 @@ sudo dd if=/dev/zero of=/dev/sdc bs=4M status=progress
 ```
  -->
 
-```bash
+<!-- ```bash
 # Pictures and img
 yay -S grimshot feh
 # $ yay -S w3m-imgcat
 # $ sudo pacman -S flameshot xdg-desktop-portal xdg-desktop-portal-wlr
-```
+``` -->
 
 ---
 
@@ -533,16 +542,6 @@ ln -s ~/dotfiles/.bashrc ~/
 ga .bashrc
 ```
 
-```bash
-sudo pacman -Syu inetutils  # hostname command
-
-sudo pacman -Syu docker && \
-  sudo systemctl enable docker && \
-  sudo usermod -aG docker $USER
-
-yay -S ttf-cascadia-code-nerd
-```
-
 ---
 
 
@@ -551,9 +550,6 @@ yay -S ttf-cascadia-code-nerd
 - Docker
 
 ```bash
-sudo pacman -S docker
-sudo usermod -aG docker $USER
-
 # docker pull portainer/portainer
 # docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
 # xdg-open http://localhost:9000
@@ -603,12 +599,6 @@ xdg-open http://localhost   # /usr/share/nginx/html/index.html
 > FOO THIS SHIT; LET?S DOCKERIZE -->
 
 
-- Docker
-
-```bash
-sudo pacman -Syu docker docker-buildx
-```
-
 - Misc
 
 ```bash
@@ -627,4 +617,16 @@ mkdir $HOME/.local/bin && \
  curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin
 ln -s ~/dotfiles/.config/powershell ~/.config
 ```
+
+---
+
+<!-- - [ ] sort out crossbox clipboard
+
+```bash
+pacman -Si \
+    xclip
+```
+
+
+- [ ] set DARK system theme for i3/Hyprland ASAP -->
 

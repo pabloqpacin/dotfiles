@@ -72,6 +72,7 @@ if command -v grc &>/dev/null; then
     alias nmap="grc nmap"
     alias stat="grc stat"
     alias docker="grc docker"
+    alias docker-compose="grc docker-compose"
 fi
 
 alias nmapkenobi="nmap -p- -sS -sC -sV --open --min-rate 5000 -n -vvv -Pn"  # add IP
@@ -142,9 +143,25 @@ alias ftail='tail -f'
 
 alias dps='docker ps'
 alias dils='docker image ls'
-alias dbls='docker volume ls'
+alias dvls='docker volume ls'
 alias dnls='docker network ls'
-alias dcps='docker compose ps'
+
 alias dcu='docker compose up'
 alias dcud='docker compose up -d'
+alias dcps='docker compose ps'
+alias dcls='docker compose ls'
 alias dcd='docker compose down'
+
+
+docker-inspect() {
+    docker inspect "$1" | ccze -m ansi -o nolookups
+}
+
+docker-inspect-p() {
+    if command -v bat &>/dev/null; then
+        docker inspect "$1" | ccze -m ansi -o nolookups | bat
+    else
+        docker inspect "$1" | ccze -m ansi -o nolookups | less
+    fi
+}
+

@@ -18,7 +18,9 @@ py/
 *vanilla*
 
 # Zsh repos
-zsh/plugins/*
+zsh/plugins/ubuntu
+zsh/plugins/zsh-autosuggestions
+zsh/plugins/zsh-syntax-highlighting
 
 # Fortunes -- https://github.com/shlomif/fortune-mod/tree/master/fortune-mod/datfiles
 docs/fortunes/*

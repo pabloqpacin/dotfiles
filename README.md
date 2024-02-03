@@ -19,6 +19,15 @@ Also see [scripts](/scripts/) and [windows/scripts](/windows/scripts/) for **aut
 ![pop_vscodium_alacritty](/img/screenshots/pop-vscodium-alacritty.png)
 ![pop_workspace](/img/screenshots/pop-workspace.png)
 
+### NixOS Hyprland
+
+![nixos-hypr_desktop](/img/screenshots/nixos-hypr_desktop.png)
+
+### RaspberryPiOS
+
+![pi1](/img/screenshots/Pi/pi-docker_up.png)
+![pi2](/img/screenshots/Pi/pi-shell_wp.png)
+![pi3](/img/screenshots/Pi/pi-file_explorer.png)
 
 ### Arch i3
 
@@ -35,10 +44,6 @@ Also see [scripts](/scripts/) and [windows/scripts](/windows/scripts/) for **aut
 ### Debian_X95
 
 ![Debian_X95](/img/screenshots/debianX95.png)
-
-### NixOS Hyprland
-
-![nixos-hypr_desktop](/img/screenshots/nixos-hypr_desktop.png)
 
 
 <!--
