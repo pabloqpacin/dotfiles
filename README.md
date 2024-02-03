@@ -14,6 +14,12 @@ Also see [scripts](/scripts/) and [windows/scripts](/windows/scripts/) for **aut
 <details>
 <summary>Click to view</summary>
 
+### Pop!_OS
+
+![pop_vscodium_alacritty](/img/screenshots/pop-vscodium-alacritty.png)
+![pop_workspace](/img/screenshots/pop-workspace.png)
+
+
 ### Arch i3
 
 ![nvim_telescope](/img/screenshots/i3-nvim_telescope.png)
