@@ -5,9 +5,14 @@ if ! docker ps -a --format '{{.Names}}' | grep -q "mariadb"; then
         --publish 3307:3306 --volume mariadb_data:/var/lib/mysql \
         mariadb:latest
 
+    docker run -d --name mariadb2 -p 3307:3306 \
+        -e MYSQL_ROOT_PASSWORD=changeme - MYSQL_ROOT_HOST='%' \
+        -v mariadb2/var/lib/mysql \
+        mariadb:latest
+
 else
-    mariadb -h 127.0.0.1 -P 3307 -u root -p
+    mycli -h localhost -P 3307 -u root -p
 
 fi
 
-# NOTE: mariadb-client or mysql-client are required
+# NOTE: mycli or mariadb-client or mysql-client are required

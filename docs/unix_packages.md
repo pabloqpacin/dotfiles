@@ -38,7 +38,7 @@ df du env|printenv gawk printenv sed wc
 stat time type
 
 # Somewhat useful
-aha ccze finger glances gnome-tweaks grc html2text logcat lsb-release lscpu mdp mysql-client mysql-server neofetch progress taskwarrior timewarrior tree who wslu xclip zshmisc
+aha ccze finger glances gnome-tweaks grc html2text jq logcat lsb-release lscpu mdp mysql-client mysql-server neofetch progress taskwarrior timewarrior tree who wslu xclip zshmisc
 
 # Just for fun
 asciiquarium bsdgames cbonsai cmatrix cowsay figlet fortune games-console games-rogue lavat-git lolcat oneko pacvim

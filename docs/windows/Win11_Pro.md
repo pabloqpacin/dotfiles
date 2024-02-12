@@ -439,7 +439,7 @@ Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All 
 Enable-WindowsOptionalFeature -FeatureName "Microsoft-Hyper-V" -All -Online
 
 # Enable nested virtualization for WSL on Windows VM via Hyper-V
-Set-VMProcessor -VMName 'Win11' -ExposeVIrtualizationExtensions $true
+Set-VMProcessor -VMName 'Win11' -ExposeVirtualizationExtensions $true
   # GUI: Turn Windows optional feature: Virtual Machine platform
 
 # For them Hyper-V VMs, might need to "create new Virtual Network Switch"

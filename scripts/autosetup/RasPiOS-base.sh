@@ -259,6 +259,31 @@ setup_containers() {
 # setup_casaOS() { curl -fsSL https://get.casaos.io | sudo bash }
 # setup_nixpkgs() {}
 
+case_GUI(){
+
+    sudo apt-get install alacritty grimshot
+        # sleep 3 && grimshot save screen
+
+    if [ ! -L ~/.config/alacritty ]; then
+        ln -s ~/dotfiles/.config/alacritty ~/.config; fi
+
+    if ! fc-fache -v | grep -q CascadiaCodeNerd; then
+        mkdir ~/.fonts
+        wget -o /tmp/CascadiaCode.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.zip
+        unzip /tmp/CascadiaCode.zip -d ~/.fonts/CascadiaCodeNerdFont
+        fc-cache -fv
+    fi
+
+    # brave-browser ?
+}
+
+
+# fockedup(){
+#     # obs-studio
+#     # retroarch
+# }
+
+
 ########### RUNTIME ###########
 
 get_hardware
@@ -274,7 +299,9 @@ install_base_go
 setup_nvim__npm
 
 install_docker
-setup_containers
+# setup_containers
+
+case_GUI
 
 if command -v neofetch &>/dev/null; then neofetch; fi
 

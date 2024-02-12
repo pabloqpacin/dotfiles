@@ -3,6 +3,9 @@ syntax: bash
 tags: [ASIR]
 ---
 
+# See actual HEAD
+cat .git/HEAD           # likely 'ref: refs/heads/main'
+
 # Mid Git
 git add -A
 git rebase -i HEAD~2

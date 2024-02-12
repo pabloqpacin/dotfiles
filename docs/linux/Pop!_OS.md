@@ -283,6 +283,9 @@ flatpak install discord
 flatpak install gitkraken
 flatpak install flathub com.github.IsmaelMartinez.teams_for_linux
 sudo apt install steam  # Proton 8
+
+# flatpak install retroarch --> if possible, do via Steam instead aye? see ~/dotfiles/.config/retroarch
+# flatpak install dolphinemu
 ```
 
 ```bash

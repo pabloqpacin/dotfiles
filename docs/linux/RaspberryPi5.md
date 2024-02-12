@@ -3,12 +3,69 @@
 > CPU: aarch64 (ARM)
 
 - [Raspberry Pi 5](#raspberry-pi-5)
+  - [Ubuntu 23.10 aarch64](#ubuntu-2310-aarch64)
+  - [Raspberri Pi OS Full (64-bit)](#raspberri-pi-os-full-64-bit)
   - [Raspberri Pi OS Lite (64-bit)](#raspberri-pi-os-lite-64-bit)
     - [Installation - `rpi-imager`](#installation---rpi-imager)
     - [Configuration - `RasPiOS-base.sh`](#configuration---raspios-basesh)
   - [Other OSs](#other-oss)
     - [Proxmox/Pimox](#proxmoxpimox)
     - [OpenWRT](#openwrt)
+
+---
+
+## Ubuntu 23.10 aarch64
+
+```bash
+wget https://raw.githubusercontent.com/pabloqpacin/dotfiles/main/scripts/autosetup/FOO.sh
+bash FOO.sh
+
+sudo apt-get install raspi-config
+```
+
+
+```bash
+sudo apt install \
+  flameshot sway xdg-desktop-portal-wlr
+
+# https://github.com/flameshot-org/flameshot/blob/master/docs/Sway%20and%20wlroots%20support.md
+```
+
+```bash
+# https://github.com/obsproject/obs-studio/wiki/install-instructions#linux
+sudo add-apt-repository ppa:obsproject/obs-studio
+sudo apt update
+sudo apt install obs-studio
+# ...
+```
+
+
+```bash
+# Provide selection number for alacritty TUI menu -- https://itsfoss.com/change-default-terminal-ubuntu/
+sudo update-alternatives --config x-terminal-emulator | grep 'alacritty' | GET THE 1 | \
+  sudo update-alternatives --config x-terminal-emulator
+```
+
+- screenkey & screenrecording
+    - https://github.com/AlynxZhou/showmethekey
+    - https://gitlab.com/screenkey/screenkey/-/issues/61
+    - https://www.makeuseof.com/tag/ways-can-record-desktop-linux-raspberry-pi/
+    - https://linuxhint.com/install-obs-studio-pi-apps-raspberry-pi/
+    - https://github.com/obsproject/obs-studio/wiki/install-instructions#linux
+
+
+## Raspberri Pi OS Full (64-bit)
+
+
+```bash
+wget https://raw.githubusercontent.com/pabloqpacin/dotfiles/main/scritps/autosetup/RaspPiOS-base.sh
+wget https://short.link/RaspPiOS-base.sh
+```
+
+
+
+
+---
 
 ## Raspberri Pi OS Lite (64-bit)
 

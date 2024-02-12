@@ -4,13 +4,10 @@ import:
 
 window:
   decorations: None
-  # startup_mode: Maximized   # VMs
+  # startup_mode: Maximized
   dimensions:
     columns: 160
-      # columns: 100          # VMs
     lines: 40
-      # lines: 80             # VMs: Fedora
-      # lines: 36             # VMs
   padding:
     x: 5
     y: 5

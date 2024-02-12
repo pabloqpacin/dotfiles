@@ -377,6 +377,29 @@ sudo pacman -S brightnessctl bluez bluez-utils blueman
     # $ systemctl --user enable bluetooth
 
 sudo pacman -S thunar thunar-volman thunar-archive-plugin gvfs file-roller tumbler
+# TODO: nautilus
+
+# sudo pacman -S lightdm lightdm-gtk-greeter xdg-utils
+
+# sudo systemctl enable lightdm
+# sudo nvim /etc/lightdm/lightdm.conf
+#     # uncomment and change greeter-session=example... for lightdm-gtk-greeter
+```
+
+```bash
+# Sway -- https://github.com/swaywm/sway/issues/1628
+
+# sudo pacman -S polkit sway i3status
+# sudo usermod -aG seat && newgrp seat
+# sudo systemctl enable --now seatd
+  # sudo pacman -S waybar               # 2) pipewire-jack
+
+sudo pacman -S lightdm lightdm-gtk-greeter
+sudo systemctl enable lightdm
+sudo nvim /etc/lightdm/lightdm.conf
+    # uncomment and change greeter-session=example... for lightdm-gtk-greeter
+
+# ... [[Big TODO: setup, can't VM]]
 ```
 
 ```bash
@@ -630,3 +653,18 @@ pacman -Si \
 
 - [ ] set DARK system theme for i3/Hyprland ASAP -->
 
+---
+
+- Kubernetes
+
+```bash
+sudo systemctl enable --now docker
+
+sudo pacman -Syu \
+    kubectl \
+    minikube \
+    kubeadm
+
+minikube addons ...
+
+```

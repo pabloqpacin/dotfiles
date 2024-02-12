@@ -4,6 +4,18 @@
 alias updeez='sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y'
 showpath() { echo $PATH | tr ':' '\n' | sort }
 
+# updeez(){
+#     sudo apt update &&
+#     sudo apt full-upgrade -y &&
+#     sudo apt autoremove -y &&
+#     sudo apt autoclean
+# }
+
+# cleanup(){
+#     sudo apt purge "$1" &&
+#     sudo apt autoremove -y
+# }
+
 alias fcl="fortune | cowsay -f dragon | lolcat"
 alias supdawg="echo 'not much wbu'"
 dc() { echo -e "\U0001F198" }
@@ -12,7 +24,8 @@ alias clera="echo 'wtf'"
 alias claer="echo 'wtf'"
 alias exot="echo 'wtf'"
 
-alias trea="tree -aI .git"
+alias tree="tree -C"
+alias trea="tree -C -aI .git"
 alias less="less --mouse --wheel-lines=3"
 
 alias ez="eza --icons -1"
@@ -139,12 +152,16 @@ alias xpaste='xclip -o -sel clip'
 
 alias grv='git remote -v'
 
+alias vrv='virt-host-validate'      # KVM
+
 alias ftail='tail -f'
 
 alias dps='docker ps'
 alias dils='docker image ls'
 alias dvls='docker volume ls'
 alias dnls='docker network ls'
+alias drmv='docker rm -v'
+alias dlf='docker logs -f'
 
 alias dcu='docker compose up'
 alias dcud='docker compose up -d'
@@ -155,6 +172,7 @@ alias dcd='docker compose down'
 
 docker-inspect() {
     docker inspect "$1" | ccze -m ansi -o nolookups
+    # docker inspect "$1" | jq ...
 }
 
 docker-inspect-p() {
@@ -163,5 +181,26 @@ docker-inspect-p() {
     else
         docker inspect "$1" | ccze -m ansi -o nolookups | less
     fi
-}
+}   # Optionally use 'jq' instead of 'ccze'
+
+# count_lines_dir(){
+
+#     file_counter=1
+#     total=0
+#     for file in $(find foo); do
+#         number=$(wc -l $file)
+#         echo "File $file_counter: $number lines -- $file" | \
+#             tee -a output.txt
+#         # total=+$((number))
+#         # file_counter=++
+#         ((total=+number))
+#         ((file_counter=++))
+#     done
+#     echo -e "\tTOTAL: $total lines"
+# }
+
+
+alias mk='minikube'
+alias mkst='minikube status'
+alias mkpl='minikube profile list'
 
