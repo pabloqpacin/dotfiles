@@ -86,6 +86,7 @@ if command -v grc &>/dev/null; then
     alias stat="grc stat"
     alias docker="grc docker"
     alias docker-compose="grc docker-compose"
+    alias kubectl="grc kubectl"
 fi
 
 alias nmapkenobi="nmap -p- -sS -sC -sV --open --min-rate 5000 -n -vvv -Pn"  # add IP
@@ -172,14 +173,16 @@ alias dcd='docker compose down'
 
 docker-inspect() {
     docker inspect "$1" | ccze -m ansi -o nolookups
-    # docker inspect "$1" | jq ...
+    # docker inspect "$1" | jq -C
 }
 
 docker-inspect-p() {
     if command -v bat &>/dev/null; then
         docker inspect "$1" | ccze -m ansi -o nolookups | bat
+        # docker inspect "$1" | jq -C | bat
     else
         docker inspect "$1" | ccze -m ansi -o nolookups | less
+        # docker inspect "$1" | jq -C | less
     fi
 }   # Optionally use 'jq' instead of 'ccze'
 
@@ -203,4 +206,20 @@ docker-inspect-p() {
 alias mk='minikube'
 alias mkst='minikube status'
 alias mkpl='minikube profile list'
+
+alias kc='kubectl'
+alias kcga='kubectl get all -o wide'
+alias kcgp='kubectl get pods -o wide'
+# alias kcd='kubectl describe'
+alias kcpx="kubectl proxy --address='0.0.0.0' --disable-filter=true"
+
+kcc(){
+    curl -s "$1" | jq -C
+    # curl "$1" | ccze -m ansi -o nolookups
+}
+
+kcc-p(){
+    curl -s "$1" | jq -C | bat
+    # EG kcc-p 192.168.1.40:8001/api/v1/namespace/default
+}
 

@@ -23,10 +23,9 @@ case $distro in
 esac
 
 # Them Baddest themes
-ZSH_THEME_RANDOM_CANDIDATES=( "afowler" "alanpeabody" "avit" "dpoggi"
-  "eastwood" "fletcherm" "gallois" "geoffgarside" "macovsky" "mh"
-  "minimal" "muse" "nanotech" "theunraveler" "tonotdo"
-  "wedisagree" "zhann"
+ZSH_THEME_RANDOM_CANDIDATES=( "afowler" "alanpeabody" "dpoggi" "eastwood"
+  "fletcherm" "gallois" "geoffgarside" "macovsky" "mh" "minimal"
+  "muse" "nanotech" "theunraveler" "tonotdo" "wedisagree"
 )
 
 # Set custom folder for personal aliases, plugins and themes

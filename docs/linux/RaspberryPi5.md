@@ -53,6 +53,15 @@ sudo update-alternatives --config x-terminal-emulator | grep 'alacritty' | GET T
     - https://linuxhint.com/install-obs-studio-pi-apps-raspberry-pi/
     - https://github.com/obsproject/obs-studio/wiki/install-instructions#linux
 
+- **Hide top bar**
+
+```bash
+# brave: extension: gnome-shell-integration
+sudo apt-get install gnome-browser-connector
+
+# brave: https://extensions.gnome.org/extension/6454/panel-free/
+```
+
 
 ## Raspberri Pi OS Full (64-bit)
 

@@ -21,7 +21,7 @@
 # enable mouse scrolling support in `bat` when running inside tmux. This might
 # disable text selection, unless you press shift.
 #--pager="less --RAW-CONTROL-CHARS --quit-if-one-screen --mouse"
---pager="less -FR --mouse" # requires Shift to select text
+--pager="less -j2 -FR --mouse --wheel-lines 4" # requires Shift to select text
 
 # Syntax mappings: map a certain filename pattern to a language.
 #   Example 1: use the C++ syntax for Arduino .ino files
@@ -33,6 +33,7 @@
 --map-syntax ".myclirc:Bourne Again Shell (bash)"
 --map-syntax "**/config:Bourne Again Shell (bash)"
 --map-syntax ".bash_history:Bourne Again Shell (bash)"
+--map-syntax ".kube/config:YAML"        # no workie workie
 --map-syntax ".zsh_history:log"
 --map-syntax "*jsonc:JSON"
 --map-syntax "*ino:C"

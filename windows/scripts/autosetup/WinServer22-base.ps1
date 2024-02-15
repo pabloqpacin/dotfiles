@@ -114,6 +114,8 @@ function install_pwsh {
 
 function install_terminal {
 
+    # PROBLEMA CON WINSERVER2019
+
     if (-not (Test-Path 'C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_*\wt.exe')) {
         
         if (-not (Test-Path 'C:\Program Files\WindowsApps\Microsoft.VCLibs.140.00.UWP*')) {
