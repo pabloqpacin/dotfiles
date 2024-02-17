@@ -26,5 +26,6 @@
     // "markdown.preview.fontSize": 11,
     // "window.titleBarStyle": "custom",
     "markdown-pdf.headerTemplate": "<div style=\"font-size: 9px; margin-left: 1cm;\">Pablo Quevedo Pacin</div> <div style=\"font-size: 9px; margin-left: auto; margin-right: 1cm; \">%%ISO-DATE%%</div>",
+    "redhat.telemetry.enabled": false,
     "window.zoomLevel": -0.8
 }

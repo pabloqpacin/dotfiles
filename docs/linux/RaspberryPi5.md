@@ -20,6 +20,9 @@
 wget https://raw.githubusercontent.com/pabloqpacin/dotfiles/main/scripts/autosetup/FOO.sh
 bash FOO.sh
 
+    agi libssl-dev
+    cargo install cargo-update
+
 sudo apt-get install raspi-config
 ```
 

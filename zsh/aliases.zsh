@@ -165,26 +165,23 @@ alias drmv='docker rm -v'
 alias dlf='docker logs -f'
 
 alias dcu='docker compose up'
-alias dcud='docker compose up -d'
 alias dcps='docker compose ps'
 alias dcls='docker compose ls'
-alias dcd='docker compose down'
+alias dcd='docker compose down --rmi all -v'
 
 
 docker-inspect() {
-    docker inspect "$1" | ccze -m ansi -o nolookups
-    # docker inspect "$1" | jq -C
+    docker inspect "$1" | jq -C
+    # docker inspect "$1" | ccze -m ansi -o nolookups
 }
 
 docker-inspect-p() {
     if command -v bat &>/dev/null; then
-        docker inspect "$1" | ccze -m ansi -o nolookups | bat
-        # docker inspect "$1" | jq -C | bat
+        docker inspect "$1" | jq -C | bat
     else
-        docker inspect "$1" | ccze -m ansi -o nolookups | less
-        # docker inspect "$1" | jq -C | less
+        docker inspect "$1" | jq -C | less
     fi
-}   # Optionally use 'jq' instead of 'ccze'
+}
 
 # count_lines_dir(){
 

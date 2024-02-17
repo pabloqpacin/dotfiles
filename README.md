@@ -148,7 +148,7 @@ https://github.com/gasech/hyprland-dots
 ```mermaid
     flowchart LR
 
-HOMELAB[(<u>Homelab</u><br>VBox<br>KVM)]
+HOMELAB[(Homelab<br>VBox<br>KVM)]
 MACHINES((Machines/OS))
 
 GL76([GL76 computer])
@@ -161,7 +161,7 @@ Win11P[\Windows 11\]
 Win11[\Windows 11\]
 WinXP[\Windows XP\]
 
-                      Win11 -- Hyper-V .-> Homelab[(<u>Homelab</u>)]
+                      Win11 -- Hyper-V .-> Homelab[(Homelab)]
              GL76 ..- Win11 -- WSL .-> Tumbleweed[/Tumbleweed/]
 MACHINES ..- GL76 -- Hyprland --> NixOS[/NixOS/]
              GL76 --- Pop!_OS[/Pop!_OS/] -.- HOMELAB
