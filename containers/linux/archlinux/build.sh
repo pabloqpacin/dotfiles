@@ -13,11 +13,10 @@ build_image(){
 push_image(){
 
     docker login
-    docker push
-    docker tag
-    docker commit
-
-    docker scout
+    docker push pabloqpacin/archlinux:v1
+    # docker tag
+    # docker scout
+    # docker commit
 }
 
 run_container(){

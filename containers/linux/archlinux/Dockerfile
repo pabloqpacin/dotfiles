@@ -1,4 +1,5 @@
 FROM archlinux
+# TODO: FROM archlinux:foo
 
 WORKDIR /root
 

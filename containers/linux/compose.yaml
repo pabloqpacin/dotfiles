@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  
+  archlinux:
+    image: pabloqpacin/archlinux:v1
+    # build: ./archlinux
+    volumes:
+      - archlinux_data:/data
+
+volumes:
+  archlinux_data:
+
+
+# ===
+
+# $ docker compose up
+# Network Volume and Container are Created
+# linux-archlinux-1 exited with exit code 0
+
+# ... need to make interactive?

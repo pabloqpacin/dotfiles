@@ -84,9 +84,6 @@ if command -v grc &>/dev/null; then
     alias ping="grc ping"
     alias nmap="grc nmap"
     alias stat="grc stat"
-    alias docker="grc docker"
-    alias docker-compose="grc docker-compose"
-    alias kubectl="grc kubectl"
 fi
 
 alias nmapkenobi="nmap -p- -sS -sC -sV --open --min-rate 5000 -n -vvv -Pn"  # add IP
@@ -152,36 +149,15 @@ alias py='python3'
 alias xpaste='xclip -o -sel clip'
 
 alias grv='git remote -v'
+alias gsl='git stash list'
+alias gla='git log --all --graph --oneline --decorate'
+# alias gsp='git stash pop'
+# alias gs='git stash'
 
 alias vrv='virt-host-validate'      # KVM
 
 alias ftail='tail -f'
 
-alias dps='docker ps'
-alias dils='docker image ls'
-alias dvls='docker volume ls'
-alias dnls='docker network ls'
-alias drmv='docker rm -v'
-alias dlf='docker logs -f'
-
-alias dcu='docker compose up'
-alias dcps='docker compose ps'
-alias dcls='docker compose ls'
-alias dcd='docker compose down --rmi all -v'
-
-
-docker-inspect() {
-    docker inspect "$1" | jq -C
-    # docker inspect "$1" | ccze -m ansi -o nolookups
-}
-
-docker-inspect-p() {
-    if command -v bat &>/dev/null; then
-        docker inspect "$1" | jq -C | bat
-    else
-        docker inspect "$1" | jq -C | less
-    fi
-}
 
 # count_lines_dir(){
 
@@ -198,25 +174,4 @@ docker-inspect-p() {
 #     done
 #     echo -e "\tTOTAL: $total lines"
 # }
-
-
-alias mk='minikube'
-alias mkst='minikube status'
-alias mkpl='minikube profile list'
-
-alias kc='kubectl'
-alias kcga='kubectl get all -o wide'
-alias kcgp='kubectl get pods -o wide'
-# alias kcd='kubectl describe'
-alias kcpx="kubectl proxy --address='0.0.0.0' --disable-filter=true"
-
-kcc(){
-    curl -s "$1" | jq -C
-    # curl "$1" | ccze -m ansi -o nolookups
-}
-
-kcc-p(){
-    curl -s "$1" | jq -C | bat
-    # EG kcc-p 192.168.1.40:8001/api/v1/namespace/default
-}
 

@@ -31,8 +31,9 @@ ZSH_THEME_RANDOM_CANDIDATES=( "afowler" "alanpeabody" "dpoggi" "eastwood"
 # Set custom folder for personal aliases, plugins and themes
 ZSH_CUSTOM="$HOME/dotfiles/zsh"
 
-# See $ZSH/plugins & $ZSH_CUSTOM/plugins
+# See $ZSH/plugins & $ZSH_CUSTOM/plugins -- https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
 plugins=(
+  pqp-docker-k8s
   git tmux ubuntu     # archlinux docker nmap
   zsh-autosuggestions zsh-syntax-highlighting
 )
@@ -87,4 +88,6 @@ fi
 
 # export LESS="-SRXF" # -- https://www.mycli.net/pager
 # export PAGER="less -SRXF" # -- https://www.mycli.net/pager
+
+# source $HOME/dotfiles/zsh/tmux_init.zsh
 
