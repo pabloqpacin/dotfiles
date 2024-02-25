@@ -57,3 +57,10 @@ function Set-RandomPoshTheme {
 }
 
 Set-RandomPoshTheme
+
+# Import-Module "$env:HOME/WORK/windows_tech_stack/modules/setesur/setesur.psm1"
+
+
+# $env:PATH -replace ';', "`n"
+# New-Item -ItemType Directory "$env:HOMEPATH\Documents\PowerShell\Modules"
+

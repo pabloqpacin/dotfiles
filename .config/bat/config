@@ -3,12 +3,12 @@
 # run `bat --help` to get a list of all possible configuration options.
 
 # See .zshrc >> Display man pages with Bat highlighting
-# export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=default'"
+# $ export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=default'"
 
 # Specify desired highlighting theme (e.g. "TwoDark"). Run `bat --list-themes`
 # for a list of all available themes
 --theme="OneHalfDark"
-# bat --list-themes | fzf --preview="bat --theme={} --color=always /path/to/file"
+# $ bat --list-themes | fzf --preview="bat --theme={} --color=always /path/to/file"
 
 # Enable this to use italic text on the terminal. This is not supported on all
 # terminal emulators (like tmux, by default):
@@ -22,6 +22,9 @@
 # disable text selection, unless you press shift.
 #--pager="less --RAW-CONTROL-CHARS --quit-if-one-screen --mouse"
 --pager="less -j2 -FR --mouse --wheel-lines 4" # requires Shift to select text
+
+--wrap=character
+
 
 # Syntax mappings: map a certain filename pattern to a language.
 #   Example 1: use the C++ syntax for Arduino .ino files

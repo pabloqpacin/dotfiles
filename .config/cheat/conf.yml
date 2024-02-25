@@ -20,7 +20,8 @@ formatter: terminal256
 # Through which pager should output be piped?
 # 'less -FRX' is recommended on Unix systems
 # 'more' is recommended on Windows
-pager: less
+# pager: less
+pager: less -j2 -FR --mouse --wheel-lines 4" # requires Shift to select text
 
 # Cheatpaths are paths at which cheatsheets are available on your local
 # filesystem.

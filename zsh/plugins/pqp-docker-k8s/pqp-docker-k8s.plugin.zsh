@@ -61,6 +61,8 @@ alias mkpl='minikube profile list'
 
 alias kc='kubectl'
 
+alias kcaf='kubectl apply -f'
+
 alias kcda='kubectl delete all --all'       # maybe don't delete "kubernetes" svc...
 
 alias kcga='kubectl get all -o wide'

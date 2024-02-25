@@ -16,7 +16,7 @@ lsp.ensure_installed ({
     'dockerls',
     'docker_compose_language_service',
     'emmet_ls',                 -- provides :html:5
-    'gopls',
+--  'gopls',
     'html',
     'lua_ls',
     'marksman',                 -- provides :vws :vca=>TOC

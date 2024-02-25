@@ -91,7 +91,7 @@ keyword_casing = auto
 enable_pager = True
 
 # Choose a specific pager
-pager = 'less -SFXR'
+pager = 'less -SFXR --mouse --wheel-lines=4'
 
 # Custom colors for the completion menu, toolbar, etc.
 [colors]

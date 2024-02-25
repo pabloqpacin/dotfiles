@@ -1,6 +1,7 @@
 #!/bin/bash
 
-random_pic=$(find $HOME/dotfiles/img/wallpapers/. -type f | shuf -n 1)
+# random_pic=$(find $HOME/dotfiles/img/wallpapers/. -type f | shuf -n 1)
+random_pic=$HOME/dotfiles/img/wallpapers/er_nd.jpg
 
 function set_random_pic {
     swaybg -i $random_pic -m fill &

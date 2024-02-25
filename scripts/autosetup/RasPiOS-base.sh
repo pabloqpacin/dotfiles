@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo -e "\n-----#################################################################-----"
-echo -e "#########~~~~~{     RasPiOS-base v0.1.4  by @pabloqpacin    }~~~~~#########"
+echo -e "#########~~~~~{     RasPiOS-base v0.1.5  by @pabloqpacin    }~~~~~#########"
 echo -e "-----#################################################################-----\n"
 
 ### Good for Raspberry Pi OS Lite (64-bit) on Raspberry Pi 5
@@ -73,7 +73,7 @@ install_base_apt() {
     $sa_install libssl-dev sysbench
     $sa_install curl git openssh-server wget
     $sa_install neofetch --no-install-recommends
-    $sa_install btop ccze grc ipcalc nmap ripgrep tldr tmux tree 
+    $sa_install btop ccze grc ipcalc jq nmap ripgrep tldr tmux tree 
     $sa_install python3-pip python3-venv --no-install-recommends
     $sa_install mycli --no-install-recommends   # mariadb-client default-mysql-client
 
@@ -120,14 +120,9 @@ setup_zsh() {
     if command -v zoxide &>/dev/null; then
         zoxide add dotfiles; fi
 
-    if [ ! -d ~/dotfiles/zsh/plugins ]; then
-        mkdir ~/dotfiles/zsh/plugins; fi
-    
-    if [ ! -d ~/dotfiles/zsh/plugins/zsh-autosuggestions ]; then
-        git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions $HOME/dotfiles/zsh/plugins/zsh-autosuggestions; fi
-    
-    if [ ! -d ~/dotfiles/zsh/plugins/zsh-syntax-highlighting ]; then
-        git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting $HOME/dotfiles/zsh/plugins/zsh-syntax-highlighting; fi
+    if [[! -d ~/dotfiles/zsh/plugins/zsh-autosuggestions || ! -d ~/dotfiles/zsh/plugins/zsh-syntax-highlighting ]]; then
+        bash $HOME/dotfiles/zsh/plugins/clone-em.sh
+    fi
 
 }
 
@@ -261,7 +256,7 @@ setup_containers() {
 
 case_GUI(){
 
-    sudo apt-get install alacritty grimshot
+    sudo apt-get install alacritty grimshot kazam       # none work for screenshots / screen recording ... wtf
         # sleep 3 && grimshot save screen
 
     if [ ! -L ~/.config/alacritty ]; then

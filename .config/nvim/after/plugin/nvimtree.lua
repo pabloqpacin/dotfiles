@@ -22,7 +22,7 @@ https://github.com/nvim-tree/nvim-tree.lua/blob/master/doc/nvim-tree-lua.txt
     `<C-r>`     Rename: Omit Filename
     `<C-t>`     Open: New Tab
     `<C-v>`     Open: Vertical Split
-    `<C-x>`     Open: Horizontal Split
+    `<C-x>`     Open: Horizontal Split      # ojo
     `<BS>`      Close Directory
     `<CR>`      Open
     `<Tab>`     Open Preview
