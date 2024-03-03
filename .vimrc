@@ -2,6 +2,7 @@ set number
 " set relativenumber
 syntax on && syntax enable
 
+set scrolloff=8
 set colorcolumn=80
 autocmd FileType * set colorcolumn=80
 

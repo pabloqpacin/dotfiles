@@ -1,0 +1,27 @@
+# See who's connected to the server     # select * from information_schema.processlist;
+show processlist;
+
+# Listar procedimientos y funciones existentes
+select routine_type, routine_name, routine_definition
+    from information_schema.routines
+    where routine_type in ('PROCEDURE', 'FUNCTION')
+    and routine_schema = DATABASE();
+
+
+# Create function
+DELIMITER $$
+CREATE FUNCTION ...
+DETERMINISTIC
+BEGIN
+    ...
+END $$
+DELIMITER ;
+
+# Create stored procedure
+DELIMITER $$
+CREATE PROCEDURE ...
+BEGIN
+    ...
+END $$
+DELIMITER ;
+

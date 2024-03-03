@@ -1,0 +1,73 @@
+# https://gist.github.com/pabloqpacin/f57932f66e6621891345593f9440103f
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: datos-mysql-env
+  namespace: default
+data:
+  MYSQL_DATABASE: kubernetes
+  MYSQL_PASSWORD: usupass
+  MYSQL_ROOT_PASSWORD: kubernetes
+  MYSQL_USER: usudb
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deploy
+  labels:
+    app: mysql
+    type: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+      type: db
+  template:
+    metadata:
+      labels:
+        app: mysql
+        type: db
+    spec:
+      containers:
+        - name: mysql57
+          image: mysql:5.7
+          ports:
+            - containerPort: 3306
+              name: db-port
+          envFrom:
+            - configMapRef:
+                name: datos-mysql-env
+          # env:
+          #   - name: MYSQL_ROOT_PASSWORD
+          #     valueFrom:
+          #       configMapKeyRef:
+          #         name: datos-mysql-env
+          #         key: MYSQL_ROOT_PASSWORD
+
+          #   - name: MYSQL_USER
+          #     valueFrom:
+          #       configMapKeyRef:
+          #         name: datos-mysql-env
+          #         key: MYSQL_USER
+
+          #   - name: MYSQL_DATABASE
+          #     valueFrom:
+          #       configMapKeyRef:
+          #         name: datos-mysql-env
+          #         key: MYSQL_DATABASE
+
+          #   - name: MYSQL_PASSWORD
+          #     valueFrom:
+          #       configMapKeyRef:
+          #         name: datos-mysql-env
+          #         key: MYSQL_PASSWORD
+
+
+---
+# kubectl apply -f deploy_mysql.yaml
+# kubectl get cm && kubectl get all
+# kubectl exec -it <pod> -- printenv
+# kubectl exec -it <pod> -- mysql -u usudb -pusupass  # -D kubernetes -e "show tables;" kubectl get cm && kubectl get all

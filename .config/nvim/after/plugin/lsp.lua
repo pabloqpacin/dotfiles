@@ -23,7 +23,7 @@ lsp.ensure_installed ({
 --  'phpactor',                 -- requires composer pkg
 --  'phpstan',                  -- requires manual Mason installation
     'powershell_es',
-    'pylsp',
+--  'pylsp',
     'rust_analyzer',
     'sqlls',                    -- https://github.com/joe-re/sql-language-server
     'tsserver',

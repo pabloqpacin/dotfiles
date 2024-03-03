@@ -1,6 +1,10 @@
 # aguu='sudo apt update && sudo apt upgrade'
 # agi='sudo apt install'
 
+alias spy='sudo pacman -Syu'
+alias sps='sudo pacman -S'
+
+alias snr='sudo snap refresh'
 alias updeez='sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y'
 showpath() { echo $PATH | tr ':' '\n' | sort }
 
@@ -28,11 +32,13 @@ alias tree="tree -C"
 alias trea="tree -C -aI .git"
 alias less="less --mouse --wheel-lines=3"
 
-alias ez="eza --icons -1"
-alias eza="eza --icons"
-alias ezad="eza --icons -la -ShiI .git --no-user --octal-permissions --group-directories-first --git"
-alias ezatl="eza --icons -TL"
-alias ezatal="eza --icons -laI .git --no-user --no-permissions --no-filesize --group-directories-first --git -TL"
+if command -v eza &>/dev/null; then
+    # alias ez="eza --icons -1"
+    alias ls="eza --icons"
+    alias ezad="eza -la -ShiI .git --no-user --octal-permissions --group-directories-first --git"
+    alias ezatl="eza -TL"
+    alias ezatal="eza -laI .git --no-user --no-permissions --no-filesize --group-directories-first --git -TL"
+fi
 
 alias fzfp="fzf --preview 'bat --color=always {}'"
 alias fzfv="fzf --preview 'bat --color=always {}' --bind 'enter:execute(nvim {})'"
@@ -46,10 +52,14 @@ alias bcat="bat -p"
 alias mdcat="mdcat -p"
 alias rg="rg -.S --no-ignore"
 
-# tn() { tmux new -s $(pwd | sed 's#.*/##') }
-tn() {
+tn() { tmux new -s $(pwd | sed 's#.*/##') }
+tnj() {
   session_name=$(pwd | sed 's#.*/##')
   tmux new-session -s "$session_name" \; split-window -v -p 50 \; select-pane -t 0
+}
+tnl() {
+  session_name=$(pwd | sed 's#.*/##')
+  tmux new-session -s "$session_name" \; split-window -h -p 50 \; select-pane -t 0
 }
 
 alias du1="du -sh *"
@@ -175,3 +185,4 @@ alias ftail='tail -f'
 #     echo -e "\tTOTAL: $total lines"
 # }
 
+alias tolower="tr '[:upper:]' '[:lower:]'"

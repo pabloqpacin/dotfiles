@@ -21,8 +21,10 @@ alias dcu='docker compose up'
 alias dcps='docker compose ps'
 alias dcls='docker compose ls'
 alias dclf='docker compose logs -f'
-alias dcdd='docker compose down --rmi all -v'
+
 alias dcd='docker compose down'
+alias dcdv='docker compose down -v'
+alias dcdd='docker compose down --rmi all -v'
 
 
 docker-inspect() {
@@ -39,11 +41,17 @@ docker-inspect-p() {
 }
 
 docker-prune(){
+    # yes | docker container prune && \
     yes | docker network prune && \
     yes | docker volume prune && \
     yes | docker image prune && \
     yes | docker builder prune
 }
+
+
+##### Buildx
+
+alias dbls='docker buildx ls'
 
 
 
@@ -66,7 +74,13 @@ alias kcaf='kubectl apply -f'
 alias kcda='kubectl delete all --all'       # maybe don't delete "kubernetes" svc...
 
 alias kcga='kubectl get all -o wide'
+alias kcgd='kubectl get deployments -o wide'
+alias kcgc='kubectl get cm'
 alias kcgp='kubectl get pods -o wide'
+alias kcgs='kubectl get secrets -o yaml'
+
+alias kcd='kubectl describe'
+
 
 # alias kcd='kubectl describe'
 
