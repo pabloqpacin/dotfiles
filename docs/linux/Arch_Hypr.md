@@ -284,6 +284,7 @@ Ensure bootable OS:
 
 ```bash
 # Update the system
+sudo systemctl enable --now sshd
 sudo pacman -Syu
 neofetch
 
@@ -292,27 +293,32 @@ sudo localectl set-keymap es
 sudo timedatectl set-ntp on
 
 # Set up Yay <-- `nvim /etc/makepkg.conf` for tweaks
-git clone https://aur.archlinux.org/yay.git
-cd yay && makepkg -si
-cd .. && rm -rf yay
+git clone https://aur.archlinux.org/yay.git /tmp/yay
+cd $_ && makepkg -si && cd ~
 sudo pacman -Rns go
 
-# Install web browser and prep cheatsheets -- consider $ grimshot keepassxc mycli
-yay -S brave-bin cheat-bin nvim-packer-git --cleanmenu=false --diffmenu=false   # 2) noto-fonts
+# Install web browser and prep cheatsheets -- consider $ grimshot keepassxc
+yay -S --cleanmenu=false --diffmenu=false brave-bin cheat-bin nvim-packer-git   # 2) noto-fonts
 
 # Install fave software
-sudo pacman -S alacritty bat bottom btop eza ccze fzf git-delta grc inetutils less lf \
-               man man-pages nmap openssh python-pip python ripgrep tldr tmux \
-               ttf-firacode-nerd ttf-cascadia-code-nerd unzip zoxide zsh
+sudo pacman -S alacritty bat bottom btop eza fzf git-delta grc inetutils jq less lf \
+               man man-pages nmap openssh python-pip python ripgrep tldr tmux tree \
+               ttf-firacode-nerd ttf-cascadia-code-nerd unzip whois zoxide zsh
+
+yay -S --cleanmenu=false --diffmenu=false dnslookup-bin mycli termshark vscodium-bin --noconfirm
 
 # Update tldr and vanilla cheatsheets
 tldr --update
-yes | cheat   # Y and Y
+yes | cheat
 
 # Docker stuff
 sudo pacman -Syu docker docker-buildx docker-compose
 sudo usermod -aG docker $USER && newgrp docker
 sudo systemctl enable --now docker
+
+# Kubernetes stuff
+sudo pacman -Syu helm kubectl minikube
+# minikube addons enable metrics-server
 ```
 
 ```bash
@@ -350,6 +356,15 @@ sudo eject /dev/sdx
 ```
 
 - Install a DE/WM, if needed enter `Ctrl+Alt+F{2-9}` for a new TTY 
+
+```bash
+# SET DEFAULT DARK THEME... Tested on ArchVM (i3)
+ln -s ~/dotfiles/.config/gtk-3.0 ~/.config
+ln -s ~/dotfiles/.config/qt5ct ~/.config
+# sudo pacman -S gnome-themes-extra
+# # sudo pacman -S qt5ct
+# sudo pacman -S nautilus   # VS thunar
+```
 
 ```bash
 # Hyprland
@@ -461,26 +476,32 @@ cat ~/.ssh/id_25519.pub
     # github.com > profile settings > add New SSH
 ssh -T git@github.com                       # yes
 
+# Clone & symlink them dotfiles
+git clone git@github.com/pabloqpacin/dotfiles.git ~/dotfiles
+bash ~/dotfiles/scripts/setup/cheat-symlink.sh
+
 # Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 sudo chsh -s $(which zsh) $USER
+rm .zshrc
+ln -s ~/dotfiles/.zshrc ~
 bash ~/dotfiles/scripts/setup/omz*
 bash ~/dotfiles/zsh/plugins/clone-em.sh
 
-# Clone & symlink them dotfiles
-git clone git@github.com/pabloqpacin/dotfiles.git ~/dotfiles
-
-rm .zshrc
-ln -s ~/dotfiles/.zshrc ~
+# Them symlinks
 ln -s ~/dotfiles/.myclirc ~
 ln -s ~/dotfiles/.gitconfig ~
-
 ln -s ~/dotfiles/.config/lf ~/.config
 ln -s ~/dotfiles/.config/bat ~/.config
 ln -s ~/dotfiles/.config/btop ~/.config
+ln -s ~/dotfiles/.config/bottom ~/.config
 ln -s ~/dotfiles/.config/nvim ~/.config
 ln -s ~/dotfiles/.config/tmux ~/.config
 ln -s ~/dotfiles/.config/alacritty ~/.config
+
+# codium && sleep 3 && pkill codium
+bash ~/dotfiles/scripts/setup/codium*
+ln -s ~/dotfiles/.config/code/User/settings.json ~/.config/VSCodium/User
 
 # i3 config
 ln -s ~/dotfiles/.devilspie ~/
@@ -513,7 +534,6 @@ cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua
 
 ```bash
 # Install desktop applications
-yay -S vscodium-bin || sudo pacman -S code
 sudo pacman -S discord steam    # 2) lib32-nvidia-utils
 sudo pacman -S spotify-launcher spotifyd
     # $ yay -Si librespot mpd
@@ -666,5 +686,12 @@ sudo pacman -Syu \
     kubeadm
 
 minikube addons ...
+
+```
+---
+
+```bash
+# GNOME disk usage analyzer
+sudo pacman -S baobab gnome-disk-utility
 
 ```

@@ -36,5 +36,6 @@ info
 set RHOSTS 192.168.1.38
 run
 
+# so... what the dawg doin!?
 
 ```

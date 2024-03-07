@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo -e "\n----################################################################----"
-echo -e   "#######~~~~{     UbuntuServer-base v1.1  by @pabloqpacin    }~~~~#######"
+echo -e   "#######~~~~{     UbuntuServer-base v1.2  by @pabloqpacin    }~~~~#######"
 echo -e "----################################################################----\n"
 
 ### Tested successfully on Ubuntu 22.04 (fresh VM):
@@ -19,7 +19,7 @@ current_shell=$(echo $SHELL | awk -F '/' '{print $NF}')
 ########## FUNCTIONS ##########
 
 set_variables() {
-    read -p "Do you want to skip all 'sudo apt-get install <package>' prompts? [y/N] " opt
+    read -p "Skip all 'sudo apt-get install <pkg>' prompts? [y/N] " opt
     case $opt in 'Y' | 'y')
         sa_install="sudo apt-get install -y"
     esac
@@ -38,7 +38,7 @@ install_base_apt() {
 
     $sa_install curl git openssh-server wget
     $sa_install neofetch --no-install-recommends
-    $sa_install btop grc ipcalc mycli nmap ripgrep tldr tmux tree
+    $sa_install btop fzf grc ipcalc mycli nmap ripgrep tldr tmux tree
     $sa_install bat && sudo mv /usr/bin/batcat /usr/bin/bat
     # $sa_install python3-pip python3-venv --no-install-recommends
 
@@ -73,7 +73,9 @@ clone_dotfiles() {
         ln -s ~/dotfiles/.myclirc ~/; fi
 
     if [ ! -L ~/.config/bat ]; then
-        ln -s ~/dotfiles/.config/bat ~/.config; fi
+        ln -s ~/dotfiles/.config/bat ~/.config
+        sed -i 's/OneHalfDark/Coldark-Dark/' ~/.config/bat/config
+    fi
 
     # if [ ! -L ~/.config/btop ]; then
     #     ln -s ~/dotfiles/.config/btop ~/.config; fi
@@ -92,8 +94,8 @@ clone_dotfiles() {
 
     if [ ! -L ~/.gitconfig ]; then
         ln -s ~/dotfiles/.gitconfig ~/ && \
-            sed -i '/github/d' ~/.gitignore && \
-            sed -i "s/pabloqpacin/$USER/" ~/.gitignore
+            sed -i '/github/d' ~/.gitconfig && \
+            sed -i "s/pabloqpacin/$USER/" ~/.gitconfig
     fi
 }
 
@@ -124,8 +126,8 @@ install_base_go() {
 
     source ~/dotfiles/zsh/golang.zsh
 
-    if ! command -v fzf &>/dev/null; then
-        go install github.com/junegunn/fzf@latest; fi
+    # if ! command -v fzf &>/dev/null; then
+    #     go install github.com/junegunn/fzf@latest; fi
     
     # if ! command -v lf &>/dev/null; then
     #     go install github.com/gokcehan/lf@latest; fi
@@ -151,6 +153,7 @@ install_docker() {
             $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
             sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
         $sa_update && $sa_install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+            sudo systemctl enable --now docker
             sudo usermod -aG docker $USER
             # newgrp docker
     fi

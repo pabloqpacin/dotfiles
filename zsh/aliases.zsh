@@ -34,7 +34,7 @@ alias less="less --mouse --wheel-lines=3"
 
 if command -v eza &>/dev/null; then
     # alias ez="eza --icons -1"
-    alias ls="eza --icons"
+    alias ls="eza --icons --group-directories-first --git"
     alias ezad="eza -la -ShiI .git --no-user --octal-permissions --group-directories-first --git"
     alias ezatl="eza -TL"
     alias ezatal="eza -laI .git --no-user --no-permissions --no-filesize --group-directories-first --git -TL"
@@ -91,11 +91,13 @@ alias HH="Hyprland"
 
 if command -v grc &>/dev/null; then
     alias ip="grc ip -c"
-    alias ping="grc ping"
+    alias ping="grc ping -c4 -w4"
     alias nmap="grc nmap"
     alias stat="grc stat"
+    alias iptables="grc iptables"
 fi
 
+alias nst='netstat -lnpt'       # Active server connections ish
 alias nmapkenobi="nmap -p- -sS -sC -sV --open --min-rate 5000 -n -vvv -Pn"  # add IP
 alias cargo-update="cargo install-update -a"
 alias fup='flatpak update -y'
@@ -160,7 +162,9 @@ alias xpaste='xclip -o -sel clip'
 
 alias grv='git remote -v'
 alias gsl='git stash list'
+alias gss='git stash show -p'
 alias gla='git log --all --graph --oneline --decorate'
+alias glf="glods --follow"  #$1
 # alias gsp='git stash pop'
 # alias gs='git stash'
 

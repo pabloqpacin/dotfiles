@@ -20,6 +20,7 @@ alias drmv='docker rm -v'
 alias dcu='docker compose up'
 alias dcps='docker compose ps'
 alias dcls='docker compose ls'
+alias dcl='docker compose logs'
 alias dclf='docker compose logs -f'
 
 alias dcd='docker compose down'
@@ -68,6 +69,7 @@ alias mkpl='minikube profile list'
 ##### kubectl
 
 alias kc='kubectl'
+alias kccv='kubectl config view'
 
 alias kcaf='kubectl apply -f'
 
@@ -76,11 +78,15 @@ alias kcda='kubectl delete all --all'       # maybe don't delete "kubernetes" sv
 alias kcga='kubectl get all -o wide'
 alias kcgd='kubectl get deployments -o wide'
 alias kcgc='kubectl get cm'
+alias kcgn='kubectl get nodes'
 alias kcgp='kubectl get pods -o wide'
 alias kcgs='kubectl get secrets -o yaml'
 
 alias kcd='kubectl describe'
 
+kcgpy(){
+    kubectl get pod "$1" -o yaml
+}
 
 # alias kcd='kubectl describe'
 

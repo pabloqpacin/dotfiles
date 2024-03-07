@@ -1,28 +1,33 @@
 [user]
 	name = pabloqpacin
 	email = 110383181+pabloqpacin@users.noreply.github.com
+[safe]
+    directory = C:/Users/pabloqpacin/dotfiles
+    directory = C:/Users/Pablo/dotfiles
 [init]
 	defaultBranch = main
 [http]
 	version = HTTP/2
-[alias]
-    sup = log --graph --pretty=format:'%C(auto)%h%d (%cs) %s' --decorate
-    lold = log --follow
+# [alias] --- ZSH
+#     gglf = log --follow #$1
+#     sup = log --graph --pretty=format:'%C(auto)%h%d (%cs) %s' --decorate
+#     a = "!git status --short | peco | awk '{print $2}' | xargs git add"
+#     edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+#     add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+
 
 [core]
-    # editor = nvim
     pager = delta
 [interactive]
     diffFilter = delta --color-only
+[include]
+    path = ~/dotfiles/.config/delta/themes.gitconfig
 [delta]
-    navigate = true
-    line-numbers = true
+    # features = calochortus-lyallii                 # https://github.com/dandavison/delta/blob/main/themes.gitconfig
     # side-by-side = true
+    line-numbers = true
+    navigate = true
 [merge]
     conflictstyle = diff3
 [diff]
     colorMoved = default
-
-[safe]
-    directory = C:/Users/Pablo/dotfiles
-    directory = C:/Users/pabloqpacin/dotfiles

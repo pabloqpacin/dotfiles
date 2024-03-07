@@ -330,8 +330,8 @@ sudo useradd -aG dialout $USER  # https://arduino.stackexchange.com/questions/73
 ```
 ```bash
 # Networking tools
-sudo apt-get install ipcalc nmap nmapsi4 openssh-server wireshark tshark  && \
- sudo usermod -aG wireshark username
+sudo apt-get install ipcalc nmap nmapsi4 openssh-server termshark tshark wireshark && \
+sudo usermod -aG wireshark $USER
 
 # https://wiki.safing.io/en/Portmaster/Install/Linux
 curl -fsSL https://updates.safing.io/latest/linux_all/packages/install.sh | sudo bash
@@ -643,3 +643,9 @@ sudo apt-get install \
 sox --encoding u-law -r 8000 -n nuevo.wav original.mp3
 ``` -->
 
+---
+
+```bash
+# agi wireguard 
+
+```

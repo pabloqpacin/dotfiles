@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo -e "\n-----#################################################################-----"
 echo -e "#########~~~~~{     RasPiOS-base v0.1.5  by @pabloqpacin    }~~~~~#########"
@@ -144,6 +144,7 @@ install_base_cargo() {
         case $opt in 'Y' | 'y' | '')
             if ! command -v bat &>/dev/null; then $HOME/.cargo/bin/cargo install bat; fi
             if ! command -v eza &>/dev/null; then $HOME/.cargo/bin/cargo install eza; fi
+            #  wget https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_arm64.deb
             if ! command -v delta &>/dev/null; then $HOME/.cargo/bin/cargo install git-delta; fi
             if ! command -v zoxide &>/dev/null; then $HOME/.cargo/bin/cargo install zoxide; fi
             if ! command -v cargo install-update -a &>/dev/null; then $HOME/.cargo/bin/cargo install cargo-update; fi
