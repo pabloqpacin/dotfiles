@@ -24,6 +24,10 @@ git push --set-upstream origin main
     # Github: new
 git clone git@github.com:pabloqpacin/foo.git
 
+# From remote to local (remote initial commit, existing local files no commits)
+git remote add origin git@github.com:$USER:<repo>.git
+git pull origin main        # import LICENSE etc
+
 # Create and push new branch
 git checkout -b new-branch
 git push origin new-branch

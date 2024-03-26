@@ -26,3 +26,13 @@ BEGIN
 END $$
 DELIMITER ;
 
+# Create trigger
+DELIMITER //
+CREATE TRIGGER <name>
+BEFORE|AFTER <event> ON <table>
+FOR EACH ROW
+BEGIN
+    ...
+END //
+DELIMITER ;
+

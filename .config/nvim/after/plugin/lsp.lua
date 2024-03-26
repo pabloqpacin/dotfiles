@@ -25,7 +25,7 @@ lsp.ensure_installed ({
     'powershell_es',
 --  'pylsp',
     'rust_analyzer',
-    'sqlls',                    -- https://github.com/joe-re/sql-language-server
+--  'sqlls',                    -- https://github.com/joe-re/sql-language-server
     'tsserver',
 })
 

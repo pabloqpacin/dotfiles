@@ -276,13 +276,15 @@ cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua
 ```bash
 # Pop!_Shop OK
 # flatpak install flathub io.dbeaver.DBeaverCommunity
-flatpak install slack
 flatpak install anydesk
-flatpak install spotify
 flatpak install discord
 flatpak install gitkraken
-flatpak install flathub com.github.IsmaelMartinez.teams_for_linux
+flatpak install krita
+flatpak install slack
+flatpak install spotify
+flatpak install visualboy
 sudo apt install steam  # Proton 8
+flatpak install flathub com.github.IsmaelMartinez.teams_for_linux
 
 # flatpak install retroarch --> if possible, do via Steam instead aye? see ~/dotfiles/.config/retroarch
 # flatpak install dolphinemu
@@ -645,7 +647,40 @@ sox --encoding u-law -r 8000 -n nuevo.wav original.mp3
 
 ---
 
-```bash
-# agi wireguard 
 
+
+- fix 'Ubuntu Pro' bullshite
+
+```txt
+~ » aguu
+Hit:1 https://download.docker.com/linux/ubuntu jammy InRelease
+Hit:2 https://brave-browser-apt-release.s3.brave.com stable InRelease
+Hit:3 http://repository.spotify.com stable InRelease
+Hit:4 https://packages.microsoft.com/ubuntu/22.04/prod jammy InRelease
+Hit:5 https://download.vscodium.com/debs vscodium InRelease
+Hit:6 http://apt.pop-os.org/proprietary jammy InRelease
+Hit:7 http://apt.pop-os.org/release jammy InRelease
+Hit:8 http://apt.pop-os.org/ubuntu jammy InRelease
+Hit:9 http://apt.pop-os.org/ubuntu jammy-security InRelease
+Hit:10 http://apt.pop-os.org/ubuntu jammy-updates InRelease
+Hit:11 http://apt.pop-os.org/ubuntu jammy-backports InRelease
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+All packages are up to date.
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+Calculating upgrade... Done
+Get more security updates through Ubuntu Pro with 'esm-apps' enabled:
+  vlc-plugin-qt libvlc5 vlc-data libvlccore9 vlc vlc-bin libiperf0
+  libavdevice58 ffmpeg libpostproc55 libavcodec58 traceroute iperf3
+  libavutil56 libswscale5 libswresample3 vlc-plugin-video-output libavformat58
+  libvlc-bin vlc-plugin-base libavfilter7
+Learn more about Ubuntu Pro at https://ubuntu.com/pro
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+```
+```bash
+sudo mv /etc/apt/apt.conf.d/20apt-esm-hook.conf{,.bak}
+# https://askubuntu.com/questions/1434512/how-to-get-rid-of-ubuntu-pro-advertisement-when-updating-apt
 ```

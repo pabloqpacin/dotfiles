@@ -19,7 +19,7 @@
 
 define_repositories(){
     # Solucionar problemas con los repositorios para las actualizaciones (enterprise VS free)
-    sed -i '/enterprise/s/^/# /' /etc/apt/sources.list.d/cepth.list
+    sed -i '/enterprise/s/^/# /' /etc/apt/sources.list.d/ceph.list
     sed -i '/enterprise/s/^/# /' /etc/apt/sources.list.d/pve-enterprise.list
 
     # https://pve.proxmox.com/wiki/Package_Repositories#sysadmin_no_subscription_repo

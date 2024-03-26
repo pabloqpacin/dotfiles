@@ -1,8 +1,13 @@
 # aguu='sudo apt update && sudo apt upgrade'
 # agi='sudo apt install'
 
+alias MP='sudo mount -t nfs 192.168.1.5:/var/pi-nfs /mnt/pi-nfs || echo "Failed to mount NFS share"'
+alias UP='sudo umount /mnt/pi-nfs || echo "Failed to unmount NFS share"'
+
+
 alias spy='sudo pacman -Syu'
 alias sps='sudo pacman -S'
+alias yy='yay -Syu --cleanmenu=false --diffmenu=false'
 
 alias snr='sudo snap refresh'
 alias updeez='sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y'
@@ -35,9 +40,9 @@ alias less="less --mouse --wheel-lines=3"
 if command -v eza &>/dev/null; then
     # alias ez="eza --icons -1"
     alias ls="eza --icons --group-directories-first --git"
-    alias ezad="eza -la -ShiI .git --no-user --octal-permissions --group-directories-first --git"
-    alias ezatl="eza -TL"
-    alias ezatal="eza -laI .git --no-user --no-permissions --no-filesize --group-directories-first --git -TL"
+    alias laz="eza -la -ShiI .git --no-user --octal-permissions --group-directories-first --git"
+    alias tree="eza -T"
+    alias trez="eza -laI .git --no-user --no-permissions --no-filesize --group-directories-first --git -T"
 fi
 
 alias fzfp="fzf --preview 'bat --color=always {}'"

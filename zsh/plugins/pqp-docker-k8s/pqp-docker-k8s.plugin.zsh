@@ -15,6 +15,7 @@ alias dvls='docker volume ls'
 alias dvlsj='docker volume ls --format json | jq -C'
 alias dnls='docker network ls'
 alias drmv='docker rm -v'
+alias dvrm='docker volume rm $(docker volume ls -qf dangling=true)'
 
 # alias dc='docker compose'
 alias dcu='docker compose up'
@@ -77,10 +78,10 @@ alias kcda='kubectl delete all --all'       # maybe don't delete "kubernetes" sv
 
 alias kcga='kubectl get all -o wide'
 alias kcgd='kubectl get deployments -o wide'
-alias kcgc='kubectl get cm'
-alias kcgn='kubectl get nodes'
+alias kcgn='kubectl get nodes -o wide'
 alias kcgp='kubectl get pods -o wide'
 alias kcgs='kubectl get secrets -o yaml'
+alias kcgc='kubectl get cm'
 
 alias kcd='kubectl describe'
 
@@ -114,4 +115,10 @@ alias kc-proxy="kubectl proxy --address='0.0.0.0' --disable-filter=true"
 #     curl -s "$1" | jq -C | bat
 #     # EG kcc-p 192.168.1.40:8001/api/v1/namespace/default
 # }
+
+
+##### KUBEADM ######
+
+alias ka='kubeadm'
+alias katl='kubeadm token list'
 

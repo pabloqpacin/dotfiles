@@ -221,6 +221,7 @@ systemctl enable NetworkManager
 echo "ArchBox" > /etc/hostname
 nvim /etc/hosts
     # append "127.0.0.1         localhost"
+    # append "127.0.0.1         ArchBox"
 
 nvim /etc/pacman.conf
     # uncomment Misc options: Color VerbosePkgLists ParallelDownloads=10 -- add ILoveCandy
@@ -298,14 +299,16 @@ cd $_ && makepkg -si && cd ~
 sudo pacman -Rns go
 
 # Install web browser and prep cheatsheets -- consider $ grimshot keepassxc
-yay -S --cleanmenu=false --diffmenu=false brave-bin cheat-bin nvim-packer-git   # 2) noto-fonts
+yay -S --noconfirm --cleanmenu=false --diffmenu=false brave-bin cheat-bin nvim-packer-git   # 2) noto-fonts
 
 # Install fave software
 sudo pacman -S alacritty bat bottom btop eza fzf git-delta grc inetutils jq less lf \
                man man-pages nmap openssh python-pip python ripgrep tldr tmux tree \
                ttf-firacode-nerd ttf-cascadia-code-nerd unzip whois zoxide zsh
+               # openbsd-netcat
 
-yay -S --cleanmenu=false --diffmenu=false dnslookup-bin mycli termshark vscodium-bin --noconfirm
+yay -S --noconfirm --cleanmenu=false --diffmenu=false dnslookup-bin mycli termshark vscodium-bin
+sudo usermod -aG wireshark $USER
 
 # Update tldr and vanilla cheatsheets
 tldr --update
@@ -483,7 +486,7 @@ bash ~/dotfiles/scripts/setup/cheat-symlink.sh
 # Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 sudo chsh -s $(which zsh) $USER
-rm .zshrc
+mv ~/.zshrc{,.bak}
 ln -s ~/dotfiles/.zshrc ~
 bash ~/dotfiles/scripts/setup/omz*
 bash ~/dotfiles/zsh/plugins/clone-em.sh

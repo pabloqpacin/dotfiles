@@ -29,6 +29,8 @@
     "redhat.telemetry.enabled": false,
     "window.zoomLevel": -0.8,
     "update.showReleaseNotes": false
+    // "[markdown]": { "editor.autoClosingBrackets": "always" }
+    // "editor.autoClosingOvertype": "always"
 }
 
 // https://stackoverflow.com/questions/64080471/one-or-more-containers-do-not-have-resource-limits-warning-in-vs-code-kubernet

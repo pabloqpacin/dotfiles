@@ -34,6 +34,7 @@ set ignorecase
 " Fun with <leader>
 let mapleader = ' '
 nnoremap <leader>pv :execute ":Explore"<CR>
+nnoremap <leader>/ : execute ":nohlsearch"<CR>
 nnoremap <leader>gs :execute ":!git status"<CR>
 nnoremap <leader>cc :execute 'set colorcolumn=' . (&colorcolumn == "" ? "80" : "")<CR>
 
