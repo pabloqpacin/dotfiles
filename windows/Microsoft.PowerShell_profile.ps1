@@ -22,10 +22,10 @@ function touch ($file) { New-Item -Path (Join-Path -Path $PWD -ChildPath $file) 
 function perms ($file) { (Get-ACL $file).Access | Format-Table -AutoSize }
 function props ($file) { Get-Item $file -Force | Format-List * }
 
-function showPath { $env:PATH -replace ';', "`n" }
-function showModPath { $env:PSModulePath -replace ';', "`n" }
-function showEnv { Get-ChildItem Env: | ForEach-Object { $_.Name } }
 function showHist { bat -l ps1 (Get-PSReadlineOption).HistorySavePath }
+function showModPath { $env:PSModulePath -replace ';', "`n" }
+function showPath { $env:PATH -replace ';', "`n" }
+function showEnv { Get-ChildItem Env: }
 
 function reloadPath {
   $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH","MACHINE") + ";" + [System.Environment]::GetEnvironmentVariable("PATH","USER")
@@ -96,6 +96,7 @@ if (Test-Path($ChocolateyProfile)) {
 ########## oh-my-posh
 $random_Theme = ""
 $randomThemeCandidates=@(
+  'catppuccin_mocha'
 #  'blueish', 'bubblesextra', 'catppuccin_macchiato', 'craver', 'huvix', 'kali', 'microverse-power', 'negligible',
 #  'nu4a', 'pararussel', 'patriksvensson', 'peru', 'poshmon', 'powerlevel10k_lean', 'powerlevel10k_rainbow',
 #  'powerline', 'space', 'sorin', 'tiwahu', 'tonybaloney', 'uew', 'wopian' 'xtoys', 'zash'
@@ -110,7 +111,7 @@ function Set-RandomPoshTheme {
     $global:RANDOM_THEME = ($themeFiles | Get-Random).Name -replace '\.omp\.json$'
   }
 
-  Write-Host "`n[oh-my-posh] Random theme '$($global:RANDOM_THEME)' loaded"
+  # Write-Host "`n[oh-my-posh] Random theme '$($global:RANDOM_THEME)' loaded"
   oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\$($global:RANDOM_THEME).omp.json" | Invoke-Expression
 }
 

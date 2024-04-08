@@ -44,7 +44,7 @@ aha ccze finger glances gnome-tweaks grc html2text jq logcat lsb-release lscpu m
 asciiquarium bsdgames cbonsai cmatrix cowsay figlet fortune games-console games-rogue lavat-git lolcat oneko pacvim
 
 # ??
-awesome fwupd-signed ghostscript groff p7zip poke readucks tea visualboyadvance watch wget wsl xxd yes youtube-dl
+awesome fwupd-signed ghostscript groff p7zip poke readucks strace tea visualboyadvance watch wget wsl xxd yes youtube-dl
 
 # 1337
 git-lfs hashcat john john-data medusa

@@ -65,7 +65,7 @@
             },
             {
                 // "font": { "size": 10.0, "face": "FiraCode Nerd Font" },
-                "font": { "size": 10.0, "face": "CaskaydiaCove Nerd Font" },
+                "font": { "size": 9.0, "face": "CaskaydiaCove Nerd Font" },
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",   // PWSH
                 "source": "Windows.Terminal.PowershellCore",
                 "name": "PowerShell",

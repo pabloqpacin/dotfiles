@@ -20,18 +20,18 @@ git clone https://github.com/wbthomason/packer.nvim "$env:LOCALAPPDATA\nvim-data
 winget upgrade --all
 winget install OpenJS.NodeJS
 winget install python.python.3.11
-winget install msys2
+winget install msys2.msys2
   # winget install zig.zig                    # 15 minutes extraction, looking forward for .msi -- https://github.com/microsoft/winget-cli/issues/3306
   # Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
     # choco install mingw -y
 
 Write-Host "`nTime to install a C compiler. In the new terminal, please enter"
-Write-Host "'pacman -Syu base-devel mingw-w64-x86_64-toolchain --noconfirm'." -ForegroundColor Yellow
+Write-Host "'pacman -Syu base-devel mingw-w64-x86_64-toolchain neofetch --noconfirm'." -ForegroundColor Yellow
 Write-Host "Might need to do it a couple times, as MSYS2 updates itself. Ready?"
 $null = Read-Host
 
 do {
-  Start-Process "$env:SYSTEMDRIVE\msys64\msys2.exe"
+  Start-Process "C:\msys64\msys2.exe"
   reloadPath
   $userInput = Read-Host "Run 'msys2' again to complete the installation? (Y/N)"
 } while ($userInput -eq "Y")

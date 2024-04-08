@@ -182,7 +182,7 @@ Management Network Config:
 ```
 
 ## post-install configuration
-
+<!-- 
 ```bash
 # Comment out Enterprise sources tampering with 'apt update'
 sed -i '/enterprise/s/^/# /' /etc/apt/sources.list/.d/cepth.list
@@ -194,7 +194,42 @@ echo 'APT::Get::Show-Versions "true";' | tee /etc/apt/apt.conf.d/99show-versions
 apt update
 apt install grc btop lf nmap
 apt install neofetch --no-install-recommends
+``` -->
+
+> NOTA: todo como `root`... 
+
+```bash
+# Hacer mensajes de APT más verbose
+echo 'APT::Get::Show-Versions "true";' | tee /etc/apt/apt.conf.d/99show-versions
+
+# $ lscpu | less
 ```
+```bash
+# Solucionar problemas con los repositorios para las actualizaciones (enterprise VS free)
+sed -i '/enterprise/s/^/# /' /etc/apt/sources.list.d/cepth.list
+sed -i '/enterprise/s/^/# /' /etc/apt/sources.list.d/pve-enterprise.list
+
+# https://pve.proxmox.com/wiki/Package_Repositories#sysadmin_no_subscription_repo
+echo "
+deb http://ftp.debian.org/debian bookworm main contrib
+deb http://ftp.debian.org/debian bookworm-updates main contrib
+
+# Proxmox VE pve-no-subscription repository provided by proxmox.com,
+# NOT recommended for production use
+deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
+
+# security updates
+deb http://security.debian.org/debian-security bookworm-security main contrib
+" | tee /etc/apt/sources.list
+```
+```bash
+# apt update
+# apt install grc btop lf nmap
+# apt install neofetch --no-install-recommends
+```
+
+
+> Importante usar `tmux` en general, ya que la sesión bash 
 
 ---
 

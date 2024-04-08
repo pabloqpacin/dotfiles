@@ -48,10 +48,7 @@ return require('packer').startup(function(use)
     use { 'nvim-tree/nvim-web-devicons' }
     use { 'nvim-tree/nvim-tree.lua' }
     use { 'romgrk/barbar.nvim' }
-    use {
-        'rcarriga/nvim-dap-ui',
-        requires = { 'mfussenegger/nvim-dap' }
-    }
+    use { 'rcarriga/nvim-dap-ui', requires = {'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio'} }
     use { 'elkowar/yuck.vim' }
 
 

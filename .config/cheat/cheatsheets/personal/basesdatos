@@ -10,11 +10,12 @@ select routine_type, routine_name, routine_definition
 
 # Create function
 DELIMITER $$
-CREATE FUNCTION ...
+CREATE FUNCTION ... RETURNS type
 DETERMINISTIC
 BEGIN
     DECLARE foo DECIMAL(10,2);
     ...
+    RETURN bar
 END $$
 DELIMITER ;
 
@@ -36,3 +37,7 @@ BEGIN
 END //
 DELIMITER ;
 
+
+# Add column to existing table
+ALTER TABLE cliente
+ADD COLUMN total_compras FLOAT DEFAULT 0.0;

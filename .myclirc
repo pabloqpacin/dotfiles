@@ -176,6 +176,7 @@ funproparam = '''
     from information_schema.parameters
     where specific_schema = DATABASE();'''
 who = '''show processlist;'''
+users = '''select user,host from mysql.user'''
 
 # Use the -d option to reference a DSN.
 # Special characters in passwords and other strings can be escaped with URL encoding.

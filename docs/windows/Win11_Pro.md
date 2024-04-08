@@ -341,7 +341,7 @@ cat ~/.ssh/id_25519.pub
 ssh -T git@github.com                    # yes
 
 # Curl and run big time script
-curl https://raw.githubusercontent.com/pabloqpacin/dotfiles/main/windows/scripts/SW_install-symlink.ps1 --output self.ps1
+curl https://raw.githubusercontent.com/pabloqpacin/dotfiles/main/windows/scripts/autosetup/Win11Pro-base.ps1 --output self.ps1
 .\self.ps1;   # rm self.ps1
 ```
 
