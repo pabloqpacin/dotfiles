@@ -1,0 +1,25 @@
+# https://yazi-rs.github.io/docs/configuration/theme/
+# https://yazi-rs.github.io/docs/flavors/overview/
+
+[flavor]
+use = "onedark"
+
+# [filetype]
+# rules = [
+# 	# Images
+# 	{ mime = "image/*", fg = "cyan" },
+# 
+# 	# Videos
+# 	{ mime = "video/*", fg = "yellow" },
+# 	{ mime = "audio/*", fg = "yellow" },
+# 
+# 	# Orphan symbolic links
+# 	{ name = "*", is = "orphan", fg = "red" },
+# 
+# 	# ...
+# 
+# 	# Fallback
+# 	# { name = "*", fg = "white" },
+# 	{ name = "*/", fg = "blue" }
+# ]
+

@@ -2,8 +2,9 @@
 community/
 #*wip*
 
-# Nvim Tmux Btop
+# Nvim Tmux Btop Yazi
 packer_compiled.lua
+*/yazi/flavors/*
 */tmux/plugins/*
 btop.log
 

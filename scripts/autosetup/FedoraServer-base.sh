@@ -34,6 +34,7 @@ update_system() {
 
 install_base_dnf() {
 
+    $sdnf_install perl-Time-Piece   # https://superuser.com/questions/520708/in-fedora-perl-program-cannot-find-timepiece-library
     $sdnf_install neofetch --setopt=install_weak_deps=False
     $sdnf_install bat eza fzf git git-delta grc mycli nmap ripgrep tldr tmux zsh    # cheat
 
@@ -129,6 +130,8 @@ install_base_dnf
 clone_dotfiles
 setup_zsh
 install_docker
+
+# hostname # localhost.localdomain
 
 echo "" && neofetch && echo -e "\nKindly reboot.\n"
 

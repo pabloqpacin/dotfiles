@@ -263,7 +263,7 @@ case_GUI(){
     if [ ! -L ~/.config/alacritty ]; then
         ln -s ~/dotfiles/.config/alacritty ~/.config; fi
 
-    if ! fc-fache -v | grep -q CascadiaCodeNerd; then
+    if ! fc-cache -v | grep -q CascadiaCodeNerd; then
         mkdir ~/.fonts
         wget -o /tmp/CascadiaCode.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.zip
         unzip /tmp/CascadiaCode.zip -d ~/.fonts/CascadiaCodeNerdFont

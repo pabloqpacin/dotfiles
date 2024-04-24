@@ -23,9 +23,9 @@ case $distro in
 esac
 
 # Them Baddest themes
-ZSH_THEME_RANDOM_CANDIDATES=( "afowler" "alanpeabody" "dpoggi" "eastwood"
-  "fletcherm" "gallois" "geoffgarside" "macovsky" "mh" "minimal"
-  "muse" "nanotech" "theunraveler" "tonotdo" "wedisagree"
+ZSH_THEME_RANDOM_CANDIDATES=( 'afowler' 'alanpeabody' 'dpoggi' 'eastwood'
+  'fletcherm' 'gallois' 'geoffgarside' 'macovsky' 'mh' 'muse' 'nanotech'
+  'theunraveler' 'tonotdo' 'wedisagree'
 )
 
 # Set custom folder for personal aliases, plugins and themes
@@ -96,4 +96,14 @@ fi
 # export PAGER="less -SRXF" # -- https://www.mycli.net/pager
 
 # source $HOME/dotfiles/zsh/tmux_init.zsh
+
+# Shell wrapper that provides the ability to change the current working directory when exiting Yazi
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
 

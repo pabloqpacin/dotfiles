@@ -116,7 +116,7 @@ setup_zsh() {
         ln -s ~/dotfiles/.zshrc ~/
     fi
     
-    if [[! -d ~/dotfiles/zsh/plugins/zsh-autosuggestions || ! -d ~/dotfiles/zsh/plugins/zsh-syntax-highlighting ]]; then
+    if [[ ! -d ~/dotfiles/zsh/plugins/zsh-autosuggestions || ! -d ~/dotfiles/zsh/plugins/zsh-syntax-highlighting ]]; then
         bash $HOME/dotfiles/zsh/plugins/clone-em.sh
     fi
 }

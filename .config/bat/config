@@ -21,7 +21,8 @@
 # enable mouse scrolling support in `bat` when running inside tmux. This might
 # disable text selection, unless you press shift.
 #--pager="less --RAW-CONTROL-CHARS --quit-if-one-screen --mouse"
---pager="less -j2 -FR --mouse --wheel-lines 4" # requires Shift to select text
+#--pager="less -j2 -FR --mouse --wheel-lines 4" # requires Shift to select text
+--pager="less -SFXR --mouse --wheel-lines 4" # requires Shift to select text
 
 --wrap=character
 
@@ -40,4 +41,5 @@
 --map-syntax ".zsh_history:log"
 --map-syntax "*jsonc:JSON"
 --map-syntax "*ino:C"
+--map-syntax "ldif:YAML"
 # bat --list-languages

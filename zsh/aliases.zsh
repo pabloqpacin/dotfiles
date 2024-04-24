@@ -1,5 +1,6 @@
-# aguu='sudo apt update && sudo apt upgrade'
-# agi='sudo apt install'
+# # omz plugins' aliases: agu aguu agi, gst ga gd gds, ...
+
+alias cgst='clear && gst'
 
 alias MP='sudo mount -t nfs 192.168.1.5:/var/pi-nfs /mnt/pi-nfs || echo "Failed to mount NFS share"'
 alias UP='sudo umount /mnt/pi-nfs || echo "Failed to unmount NFS share"'
@@ -7,7 +8,7 @@ alias UP='sudo umount /mnt/pi-nfs || echo "Failed to unmount NFS share"'
 
 alias spy='sudo pacman -Syu'
 alias sps='sudo pacman -S'
-alias yy='yay -Syu --cleanmenu=false --diffmenu=false'
+alias ysy='yay -Syu --cleanmenu=false --diffmenu=false'
 
 alias snr='sudo snap refresh'
 alias updeez='sudo apt update -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y'
@@ -33,12 +34,13 @@ alias clera="echo 'wtf'"
 alias claer="echo 'wtf'"
 alias exot="echo 'wtf'"
 
-alias tree="tree -C"
-alias trea="tree -C -aI .git"
+#alias tree="tree -C -L"
+#alias trea="tree -C -aI .git -L"
 alias less="less --mouse --wheel-lines=3"
 
 if command -v eza &>/dev/null; then
     # alias ez="eza --icons -1"
+    alias eza="eza --icons"
     alias ls="eza --icons --group-directories-first --git"
     alias laz="eza -la -ShiI .git --no-user --octal-permissions --group-directories-first --git"
     alias tree="eza -T"
@@ -105,7 +107,8 @@ fi
 alias nst='netstat -lnpt'       # Active server connections ish
 alias nmapkenobi="nmap -p- -sS -sC -sV --open --min-rate 5000 -n -vvv -Pn"  # add IP
 alias cargo-update="cargo install-update -a"
-alias fup='flatpak update -y'
+alias fup='flatpak update'
+alias fupy='flatpak update -y'
 alias kpc='keepassxc-cli'
 alias dneo="neo -D"
 
@@ -195,3 +198,7 @@ alias ftail='tail -f'
 # }
 
 alias tolower="tr '[:upper:]' '[:lower:]'"
+
+whatismyip(){
+    dig +short myip.opendns.com @resolver1.opendns.com
+}
