@@ -3,7 +3,7 @@ import:
   # GOOD: blood_moon cambpell github_dark_colorblind midnight-haze monokai_charcoal rose-pine tokyo-night-storm
 
 window:
-  decorations: None
+  decorations: none
   # startup_mode: Maximized
   dimensions:
     columns: 160

@@ -1,0 +1,52 @@
+# Diff Vs Yaml: Decorations & Maximized
+
+import = ["/home/pabloqpacin/.config/alacritty/themes/campbell.toml"]
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[font]
+size = 9.5
+
+[font.bold]
+family = "CaskaydiaCove Nerd Font"
+style = "Bold"
+
+[font.normal]
+family = "CaskaydiaCove Nerd Font"
+style = "Regular"
+
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "Return"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "ScrollLineDown"
+key = "J"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "ScrollLineUp"
+key = "K"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "ToggleFullscreen"
+key = "F11"
+
+[scrolling]
+history = 20000
+multiplier = 5
+
+[window]
+opacity = 0.8
+startup_mode = "Maximized"
+
+[window.class]
+general = "Alacritty"
+instance = "Alacritty"
+
+[window.padding]
+x = 5
+y = 5
