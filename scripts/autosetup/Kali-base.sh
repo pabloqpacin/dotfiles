@@ -73,13 +73,13 @@ clone_symlink_dotfiles() {
 }
 
 setup_nerdfonts(){
-
     if [ ! -d ~/.fonts ]; then mkdir ~/.fonts; fi
 
-    if ! fc-cache -v | grep -q FiraCodeNerdFont; then
-        wget -qO /tmp/FiraCode.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip
-        unzip /tmp/FiraCode.zip -d ~/.fonts/FiraCodeNerdFont
-        fc-cache -f
+    if ! fc-cache -v | grep -q 'FiraCodeNerdFont'; then
+        local FCNF_URL='https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip'
+        wget -qO /tmp/FiraCode.zip $FCNF_URL &&
+            unzip /tmp/FiraCode.zip -d ~/.fonts/FiraCodeNerdFont &&
+            fc-cache -f
     fi
 
     sed -i 's/FiraCode/FiraCodeNerdFont/' ~/.config/qterminal.org/qterminal.ini
@@ -99,6 +99,7 @@ tweak_zsh(){
             echo "alias aguu='sudo apt update && sudo apt upgrade'"
             echo "alias agi='sudo apt install'"
             echo "alias gst='git status'"
+            echo "alias ga='git add'"
             echo "alias gd='git diff'"
             echo "alias gds='git diff --staged'"
         } | tee -a ~/dotfiles/zsh/aliases.zsh

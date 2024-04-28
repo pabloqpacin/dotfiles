@@ -39,9 +39,8 @@ alias exot="echo 'wtf'"
 alias less="less --mouse --wheel-lines=3"
 
 if command -v eza &>/dev/null; then
-    # alias ez="eza --icons -1"
-    alias eza="eza --icons"
-    alias ls="eza --icons --group-directories-first --git"
+    # alias ls="eza --icons"
+    alias eza="eza --icons --group --group-directories-first --git"
     alias laz="eza -la -ShiI .git --no-user --octal-permissions --group-directories-first --git"
     alias tree="eza -T"
     alias trez="eza -laI .git --no-user --no-permissions --no-filesize --group-directories-first --git -T"
@@ -109,7 +108,7 @@ alias nmapkenobi="nmap -p- -sS -sC -sV --open --min-rate 5000 -n -vvv -Pn"  # ad
 alias cargo-update="cargo install-update -a"
 alias fup='flatpak update'
 alias fupy='flatpak update -y'
-alias kpc='keepassxc-cli'
+alias kcli='keepassxc-cli'
 alias dneo="neo -D"
 
 # Toggle autosuggestions & syntax highlighting with Ctrl+Alt+E
@@ -202,3 +201,13 @@ alias tolower="tr '[:upper:]' '[:lower:]'"
 whatismyip(){
     dig +short myip.opendns.com @resolver1.opendns.com
 }
+
+bat-f() {
+    # USAGE: bat-f /tmp/foo.txt -- https://github.com/sharkdp/bat/issues/457
+    tail -f "$1" | bat -l=log --paging=never
+}
+
+bat-ff() {
+    tail -f "$1" -n +1 | bat -l=log --paging=never
+}
+

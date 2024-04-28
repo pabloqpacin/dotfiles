@@ -1,28 +1,23 @@
 #!/usr/bin/env bash
 
 echo -e "\n----################################################################----"
-echo -e   "#######~~~~{     UbuntuServer-base v1.2  by @pabloqpacin    }~~~~#######"
+echo -e   "#######~~~~{     UbuntuServer-base v1.3  by @pabloqpacin    }~~~~#######"
 echo -e "----################################################################----\n"
 
 ### Tested successfully on Ubuntu 22.04 (fresh VM):
-# wget https://raw.githubusercontent.com/pabloqpacin/dotfiles/main/scripts/autosetup/UbuntuServer-base.sh && \
-# bash UbuntuServer-base.sh
+# bash -c "$(curl -fsSL https://raw.githubusercontent.com/pabloqpacin/dotfiles/main/scripts/autosetup/UbuntuServer-base.sh)"
 
 ### NOTE: run as normal user, not tested as root
 
-########## VARIABLES ##########
-
-sa_update="sudo apt-get update"
-sa_install="sudo apt-get install"
-current_shell=$(echo $SHELL | awk -F '/' '{print $NF}')
-
-########## FUNCTIONS ##########
 
 set_variables() {
     read -p "Skip all 'sudo apt-get install <pkg>' prompts? [y/N] " opt
-    case $opt in 'Y' | 'y')
-        sa_install="sudo apt-get install -y"
+    case $opt in
+        'Y'|'y') sa_install="sudo apt-get install -y" ;;
+              *) sa_install="sudo apt-get install" ;;
     esac
+    current_shell=$(echo $SHELL | awk -F '/' '{print $NF}')
+    sa_update="sudo apt-get update"
 }
 
 update_system() {
@@ -36,9 +31,9 @@ update_system() {
 
 install_base_apt() {
 
-    $sa_install curl git openssh-server wget
     $sa_install neofetch --no-install-recommends
-    $sa_install btop fzf grc ipcalc mycli nmap ripgrep tldr tmux tree
+    $sa_install curl git openssh-server wget net-tools
+    $sa_install btop fzf grc ipcalc jq mycli ncat nmap ripgrep tldr tmux tree
     $sa_install bat && sudo mv /usr/bin/batcat /usr/bin/bat
     # $sa_install python3-pip python3-venv --no-install-recommends
 
@@ -62,40 +57,52 @@ install_base_dpkg(){
         rm $delta_pkg
 }
 
-clone_dotfiles() {
+clone_symlink_dotfiles() {
     if [ ! -d ~/dotfiles ]; then
         git clone --depth 1 https://github.com/pabloqpacin/dotfiles ~/dotfiles; fi
 
     if [ ! -d ~/.config ]; then
         mkdir ~/.config &>/dev/null; fi
 
+    if true; then
+        sudo mkdir /root/.config &>/dev/null; fi
+
     if [ ! -L ~/.myclirc ]; then
         ln -s ~/dotfiles/.myclirc ~/; fi
 
     if [ ! -L ~/.config/bat ]; then
+        sed -i 's/OneHalfDark/Coldark-Dark/' ~/dotfiles/.config/bat/config
         ln -s ~/dotfiles/.config/bat ~/.config
-        sed -i 's/OneHalfDark/Coldark-Dark/' ~/.config/bat/config
+        sudo ln -s ~/dotfiles/.config/bat /root/.config
     fi
 
     # if [ ! -L ~/.config/btop ]; then
     #     ln -s ~/dotfiles/.config/btop ~/.config; fi
 
     if [ ! -L ~/.config/lf ]; then
-        ln -s ~/dotfiles/.config/lf ~/.config; fi
-
-    if [ ! -L ~/.config/tmux ]; then
-        ln -s ~/dotfiles/.config/tmux ~/.config; fi
-
-    if [ ! -L ~/.vimrc ]; then
-        ln -s ~/dotfiles/.vimrc ~/ && \
-            sudo ln -s $HOME/dotfiles/.vimrc /root/ && \
-            sed -i 's/nvim/vim/g' ~/dotfiles/.zshrc
+        ln -s ~/dotfiles/.config/lf ~/.config
+        sudo ln -s ~/dotfiles/.config/lf /root/.config
     fi
-
+    if [ ! -L ~/.config/tmux ]; then
+        ln -s ~/dotfiles/.config/tmux ~/.config
+    fi
+    if [ ! -L ~/.vimrc ]; then
+        if [ -e ~/.vimrc]; then mv ~/.vimrc{,.bak}; fi
+        sed -i "s/'nvim'/'vim'/g" ~/dotfiles/.zshrc
+        ln -s ~/dotfiles/.vimrc ~/
+        sudo ln -s ~/dotfiles/.vimrc /root/
+    fi
     if [ ! -L ~/.gitconfig ]; then
-        ln -s ~/dotfiles/.gitconfig ~/ && \
-            sed -i '/github/d' ~/.gitconfig && \
-            sed -i "s/pabloqpacin/$USER/" ~/.gitconfig
+        sed -i '/github/d' ~/dotfiles/.gitconfig && 
+        sed -i "s/pabloqpacin/$USER/" ~/dotfiles/.gitconfig
+        ln -s ~/dotfiles/.gitconfig ~/
+    fi
+    if command -v nvim &>/dev/null; then
+        sed -i "s/'vim'/'nvim'/g" ~/dotfiles/.zshrc
+        ln -s ~/dotfiles/.config/nvim ~/.config
+        sudo mkdir -p /root/.config/nvim &&
+        sudo ln -s ~/dotfiles/.vimrc /root/.config/nvim/init.vim
+        # still funky, no colors in UbuntuBox... kinda crap
     fi
 }
 
@@ -121,25 +128,25 @@ setup_zsh() {
     fi
 }
 
-install_base_go() {
-    $sa_update && $sa_install golang
-
-    source ~/dotfiles/zsh/golang.zsh
-
-    # if ! command -v fzf &>/dev/null; then
-    #     go install github.com/junegunn/fzf@latest; fi
-    
-    # if ! command -v lf &>/dev/null; then
-    #     go install github.com/gokcehan/lf@latest; fi
-
-    if ! command -v cheat &>/dev/null; then
-        go install github.com/cheat/cheat/cmd/cheat@latest; fi
-
-    if [ ! -L ~/.config/cheat/conf.yml ]; then
-        yes | cheat
-        bash -x $HOME/dotfiles/scripts/setup/cheat-symlink.sh
-    fi
-}
+# install_base_go() {
+#     $sa_update && $sa_install golang
+#
+#     source ~/dotfiles/zsh/golang.zsh
+#
+#     # if ! command -v fzf &>/dev/null; then
+#     #     go install github.com/junegunn/fzf@latest; fi
+#
+#     # if ! command -v lf &>/dev/null; then
+#     #     go install github.com/gokcehan/lf@latest; fi
+#
+#     if ! command -v cheat &>/dev/null; then
+#         go install github.com/cheat/cheat/cmd/cheat@latest; fi
+#
+#     if [ ! -L ~/.config/cheat/conf.yml ]; then
+#         yes | cheat
+#         bash -x $HOME/dotfiles/scripts/setup/cheat-symlink.sh
+#     fi
+# }
 
 install_docker() {
 
@@ -159,8 +166,48 @@ install_docker() {
     fi
 }
 
+# Commit nvim-dap OUT
+setup_nvim(){
 
-########### RUNTIME ###########
+    if ! command -v nvim &>/dev/null; then
+        $sa_update && $sa_install build-essential cmake gettext ninja-build unzip
+        cd $HOME && git clone --depth 1 https://github.com/neovim/neovim.git &&
+            cd neovim && make CMAKE_BUILD_TYPE=Release &&
+            sudo make install && cd $HOME && rm -rf neovim
+    fi
+
+    if ! command -v npm &>/dev/null; then
+        if [ ! -s "$HOME/.nvm/nvm.sh" ]; then
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+        fi
+        if ! command -v node &>/dev/null && ! command -v npm &>/dev/null; then
+            [ -s "$HOME/.nvm/nvm.sh" ] && \. "$HOME/.nvm/nvm.sh"
+            nvm install node
+        fi
+    fi
+
+    if [ ! -d ~/.local/share/nvim/site/pack/packer/start/packer.nvim ]; then
+        git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+            ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+    fi
+
+    if [ ! -L ~/.config/nvim ]; then
+        sudo mkdir -p /root/.config/nvim &&
+        sudo ln -s ~/dotfiles/.vimrc /root/.config/nvim/init.vim
+
+        ln -s ~/dotfiles/.config/nvim ~/.config
+        cd ~/.config/nvim && {
+            read -p "Pasa los mensajes de error con <INTRO>, luego escribe :so <INTRO>, :PackerSync <INTRO> y :qa <INTRO> " null
+            nvim lua/pabloqpacin/packer.lua
+            read -p "Pasa los mensajes de error con <INTRO>, luego escribe :Mason <INTRO> y :qa <INTRO> " null
+            nvim after/plugin/lsp.lua
+            cd $HOME
+        }
+    fi
+
+}
+
+# ---
 
 # echo "$(dpkg -l | wc -l) paquetes intalados" >> /tmp/install.log && \
 # df -h | grep '/$' >> /tmp/install.log
@@ -171,13 +218,23 @@ update_system
 install_base_apt
 install_base_dpkg       # git-delta lf
 
-clone_dotfiles          # symlinks: bat mycli tmux .vimrc .gitconfig    # btop
+clone_symlink_dotfiles
 setup_zsh
 
 # install_base_go         # cheat fzf   # lf
 install_docker
 
-echo "" && neofetch && echo -e "\nKindly reboot.\n"
+opt_nvim=''
+while [[ $opt_nvim != 'y' && $opt_nvim != 'n' ]]; do
+    read -p "Setup neovim [y/n]? " opt_nvim
+done
+if [[ $opt_nvim == 'y' ]]; then
+    setup_nvim
+fi
+
+
+echo "" && neofetch && sudo grc docker ps -a && echo "" && df -h | grep -e '/$' -e 'Mo'
+[ -f /var/run/reboot-required ] && echo -e "\nKindly reboot.\n"
 
 
 # ---
