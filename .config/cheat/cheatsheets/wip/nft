@@ -1,0 +1,5 @@
+# List nft rules:
+sudo nft list ruleset | bat -l conf
+
+# Load a ruleset file:
+nft -f filename

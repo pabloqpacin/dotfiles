@@ -10,8 +10,8 @@ exec --no-startup-id xset dpms 600 600 600
 # exec --not-startup-id alacritty && workspace 1
 # exec --no-startup-id waybar
 
-gaps inner 4
-gaps outer 1
+# gaps inner 4                          # ERROR CONFIG: Expected one of these tokens: ...
+# gaps outer 1                          # ERROR CONFIG: Expected one of these tokens: ...
 
 no_focus [title="^Peek preview$"]
 workspace_auto_back_and_forth yes
@@ -46,7 +46,7 @@ bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 
 floating_modifier $mod
-tiling_drag modifier titlebar
+# tiling_drag modifier titlebar         # ERROR CONFIG: Expected one of these tokens: ... 
 bindsym $mod+r mode "resize"
 mode "resize" {
         bindsym h resize grow width 10 px or 10 ppt

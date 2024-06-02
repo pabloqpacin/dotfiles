@@ -1,5 +1,9 @@
 # # omz plugins' aliases: agu aguu agi, gst ga gd gds, ...
 
+# alias rm='mv $1 /tmp/$1'
+
+alias td='tcpdump'
+alias ff='fastfetch'
 alias cgst='clear && gst'
 
 alias MP='sudo mount -t nfs 192.168.1.5:/var/pi-nfs /mnt/pi-nfs || echo "Failed to mount NFS share"'
@@ -39,7 +43,7 @@ alias exot="echo 'wtf'"
 alias less="less --mouse --wheel-lines=3"
 
 if command -v eza &>/dev/null; then
-    # alias ls="eza --icons"
+    alias ls="eza --icons"
     alias eza="eza --icons --group --group-directories-first --git"
     alias laz="eza -la -ShiI .git --no-user --octal-permissions --group-directories-first --git"
     alias tree="eza -T"
