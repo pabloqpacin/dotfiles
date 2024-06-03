@@ -35,6 +35,12 @@ git push origin new-branch
 # Git rename
 git mv OLD-FILENAME NEW-FILENAME
 
+# Check local diff against remote
+git diff origin/main
+
+# Show X stash diff
+git stash show -p stash@{0}
+
 # ==========
  
 # # Git submodules

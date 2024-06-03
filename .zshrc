@@ -11,6 +11,7 @@ fi
 if command -v bat &>/dev/null; then
   case $distro in
     "arch") export MANPAGER="bat -l man -p --theme=Nord" ;;
+    "ubuntu") export MANPAGER="bat -l man -p --theme=Nord" ;;
     *) export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'" ;;
   esac
 fi

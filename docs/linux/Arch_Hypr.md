@@ -132,18 +132,28 @@ ln -s ~/dotfiles/.config/cheat/cheatsheets/personal ~/.config/cheat/cheatsheets/
 
 ```bash
 lscpu | less
+lsblk
+sudo blkid
 free -h
 ```
 
-- Wifi...
+- Setup WiFi if necessary (not recommended, just use an Ethernet cable)
 
 ```bash
+# Verify the internet connection
+ip link
+
 iwctl
 device list
 # device wlan0 set-property Powered on
 station wlan0 scan
 station wlan0 get-networks
 station wlan0 connect MOVISTAR_C600
+
+# # Config WiFi if necessary
+# sudo nmtui
+# # $ nmcli radio wifi                            # see status
+# # $ nmcli radio wifi off                        # turn on/off
 ```
 
 - Manage disks and install a base system
@@ -152,16 +162,8 @@ station wlan0 connect MOVISTAR_C600
 # Set Spanish keyboard
 loadkeys es
 
-# Verify the internet connection
-ip link
-
-# Config WiFi if necessary
-sudo nmtui
-# $ nmcli radio wifi                            # see status
-# $ nmcli radio wifi off                        # turn on/off
-
 # To ssh from another machine:
-# $ systemctl enable --now sshd && passwd root
+systemctl enable --now sshd && passwd root      # 1234
 # To ssh into a VM, ensure networking is set to Bridged Network.
 ```
 ```bash
@@ -174,19 +176,35 @@ efibootmgr
     # Below we provide baremetal on the left and VM on the right
     # If multiboot with existing boot partition, mount it and only create the / partition
 
-cfdisk /dev/nvme0n1                                     # /dev/sda
-    # GPT: 1024MiB EFI, 4GiB Swap, 200GiB Linux         << bare-metal multiboot
-    # DOS: 512MiB bootable, 2GiB Swap, maxGiB Linux     << VM
+cfdisk /dev/nvme0n1                                             # /dev/sda
+    # GPT: 1024MiB EFI, 4GiB Swap, 200GiB Linux                 << bare-metal multiboot
+    # DOS: 512MiB bootable, 2GiB Swap, maxGiB Linux             << VM
 
-mkfs.vfat -F32 /dev/nvme0n1p1                           # /dev/sda1
-mkfs.ext4 /dev/nvme0n1p3                                # /dev/sda3
-mkswap /dev/nvme0n1p2 && swapon /dev/nvme0n1p2          # /dev/sda2
+mkfs.vfat -F32 -n ARCHBOOT /dev/nvme0n1p1                       # /dev/sda1
+mkswap -L SWAP /dev/nvme0n1p2 && swapon /dev/nvme0n1p2          # /dev/sda2
+# mkfs.ext4 -L ARCH /dev/nvme0n1p3                              # /dev/sda3
+mkfs.btrfs -L ARCH /dev/nvme0n1p3 -f                            # /dev/sda3
 
-mount /dev/nvme0n1p3 /mnt                               # /dev/sda3
-mkdir -p /mnt/boot/efi                                  # /mnt/boot
-mount /dev/nvme0n1p1 /mnt/boot/efi                      # /dev/sda1 /mnt/boot
+mount /dev/nvme0n1p3 /mnt                                       # /dev/sda3
+btrfs subvolume create /mnt/@
+btrfs subvolume create /mnt/@home
+btrfs subvolume create /mnt/@var
+btrfs subvolume create /mnt/@snapshots
+umount /mnt
 
+mount -o subvol=@ /dev/nvme0n1p3 /mnt
+mkdir -p /mnt/{boot/efi,home,var,snapshots}
+{
+  mount -o subvol=@home /dev/nvme0n1p3 /mnt/home
+  mount -o subvol=@var /dev/nvme0n1p3 /mnt/var
+  mount -o subvol=@snapshots /dev/nvme0n1p3 /mnt/snapshots
+  mount /dev/nvme0n1p1 /mnt/boot/efi
+}
 
+# mkdir -p /mnt/boot/efi                                  # /mnt/boot
+# mount /dev/nvme0n1p1 /mnt/boot/efi                      # /dev/sda1 /mnt/boot
+```
+```bash
 # Improve live ISO pacman performance --> uncomment Misc option "ParallelDownloads=5"
 vim /etc/pacman.conf
 
@@ -196,9 +214,10 @@ pacman -Sy archlinux-keyring
 # pacman-key --populate archlinux
 
 # Install the base system -- exclude irrelevant packages (Nvidia if VM, bootloader if NixOS multiboot...)
-pacstrap /mnt linux linux-firmware base base-devel networkmanager neovim neofetch git \
-              linux-headers intel-ucode nvidia-open-dkms sof-firmware alsa-firmware \
-              grub os-prober efibootmgr wget
+pacstrap /mnt \
+    linux linux-firmware base base-devel networkmanager neovim neofetch git \
+    linux-headers intel-ucode nvidia-open-dkms sof-firmware alsa-firmware \
+    grub os-prober efibootmgr wget openssh
 
 # Save the filesystem table
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -209,23 +228,28 @@ arch-chroot /mnt
 - Prep the new installation
 
 ```bash
-# Set keyboard layouts, locales and time
+# Region and Locale
 echo "KEYMAP=es" > /etc/vconsole.conf
-nvim /etc/locale.gen
-    # uncomment en_US.UTF line
+sed -i '/en_US.UTF/s/^/#/' /etc/locale.gen
 locale-gen
 ln -sf /usr/share/zoneinfo/Europe/Madrid /etc/localtime
 
-# Set networking and pacman tweaks
+# Hostname and Networking
 systemctl enable NetworkManager
 echo "ArchBox" > /etc/hostname
-nvim /etc/hosts
-    # append "127.0.0.1         localhost"
-    # append "127.0.0.1         ArchBox"
+{
+  echo "127.0.0.1               localhost"
+  echo "127.0.0.1               ArchBox"
+} | tee -a /etc/hosts
 
-nvim /etc/pacman.conf
-    # uncomment Misc options: Color VerbosePkgLists ParallelDownloads=10 -- add ILoveCandy
-    # uncoment both the [multilib] and Include lines to enable 'multilib' repo for Steam
+# Pacman
+sed -i '/#ParallelDownloads/s/#//; /ParallelDownloads/s/5/10/' /etc/pacman.conf
+sed -i 's/^#Color/Color\nILoveCandy/' /etc/pacman.conf
+sed -i '/^#VerbosePkgLists/s/#//' /etc/pacman.conf
+
+# Enable multilib repo for Steam
+# sed -i '/\[multilib\]/s/^#//' /etc/pacman.conf
+# sed -i '/Include = \/etc\/pacman.d\/mirrorlist/s/^#//' /etc/pacman.conf
 ```
 
 ```bash
@@ -253,8 +277,9 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 ```bash
 # Create user
-useradd -m -g users -G wheel username
-passwd username
+groupadd pabloqpacin
+useradd -mg pabloqpacin -G wheel pabloqpacin
+passwd pabloqpacin
 passwd root
 EDITOR=nvim visudo
     # uncomment top %wheel ALL=(ALL:ALL) ALL
@@ -281,6 +306,17 @@ Ensure bootable OS:
 
 ## post-install config
 
+- btrfs snapshot
+  - [ ] https://github.com/Antynea/grub-btrfs
+
+```bash
+sudo pacman -S btrfs-progs
+# sudo btrfs subvolume snapshot /mnt /mnt/snapshots/@_initial
+# sudo btrfs subvolume snapshot /mnt/@ /mnt/snapshots/@_initial
+
+# TODO: do properly
+```
+
 - Update system and prepare environment
 
 ```bash
@@ -302,10 +338,11 @@ sudo pacman -Rns go
 yay -S --noconfirm --cleanmenu=false --diffmenu=false brave-bin cheat-bin nvim-packer-git   # 2) noto-fonts
 
 # Install fave software
-sudo pacman -S alacritty bat bottom btop eza fzf git-delta grc inetutils jq less lf \
-               man man-pages nmap openssh python-pip python ripgrep tldr tmux tree \
-               ttf-firacode-nerd ttf-cascadia-code-nerd unzip whois zoxide zsh
-               # openbsd-netcat
+sudo pacman -S --noconfirm \
+  alacritty bat bottom btop eza fastfetch fzf git-delta grc inetutils jq \
+  less lf man man-pages nmap python-pip python ripgrep tldr tmux tree \
+  ttf-firacode-nerd ttf-cascadia-code-nerd unzip whois zoxide zsh
+  # openbsd-netcat
 
 yay -S --noconfirm --cleanmenu=false --diffmenu=false dnslookup-bin mycli termshark vscodium-bin
 sudo usermod -aG wireshark $USER
@@ -332,8 +369,7 @@ lspci -v | rg -A1 -e VGA -e 3D \
   && sudo pacman -S nvtop nvidia-settings gwe
 
 # If WM, tweak them fonts:
-sudo nvim /usr/share/fontconfig/conf.avail/69-unifont.conf
-    # :%s/FreeMono/FiraCode Nerd Font/
+sed -i 's/FreeMono/FiraCode Nerd Font/' /usr/share/fontconfig/conf.avail/69-unifont.conf
 
 # If baremetal and WM, create relevant mountpoints:
 sudo pacman -S ntfs-3g progress udiskie udisks2
@@ -372,9 +408,9 @@ ln -s ~/dotfiles/.config/qt5ct ~/.config
 ```bash
 # Hyprland
 sudo pacman -S hyprland qt5-wayland qt6-wayland qt5ct xdg-desktop-portal-hyprland
-yay -S rofi-lbonn-wayland-git rofi-power-menu rofi-emoji
+yay -S --cleanmenu=false --diffmenu=false rofi-lbonn-wayland-git rofi-power-menu rofi-emoji
 sudo pacman -S mako polkit-kde-agent swaybg waybar    # 2) pipewire-jack && 2) wireplumber
-yay -S wev swayidle swaylock-effects
+yay -S --cleanmenu=false --diffmenu=false wev swayidle swaylock-effects
 
 # Certain packages could be replaced with:
 # $ yay -S eww-wayland dunst hyprpaper
@@ -394,14 +430,41 @@ sudo pacman -S alsa-utils pamixer pipewire-alsa pipewire-audio pipewire-pulse
 sudo pacman -S brightnessctl bluez bluez-utils blueman
     # $ systemctl --user enable bluetooth
 
-sudo pacman -S thunar thunar-volman thunar-archive-plugin gvfs file-roller tumbler
-# TODO: nautilus
+# sudo pacman -S thunar thunar-volman thunar-archive-plugin gvfs file-roller tumbler
+sudo pacman -S nautilus
+# sudo pacman -S polkit udisks2
+sudo usermod -aG storage $USER
+echo "
+polkit.addRule(function(action, subject) {
+    if ((action.id == "org.freedesktop.udisks2.filesystem-mount-system" ||
+         action.id == "org.freedesktop.udisks2.filesystem-mount") &&
+        subject.isInGroup("storage")) {
+        return polkit.Result.YES;
+    }
+});
+" | sudo tee /etc/polkit-1/rules.d/49-nopasswd_global.rules
+sudo systemctl restart polkit
 
 # sudo pacman -S lightdm lightdm-gtk-greeter xdg-utils
 
 # sudo systemctl enable lightdm
 # sudo nvim /etc/lightdm/lightdm.conf
 #     # uncomment and change greeter-session=example... for lightdm-gtk-greeter
+
+
+sudo pacman -S greetd
+sudo sed -i 's/\/bin\/sh/Hyprland/' /etc/greetd/config.toml
+sudo useradd -M -G video greeter    # https://sr.ht/~kennylevinsen/greetd/
+sudo chmod -R go+r /etc/greetd/
+sudo systemctl enable greetd
+
+# sudo pacman -S greetd-gtkgreet
+
+yay -S greetd-qtgreet   # ...
+sed -i '/command =.*/s//command = "Hyprland --config \/etc\/greetd\/hyprland.conf"/' /etc/greetd/config.toml
+echo "exec-once = qtgreet; hyprctl dispatch exit" | sudo tee -a /etc/greetd/hyprland.conf
+
+echo -e "\n[input]\nxkb_layout = es" | tee -a /etc/qtgreet/wayfire.ini
 ```
 
 ```bash
@@ -492,15 +555,24 @@ bash ~/dotfiles/scripts/setup/omz*
 bash ~/dotfiles/zsh/plugins/clone-em.sh
 
 # Them symlinks
+sudo mkdir -p /root/.config/nvim
+sudo ln -s ~/dotfiles/.vimrc /root/.config/nvim/init.vim
+sudo ln -s ~/dotfiles/.config/bat /root/.config
+sudo ln -s ~/dotfiles/.config/lf /root/.config
+
 ln -s ~/dotfiles/.myclirc ~
 ln -s ~/dotfiles/.gitconfig ~
 ln -s ~/dotfiles/.config/lf ~/.config
 ln -s ~/dotfiles/.config/bat ~/.config
 ln -s ~/dotfiles/.config/btop ~/.config
 ln -s ~/dotfiles/.config/bottom ~/.config
-ln -s ~/dotfiles/.config/nvim ~/.config
+ln -s ~/dotfiles/.config/fastfetch ~/.config
 ln -s ~/dotfiles/.config/tmux ~/.config
+ln -s ~/dotfiles/.config/nvim ~/.config
 ln -s ~/dotfiles/.config/alacritty ~/.config
+
+bash ~/dotfiles/.config/yazi/clone_em.sh
+ln -s ~/dotfiles/.config/yazi ~/.config
 
 # codium && sleep 3 && pkill codium
 bash ~/dotfiles/scripts/setup/codium*
@@ -546,7 +618,7 @@ sudo pacman -S spotify-launcher spotifyd
 sudo pacman -S wireshark-qt \
   && sudo usermod -aG wireshark username
 
-sudo pacman -S virtualbox virtualbox-guest-iso              # 2) virtualbox-host-dkms
+sudo pacman -S virtualbox virtualbox-host-modules-arch virtualbox-guest-iso
     # $ ls /usr/lib/virtualbox/additions/VBoxGuestAdditions.iso
     # $ sudo nvim /etc/default/grub >> add itb=off ...
 ```

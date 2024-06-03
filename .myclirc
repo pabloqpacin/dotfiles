@@ -14,7 +14,7 @@ multi_line = True
 # Destructive warning mode will alert you before executing a sql statement
 # that may cause harm to the database such as "drop table", "drop database"
 # or "shutdown".
-destructive_warning = True
+destructive_warning = False
 
 # log_file location.
 log_file = ~/.mycli.log
@@ -70,11 +70,15 @@ wider_completion_menu = False
 # \A - DSN alias name (from the [alias_dsn] section)
 # \u - Username
 # \x1b[...m - insert ANSI escape sequence
-prompt = "\n\t [\d]> "
+#prompt = "\n\t [\d]> "
+#prompt = '\x1b[33m\u\x1b[35m@\x1b[32m\h:\x1b[36m\d> '
+#prompt = '\x1b[36m\u\x1b[32m@\h:\x1b[33m\d\x1b[0m> '
+#prompt = '[\R:\m:\s] \x1b[36m\u\x1b[0m@\x1b[32m\h\x1b[0m:\x1b[33m\d\x1b[0m> '
+prompt = '\x1b[36m\u\x1b[0m@\x1b[32m\h\x1b[0m:\x1b[33m\d\x1b[0m> '
 prompt_continuation = ->
 
 # Skip intro info on startup and outro info on exit
-less_chatty = False
+less_chatty = True
 
 # Use alias from --login-path instead of host name in prompt
 login_path_as_host = False
