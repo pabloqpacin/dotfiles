@@ -296,3 +296,11 @@ bash $HOME/dotfiles/scripts/rpi_sysbench.sh
 ### OpenWRT
 
 > - @NetworkChuck: [my SUPER secure Raspberry Pi Router (wifi VPN travel router)](https://www.youtube.com/watch?v=jlHWnKVpygw)
+
+
+---
+
+<!--
+
+- [ ] cyberdeck:
+    - https://www.doscher.com/

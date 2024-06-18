@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo -e "\n----################################################################----"
-echo -e "#########~~~~~{     DebUbu-base v1.3  by @pabloqpacin    }~~~~~#########"
+echo -e "#########~~~~~{     DebUbu-base v1.4  by @pabloqpacin    }~~~~~#########"
 echo -e "----################################################################----\n"
 
 ### Tested and good to run on Debian 12, Ubuntu 22.04 and Pop!_OS 22.04 (freshly installed VMs):
@@ -55,6 +55,8 @@ function base_apt_packages {
         tldr --update
     fi
     
+    sudo mv $(which batcat) /usr/bin/bat
+
     # $sa_install wireshark tshark && sudo usermod -aG wireshark $USER      # WARNING: non-sudo? yes
     # $sa_install keepassxc && mkdir ~/KPXC && xdg-open https://keepassxc.org/docs/KeePassXC_UserGuide#_setup_browser_integration
     # $sa_install flameshot
@@ -84,6 +86,7 @@ function install_rust_tools {
     else
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Rust pkgs${RESET}${YELLOW} ####################${RESET}"
         $HOME/.cargo/bin/cargo install bat bottom eza git-delta zoxide  # fd-find
+        $HOME/.cargo/bin/cargo install --locked yazi-fm
     fi
 }
 
@@ -310,8 +313,7 @@ function dotfiles_neovim {
          ~/.local/share/nvim/site/pack/packer/start/packer.nvim
     fi
     ln -s $HOME/dotfiles/.config/nvim $HOME/.config
-    read -p "
-Skip error messages with <Enter>, then do :so :PackerSync :qa " null
+    read -p "Skip error messages with <Enter>, then do :so :PackerSync :qa " null
     cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua; cd $HOME
     # # $ :so && :PackerSync && :PackerCompile && :MasonUpdate
 }

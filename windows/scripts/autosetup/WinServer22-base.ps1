@@ -114,7 +114,7 @@ function install_pwsh {
 
 function install_terminal {
 
-    # PROBLEMA CON WINSERVER2019
+    # PROBLEMA CON WINSERVER2019 (OJO): transparencias o qué
 
     if (-not (Test-Path 'C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_*\wt.exe')) {
         
@@ -268,13 +268,14 @@ function install_misc {
     # ... eza lf ... 
 
     if (-not (Test-Path 'C:\Program Files\bat')) {
+        # NOT FOUND THO?
 
         install_vcpp_redist
 
         Write-Output '== Downloading Bat =='
         $pkg = 'bat-v0.24.0-x86_64-pc-windows-gnu.zip'
         Invoke-WebRequest -Uri https://github.com/sharkdp/bat/releases/download/v0.24.0/$pkg -OutFile $pkg
-        
+
         if ($?) {
             Write-Output '== Installing Bat =='
             Expand-Archive -Path $pkg -DestinationPath 'C:\Program Files\'
@@ -295,8 +296,47 @@ function install_misc {
 # function install_wsl {}
 # function setup_dotfiles { ... pwsh (oh-my-posh) vscode terminal (misc) ... }
 
+function setup_dotfiles {
+
+    if (-not (Test-Path -Path "$env:HOMEPATH\dotfiles" -PathType Container)) {
+        Write-Output '== Cloning git repo: pabloqpacin/dotfiles =='
+        git clone https://github.com/pabloqpacin/dotfiles.git "$env:HOMEPATH\dotfiles"
+    }
+    
+    # if (-not $?) { return }
+
+    # if bat exists and no symlink exists
+    Write-Output '== Symlinking Bat =='
+    New-Item -ItemType SymbolicLink -Target "$env:HOMEPATH\dotfiles\.config\bat" -Path "$env:APPDATA\bat"
+
+    # if nvim exists and no symlink exists
+    Write-Output '== Symlinking Nvim =='
+    New-Item -ItemType Directory -Path "$env:LOCALAPPDATA\nvim"
+    New-Item -ItemType SymbolicLink -Target "$env:HOMEPATH\dotfiles\.vimrc" -Path "$env:LOCALAPPDATA\nvim\init.vim"
+
+}
+
+function basic_profile {
+
+    New-Item -ItemType Directory -Path $env:HOMEPATH\Documents\PowerShell -Force
+    New-Item -ItemType File -Path $PROFILE
+
+    Write-Output "
+Set-PSReadLineOption -Colors @{ Command = 'DarkCyan' }
+
+function showHist {
+    bat -l ps1 (Get-PSReadlineOption).HistorySavePath
+}
+
+function get_module_commands {
+    # $ get_module_commands ActiveDirectory
+    Get-Command -Module $($args[0]) -CommandType Cmdlet
+}
+" >> "$PROFILE"
+}
+
 function print_end {
-    Write-Host "Script completed! Restart the shell/machine before running it again!"
+    Write-Host "`nScript completed! Restart the shell/machine before running it again!"
 }
 
 ########## RUNTIME ########
@@ -313,6 +353,8 @@ install_neovim
 install_git
 
 install_misc
+setup_dotfiles
+# basic_profile
 
 print_end
 

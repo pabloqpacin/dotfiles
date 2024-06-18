@@ -31,7 +31,7 @@ apt_update_install(){
 
     $sa_install xclip wl-clipboard xsel                                         # OJO
     $sa_install --no-install-recommends neofetch
-    $sa_install bat eza fzf git-delta grc jq lf ripgrep                         # btm ipcalc
+    $sa_install bat cht.sh eza fzf git-delta grc jq lf ripgrep                  # btm ipcalc
 
     if ! command -v bat &>/dev/null && command -v batcat &>/dev/null; then
         sudo mv $(which batcat) /usr/bin/bat
@@ -102,6 +102,7 @@ tweak_zsh(){
             echo "alias ga='git add'"
             echo "alias gd='git diff'"
             echo "alias gds='git diff --staged'"
+            echo "alias ls='eza'"
         } | tee -a ~/dotfiles/zsh/aliases.zsh
     fi
 }
@@ -158,3 +159,22 @@ echo "" && neofetch
 [ -f /var/run/reboot-required ] && echo -e "\nKindly reboot."
 
 
+
+# ------------------------------------------------------------------------------
+
+# # Docker as for Debian as per https://docs.docker.com/engine/install/raspberry-pi-os/
+# install_docker() {
+#     # https://www.kali.org/docs/containers/installing-docker-on-kali/
+# }
+
+# --x--
+
+# check_root(){
+#     if [ $UID != 0 ]; then
+#         echo "Run as root like 'sudo bash <script.sh>'"
+#         exit 1
+#     fi
+# }
+
+
+# kali-tweaks
