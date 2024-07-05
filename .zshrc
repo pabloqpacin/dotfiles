@@ -34,8 +34,8 @@ ZSH_CUSTOM="$HOME/dotfiles/zsh"
 
 # See $ZSH/plugins & $ZSH_CUSTOM/plugins -- https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
 plugins=(
-  pqp-docker-k8s
-  git tmux ubuntu     # archlinux docker nmap
+  devops
+  git tmux ubuntu     # archlinux docker nmap -- ansible aws
   zsh-autosuggestions zsh-syntax-highlighting
 )
 

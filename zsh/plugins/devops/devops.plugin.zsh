@@ -1,12 +1,17 @@
-#!/bin/bash
+
+### Docker
+### Kubernetes
+### Vagrant
+### Ansible
+
+
+# ---
+
+##### Docker
 
 if command -v grc &>/dev/null; then
     alias docker="grc docker"
-    alias kubectl="grc kubectl"
 fi
-
-
-########## DOCKER
 
 alias dps='docker ps'
 alias dlf='docker logs -f'
@@ -23,11 +28,11 @@ alias dcps='docker compose ps'
 alias dcls='docker compose ls'
 alias dcl='docker compose logs'
 alias dclf='docker compose logs -f'
-
 alias dcd='docker compose down'
 alias dcdv='docker compose down -v'
 alias dcdd='docker compose down --rmi all -v'
 
+alias dbls='docker buildx ls'
 
 docker-inspect() {
     docker inspect "$1" | jq -C
@@ -50,46 +55,34 @@ docker-prune(){
     yes | docker builder prune
 }
 
+##### Kubernetes
 
-##### Buildx
-
-alias dbls='docker buildx ls'
-
-
-
-########## KUBERNETES
-
-
-##### minikube
+if command -v grc &>/dev/null; then
+    alias kubectl="grc kubectl"
+fi
 
 alias mk='minikube'
 alias mkst='minikube status'
 alias mkpl='minikube profile list'
 
-
-##### kubectl
+alias ka='kubeadm'
+alias katl='kubeadm token list'
 
 alias kc='kubectl'
 alias kccv='kubectl config view'
-
 alias kcaf='kubectl apply -f'
-
-alias kcda='kubectl delete all --all'       # maybe don't delete "kubernetes" svc...
-
 alias kcga='kubectl get all -o wide'
 alias kcgd='kubectl get deployments -o wide'
 alias kcgn='kubectl get nodes -o wide'
 alias kcgp='kubectl get pods -o wide'
 alias kcgs='kubectl get secrets -o yaml'
 alias kcgc='kubectl get cm'
-
+alias kcda='kubectl delete all --all'       # maybe don't delete "kubernetes" svc...
 alias kcd='kubectl describe'
 
 kcgpy(){
     kubectl get pod "$1" -o yaml
 }
-
-# alias kcd='kubectl describe'
 
 # kcd-p(){
 #     kubectl describe "$1" | bat
@@ -103,7 +96,6 @@ kcgpy(){
 #     kubectl get "$1" -o yaml | ...
 # }
 
-
 alias kc-proxy="kubectl proxy --address='0.0.0.0' --disable-filter=true"
 
 # kcc(){
@@ -116,9 +108,16 @@ alias kc-proxy="kubectl proxy --address='0.0.0.0' --disable-filter=true"
 #     # EG kcc-p 192.168.1.40:8001/api/v1/namespace/default
 # }
 
+##### Vagrant
 
-##### KUBEADM ######
+alias vup='vagrant up'
+alias vst='vagrant status'
+alias vde='vagrant destroy'
 
-alias ka='kubeadm'
-alias katl='kubeadm token list'
+alias vpl='vagrant plugin list'
+alias vbl='vagrant box list'
 
+
+##### Ansible
+
+# alias foo='bar'
