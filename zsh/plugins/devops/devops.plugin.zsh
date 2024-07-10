@@ -4,7 +4,6 @@
 ### Vagrant
 ### Ansible
 
-
 # ---
 
 ##### Docker
@@ -111,8 +110,10 @@ alias kc-proxy="kubectl proxy --address='0.0.0.0' --disable-filter=true"
 ##### Vagrant
 
 alias vup='vagrant up'
+alias vssh='vagrant ssh'
 alias vst='vagrant status'
-alias vde='vagrant destroy'
+alias vpro='vagrant provision'
+alias vdestroy='vagrant destroy'
 
 alias vpl='vagrant plugin list'
 alias vbl='vagrant box list'

@@ -51,6 +51,7 @@ return require('packer').startup(function(use)
     use { 'rcarriga/nvim-dap-ui', requires = {'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio'} }
     use { 'elkowar/yuck.vim' }
 
+    -- use { 'mfussenegger/nvim-ansible' }
 
 --[[
     -- DAP: debuggin and compilin -- cpptools cmake rust
