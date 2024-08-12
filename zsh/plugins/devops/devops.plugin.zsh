@@ -20,6 +20,7 @@ alias dvlsj='docker volume ls --format json | jq -C'
 alias dnls='docker network ls'
 alias drmv='docker rm -v'
 alias dvrm='docker volume rm $(docker volume ls -qf dangling=true)'
+alias ddf='docker system df -v'
 
 # alias dc='docker compose'
 alias dcu='docker compose up'
@@ -76,6 +77,7 @@ alias kcgn='kubectl get nodes -o wide'
 alias kcgp='kubectl get pods -o wide'
 alias kcgs='kubectl get secrets -o yaml'
 alias kcgc='kubectl get cm'
+alias kcdf='kubectl delete -f'
 alias kcda='kubectl delete all --all'       # maybe don't delete "kubernetes" svc...
 alias kcd='kubectl describe'
 
@@ -114,9 +116,13 @@ alias vssh='vagrant ssh'
 alias vst='vagrant status'
 alias vpro='vagrant provision'
 alias vdestroy='vagrant destroy'
+alias vhalt='vagrant halt'
 
 alias vpl='vagrant plugin list'
 alias vbl='vagrant box list'
+
+alias vss='vagrant snapshot'
+    # list, push, pop
 
 
 ##### Ansible
