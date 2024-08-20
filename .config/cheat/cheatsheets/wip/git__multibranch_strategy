@@ -1,0 +1,147 @@
+---
+syntax: markdown
+tags: [git]
+---
+
+Based on your plan, let's assess the potential for conflicts and outline the steps to minimize them. Here’s a detailed explanation:
+
+### Current State:
+- **`main` branch**: Contains the latest stable code.
+- **`feature-branch`**: Checked out from `main`, currently in development.
+- **`devel` branch**: Merged with `origin/main`, planning to continue development here.
+
+### Workflow:
+1. **Continue Development on `devel`**:
+   - Make new commits in the `devel` branch.
+   
+2. **Merge `devel` into `feature-branch` Using `--squash`**:
+   - Periodically, squash merge `devel` into `feature-branch` to integrate changes.
+   
+3. **Make a PR from `feature-branch` to `main`**:
+   - Once the `feature-branch` is ready, create a PR into `main`.
+
+### Potential Conflicts:
+Conflicts may arise primarily when:
+- There are overlapping changes between the `devel` branch and the `feature-branch`.
+- There are overlapping changes between the `devel` branch and the `main` branch that have not been resolved before merging.
+
+### Strategy to Minimize Conflicts:
+
+1. **Keep `devel` Up-to-Date**:
+   - Regularly merge changes from `main` into `devel` to keep it up-to-date.
+   - This ensures that any changes in `main` are incorporated into `devel` early, reducing conflicts later.
+
+   ```bash
+   git checkout devel
+   git fetch origin
+   git merge origin/main
+   git push origin devel
+   ```
+
+2. **Squash Merge `devel` into `feature-branch`**:
+   - When ready to integrate changes from `devel` into your `feature-branch`, use the `--squash` option.
+
+   ```bash
+   git checkout feature-branch
+   git merge --squash devel
+   git commit -m "Merged changes from devel"
+   ```
+
+3. **Resolve Conflicts Early**:
+   - Address any conflicts that arise during the squash merge promptly. This keeps your `feature-branch` in a conflict-free state.
+
+### Example Workflow:
+
+1. **Continue development in `devel`**:
+   ```bash
+   git checkout devel
+   # Make changes and commit them
+   git add .
+   git commit -m "New changes in devel"
+   git push origin devel
+   ```
+
+2. **Squash merge `devel` into `feature-branch` periodically**:
+   ```bash
+   git checkout feature-branch
+   git merge --squash devel
+   git commit -m "Merged changes from devel"
+   git push origin feature-branch
+   ```
+
+3. **Merge `main` into `devel` regularly**:
+   ```bash
+   git checkout devel
+   git fetch origin
+   git merge origin/main
+   git push origin devel
+   ```
+
+4. **Create PR from `feature-branch` to `main`**:
+   - Once your `feature-branch` is ready, create a pull request into `main`.
+
+### Conflict Check:
+- If you follow this workflow, conflicts will be minimal. Any conflicts that do arise will be resolved during the periodic squash merges from `devel` to `feature-branch` or when merging `main` into `devel`.
+
+### Summary:
+1. **Regularly update `devel` from `main`** to keep it current.
+2. **Squash merge `devel` into `feature-branch`** to integrate changes periodically.
+3. **Resolve conflicts** as they arise during these merges.
+4. **Create a PR from `feature-branch` to `main`** once the feature is complete.
+
+This approach helps maintain a clean development flow and minimizes the risk of conflicts when merging branches.
+
+---
+
+
+The message "15 commits ahead" means that the `devel` branch has 15 commits that are not present in the `main` branch. This is typical and expected in many development workflows, especially when `devel` is an active development branch.
+
+### When to Mind the "15 Commits Ahead" Message
+
+You should only be concerned with the "15 commits ahead" message if:
+
+1. **Stale Branch**: The `devel` branch has diverged significantly from `main` and includes changes that are no longer relevant or are conflicting with recent updates in `main`.
+2. **Merge Strategy**: You are planning to directly merge `devel` into `main` without using `--squash` and want to avoid merging redundant or outdated commits.
+
+### Actions You Can Take
+
+1. **Regularly Merge `main` into `devel`**: Keep your `devel` branch up-to-date by regularly merging changes from `main`. You've already been doing this, and it's a good practice.
+   
+   ```bash
+   git checkout devel
+   git fetch origin
+   git merge origin/main
+   git push origin devel
+   ```
+
+2. **Squash Merges**: Continue using squash merges when integrating `devel` into your `feature-branch`. This helps to keep the commit history clean and concise.
+
+   ```bash
+   git checkout feature-branch
+   git merge --squash devel
+   git commit -m "Merged changes from devel"
+   git push origin feature-branch
+   ```
+
+3. **Rebase (Optional)**: If you prefer a linear history, you can rebase `devel` onto `main`. This rewrites the commit history and can be useful if you want to ensure that all commits in `devel` are based on the latest `main`.
+
+   ```bash
+   git checkout devel
+   git fetch origin
+   git rebase origin/main
+   git push origin devel --force  # Be cautious with --force, especially if others are working on the branch
+   ```
+
+### Should You Do Anything About It?
+
+- **If the commits in `devel` are relevant and important**, there's nothing additional you need to do beyond keeping `devel` up-to-date with `main`.
+- **If the commits in `devel` are outdated or redundant**, consider cleaning up the branch by cherry-picking important commits into a new branch and deleting the old `devel` branch.
+
+### Summary
+
+- **Monitor**: Keep an eye on the "15 commits ahead" message to understand how `devel` is progressing relative to `main`.
+- **Regular Updates**: Regularly merge `main` into `devel` to keep it current.
+- **Clean History**: Use squash merges or rebasing as appropriate to maintain a clean commit history.
+- **No Immediate Action Needed**: If your current workflow is working well, there's no immediate need to change anything just because of the "15 commits ahead" message. It's a normal part of the development process.
+
+By following these guidelines, you ensure that your branches remain organized and up-to-date, minimizing potential conflicts and making your workflow more efficient.

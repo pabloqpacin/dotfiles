@@ -6,6 +6,7 @@ lsp.nvim_workspace()
 lsp.preset('recommended')
 
 lsp.ensure_installed ({
+--  'ansiblels',
 --  'arduino_language_server',
     'bashls',
 --  'bash-debug-adapter',       -- works alright

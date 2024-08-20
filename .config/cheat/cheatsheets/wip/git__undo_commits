@@ -1,0 +1,86 @@
+---
+syntax: markdown
+tags: [git]
+---
+
+
+Undoing the last commit in Git can be achieved in several ways, depending on whether you want to keep the changes in your working directory or not. Here are the different methods:
+
+### Undo the Last Commit but Keep the Changes in Your Working Directory
+If you want to undo the last commit but keep the changes in your working directory (unstaged), you can use:
+
+```sh
+git reset --soft HEAD~1
+```
+
+### Undo the Last Commit and Discard the Changes
+If you want to undo the last commit and discard the changes, you can use:
+
+```sh
+git reset --hard HEAD~1
+```
+
+### Undo the Last Commit and Keep the Changes in the Staging Area
+If you want to undo the last commit and keep the changes in the staging area, you can use:
+
+```sh
+git reset --mixed HEAD~1
+```
+
+### Example Steps
+1. **Check the status of your repository:**
+
+    ```sh
+    git status
+    ```
+
+2. **Choose the appropriate command based on your needs:**
+
+    - To undo the commit but keep changes unstaged:
+
+        ```sh
+        git reset --soft HEAD~1
+        ```
+
+    - To undo the commit and discard changes:
+
+        ```sh
+        git reset --hard HEAD~1
+        ```
+
+    - To undo the commit but keep changes staged:
+
+        ```sh
+        git reset --mixed HEAD~1
+        ```
+
+### Explanation
+- `git reset --soft HEAD~1`: Moves the `HEAD` pointer back by one commit, leaving the changes in the working directory and the index (staging area).
+- `git reset --mixed HEAD~1`: Moves the `HEAD` pointer back by one commit and resets the index, but leaves the working directory unchanged.
+- `git reset --hard HEAD~1`: Moves the `HEAD` pointer back by one commit and resets both the index and the working directory to match the new `HEAD`.
+
+### Reverting a Pushed Commit
+If you've already pushed the commit to a remote repository and want to undo it, you'll need to use `git revert` to create a new commit that undoes the changes:
+
+```sh
+git revert HEAD
+```
+
+This will create a new commit that reverses the changes made by the last commit.
+
+### Force Pushing (if necessary)
+If you reset a commit and need to force push to update the remote repository, you can use:
+
+```sh
+git push --force
+```
+
+**Caution:** Force pushing can overwrite changes on the remote repository, so use it carefully, especially if you are working in a shared repository.
+
+### Summary
+- **`git reset --soft HEAD~1`**: Undo the last commit, keep changes unstaged.
+- **`git reset --mixed HEAD~1`**: Undo the last commit, keep changes staged.
+- **`git reset --hard HEAD~1`**: Undo the last commit and discard changes.
+- **`git revert HEAD`**: Undo the last commit with a new commit (safe for pushed commits).
+
+Choose the method that best fits your scenario and requirements.

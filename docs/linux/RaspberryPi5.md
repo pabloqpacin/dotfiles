@@ -18,6 +18,80 @@
 
 ---
 
+
+## RetroPie
+
+- Imager: ~~RetroPie 4.8~~ Raspberry Pi OS Lite (64-bit)
+  - OJO: locale == en_US
+- Config
+
+```bash
+# TTY Login: pabloqpacin-changeme
+echo 'APT::Get::Show-Versions "true";' | sudo tee /etc/apt/apt.conf.d/99show-versions
+sudo apt update
+sudo apt upgrade -y
+sudo apt install -y git lsb-release tmux
+```
+
+- https://retropie.org.uk/docs/Manual-Installation/
+
+```bash
+sudo raspi-config
+  # Localisation: Locale: en_US.UTF-8
+sudo update-locale LC_ALL="en_US.UTF-8"
+sudo update-locale LANGUAGE="en_US:en"
+reboot
+```
+
+- https://www.youtube.com/watch?v=AaseHnf0k2o
+
+```bash
+git clone --depth=1 https://github.com/RetroPie/RetroPie-Setup.git $HOME/RetroPie-Setup
+cd $HOME/RetroPie-Setup
+sudo ./retropie_setup.sh
+
+# Basic install
+# ...
+
+# Configuration/tools
+# - autostart: Start EmulationStation at boot
+# - bashwelcometweak
+
+reboot
+```
+
+- EmulationStation
+
+```yaml
+RetroPie:
+  Start: Configure Keyboard
+  Menu:
+    Bluetooth: 8BitDo + Configure GamePad
+```
+
+- roms (pc)
+
+```bash
+scp -r /media/pabloqpacin/HDD-bak/RetroLibrary/* pabloqpacin@192.168.1.40:~/RetroPie/roms/
+```
+
+- roms (pi)
+
+```yaml
+Menu:
+  UI Settings:
+    Gamelist View Style: Grid
+    Ignore Articles: ON
+
+Scrape: Screenscrap per
+
+```
+
+> ... abandon
+
+
+
+
 ## Ubuntu 23.10 aarch64
 
 ```bash
@@ -296,6 +370,8 @@ bash $HOME/dotfiles/scripts/rpi_sysbench.sh
 ### OpenWRT
 
 > - @NetworkChuck: [my SUPER secure Raspberry Pi Router (wifi VPN travel router)](https://www.youtube.com/watch?v=jlHWnKVpygw)
+
+- https://openwrt.org/toh/raspberry_pi_foundation/raspberry_pi
 
 
 ---
