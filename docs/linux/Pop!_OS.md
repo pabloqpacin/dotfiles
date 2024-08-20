@@ -155,6 +155,7 @@ extensions.gnome.org:
   Transparent Top Bar: (Adjustable transparency) by Gonzague
   # User Themes: by fmuellner
   # App Indicator: by ??
+  Application Volume Mixer: by mymindstorm      # for recording DS1 with OBS...
 
 # System
 Extensions:

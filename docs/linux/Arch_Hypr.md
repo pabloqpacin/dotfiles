@@ -768,5 +768,18 @@ minikube addons ...
 ```bash
 # GNOME disk usage analyzer
 sudo pacman -S baobab gnome-disk-utility
+yay -S nautilus-gnome-disks
+
+```
+
+---
+
+- Steam on EX2511 machine
+
+```bash
+# Enable 'multilib' on /etc/pacman.conf
+sudo pacman -S steam
+    # vulkan-driver: vulkan-intel
+    # lib32-vulkan-driver: lib32-vulkan-intel
 
 ```

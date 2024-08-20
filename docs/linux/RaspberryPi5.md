@@ -3,6 +3,7 @@
 > CPU: aarch64 (ARM)
 
 - [Raspberry Pi 5](#raspberry-pi-5)
+  - [RetroPie](#retropie)
   - [Ubuntu 23.10 aarch64](#ubuntu-2310-aarch64)
     - [500GB NVMe](#500gb-nvme)
     - [**HOMESERVER**](#homeserver)
