@@ -23,11 +23,13 @@ Also see [scripts](/scripts/) and [windows/scripts](/windows/scripts/) for **aut
 
 ![nixos-hypr_desktop](/img/screenshots/nixos-hypr_desktop.png)
 
+<!--
 ### RaspberryPiOS
 
 ![pi1](/img/screenshots/Pi/pi-docker_up.png)
 ![pi2](/img/screenshots/Pi/pi-shell_wp.png)
 ![pi3](/img/screenshots/Pi/pi-file_explorer.png)
+-->
 
 ### Arch i3
 
@@ -146,43 +148,66 @@ https://github.com/gasech/hyprland-dots
 
 
 ```mermaid
-    flowchart LR
+flowchart LR
 
-HOMELAB[(Homelab<br>VBox<br>KVM)]
+%% ...
+
 MACHINES((Machines/OS))
+HOMELAB[(VMs)]
 
-GL76([GL76 computer])
-RPi5([Raspberry Pi 5])
-EX2511([EX2511 laptop])
-Android([Smartphone])
-Pentium([Pentium 4])
+GL76[MSI GL76 Workstation]
+EX2511[Acer EX2511 Laptop]
+RPi5[Raspberry Pi 5 SBC]
+Pentium4[Pentium 4 Relic]
+OPPO[Android Smartphone]
 
-Win11P[\Windows 11\]
-Win11[\Windows 11\]
+Proxmox[/<s>Proxmox VE</s>/]
+Pop2204[/Pop!_OS 22.04/]
+Pop2404[/Pop!_OS 24.04/]
+Arch[/Arch Linux/]
+Arch32[/Arch Linux 32/]
+Nix2311[/NixOS 23.11/]
+UbuntuARM[/Ubuntu 24.04 arm64/]
 WinXP[\Windows XP\]
+Termux[/Termux/]
+Kali[/Kali Linux/]
+Parrot[/Parrot/]
+WinServer19[\Windows Server 2019\]
+Win10[\Windows 10 Home|Pro\]
+Win11[\Windows 11 Home|Pro\]
+Debian12[/Debian 12/]
 
-                      Win11 -- Hyper-V .-> Homelab[(Homelab)]
-             GL76 ..- Win11 -- WSL .-> Tumbleweed[/Tumbleweed/]
-MACHINES ..- GL76 -- Hyprland --> NixOS[/NixOS/]
-             GL76 --- Pop!_OS[/Pop!_OS/] -.- HOMELAB
+%% ...
 
-MACHINES ..- RPi5 ..- HOMELAB
+MACHINES ---- GL76
+GL76 -- Hyprland --- Nix2311
+GL76             ---> Pop2204 --- HOMELAB
 
-             EX2511 --> Proxmox[/Proxmox/] .- HOMELAB
-MACHINES ..- EX2511 -- Hyprland --> Arch[/Arch/]
-             EX2511 ..- Win11P -- WSL .-> Debian[/Debian/]
+MACHINES ..- OPPO .- Termux
 
-MACHINES ..- Pentium -- i3 --> Arch32[/Arch 32/]
-            Pentium ..- WinXP[\Windows XP\]
-            
-MACHINES ..- Android .- Termux[/Termux/]
+MACHINES ..- EX2511
+EX2511 -- Hyprland ---> Arch
+EX2511 -- COSMIC --- Pop2404
+EX2511          --> Proxmox
 
-HOMELAB --- WinSer[\Windows Server\]
-HOMELAB --- UbuSer[/Ubuntu Server/]
-HOMELAB --- KaliParrot[/Kali // Parrot/]
-HOMELAB --- DebX95[/Debian X95/]
-            
-click Pentium "https://youtu.be/nyHKHrXjybA" "This is a YouTube link"
+MACHINES ..- RPi5 --> UbuntuARM
+
+MACHINES ..- Pentium4
+Pentium4 -- i3 --> Arch32
+Pentium4 .- WinXP
+
+%% ...
+
+HOMELAB -- vagrant/ansible --- Debian12
+HOMELAB --- WinServer19
+HOMELAB --- Win10
+HOMELAB --- Win11
+HOMELAB --- Kali
+HOMELAB --- Parrot
+
+%% ...
+
+click Pentium4 "https://youtu.be/nyHKHrXjybA" "This is a YouTube link"
 click EX2511 "https://icecat.biz/en/p/acer/nx.ef6eb.006/extensa-notebooks-4713392421143-ex2511-55pf-30284410.html" "Specs (mind RAM & SSD upgrades)"
 
 ```
