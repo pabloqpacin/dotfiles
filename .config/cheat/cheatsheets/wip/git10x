@@ -48,3 +48,148 @@ git stash show -p stash@{0}
 # git submodule update --init --recursive
 # git submodule update --recursive --remote
 
+# ---
+
+# i have a main branch and a devel branch. I made some commits on the devel branch. now i want to do a pull request. I know how to, but by default it will bring all those commits right? best 3 approaches to pull request and end up with only the PR commit?
+
+When you create a pull request (PR) from your `devel` branch to the `main` branch, by default, all the commits on the `devel` branch that are not already in the `main` branch will be included in the PR. If you want to end up with only one commit in the PR, you can use one of the following approaches:
+
+### 1. **Squash Commits into a Single Commit**
+
+You can squash all the commits on the `devel` branch into a single commit before creating the pull request. This can be done using an interactive rebase:
+
+```bash
+# Switch to the devel branch
+git checkout devel
+
+# Rebase interactively to squash commits
+git rebase -i main
+```
+
+In the interactive rebase interface, mark the first commit with `pick` and the subsequent commits with `squash` or `fixup`. This will combine all the selected commits into a single commit.
+
+### 2. **Create a New Branch with a Single Commit**
+
+Another approach is to create a new branch from the `main` branch and apply the changes from the `devel` branch as a single commit:
+
+```bash
+# Switch to the main branch
+git checkout main
+
+# Create a new branch for the pull request
+git checkout -b feature-branch
+
+# Merge the changes from devel as a single commit
+git merge --squash devel
+
+# Commit the changes
+git commit -m "Description of the changes"
+```
+
+Now you can push `feature-branch` and create a pull request from `feature-branch` to `main` with a single commit.
+
+### 3. **Cherry-Pick Specific Commits**
+
+If you want to select specific commits from the `devel` branch to include in the pull request, you can create a new branch and cherry-pick the desired commits:
+
+```bash
+# Switch to the main branch
+git checkout main
+
+# Create a new branch for the pull request
+git checkout -b feature-branch
+
+# Cherry-pick specific commits from devel
+git cherry-pick <commit1> <commit2> <commit3> ...
+```
+
+Replace `<commit1>`, `<commit2>`, etc., with the SHA hashes of the commits you want to include. Then push `feature-branch` and create a pull request.
+
+### Summary
+
+1. **Squash Commits**: Use interactive rebase to squash all commits on `devel` into a single commit.
+2. **New Branch with Single Commit**: Create a new branch from `main`, merge `devel` with `--squash`, and commit the changes.
+3. **Cherry-Pick Commits**: Create a new branch from `main` and cherry-pick specific commits from `devel`.
+
+By using one of these approaches, you can ensure that your pull request contains only a single commit, or only the specific commits you want to include.
+
+
+Creating a third branch (e.g., `feature-branch`) instead of merging directly into `main` is a recommended practice for several reasons:
+
+### 1. **Safety and Isolation**
+- **Protection of `main` Branch**: By creating a new branch, you keep the `main` branch clean and stable. The `main` branch typically represents the production-ready code, and any accidental errors or incomplete changes in your merge will not affect it.
+- **Isolated Testing**: You can test the new feature or changes in the `feature-branch` before merging it into `main`, ensuring everything works as expected without impacting the stability of the `main` branch.
+
+### 2. **Review and Collaboration**
+- **Code Review**: A separate branch allows for easier code review. Team members can review the changes in the `feature-branch` before they are merged into `main`.
+- **Continuous Integration**: Many CI/CD systems automatically build and test code for branches and pull requests. By creating a separate branch, you can ensure that the new changes pass all automated tests before they are merged into `main`.
+
+### 3. **Ease of Reversion**
+- **Revert Changes Easily**: If something goes wrong, it’s easier to revert changes in a feature branch than in the `main` branch. You can simply delete the `feature-branch` and start over if necessary.
+
+### 4. **Avoid Merge Conflicts**
+- **Resolve Conflicts Independently**: If there are merge conflicts, they can be resolved in the `feature-branch` without affecting the `main` branch.
+
+### Detailed Steps for Approach 2
+
+Here’s how you can follow approach 2:
+
+1. **Switch to `main` Branch**:
+   ```bash
+   git checkout main
+   ```
+
+2. **Create a New Feature Branch**:
+   ```bash
+   git checkout -b feature-branch
+   ```
+
+3. **Merge Changes from `devel` as a Single Commit**:
+   ```bash
+   git merge --squash devel
+   ```
+
+4. **Commit the Changes**:
+   ```bash
+   git commit -m "Description of the changes"
+   ```
+
+5. **Push the Feature Branch**:
+   ```bash
+   git push origin feature-branch
+   ```
+
+6. **Create a Pull Request**:
+   - Go to your repository on GitHub.
+   - Create a pull request from `feature-branch` to `main`.
+
+### Example Scenario
+
+```bash
+# Switch to main branch
+git checkout main
+
+# Create a new branch for the pull request
+git checkout -b feature-branch
+
+# Merge the changes from devel as a single commit
+git merge --squash devel
+
+# Commit the changes
+git commit -m "Description of the changes"
+
+# Push the new branch to remote
+git push origin feature-branch
+```
+
+### Benefits of Using a Third Branch
+
+By creating a separate feature branch, you maintain a clear and organized workflow that promotes stability, collaboration, and ease of management. This is especially important in collaborative environments and for projects that prioritize code quality and stability.
+
+
+---
+
+# Delete local cache for branches that don't exist anymore
+git fetch --all
+git remote prune origin
+

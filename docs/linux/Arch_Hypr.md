@@ -341,7 +341,7 @@ yay -S --noconfirm --cleanmenu=false --diffmenu=false brave-bin cheat-bin nvim-p
 sudo pacman -S --noconfirm \
   alacritty bat bottom btop eza fastfetch fzf git-delta grc inetutils jq \
   less lf man man-pages nmap python-pip python ripgrep tldr tmux tree \
-  ttf-firacode-nerd ttf-cascadia-code-nerd unzip whois zoxide zsh
+  ttf-firacode-nerd ttf-cascadia-code-nerd unzip whois yazi zoxide zsh
   # openbsd-netcat
 
 yay -S --noconfirm --cleanmenu=false --diffmenu=false dnslookup-bin mycli termshark vscodium-bin
@@ -571,7 +571,7 @@ ln -s ~/dotfiles/.config/tmux ~/.config
 ln -s ~/dotfiles/.config/nvim ~/.config
 ln -s ~/dotfiles/.config/alacritty ~/.config
 
-bash ~/dotfiles/.config/yazi/clone_em.sh
+bash ~/dotfiles/.config/yazi/clone_flavors_plugins.sh
 ln -s ~/dotfiles/.config/yazi ~/.config
 
 # codium && sleep 3 && pkill codium

@@ -1,11 +1,11 @@
-# Pop!_OS
+# Pop!_OS 22.04
 
 
 > - **NOTE 1:** this installation assumes a [multiboot](/docs/) setup where another distro (Arch, NixOS...) is managing the bootloader
 > - **NOTE 2:** in general, the steps below would be the same for most Debian/Ubuntu based distros
 > - **NOTE 3:** won't tweak the default terminal but install Alacritty instead
 
-- [Pop!\_OS](#pop_os)
+- [Pop!\_OS 22.04](#pop_os-2204)
   - [documentation](#documentation)
   - [live installation](#live-installation)
   - [post-install config](#post-install-config)
@@ -188,14 +188,13 @@ chrome.google.com/webstore:
 
 ```bash
 # Install them basics
-sudo apt install alacritty btop cava flameshot ripgrep tldr tmux zsh    # taskwarrior -- fzf with Go!
-sudo apt install ccze grc mycli --no-install-recommends
-sudo apt install neofetch --no-install-recommends
+sudo apt install alacritty flameshot fzf ripgrep tldr tmux zsh      # btop cava taskwarrior
+sudo apt install grc mycli neofetch --no-install-recommends         # ccze
 tldr --update
 
 # Them Rust packages
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh      # default
-cargo install cargo-update bat bottom eza fd-find git-delta gitui zoxide
+cargo install cargo-update bat bottom eza fd-find git-delta zoxide  # gitui
     # https://github.com/rust-lang/cargo/issues/2729
 
 # Set up SSH auth for Github
@@ -214,16 +213,29 @@ rm .zshrc
 ln -s ~/dotfiles/.zshrc ~
 ln -s ~/dotfiles/.gitconfig ~
 ln -s ~/dotfiles/.config/bat ~/.config
-ln -s ~/dotfiles/.config/btop ~/.config
-ln -s ~/dotfiles/.config/alacritty ~/.config
-
 ln -s ~/dotfiles/.config/lf ~/.config
 ln -s ~/dotfiles/.config/tmux ~/.config
 ln -s ~/dotfiles/.config/nvim ~/.config
+ln -s ~/dotfiles/.config/alacritty ~/.config
 
 # Install zsh plugins
 git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git $HOME/dotfiles/zsh/plugins/zsh-autosuggestions
 git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git $HOME/dotfiles/zsh/plugins/zsh-syntax-highlighting
+```
+
+```bash
+cargo install --locked yazi-fm
+
+# {
+#   git clone --depth 1 https://github.com/BennyOe/onedark.yazi.git \
+#     ~/dotfiles/.config/yazi/flavors/onedark.yazi
+#   git clone https://github.com/DreamMaoMao/git-status.yazi.git \
+#     ~/.config/yazi/plugins/git-status.yazi
+# }
+
+bash ~/dotfiles/.config/clone_flavors_plugins.sh
+
+ln -s ~/dotfiles/.config/yazi ~/.config
 ```
 
 ```bash
@@ -236,29 +248,30 @@ sudo apt-get install python3-pip python3-venv --no-install-recommends
 
 # Install Golang
 cd /tmp \
- && wget -c https://golang.org/dl/go1.21.0.linux-amd64.tar.gz \
+ && wget -c https://golang.org/dl/go1.22.3.linux-amd64.tar.gz \
  && sudo rm -rf /usr/local/go \
- && sudo tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz \
+ && sudo tar -C /usr/local -xzf go1.22.3.linux-amd64.tar.gz \
  && source ~/dotfiles/zsh/golang.zsh
 
 # Install FZF
-go install github.com/junegunn/fzf@latest
+# go install github.com/junegunn/fzf@latest
 
 # Build lf
+# TODO: https://webinstall.dev/lf/
 env CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf@latest
 lf -doc | bat -l sh
 
 # Install npm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
 nvm install node
 # $ npm install --global live-server
 
 # Build and set up Neovim
 sudo apt-get install build-essential cmake gettext ninja-build unzip
-git clone --depth 1 https://github.com/neovim/neovim.git
-cd neovim && make CMAKE_BUILD_TYPE=Release      # RelWithDebInfo OK too
+git clone --depth 1 https://github.com/neovim/neovim.git /tmp/neovim
+cd /tmp/neovim && make CMAKE_BUILD_TYPE=Release      # RelWithDebInfo OK too
 sudo make install
-# $ cd .. && rm -rf neovim
+cd ~
 
 git clone --depth 1 https://github.com/wbthomason/packer.nvim \
  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
@@ -285,6 +298,7 @@ flatpak install spotify
 flatpak install visualboy
 sudo apt install steam  # Proton 8
 flatpak install flathub com.github.IsmaelMartinez.teams_for_linux
+# flatpak install qgis
 
 # flatpak install retroarch --> if possible, do via Steam instead aye? see ~/dotfiles/.config/retroarch
 # flatpak install dolphinemu
@@ -313,10 +327,9 @@ cd /tmp \
   && sudo mv cheat-linux-amd64 /usr/local/bin/cheat
   # symlink config and personal cheatsheets
 
-git clone https://github.com/st3w/neo
-cd neo && sudo apt update
-sudo apt install autoconf build-essential libncurses-dev \
- && ./autogen.sh \
+sudo apt install autoconf build-essential libncurses-dev
+git clone https://github.com/st3w/neo /tmp/neo
+cd /tmp/neo && ./autogen.sh \
  && ./configure \
  && make \
  && sudo make install
@@ -345,7 +358,7 @@ sudo apt install iperf3
 
 ```bash
 # Virtualization tools
-sudo apt install virtualbox virtualbox-ext-pack virtualbox-guest-additions-iso
+sudo apt install virtualbox virtualbox-guest-additions-iso  # virtualbox-ext-pack
 
 # TODO: KVM
 ```
@@ -648,6 +661,28 @@ sox --encoding u-law -r 8000 -n nuevo.wav original.mp3
 ---
 
 
+```bash
+# agi wireguard 
+
+```
+
+- Wireguard (proyecto)
+
+```bash
+sudo apt-get install wireguard
+
+# https://help.clouding.io/hc/es/articles/360018305479-Instalar-WireGuard-UI-para-gestionar-nuestra-VPN-por-web
+wget https://github.com/ngoduykhanh/wireguard-ui/releases/download/v0.6.2/wireguard-ui-v0.6.2-linux-amd64.tar.gz
+tar zxf wireguard-ui-v0.3.7-linux-amd64.tar.gz
+sudo ./wireguard-ui
+
+
+sudo less /etc/wireguard/wg0.conf
+xdg-open http://localhost:5000
+# admin admin
+
+# ... QUITE THE FAIL SO FAR
+```
 
 - fix 'Ubuntu Pro' bullshite
 
@@ -683,4 +718,144 @@ Learn more about Ubuntu Pro at https://ubuntu.com/pro
 ```bash
 sudo mv /etc/apt/apt.conf.d/20apt-esm-hook.conf{,.bak}
 # https://askubuntu.com/questions/1434512/how-to-get-rid-of-ubuntu-pro-advertisement-when-updating-apt
+```
+
+- Thunderbird...
+
+```bash
+sudo apt install thunderbird
+xdg-open https://support.mozilla.org/en-US/products/thunderbird/emails-thunderbird/set-up-email-thunderbird
+```
+```yaml
+Thunderbird:
+    Address_01:
+        - Full name: Pablo Quevedo
+        - Email Address: pabloqpacin@protonmail.com
+        - Password: ...
+        - Manual Configuration:
+            Incoming Server:
+                - Protocol: IMAP
+                - Hostname: .protonmail.com
+                - Port:
+                - Connection security: None
+                - Authentication method: Autodetect
+                - Username: pabloqpacin@protonmail.com
+            Outgoing Server:
+                - Hostname: .protonmail.com
+                - Port:
+                - Connection security: None
+                - Authentication method: Autodetect
+                - Username: pabloqpacin@protonmail.com
+
+```
+
+<!--
+nmap -sV localhost; sudo systemctl disable --now rpcbind
+# https://unix.stackexchange.com/questions/234154/exactly-what-does-rpcbind-do
+-->
+
+
+---
+
+```bash
+sudo apt autoremove ubuntu-pro-client   # upc upc-l10n u-advantage-tools
+
+flatpak install postman
+
+flatpak install pinta
+```
+
+<!-- https://missioncenter.io/ -->
+
+
+- fastfetch
+
+```bash
+sudo add-apt-repository ppa:zhangsongcui3371/fastfetch
+sudo apt update && sudo apt install fastfetch
+```
+
+<!-- 
+```txt
+~ ᐅ sudo add-apt-repository ppa:zhangsongcui3371/fastfetch
+
+[sudo] password for pabloqpacin:
+PPA publishes dbgsym, you may need to include 'main/debug' component
+Repository: 'deb https://ppa.launchpadcontent.net/zhangsongcui3371/fastfetch/ubuntu/ jammy main'
+Description:
+Fastfetch is a neofetch-like tool for fetching system information and displaying them in a pretty way.
+
+https://github.com/fastfetch-cli/fastfetch
+More info: https://launchpad.net/~zhangsongcui3371/+archive/ubuntu/fastfetch
+Adding repository.
+Press [ENTER] to continue or Ctrl-c to cancel.
+Adding deb entry to /etc/apt/sources.list.d/zhangsongcui3371-ubuntu-fastfetch-jammy.list
+Adding disabled deb-src entry to /etc/apt/sources.list.d/zhangsongcui3371-ubuntu-fastfetch-jammy.list
+Adding key to /etc/apt/trusted.gpg.d/zhangsongcui3371-ubuntu-fastfetch.gpg with fingerprint EB65EE19D802F3EB1A13CFE47E2E5CB4D4865F21
+Hit:1 https://download.docker.com/linux/ubuntu jammy InRelease
+Get:2 https://brave-browser-apt-release.s3.brave.com stable InRelease [7,546 B]
+Hit:3 http://repository.spotify.com stable InRelease
+Get:4 https://packages.microsoft.com/ubuntu/22.04/prod jammy InRelease [3,632 B]
+Get:5 https://brave-browser-apt-release.s3.brave.com stable/main amd64 Packages [12.4 kB]
+Get:6 https://ppa.launchpadcontent.net/zhangsongcui3371/fastfetch/ubuntu jammy InRelease [24.3 kB]
+Hit:7 https://download.vscodium.com/debs vscodium InRelease
+Get:8 https://ppa.launchpadcontent.net/zhangsongcui3371/fastfetch/ubuntu jammy/main amd64 Packages [500 B]
+Get:9 https://ppa.launchpadcontent.net/zhangsongcui3371/fastfetch/ubuntu jammy/main Translation-en [324 B]
+Hit:10 http://apt.pop-os.org/proprietary jammy InRelease
+Hit:11 http://apt.pop-os.org/release jammy InRelease
+Hit:12 http://apt.pop-os.org/ubuntu jammy InRelease
+Get:13 http://apt.pop-os.org/ubuntu jammy-security InRelease [110 kB]
+Get:14 http://apt.pop-os.org/ubuntu jammy-updates InRelease [119 kB]
+Hit:15 http://apt.pop-os.org/ubuntu jammy-backports InRelease
+Get:16 http://apt.pop-os.org/ubuntu jammy-updates/main Sources [487 kB]
+Get:17 http://apt.pop-os.org/ubuntu jammy-updates/restricted Sources [64.9 kB]
+Get:18 http://apt.pop-os.org/ubuntu jammy-updates/universe Sources [321 kB]
+Get:19 http://apt.pop-os.org/ubuntu jammy-updates/main amd64 Packages [1,612 kB]
+Get:20 http://apt.pop-os.org/ubuntu jammy-updates/main i386 Packages [620 kB]
+Get:21 http://apt.pop-os.org/ubuntu jammy-updates/main Translation-en [304 kB]
+Get:22 http://apt.pop-os.org/ubuntu jammy-updates/restricted Translation-en [311 kB]
+Get:23 http://apt.pop-os.org/ubuntu jammy-updates/universe amd64 Packages [1,072 kB]
+Get:24 http://apt.pop-os.org/ubuntu jammy-updates/universe i386 Packages [701 kB]
+Get:25 http://apt.pop-os.org/ubuntu jammy-updates/universe Translation-en [245 kB]
+Fetched 6,014 kB in 3s (1,843 kB/s)
+Reading package lists... Done
+
+$ fastfetch --gen-config
+```
+ -->
+
+- Nerdfonts
+
+```bash
+if [ ! -d ~/.fonts ]; then mkdir ~/.fonts; fi
+
+wget -qO /tmp/FiraCode.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip &&
+unzip /tmp/FiraCode.zip -d ~/.fonts/FiraCodeNerdFont
+
+wget -qO /tmp/CascadiaCode.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/CascadiaCode.zip && 
+unzip /tmp/CascadiaCode.zip -d ~/.fonts/CascadiaCodeNerdFont
+
+fc-cache -fv
+```
+
+- COSMIC
+
+```bash
+# https://github.com/pop-os/cosmic-epoch
+sudo apt install cosmic-session
+  # Default display manager: gdm3
+sudo sed -i '/WaylandEnable/s/false/true/' /etc/gdm3/custom.conf
+
+
+sed -i 's/14/11/' ~/.config/cosmic/com.system76.CosmicTerm/v1/font_size
+# ...
+```
+
+---
+
+```bash
+VERSION='1.6.7'
+# curl https://obsidian.md/download -o Desktop/foo
+chmod u+x ./Desktop/Obisidian-$VERSION.AppImage
+./Desktop/Obsidian-1.6.7.AppImage
 ```

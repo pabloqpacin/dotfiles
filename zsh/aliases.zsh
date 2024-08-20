@@ -46,7 +46,7 @@ if command -v eza &>/dev/null; then
     alias ls="eza --icons"
     alias eza="eza --icons --group --group-directories-first --git"
     alias laz="eza -la -ShiI .git --no-user --octal-permissions --group-directories-first --git"
-    alias tree="eza -T"
+    alias tree="eza -T --git"
     alias trez="eza -laI .git --no-user --no-permissions --no-filesize --group-directories-first --git -T"
 fi
 
@@ -178,6 +178,7 @@ alias gla='git log --all --graph --oneline --decorate'
 alias glf="glods --follow"  #$1
 # alias gsp='git stash pop'
 # alias gs='git stash'
+alias gstun='git status --untracked-files=no'
 
 alias vrv='virt-host-validate'      # KVM
 
@@ -215,3 +216,7 @@ bat-ff() {
     tail -f "$1" -n +1 | bat -l=log --paging=never
 }
 
+# manbat(){
+#     # USAGE: manbat ettercap
+#     "$1" --help | bat -l man --theme=Nord
+# }

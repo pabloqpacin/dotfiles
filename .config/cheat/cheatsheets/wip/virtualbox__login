@@ -1,0 +1,73 @@
+To log in to a virtual machine managed by VirtualBox from the command line, you typically use `VBoxManage`, the command-line interface for VirtualBox. However, `VBoxManage` itself does not handle logging into the guest operating system. For that, you would usually use SSH or other remote access tools once the VM is running.
+
+Here's a step-by-step guide to start a VM and log in via SSH:
+
+### Step 1: Start the Virtual Machine
+
+First, use `VBoxManage` to start the VM. Replace `VM_NAME` with the name of your virtual machine.
+
+```sh
+VBoxManage startvm "VM_NAME" --type headless
+```
+
+The `--type headless` option starts the VM without opening a GUI window.
+
+### Step 2: Find the IP Address of the Virtual Machine
+
+You need to know the IP address of the virtual machine to log in via SSH. You can obtain the IP address in several ways. One common method is to use `VBoxManage` to execute a command within the VM to retrieve its IP address (assuming guest additions are installed):
+
+```sh
+VBoxManage guestproperty get "VM_NAME" "/VirtualBox/GuestInfo/Net/0/V4/IP"
+```
+
+Alternatively, you can log into the VM via the VirtualBox GUI or use a bridged or NAT network setup with port forwarding to allow SSH access.
+
+### Step 3: Log in via SSH
+
+Once you have the IP address, you can log in using SSH. Replace `USER` with your username and `IP_ADDRESS` with the VM's IP address.
+
+```sh
+ssh USER@IP_ADDRESS
+```
+
+### Example Workflow
+
+Here's an example workflow for logging into a VM named `UbuntuVM`:
+
+1. Start the VM:
+
+    ```sh
+    VBoxManage startvm "UbuntuVM" --type headless
+    ```
+
+2. Get the IP address:
+
+    ```sh
+    VBoxManage guestproperty get "UbuntuVM" "/VirtualBox/GuestInfo/Net/0/V4/IP"
+    ```
+
+    Assume the output is `Value: 192.168.56.101`.
+
+3. Log in via SSH:
+
+    ```sh
+    ssh user@192.168.56.101
+    ```
+
+### Port Forwarding (if using NAT)
+
+If you're using NAT and need to set up port forwarding to access SSH, you can configure it using `VBoxManage`:
+
+```sh
+VBoxManage modifyvm "VM_NAME" --natpf1 "guestssh,tcp,,2222,,22"
+```
+
+This command forwards port 2222 on the host to port 22 on the guest. You can then log in with:
+
+```sh
+ssh -p 2222 USER@localhost
+```
+
+### Conclusion
+
+Using `VBoxManage` in combination with SSH provides a flexible way to manage and log into your VirtualBox VMs from the command line. Ensure that the VM is properly configured with SSH access and the network settings are correctly set up to allow communication.

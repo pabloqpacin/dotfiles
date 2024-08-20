@@ -69,3 +69,12 @@ alias vboxrunningvms='VBoxManage list runningvms'
 # nslookup pabloqpacin.com
 
 
+# ---
+
+search_sudo_log(){
+    # Usage: search_sudo_log $USER
+    grep "$1" /var/log/auth.log
+
+    # ls -la /var/log/auth.log
+    # groups | grep 'adm'
+}

@@ -1,0 +1,71 @@
+---
+syntax: markdown
+tags: [git]
+---
+
+> You're a senior software, devops and sre engineer with a lot of years and knowledge working with Git.
+So i did some changes on the devel branch, then merge --squash'ed them on the feature-branch, now i've done a PR to main from feature-branch. At the moment main is perfect.
+Now, what should i do with the other branches? I wouldn't like to delete them unless it's good practice but still i wouldn't like that. Can i like merge main into devel or something? Whatever causes the least conflicts now and in the future. 
+
+
+Certainly! Here’s a strategic approach to managing your branches after creating a PR from your `feature-branch` to `main`, considering best practices for keeping your branches clean and conflict-free:
+
+### Steps to Synchronize Branches Post-PR
+
+1. **Merge `main` into `devel`**: To ensure that `devel` has all the latest changes from `main` (including the changes from your `feature-branch` once the PR is merged), you should merge `main` into `devel`. This helps to minimize future conflicts and keeps your `devel` branch up-to-date with the mainline code.
+
+2. **Optionally Clean Up Feature Branch**: Depending on your workflow and branch strategy, you might choose to keep or delete the `feature-branch`. If you anticipate more changes or fixes on the `feature-branch`, you can keep it; otherwise, it’s generally good practice to delete it after the PR is merged to keep your repository clean.
+
+### Detailed Commands
+
+#### Step 1: Merge `main` into `devel`
+
+After your PR is merged into `main`, you should update `devel` with the latest changes from `main`.
+
+```bash
+# Ensure you're on the devel branch
+git checkout devel
+
+# Fetch the latest changes from the remote
+git fetch origin
+
+# Pull the latest changes from main into devel
+git merge origin/main
+
+# Push the updated devel branch to the remote
+git push origin devel
+```
+
+This ensures that `devel` has all the latest changes from `main`, reducing the likelihood of conflicts in the future.
+
+#### Step 2: Clean Up Feature Branch (Optional)
+
+If you decide to delete the `feature-branch` after merging the PR, follow these steps:
+
+```bash
+# Delete the local feature-branch
+git branch -d feature-branch
+
+# Delete the remote feature-branch
+git push origin --delete feature-branch
+```
+
+### Additional Considerations
+
+- **Rebasing**: Another approach instead of merging `main` into `devel` is to rebase `devel` onto `main`. This can create a cleaner history but can be more complex if there are conflicts.
+  
+  ```bash
+  git checkout devel
+  git fetch origin
+  git rebase origin/main
+  git push origin devel --force-with-lease
+  ```
+
+- **Keep the `devel` Branch Updated**: Regularly merge `main` into `devel` or rebase `devel` onto `main` to keep `devel` aligned with the mainline code. This practice minimizes future merge conflicts and ensures `devel` always has the latest changes.
+
+### Summary
+
+- **Merge `main` into `devel`**: Keeps `devel` up-to-date with the latest changes from `main`, reducing conflicts.
+- **Optional Clean Up of `feature-branch`**: Depending on your workflow, delete the `feature-branch` to keep your repository clean.
+
+This approach ensures that your branches remain up-to-date and minimizes conflicts, making future development smoother and more efficient.
