@@ -51,6 +51,8 @@ return require('packer').startup(function(use)
     use { 'rcarriga/nvim-dap-ui', requires = {'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio'} }
     use { 'elkowar/yuck.vim' }
 
+    use { 'bullets-vim/bullets.vim' }
+
     -- use { 'mfussenegger/nvim-ansible' }
 
 --[[
