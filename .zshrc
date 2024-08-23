@@ -25,7 +25,7 @@ esac
 
 # Them Baddest themes
 ZSH_THEME_RANDOM_CANDIDATES=( 'afowler' 'alanpeabody' 'dpoggi' 'eastwood'
-  'fletcherm' 'gallois' 'geoffgarside' 'macovsky' 'mh' 'muse' 'nanotech'
+  'fletcherm' 'gallois' 'macovsky' 'mh' 'muse' 'nanotech'
   'theunraveler' 'tonotdo' 'wedisagree'
 )
 
@@ -40,6 +40,12 @@ plugins=(
 )
 
 # Preferred editor for local and remote sessions
+if command -v nvim >/dev/null 2>&1; then
+  editor='nvim'
+else
+  editor='vim'
+fi
+
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
 else
