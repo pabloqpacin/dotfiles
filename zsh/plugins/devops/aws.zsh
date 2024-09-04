@@ -13,6 +13,10 @@ paws() {
         yaml)
             aws "$@" | bat -l yaml
             ;;
+        # text)
+        #     grc -c ~/.grc/aws.conf  aws "$@"
+        #     # aws "$@" | grc -c ~/.grc/aws.conf | less -R
+        #     ;;
         text | table)
             aws "$@" | less -SFXR
             ;;

@@ -45,3 +45,11 @@ docker-prune(){
     yes | docker image prune && \
     yes | docker builder prune
 }
+
+ 
+# foo() {
+#     for i in $(docker image ls -q); do
+#         docker image rm $i
+#     done
+# }
+
