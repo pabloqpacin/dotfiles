@@ -27,7 +27,7 @@ lsp.ensure_installed ({
 --  'pylsp',
     'rust_analyzer',
 --  'sqlls',                    -- https://github.com/joe-re/sql-language-server
-    'tsserver',
+--  'tsserver',
 })
 
 local cmp = require('cmp')
