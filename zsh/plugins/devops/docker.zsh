@@ -14,6 +14,7 @@ alias dvrm='docker volume rm $(docker volume ls -qf dangling=true)'
 alias ddf='docker system df -v'
 
 # alias dc='docker compose'
+alias dcb='docker compose build'
 alias dcu='docker compose up'
 alias dcps='docker compose ps'
 alias dcls='docker compose ls'

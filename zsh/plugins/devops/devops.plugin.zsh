@@ -3,6 +3,7 @@
 
 source "$ZSH_CUSTOM"/plugins/devops/docker.zsh
 source "$ZSH_CUSTOM"/plugins/devops/kubernetes.zsh
+source "$ZSH_CUSTOM"/plugins/devops/helm.zsh
 
 source "$ZSH_CUSTOM"/plugins/devops/vagrant.zsh
 # source "$ZSH_CUSTOM"/plugins/devops/ansible.zsh
