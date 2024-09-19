@@ -2,6 +2,11 @@
 
 # alias rm='mv $1 /tmp/$1'
 
+if command -v delta &>/dev/null; then
+    # Enable delta autocomplete -- https://github.com/dandavison/delta/issues/1167#issuecomment-1678568122
+    compdef _gnu_generic delta
+fi
+
 alias td='tcpdump'
 alias ff='fastfetch'
 alias cgst='clear && gst'
