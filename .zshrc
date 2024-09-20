@@ -1,3 +1,7 @@
+# Remote shells fix
+export TERM=xterm-256color
+export COLORTERM=truecolor
+
 # Account for: Arch Debian Kali Nix Parrot Pop Termux Ubuntu
 distro=$(grep -s "^ID=" /etc/os-release | awk -F '=' '{print $2}')
 case $distro in '') distro='termux' ;; esac           # termux-info
