@@ -2,6 +2,11 @@
 
 # alias rm='mv $1 /tmp/$1'
 
+alias copy='xsel --clipboard --input'
+
+#alias xx='exit'
+alias tls='tmux list-sessions'
+
 if command -v delta &>/dev/null; then
     # Enable delta autocomplete -- https://github.com/dandavison/delta/issues/1167#issuecomment-1678568122
     compdef _gnu_generic delta
@@ -176,6 +181,7 @@ alias py='python3'
 
 alias xpaste='xclip -o -sel clip'
 
+alias grmc='git rm --cached'    # $1
 alias grv='git remote -v'
 alias gsl='git stash list'
 alias gss='git stash show -p'
@@ -225,3 +231,16 @@ bat-ff() {
 #     # USAGE: manbat ettercap
 #     "$1" --help | bat -l man --theme=Nord
 # }
+
+
+thanks(){
+    if type shuf > /dev/null; then
+      cowfile="$(cowsay -l | sed "1 d" | tr ' ' '\n' | shuf -n 1)"
+    else
+      cowfiles=( $(cowsay -l | sed "1 d") );
+      cowfile=${cowfiles[$(($RANDOM % ${#cowfiles[*]}))]}
+    fi
+
+    fortune | cowsay -f "$cowfile" | lolcat --animate --speed=50
+    ### Debian 12: { echo "export PATH=$PATH:/usr/games" >> ~/.bashrc }
+}
