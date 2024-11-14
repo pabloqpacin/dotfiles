@@ -22,7 +22,7 @@ alias dcl='docker compose logs'
 alias dclf='docker compose logs -f'
 alias dcd='docker compose down'
 alias dcdv='docker compose down -v'
-alias dcdd='docker compose down --rmi all -v'
+alias dcdd='docker compose down --rmi all -v --remove-orphans'
 
 alias dbls='docker buildx ls'
 

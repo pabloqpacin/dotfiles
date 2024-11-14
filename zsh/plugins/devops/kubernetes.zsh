@@ -1,4 +1,8 @@
 
+if kubectl &>/dev/null; then
+    source <(kubectl completion zsh)
+fi
+
 if command -v grc &>/dev/null; then
     alias kubectl="grc kubectl"
 fi

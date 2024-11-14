@@ -17,3 +17,8 @@ shcurl(){
     # curl -s cheat.sh/"$@" | bat -p
     curl -s cheat.sh/"$@" | less -SFXR
 }
+
+alias cf='confluent'
+
+# PYTHON
+alias pyve='python3 -m venv .venv'

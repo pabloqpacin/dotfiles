@@ -2,6 +2,10 @@
 
 # alias rm='mv $1 /tmp/$1'
 
+alacritty_this(){
+    alacritty $(.) &; disown
+}
+
 alias copy='xsel --clipboard --input'
 
 #alias xx='exit'
