@@ -1,3 +1,7 @@
+# Remote shells fix
+export TERM=xterm-256color
+export COLORTERM=truecolor
+
 # Account for: Arch Debian Kali Nix Parrot Pop Termux Ubuntu
 distro=$(grep -s "^ID=" /etc/os-release | awk -F '=' '{print $2}')
 case $distro in '') distro='termux' ;; esac           # termux-info
@@ -24,9 +28,8 @@ case $distro in
 esac
 
 # Them Baddest themes
-ZSH_THEME_RANDOM_CANDIDATES=( 'afowler' 'alanpeabody' 'dpoggi' 'eastwood'
-  'fletcherm' 'gallois' 'macovsky' 'mh' 'muse' 'nanotech'
-  'theunraveler' 'tonotdo' 'wedisagree'
+ZSH_THEME_RANDOM_CANDIDATES=( 'afowler' 'alanpeabody' 'dpoggi' 'eastwood' 'fletcherm'
+  'gallois' 'macovsky' 'mh' 'muse' 'nanotech' 'theunraveler' 'tonotdo' 'wedisagree'
 )
 
 # Set custom folder for personal aliases, plugins and themes
@@ -114,3 +117,13 @@ function yy() {
 	rm -f -- "$tmp"
 }
 
+# Vagrant config for pabloqpacin/tbok
+if command -v vagrant &>/dev/null; then
+  export VAGRANT_DISABLE_VBOXSYMLINKCREATE=1
+  #export ANSIBLE_COW_SELECTION=random
+  export ANSIBLE_NOCOWS=1
+  case $VAGRANT_HOME in
+    '/var/vagrant.d') echo 'OK' > /dev/null ;;
+    '' | '~/.vagrant.d' | *) export VAGRANT_HOME='/var/vagrant.d' ;;
+  esac
+fi

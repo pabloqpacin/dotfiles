@@ -28,6 +28,7 @@ lsp.ensure_installed ({
     'rust_analyzer',
 --  'sqlls',                    -- https://github.com/joe-re/sql-language-server
 --  'tsserver',
+    'yamlls',
 })
 
 local cmp = require('cmp')
