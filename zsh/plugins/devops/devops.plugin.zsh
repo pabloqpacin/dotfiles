@@ -18,7 +18,12 @@ shcurl(){
     curl -s cheat.sh/"$@" | less -SFXR
 }
 
-alias cf='confluent'
 
 # PYTHON
 alias pyve='python3 -m venv .venv'
+
+# TELEPORT
+alias tshst='tsh status'
+
+# MISC
+alias cf='confluent'

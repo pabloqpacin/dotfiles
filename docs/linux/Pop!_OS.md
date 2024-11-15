@@ -289,20 +289,24 @@ cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua
 
 ```bash
 # Pop!_Shop OK
+# flatpak install flatseal  # https://www.reddit.com/r/pop_os/comments/1ftem2d/comment/lprex9w/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
 # flatpak install flathub io.dbeaver.DBeaverCommunity
 flatpak install anydesk
 flatpak install discord
-flatpak install gitkraken
-flatpak install krita
+flatpak install freetube
+# flatpak install gitkraken
+# flatpak install krita
 flatpak install slack
 flatpak install spotify
-flatpak install visualboy
+# flatpak install visualboy
 sudo apt install steam  # Proton 8
 flatpak install flathub com.github.IsmaelMartinez.teams_for_linux
 # flatpak install qgis
 
 # flatpak install retroarch --> if possible, do via Steam instead aye? see ~/dotfiles/.config/retroarch
 # flatpak install dolphinemu
+flatpak install flathub io.dbeaver.DBeaverCommunity
+flatpak install md.obsidian.Obsidian
 ```
 
 ```bash
