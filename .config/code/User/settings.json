@@ -1,4 +1,14 @@
 {
+    // <#
+    "sonarlint.ls.javaHome": "/usr/lib/jvm/java-17-openjdk-amd64",
+    "sonarlint.pathToNodeExecutable": "/home/pabloqpacin/.nvm/versions/node/v22.7.0/bin/node",
+    "sonarlint.connectedMode.connections.sonarqube": [
+        {
+            "serverUrl": "https://sonarqube.setenova.es",
+            "connectionId": "pquevedo-sonarqube-setenova-es"
+        }
+    ],
+    // #>
     "telemetry.telemetryLevel": "crash",
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,

@@ -7,6 +7,10 @@ if command -v grc &>/dev/null; then
     alias kubectl="grc kubectl"
 fi
 
+# alias fnode='--field-selector spec.nodeName='     # INOP
+    # kcga fnode=foo
+    # kcga $(fnode)poc-w1-q45cnhhdlyvi-node-0
+
 alias mk='minikube'
 alias mkst='minikube status'
 alias mkpl='minikube profile list'
