@@ -28,7 +28,7 @@ log_level = INFO
 
 # Default pager.
 # By default '$PAGER' environment variable is used
-# pager = less -SRXF
+pager = less -SRXF --mouse --wheel-lines=4
 
 # Table format. Possible values:
 # ascii, double, github, psql, plain, simple, grid, fancy_grid, pipe, orgtbl,
