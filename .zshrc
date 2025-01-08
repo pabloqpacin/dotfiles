@@ -43,16 +43,16 @@ plugins=(
 )
 
 # Preferred editor for local and remote sessions
-if command -v nvim >/dev/null 2>&1; then
-  editor='nvim'
-else
-  editor='vim'
-fi
-
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nvim'
 else
   export EDITOR='nvim'
+fi
+
+if command -v nvim >/dev/null 2>&1; then
+  editor='nvim'
+else
+  editor='vim'
 fi
 
 # Uncomment the following line to disable marking untracked files under VCS as
