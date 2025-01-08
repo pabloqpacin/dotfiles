@@ -50,9 +50,9 @@ else
 fi
 
 if command -v nvim >/dev/null 2>&1; then
-  editor='nvim'
+  EDITOR='nvim'
 else
-  editor='vim'
+  EDITOR='vim'
 fi
 
 # Uncomment the following line to disable marking untracked files under VCS as
