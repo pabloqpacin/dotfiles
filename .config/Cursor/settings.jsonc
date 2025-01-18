@@ -1,0 +1,14 @@
+// ln -s $0 ~/.config/Cursor/User/settings.json
+{
+    "window.menuBarVisibility": "compact",
+    "window.commandCenter": false,
+    "window.zoomLevel": -0.5,
+    "editor.rulers": [
+        80,
+        115
+    ],
+    "workbench.colorTheme": "One Dark Pro Darker",
+    "editor.fontFamily": "FiraCode Nerd Font",
+    "workbench.iconTheme": "vscode-icons",
+}
+
