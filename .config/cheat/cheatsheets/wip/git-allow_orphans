@@ -1,0 +1,31 @@
+
+# Creé un repo y solo pusheé rama feat-x, varias commits
+# Ahora quiero hacer PR a develop pero no hay develop
+# No pusheé ni main con una 'Initial commit'
+# Vamos a arreglarlo
+
+
+# 1. Create an empty main branch
+git checkout --orphan main  # Create a new branch without history
+git rm -rf .                # Remove all tracked files
+echo "# INT-IaC" > README.md # (Optional) Add an initial file
+git add README.md
+git commit -m "Initial commit"
+git push origin main
+
+# 2. Create an empty develop branch from main
+git checkout -b develop main
+git push origin develop
+
+# 3. Merge main into feat-migracion (pasamos el nuevo README.md
+# para tener punto común entre las nuevas ramas y la vieja!!!!)
+git checkout feat-migracion
+git merge main --allow-unrelated-histories
+
+# 4. Push feat-migracion to GitHub
+git push origin feat-migracion
+
+
+# En los ajustes del repo, cambiamos la rama default
+# Ya podemos hacer la PR!!
+

@@ -2,6 +2,11 @@
 
 # alias rm='mv $1 /tmp/$1'
 
+alias jql='jq -C | less -R'
+jq_docker_ip(){
+    $@ | jq '.[0].NetworkSettings.Networks["poc-test_default"].IPAddress'
+}
+
 alacritty_this(){
     alacritty $(.) &; disown
 }
