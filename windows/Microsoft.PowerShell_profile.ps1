@@ -26,6 +26,7 @@ function showHist { bat -l ps1 (Get-PSReadlineOption).HistorySavePath }
 function showModPath { $env:PSModulePath -replace ';', "`n" }
 function showPath { $env:PATH -replace ';', "`n" }
 function showEnv { Get-ChildItem Env: }
+  # # https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.3
 
 function reloadPath {
   $env:PATH = [System.Environment]::GetEnvironmentVariable("PATH","MACHINE") + ";" + [System.Environment]::GetEnvironmentVariable("PATH","USER")

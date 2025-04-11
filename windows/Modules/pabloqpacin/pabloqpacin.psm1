@@ -21,3 +21,15 @@ function Get-IP {
     }
 }
 
+
+function bat_pwd {
+    Get-ChildItem . | ForEach-Object {
+        bat $_
+    }
+}
+
+
+function get_module_commands {
+    # $ get_module_commands ActiveDirectory
+    Get-Command -Module $($args[0]) -CommandType Cmdlet
+}
