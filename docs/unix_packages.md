@@ -15,6 +15,7 @@
 ```bash
 # Important
 btop curl fzf git htop ipcalc man ssh tldr termshark tmux vim zsh     # scp sftp
+trash-cli
 
 # NO APT - Cargo packages // pacman or zypper OK -- might require: libssl-dev pkg-config
 bat bottom eza fd-find git-delta gitui mdcat ripgrep zoxide
@@ -29,7 +30,7 @@ ascii binutils (readelf) binutils-dev build-essential clang gcc gdb hexyl manpag
 grip picopins
 
 # Networking
-bind9-dnsutils cloud-init dig dstat fierce iproute2 monkeysphere net-tools netcat-openbsd ncat nmap openssl speedtest-cli whois
+bind9-dnsutils cloud-init dig dstat fierce fping iproute2 monkeysphere netdiscover net-tools netcat-openbsd ncat nmap openssl speedtest-cli whois
 
 # Coreutils << info coreutils
 df du base64 env|printenv gawk od printenv sed wc
@@ -70,7 +71,7 @@ cd edex-ui &&
 <!-- - ASIR: DNS...
 
 ```bash
-ping fping; host dig nslookup
+ping fping; host dig nslookup tlslookup
 
 ```
 
@@ -104,3 +105,23 @@ pip install -U pgcli
 
 - [ ] [lsof](https://www.youtube.com/watch?v=CyC4_YPfxRc) <!-- @Navek -->
 - [ ] [xargs](https://www.youtube.com/watch?v=HK1wAV9x4-A) <!-- @TomNomNom -->
+
+
+---
+
+## ASIR about Kali
+
+- phishers: SEToolkit, Metasploit, Wifiphisher
+    - https://github.com/trustedsec/social-engineer-toolkit
+- antivirus:
+    - ClamAV (Cisco): https://github.com/Cisco-Talos/clamav + ClamTK
+- sniffers:
+    - snort: https://github.com/snort3/snort3
+- port scanning etc
+    - hping3
+- Documentation
+    - dradis (https://www.kali.org/tools/dradis/)
+- Misc.
+  - pkg alien to convert rpm to deb
+  - mtr
+  - iperf3

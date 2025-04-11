@@ -293,21 +293,32 @@ cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua
 # flatpak install flathub io.dbeaver.DBeaverCommunity
 flatpak install anydesk
 flatpak install discord
+flatpak install dbeaver
 flatpak install freetube
 # flatpak install gitkraken
 # flatpak install krita
-flatpak install slack
-flatpak install spotify
+# flatpak install slack
+# flatpak install spotify
 # flatpak install visualboy
-sudo apt install steam  # Proton 8
-flatpak install flathub com.github.IsmaelMartinez.teams_for_linux
+# sudo apt install steam-installer  # Proton 8
+# flatpak install flathub com.github.IsmaelMartinez.teams_for_linux
 # flatpak install qgis
 
 # flatpak install retroarch --> if possible, do via Steam instead aye? see ~/dotfiles/.config/retroarch
 # flatpak install dolphinemu
 flatpak install flathub io.dbeaver.DBeaverCommunity
-flatpak install md.obsidian.Obsidian
+# flatpak install md.obsidian.Obsidian
+
+# flatpak uninstall -y \
+#     arduino gitkraken pinta visualboyadvance dolphinemu \
+#     kdenlive krita qgis thonny
+flatpak uninstall --unused -y
+  # https://docs.flatpak.org/en/latest/using-flatpak.html#troubleshooting
 ```
+<!-- ```bash
+# Install Spotify
+
+``` -->
 
 ```bash
 # Install VSCodium
