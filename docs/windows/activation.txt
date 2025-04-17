@@ -1,0 +1,5 @@
+
+https://github.com/massgravel/Microsoft-Activation-Scripts
+
+for both O365 and Win itself
+tested on VMs only so far

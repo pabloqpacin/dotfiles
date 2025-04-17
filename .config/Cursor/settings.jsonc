@@ -12,6 +12,7 @@
     "workbench.colorTheme": "One Dark Pro Darker",
     "editor.fontFamily": "FiraCode Nerd Font",
     "workbench.iconTheme": "vscode-icons",
+    "vsicons.dontShowNewVersionMessage": true,
     "editor.minimap.enabled": true,
     "[markdown]": {
         "editor.tabSize": 2

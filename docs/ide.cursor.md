@@ -33,6 +33,10 @@ Type=Application
 Categories=Development;
 EOF
 ```
+- Ejecutar en la terminal
+```sh
+sudo ln -s /opt/cursor.appimage /usr/local/bin/cursor
+```
 
 - Launcher: **Cursor**
 
@@ -56,8 +60,9 @@ Cursor:
 
 ```yaml
 Extensions:
-    - zhuangtongfa.material-theme
-    - vscode-icons-team.vscode-icons
-
+  - zhuangtongfa.material-theme
+  - vscode-icons-team.vscode-icons
+  # - redhat.vscode-yaml
+  # ...
 ```
 
