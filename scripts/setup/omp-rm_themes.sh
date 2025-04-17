@@ -2,7 +2,7 @@
 
 if ! command -v pwsh &>/dev/null
     then echo "Command 'pwsh' not found. Aborting script" && exit 1
-elif [ ! -d $HOME/.cache/oh-my-posh ]
+elif [[ ! -d ${HOME}/.cache/oh-my-posh ]]
     then echo "Installation/themes '~/.cache/oh-my-posh' path not found. Aborting script" && exit 1
 fi
 
@@ -20,12 +20,12 @@ trash_themes=(
     'unicorn' 'velvet' 'wholespace'
 )
 
-themes="$HOME/.cache/oh-my-posh/themes/$trash_themes.omp.json"
+# themes="${HOME}/.cache/oh-my-posh/themes/${trash_themes}.omp.json"
 
 for trash in "${trash_themes[@]}"; do
-    theme="$HOME/.cache/oh-my-posh/themes/${trash}.omp.json"
-    if [ -e "$theme" ]; then
-        rm -v "$theme"
+    theme="${HOME}/.cache/oh-my-posh/themes/${trash}.omp.json"
+    if [[ -e "${theme}" ]]; then
+        rm -v "${theme}"
     fi
 done
 

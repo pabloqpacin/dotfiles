@@ -6,72 +6,60 @@
 # with      #   date -d '@1704639072' +'%Y/%m/%d %H:%M:%S %Z'
 
 get_files(){
-
-    input_file=$(find $HOME -path '**/**/.zsh_history' -or -name '.zsh_history' 2>/dev/null)    # $HOME == /home || /root
-
-    if [ -z $input_file ]; then
-            echo "Error: File '.zsh_history' not found at /home or /root (\$HOME)"
-            if ! grep 'zsh' /etc/shells; then
-                echo "       Shell 'zsh' not found in /etc/shells"
-                echo "       Please install zsh and (1) chsh manually or (2) install oh-my-zsh (recommended)"
-            else
-                echo "       Shell 'zsh' was found in /etc/shells tho, please troubleshoot..."
-            fi
-            exit 1
+    HISTORY_FILE=$(find "${HOME}" -path '**/**/.zsh_history' -or -name '.zsh_history' 2>/dev/null)    # $HOME == /home || /root
+    if [[ -z ${HISTORY_FILE} ]]; then
+        echo "Error: File '.zsh_history' not found at /home or /root (\$HOME)"
+        if ! grep 'zsh' /etc/shells; then
+            echo "  Shell 'zsh' not found in /etc/shells"
+            echo "  Please install zsh and (1) chsh manually or (2) install oh-my-zsh (recommended)"
+        else
+            echo "  Shell 'zsh' was found in /etc/shells tho, please troubleshoot..."
+        fi
+        exit 1
     fi
 
-    if [ -d "/tmp" ]; then
-        temp_dir="/tmp"
-    else
-        if [ -n "$TMPDIR" ] && [ -d "$TMPDIR" ]; then       # Termux
-            temp_dir="$TMPDIR"
+    if [[ -d "/tmp" ]]; then
+        TEMP_DIR="/tmp"
+    else # Termux
+        if [[ -n "${TMPDIR}" ]] && [[ -d "${TMPDIR}" ]]; then
+            TEMP_DIR="${TMPDIR}"
         else
             echo "Error: Unable to find a suitable temporary directory." >&2
             exit 1
         fi
     fi
-
-    output_file="$temp_dir/$(date +%F).zsh_history"
-
+    OUTPUT_FILE="${TEMP_DIR}/$(date +%F).zsh_history"
 }
 
 export_zsh_history() {
-
     while IFS= read -r line; do
-        if [[ $line =~ :[[:space:]]([0-9]+): ]]; then
-
+        if [[ ${line} =~ :[[:space:]]([0-9]+): ]]; then
             timestamp="${BASH_REMATCH[1]}"
-            echo "$(date -d @$timestamp +'%Y/%m/%d %H:%M:%S %Z') - $line" >> "$output_file"
-
+            echo "$(date -d "@${timestamp}" +'%Y/%m/%d %H:%M:%S %Z') - ${line}" >> "${OUTPUT_FILE}" || true
         else
-            echo "$line" >> "$output_file"
-
+            echo "${line}" >> "${OUTPUT_FILE}"
         fi
-    done < "$input_file"
+    done < "${HISTORY_FILE}"
 
-    if [ $? -ne 0 ]; then
+    if ! [[ -f "${OUTPUT_FILE}" ]]; then
         echo 'FAIL'
     else
         echo 'DONE'
     fi
-
 }
 
-get_files
-echo "Total lines in '$input_file': $(wc -l $input_file | awk '{print $1}')"
-
-while true; do
-
-    read -p "Log '$input_file' at '$output_file'? [Y/n] " user_input
-
-    case $user_input in
-        'y'|'Y'|'') export_zsh_history && break ;;
-        'n'|'N') echo "Script terminated" && exit 1 ;;
-        *)  echo "Please answer Y or N" ;;
-    esac
-
-done
-
+if true; then
+    get_files
+    echo "Total lines in '${HISTORY_FILE}': $(wc -l "${HISTORY_FILE}" | awk '{print $1}')" || true
+    while true; do
+        read -r -p "Log '${HISTORY_FILE}' at '${OUTPUT_FILE}'? [Y/n] " user_input
+        case ${user_input} in
+            'y'|'Y'|'') export_zsh_history && break ;;
+            'n'|'N') echo "Script terminated" && exit 1 ;;
+            *)  echo "Please answer Y or N" ;;
+        esac
+    done
+fi
 
 # cron() {
 #     crontab -e "0 0 * * * /path/to/backup_script.sh"

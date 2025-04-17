@@ -4,7 +4,7 @@
 ## TODO: check ports regardin mysql
 
 ########### VARIABLES ###########
-docker_volumes="$HOME/Docker_vs"
+docker_volumes="${HOME}/Docker_vs"
 
 ########### FUNCTIONS ###########
 
@@ -20,7 +20,7 @@ install_docker() {
             sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
         sudo apt-get update && sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
             # docker compose version; docker --version; docker version; sudo docker run hello-world     # systemctl status docker
-            sudo usermod -aG docker $USER
+            sudo usermod -aG docker "${USER}"
         wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.24.2-amd64.deb
         sudo apt-get update && sudo apt-get install ./docker-desktop-4.24.2-amd64.deb && rm docker-desktop-4.24.2-amd64.deb
             # systemctl --user start docker-desktop || systemctl --user enable docker-desktop 
@@ -34,16 +34,16 @@ run_portainer() {
     fi
 }
 
-run_mysql() {
-    if ! command -v mysql &>/dev/null; then
-        sudo apt-get update && sudo apt-get install mysql-client
-    fi
-    if command -v docker &>/dev/null; then
-        mkdir -p $docker_volumes/asir_mysql
-        docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=changeme -d -p 3306:3306 -v $docker_volumes/asir_mysql:/var/lib/mysql mysql
-        mysql -h 127.0.0.1 -u root -p
-    fi
-}
+# run_mysql() {
+#     if ! command -v mysql &>/dev/null; then
+#         sudo apt-get update && sudo apt-get install mysql-client
+#     fi
+#     if command -v docker &>/dev/null; then
+#         mkdir -p "${docker_volumes}/asir_mysql"
+#         docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=changeme -d -p 3306:3306 -v "${docker_volumes}/asir_mysql:/var/lib/mysql" mysql
+#         mysql -h 127.0.0.1 -u root -p
+#     fi
+# }
 
 # # Linux Nginx MariaDB Php for WordPress
 # compose_LEMP4WP() {
@@ -51,22 +51,22 @@ run_mysql() {
 
 ########### RUNTIME ###########
 
-mkdir $docker_volumes
+mkdir "${docker_volumes}"
 
-read -p "Install docker (distro must be Ubuntu-based)? [y/N] " opt
-if [[ $opt == 'y' || $opt == 'Y' ]]; then
+read -r -p "Install docker (distro must be Ubuntu-based)? [y/N] " opt
+if [[ ${opt} == 'y' || ${opt} == 'Y' ]]; then
     install_docker
 fi
 
-read -p "Run Portainer container? [y/N] " opt
-if [[ $opt == 'y' || $opt == 'Y' ]]; then
+read -r -p "Run Portainer container? [y/N] " opt
+if [[ ${opt} == 'y' || ${opt} == 'Y' ]]; then
     run_portainer
 fi
 
-read -p "Install mysql container? [y/N] " opt
-if [[ $opt == 'y' || $opt == 'Y' ]]; then
-    run_mysql
-fi
+# read -r -p "Install mysql container? [y/N] " opt
+# if [[ ${opt} == 'y' || ${opt} == 'Y' ]]; then
+#     run_mysql
+# fi
 
 # read -p "Install docker (distro must be Ubuntu-based)? [y/N] " opt
 # if [[ $opt == 'y' || $opt == 'Y' ]]; then

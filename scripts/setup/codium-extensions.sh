@@ -3,13 +3,16 @@
 # if ! ...
 
 extensions=(
-'zhuangtongfa.material-theme' 'vscode-icons-team.vscode-icons'
-'yzhang.markdown-all-in-one' 'yzane.markdown-pdf' 'tomoki1207.pdf'
-'bierner.markdown-mermaid' 'bpruitt-goddard.mermaid-markdown-syntax-highlighting'
-'naumovs.color-highlight' 'gruntfuggly.todo-tree' 'redhat.vscode-yaml' 'tamasfe.even-better-toml'
-# 'bbenoist.nix' 'rust-lang.rust-analyzer' 'devsense.phptools-vscode'
-'ms-vscode.live-server' 'jeanp413.open-remote-ssh'
-'ms-azuretools.vscode-docker'
+  'zhuangtongfa.material-theme' 'vscode-icons-team.vscode-icons'
+  'yzhang.markdown-all-in-one' 'yzane.markdown-pdf' 'tomoki1207.pdf'
+  'bierner.markdown-mermaid' 'bpruitt-goddard.mermaid-markdown-syntax-highlighting'
+  'naumovs.color-highlight' 'gruntfuggly.todo-tree' 'redhat.vscode-yaml' 'tamasfe.even-better-toml'
+  # 'bbenoist.nix' 'rust-lang.rust-analyzer' 'devsense.phptools-vscode'
+  'ms-vscode.live-server' 'jeanp413.open-remote-ssh'
+  'ms-azuretools.vscode-docker'
+  'trunk.io'
+  'hashicorp.hcl' 'hashicorp.terraform'
+  'tamasfe.even-better-toml' 'mechatroner.rainbow-csv'
 )
 
 if command -v kubectl &>/dev/null; then

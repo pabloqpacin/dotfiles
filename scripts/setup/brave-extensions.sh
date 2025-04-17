@@ -20,8 +20,8 @@ EXTENSIONS=(
     # 'dphilobhebphkdjbpfohgikllaljmgbn'    # simple-login
 )
 
-EXTENSIONS_PATH=/opt/brave.com/brave/extensions
-sudo mkdir -p $EXTENSIONS_PATH
+# EXTENSIONS_PATH=/opt/brave.com/brave/extensions
+# sudo mkdir -p "${EXTENSIONS_PATH}"
 
 for i in "${!EXTENSIONS[@]}"; do
     echo '{ "external_update_url": "https://clients2.google.com/service/update2/crx" }' | sudo tee "${EXTENSIONS_PATH}/${EXTENSIONS[i]}.json"

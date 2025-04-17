@@ -1,0 +1,8 @@
+
+tener en cuenta qeu hay varios clientes
+el 'tldr' es malo
+mirar 'tealdeer' y otros de cargo y tal
+
+---
+https://github.com/tealdeer-rs/tealdeer
+https://github.com/tldr-pages/tldr/issues/10313
