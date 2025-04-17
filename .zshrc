@@ -127,3 +127,10 @@ if command -v vagrant &>/dev/null; then
     '' | '~/.vagrant.d' | *) export VAGRANT_HOME='/var/vagrant.d' ;;
   esac
 fi
+# https://github.com/hashicorp/vagrant/issues/4482
+  # vboxmanage list systemproperties | grep machine
+  # vboxmanage setproperty machinefolder /path/where/you/want/VirtualboxVMs
+
+if [[ "${COMPOSE_PROJECT_NAME}" != '' ]]; then
+    COMPOSE_PROJECT_NAME=''
+fi
