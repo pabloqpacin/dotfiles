@@ -136,7 +136,7 @@ less_chatty = True
 # \# - "@" sign if logged in as superuser, '>' in other case
 # \n - Newline
 # \dsn_alias - name of dsn alias if -D option is used (empty otherwise)
-prompt = '\x1b[36m\u\x1b[0m@\x1b[32m\h\x1b[0m:\x1b[33m\d\x1b[0m> '
+prompt = '\x1b[36m\u\x1b[0m@\x1b[32m\H\x1b[0m:\x1b[33m\d\x1b[0m> '
 # prompt_continuation = ' -> '
 
 # Number of lines to reserve for the suggestion menu
