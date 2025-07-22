@@ -1,112 +1,77 @@
 #!/usr/bin/env bash
 
 echo -e "\n----################################################################----"
-echo -e "#########~~~~~{     DebUbu-base v1.4  by @pabloqpacin    }~~~~~#########"
+echo -e "#########~~~~~{     Pop-base v0.1  by @pabloqpacin    }~~~~~#########"
 echo -e "----################################################################----\n"
 
-### Tested and good to run on Debian 12, Ubuntu 22.04 and Pop!_OS 22.04 (freshly installed VMs):
-### curl https://raw.githubusercontent.com/pabloqpacin/dotfiles/main/scripts/autosetup/DebUbu-base.sh \
-### -o setup.sh && chmod +x setup.sh && ./setup.sh
-###
-### Prerequirements:
-### - Docker if VM: VBoxManage modifyvm <VMname> --nested-hw-virt on
-### - Debian: sudo permissions
-### - Ubuntu: —
-### - PopOS: —
+# bash -c $(curl -fsSL "https://"")
 
-################################################################################
-#                                  FUNCTIONS                                   # 
-################################################################################
-
-function log_df {
-    {
-        date
-        echo -e "Currently installed packages: $(dpkg -l | wc -l)" || true
-        # dpkg -l .. apt list --installed .. snap list .. flatpak list .. cargo install --list .. python? .. npm?
-        df -h
-        echo ""
-    } >> "${df_log}"
+set_variables() {
+    read -r -p "Skip all 'apt install <package>' prompts? [y/N] " opt
+    case ${opt} in
+        'Y'|'y') sa_install="sudo apt-get install -y" ;;
+              *) sa_install="sudo apt-get install" ;;
+    esac
+    sa_update="sudo apt-get update"
 }
 
-function secs_to_mins {
-    local total_seconds="$1"
-    local minutes=$((total_seconds / 60))
-    local seconds=$((total_seconds % 60))
-    end_time_minutes="${minutes}:${seconds}"
-}
-
-function system_update {
+apt_update_install(){
     if [[ ! -e "/etc/apt/apt.conf.d/99show-versions" ]]; then
         echo 'APT::Get::Show-Versions "true";' | sudo tee /etc/apt/apt.conf.d/99show-versions
     fi
-    sudo apt-get update && \
-        sudo apt-get upgrade -y && \
-        # sudo apt-get full-upgrade -y && \             # full-upgrade ...
-        sudo apt-get autoremove -y && \
-        sudo apt-get autoclean -y
-}
 
-function base_apt_packages {
-    ${sa_install} neofetch oneko --no-install-recommends
-    ${sa_install} build-essential
-    ${sa_install} curl git openssh-server wget    # net-tools
-    ${sa_install} ccze devilspie grc ipcalc nmap nmapsi4 powertop ripgrep tldr tmux zsh # btop
-    ${sa_install} python3-pip python3-venv --no-install-recommends
-    ${sa_install} mycli   # mariadb-client
-    
-    if [[ ! -d ${HOME}/.local/share/tldr ]]; then
-        tldr --update
+    ${sa_update} && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean
+
+    # $sa_install build-essential
+    ${sa_install} neofetch python3-pip python3-venv --no-install-recommends
+    ${sa_install} curl git net-tools openssh-server wget wl-clipboard xclip xsel
+    ${sa_install} bat eza flameshot fzf git-delta grc jq lf nmap ripgrep tmux tree
+    # $sa_install btop devilspie ipcalc mycli
+
+    if ! command -v bat &>/dev/null && command -v batcat &>/dev/null; then
+        sudo mv "$(command -v batcat)" /usr/bin/bat || true
     fi
-    
-    sudo mv "$(command -v batcat)" /usr/bin/bat || true
 
-    # $sa_install wireshark tshark && sudo usermod -aG wireshark $USER      # WARNING: non-sudo? yes
-    # $sa_install keepassxc && mkdir ~/KPXC && xdg-open https://keepassxc.org/docs/KeePassXC_UserGuide#_setup_browser_integration
-    # $sa_install flameshot
-}
-
-function install_cheat {
-    if ! command -v cheat &>/dev/null; then
-        echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Cheat${RESET}${YELLOW} ####################${RESET}"
-        cd /tmp \
-            && wget https://github.com/cheat/cheat/releases/download/4.4.0/cheat-linux-amd64.gz \
-            && gunzip cheat-linux-amd64.gz \
-            && chmod +x cheat-linux-amd64 \
-            && sudo mv cheat-linux-amd64 /usr/local/bin/cheat \
-            && cd "${HOME}" || return 1
-        yes | cheat || true
-    else
-        echo -e "\n${YELLOW}########## ${GREEN}${BOLD}Cheat${RESET}${YELLOW} is already installed ##########${RESET}"
+    if ! command -v tldr &>/dev/null; then
+        read -r -p "Install tldr [y/N]? " opt_tldr
+        if [[ ${opt_tldr} == 'y' ]]; then
+            ${sa_install} tldr
+            if [[ ! -d ~/.local/share ]]; then
+                mkdir ~/.local/share
+            fi
+            tldr --update
+        fi
     fi
 }
 
-function install_rust_tools {
+install_rust_tools() {
     if ! command -v cargo &>/dev/null; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Rust Toolchain${RESET}${YELLOW} (accept '${RED}default${RESET}${YELLOW}') ####################${RESET}"
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y || true
-        # echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Rust pkgs${RESET}${YELLOW} ####################${RESET}"
-        # "${HOME}/.cargo/bin/cargo" install bat bottom eza git-delta zoxide  # fd-find
+        echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Rust pkgs${RESET}${YELLOW} ####################${RESET}"
+        "${HOME}/.cargo/bin/cargo" install bat bottom eza git-delta zoxide  # fd-find
+    else
+        echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Rust pkgs${RESET}${YELLOW} ####################${RESET}"
+        "${HOME}/.cargo/bin/cargo" install bat bottom eza git-delta zoxide  # fd-find
+        "${HOME}/.cargo/bin/cargo" install --locked yazi-fm
     fi
-    echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Rust pkgs${RESET}${YELLOW} ####################${RESET}"
-    "${HOME}/.cargo/bin/cargo" install bat bottom cargo-update eza fd-find git-delta jwt-cli mdcat zoxide
-    "${HOME}/.cargo/bin/cargo" install --locked yazi-fm
 }
 
-function install_golang_tools {    # Golang == zsh only atm
+install_golang_tools() {    # Golang == zsh only atm
     if ! command -v go &>/dev/null; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Golang${RESET}${YELLOW} ####################${RESET}"
         cd /tmp \
             && wget -c https://golang.org/dl/go1.21.0.linux-amd64.tar.gz \
             && sudo rm -rf /usr/local/go \
             && sudo tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz  # \ && cd $HOME && source ~/dotfiles/zsh/golang.zsh &>/dev/null
-        echo '
+        echo "
 export GOPATH=\$HOME/go
 export GOBIN=\$GOPATH/bin
 if [[ ":\$PATH:" != *":\$GOBIN:"* ]]; then
     export PATH=\$PATH:\$GOBIN
     export PATH=\$PATH:/usr/local/go/bin
 fi
-' >> "${HOME}/.${current_shell}rc"
+" >> "${HOME}/.${current_shell}rc"
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Golang${RESET}${YELLOW} tools ####################${RESET}"
         /usr/local/go/bin/go install github.com/junegunn/fzf@latest
         env CGO_ENABLED=0 /usr/local/go/bin/go install -ldflags="-s -w" github.com/gokcehan/lf@latest
@@ -119,13 +84,12 @@ fi
     fi
 }
 
-function install_vscodium {
+install_vscodium() {
     if ! command -v codium &>/dev/null; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}VSCodium${RESET}${YELLOW} ####################${RESET}"
         wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg \
-            | gpg --dearmor \
-            | sudo dd of=/usr/share/keyrings/vscodium-archive-keyring.gpg
-        echo 'deb [ signed-by=/usr/share/keyrings/vscodium-archive-keyring.gpg arch=amd64] https://download.vscodium.com/debs vscodium main' \
+            | gpg --dearmor | sudo dd of=/usr/share/keyrings/vscodium-archive-keyring.gpg
+        echo 'deb [ signed-by=/usr/share/keyrings/vscodium-archive-keyring.gpg ] https://download.vscodium.com/debs vscodium main' \
             | sudo tee /etc/apt/sources.list.d/vscodium.list
         ${sa_update} && ${sa_install} codium
     else
@@ -133,7 +97,7 @@ function install_vscodium {
     fi
 }
 
-function install_brave {
+install_brave() {
     if ! command -v brave-browser &>/dev/null; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Brave${RESET}${YELLOW} ####################${RESET}"
         sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg \
@@ -147,7 +111,7 @@ function install_brave {
     fi
 }
 
-function install_nerdfonts {
+install_nerdfonts() {
     if [[ ! -d /usr/share/fonts/FiraCodeNerd && ! -d /usr/share/fonts/CascadiaCodeNerd ]]; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}FiraCode Nerd Font${RESET}${YELLOW} ####################${RESET}"
         wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraCode.zip
@@ -162,20 +126,20 @@ function install_nerdfonts {
     fi
 }
 
-function install_alacritty {
+install_alacritty() {
     if ! command -v alacritty &>/dev/null; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Alacritty${RESET}${YELLOW} ####################${RESET}"
         case ${distro} in
             "ubuntu") sudo add-apt-repository ppa:aslatter/ppa -y &&  ${sa_update} && ${sa_install} alacritty ;;
             "debian" | "pop") ${sa_update} && ${sa_install} alacritty ;;
-            *) return 1 ;;
+            *) ;;
         esac
     else
         echo -e "\n${YELLOW}########## ${GREEN}${BOLD}Alacritty${RESET}${YELLOW} is already installed ##########${RESET}"
     fi
 }
 
-function install_powershell_ubupop {
+function install_powershell_ubupop() {
     if ! command -v pwsh &>/dev/null; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Powershell${RESET}${YELLOW} ####################${RESET}"
         ${sa_update} && ${sa_install} wget apt-transport-https software-properties-common
@@ -191,7 +155,7 @@ function install_powershell_ubupop {
 # function install_powershell_deb {
 # }
 
-function install_docker {
+function install_docker() {
     if ! command -v docker &>/dev/null; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Docker${RESET}${YELLOW} ####################${RESET}"
         # https://docs.docker.com/desktop/install/ubuntu/
@@ -200,8 +164,8 @@ function install_docker {
         curl -fsSL "https://download.docker.com/linux/${docker_distro}/gpg" | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg || true
         sudo chmod a+r /etc/apt/keyrings/docker.gpg
         echo \
-            "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/$docker_distro \
-            "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+            "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/${docker_distro} \
+            "$(. /etc/os-release && echo "${VERSION_CODENAME}")" stable" | \
             sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
         ${sa_update} && ${sa_install} docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
             # docker compose version; docker --version; docker version; sudo docker run hello-world     # systemctl status docker
@@ -318,131 +282,9 @@ function dotfiles_neovim {
     ln -s "${HOME}/dotfiles/.config/nvim" "${HOME}/.config"
     read -r -p "Skip error messages with <Enter>, then do :so :PackerSync :qa " null
     case ${null} in
-        *) cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua ;;
+        '') cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua; cd "${HOME}" || true ;;
         # # $ :so && :PackerSync && :PackerCompile && :MasonUpdate
+        *) ;;
     esac
-    cd "${HOME}" || return 1
 }
 
-function setup_chicago95 {
-    ${sa_install} xfce4-panel-profiles
-    xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -n -t string -s "xfce4-popup-whiskermenu"
-    git clone https://github.com/grassmunk/Chicago95
-    ./Chicago95/installer.py
-    # sudo mv /etc/fonts/conf.d/70-no-bitmaps.conf /etc/fonts/conf.d/70-no-bitmaps.conf.bak
-    # xfconf-query -c xsettings -p /Net/ThemeName -s "Helvetica Regular 8"
-}
-
-function debian_devilspie {
-    cat ~/.devilspie/window_transparency.ds > dp_tmp && \
-        cat dp_tmp >> ~/.devilspie/window_transparency.ds && \
-        sed -i '6,/Codium/{s/Codium/Alacritty/}' ~/.devilspie/window_transparency.ds && \
-        rm dp_tmp
-}
-
-################################################################################
-#                                   RUNTIME                                    # 
-################################################################################
-
-# xset s off        # Turn off screen saver
-# xset -dpms        # Turn off power management
-
-distro=$(grep "^ID=" /etc/os-release | awk -F '=' '{print $2}')
-current_shell=$(echo "${SHELL}" | awk -F '/' '{print $NF}')
-# current_shell=$(ps -p $$ -o comm= | awk '{print $1}')
-desktop=${XDG_CURRENT_DESKTOP}
-docker_distro=""
-case ${distro} in
-    "debian") docker_distro='debian' ;;
-    "ubuntu" | "pop") docker_distro='ubuntu' ;;
-    *) echo "Distro not supported: ${distro}" && exit 1 ;;
-esac
-
-# Tested on:
-#   - OS ============== $distro == $desktop
-#   - Debian (xfce) --> debian --- XFCE
-#   - Ubuntu ---------> ubuntu --- ubuntu:GNOME
-#   - PopOS ----------> pop ------ pop:GNOME
-
-start_time=${SECONDS}
-df_log='/tmp/autosetup-base.log'
-
-RESET='\e[0m'
-BOLD='\e[1m'
-RED='\e[31m'
-CYAN='\e[36m'
-GREEN='\e[32m'
-YELLOW='\e[33m'
-
-sa_install=""
-sa_update="sudo apt-get update"
-
-echo -e "\n${CYAN}### Logging ${RED}${BOLD}STARTING${RESET}${CYAN} disk usage to '${RED}${BOLD}$df_log${RESET}${CYAN}' ###${RESET}\n"
-log_df
-
-read -r -p "Do you want to skip all 'sudo apt-get install <package>' prompts? [Y/n] " opt
-if [[ ${opt} == "Y" || ${opt} == "y" || ${opt} = "" ]]
-    then sa_install="sudo apt-get install -y"
-    else sa_install="sudo apt-get install"
-fi
-
-echo ""
-system_update
-base_apt_packages
-install_cheat
-install_rust_tools
-install_golang_tools
-install_vscodium
-install_brave
-install_nerdfonts
-install_alacritty
-install_docker
-case ${distro} in
-    # "debian") install_powershell_deb ;;
-    "ubuntu" | "pop") install_powershell_ubupop ;;
-    *) return 1 ;;
-esac
-build_neovim
-dotfiles_shell
-    # dotfiles_config
-    # dotfiles_neovim
-if [[ ${desktop} == "XFCE" && $(xfconf-query -c xfwm4 -p /general/theme) != 'Chicago95' ]]; then
-    setup_chicago95
-    case ${distro} in
-        "debian") debian_devilspie ;;
-        *) return 1 ;;
-    esac
-fi
-
-echo -e "\n${CYAN}### Logging ${RED}${BOLD}FINAL${RESET}${CYAN} disk usage to '${RED}${BOLD}${df_log}${RESET}${CYAN}' ###${RESET}"
-log_df
-
-end_time=$((SECONDS - start_time))
-secs_to_mins "${end_time}"
-echo -e "\n${GREEN}# Script execution time: ${RED}${BOLD}${end_time}${RESET}${GREEN} seconds, (${RED}${BOLD}${end_time_minutes}${RESET}${GREEN} minutes). #${RESET}\n"
-
-# xset s on         # Turn on screen saver
-# xset +dpms        # Turn on power management
-
-
-# =======x=======
-#   
-# @LukeSmith: vps+domain+ssh+(docker)+nginx+cron - https://www.youtube.com/watch?v=OWAqilIVNgE
-# https://hub.docker.com/_/httpd
-    # @FaztCode: https://www.youtube.com/watch?v=-563XKoRfZ8 
-#
-#
-# set -o vim /// delete word mid sentece
-#
-
-# DOCKER
-# IF VM: VBoxManage modifyvm UbuntuClient --nested-hw-virt on
-
-###
-### NOTE: golang for bash
-### NOTE: sudo apt install virtualbox-dkms --no-install-recommends
-###
-
-### NPM:: Using APT instead of NVM due to scripting complications
-
-### nixpkgs

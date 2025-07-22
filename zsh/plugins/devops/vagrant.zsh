@@ -11,3 +11,5 @@ alias vbl='vagrant box list'
 
 alias vss='vagrant snapshot'
     # list, push, pop
+
+# vhalt && vss pop --no-delete --provision

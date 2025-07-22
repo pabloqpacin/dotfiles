@@ -12,6 +12,7 @@
     - [Base](#base)
     - [Desktop](#desktop)
     - [Homelab](#homelab)
+    - [RPCS3](#rpcs3)
 
 
 ---
@@ -308,6 +309,9 @@ flatpak install freetube
 # flatpak install dolphinemu
 flatpak install flathub io.dbeaver.DBeaverCommunity
 # flatpak install md.obsidian.Obsidian
+# flatpak install rpcs3 # NO CONTROLLERS; más info y correcta instalación abajo en este doc
+#   # https://flathub.org/apps/net.rpcs3.RPCS3
+#   # https://wiki.rpcs3.net/index.php?title=Demon%27s_Souls
 
 # flatpak uninstall -y \
 #     arduino gitkraken pinta visualboyadvance dolphinemu \
@@ -500,7 +504,12 @@ wget https://extensions.libreoffice.org/assets/downloads/508/1693681078/codehigh
 - OBS
 
 ```bash
-flatpak install com.obsproject.Studio
+# Might not be a great idea to install via ppa, but it is what it is.
+# flatpak install com.obsproject.Studio
+sudo add-apt-repository ppa:obsproject/obs-studio
+sudo apt update
+sudo apt install obs-studio
+
 flatpak install kdenlive
 
 sudo apt-get install screenkey
@@ -874,4 +883,31 @@ VERSION='1.6.7'
 # curl https://obsidian.md/download -o Desktop/foo
 chmod u+x ./Desktop/Obisidian-$VERSION.AppImage
 ./Desktop/Obsidian-1.6.7.AppImage
+```
+
+
+### RPCS3
+
+> [!NOTE]
+> - https://rpcs3.net/download
+> - https://rpcs3.net/quickstart
+> - https://wiki.rpcs3.net/index.php?title=Demon%27s_Souls
+
+```sh
+# descargar de la web a ~/Downloads
+
+sudo mv ~/Downloads/rpcs3-v0.0.36-17820-1960b5a6_linux64.AppImage /opt/rpcs3.appimage
+sudo chmod a+x /opt/rpcs3.appimage
+
+sudo wget https://pbs.twimg.com/profile_images/1515368573539172354/sdW6TE01_400x400.jpg
+sudo mv s*.png /opt/rpcs3.jpg
+
+sudo tee /usr/share/applications/rpcs3.desktop << EOF
+[Desktop Entry]
+Name=rpcs3
+Exec=/opt/rpcs3.appimage
+Icon=/opt/rpcs3.jpg
+Type=Application
+Categories=Games;
+EOF
 ```

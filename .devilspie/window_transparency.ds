@@ -5,6 +5,12 @@
 )
 )
 ( if
+( contains ( window_class ) "VSCodium" )
+( begin
+( spawn_async (str "xprop -id " (window_xid) " -f _NET_WM_WINDOW_OPACITY 32c -set _NET_WM_WINDOW_OPACITY 0xefffffff") )
+)
+)
+( if
 ( contains ( window_class ) "Cursor" )
 ( begin
 ( spawn_async (str "xprop -id " (window_xid) " -f _NET_WM_WINDOW_OPACITY 32c -set _NET_WM_WINDOW_OPACITY 0xefffffff") )
