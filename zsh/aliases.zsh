@@ -2,6 +2,23 @@
 
 # alias rm='mv $1 /tmp/$1'
 
+# Golang
+alias gor='go run .'
+alias got='go test'
+
+function cursor() {
+    if [ -z "$1" ]; then
+        echo "Se requiere un parámetro para la ruta del cursor."
+        return 1
+    fi
+    /usr/local/bin/cursor "$1" & disown
+}
+
+PATH() {
+    echo $PATH | tr ':' '\n' | sort
+}
+
+alias yql='yq -C | less -R'
 alias jql='jq -C | less -R'
 jq_docker_ip(){
     $@ | jq '.[0].NetworkSettings.Networks["poc-test_default"].IPAddress'
@@ -190,6 +207,7 @@ alias py='python3'
 
 alias xpaste='xclip -o -sel clip'
 
+alias gfap='git fetch --all --prune'
 alias grmc='git rm --cached'    # $1
 alias grv='git remote -v'
 alias gsl='git stash list'
@@ -199,6 +217,8 @@ alias glf="glods --follow"  #$1
 # alias gsp='git stash pop'
 # alias gs='git stash'
 alias gstun='git status --untracked-files=no'
+alias gsp='git stash push'  # -m "wip"
+alias gtn='git tag -n'
 
 alias vrv='virt-host-validate'      # KVM
 
@@ -224,6 +244,7 @@ alias ftail='tail -f'
 alias tolower="tr '[:upper:]' '[:lower:]'"
 
 whatismyip(){
+    curl ifconfig.io || \
     dig +short myip.opendns.com @resolver1.opendns.com
 }
 

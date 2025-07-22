@@ -19,21 +19,24 @@ echo -e "----################################################################---
 ################################################################################
 
 function log_df {
-    date >> $df_log
-    echo -e "Currently installed packages: $(dpkg -l | wc -l)" >> $df_log
+    {
+        date
+        echo -e "Currently installed packages: $(dpkg -l | wc -l)" || true
         # dpkg -l .. apt list --installed .. snap list .. flatpak list .. cargo install --list .. python? .. npm?
-    df -h >> $df_log; echo -e "\n" >> $df_log
+        df -h
+        echo ""
+    } >> "${df_log}"
 }
 
 function secs_to_mins {
     local total_seconds="$1"
     local minutes=$((total_seconds / 60))
     local seconds=$((total_seconds % 60))
-    end_time_minutes="$minutes:$seconds"
+    end_time_minutes="${minutes}:${seconds}"
 }
 
 function system_update {
-    if [ ! -e "/etc/apt/apt.conf.d/99show-versions" ]; then
+    if [[ ! -e "/etc/apt/apt.conf.d/99show-versions" ]]; then
         echo 'APT::Get::Show-Versions "true";' | sudo tee /etc/apt/apt.conf.d/99show-versions
     fi
     sudo apt-get update && \
@@ -44,18 +47,18 @@ function system_update {
 }
 
 function base_apt_packages {
-    $sa_install neofetch oneko --no-install-recommends
-    $sa_install build-essential
-    $sa_install curl git openssh-server wget    # net-tools
-    $sa_install ccze devilspie grc ipcalc nmap nmapsi4 powertop ripgrep tldr tmux zsh # btop
-    $sa_install python3-pip python3-venv --no-install-recommends
-    $sa_install mycli   # mariadb-client
+    ${sa_install} neofetch oneko --no-install-recommends
+    ${sa_install} build-essential
+    ${sa_install} curl git openssh-server wget    # net-tools
+    ${sa_install} ccze devilspie grc ipcalc nmap nmapsi4 powertop ripgrep tldr tmux zsh # btop
+    ${sa_install} python3-pip python3-venv --no-install-recommends
+    ${sa_install} mycli   # mariadb-client
     
-    if [[ ! -d $HOME/.local/share/tldr ]]; then
+    if [[ ! -d ${HOME}/.local/share/tldr ]]; then
         tldr --update
     fi
     
-    sudo mv $(which batcat) /usr/bin/bat
+    sudo mv "$(command -v batcat)" /usr/bin/bat || true
 
     # $sa_install wireshark tshark && sudo usermod -aG wireshark $USER      # WARNING: non-sudo? yes
     # $sa_install keepassxc && mkdir ~/KPXC && xdg-open https://keepassxc.org/docs/KeePassXC_UserGuide#_setup_browser_integration
@@ -70,8 +73,8 @@ function install_cheat {
             && gunzip cheat-linux-amd64.gz \
             && chmod +x cheat-linux-amd64 \
             && sudo mv cheat-linux-amd64 /usr/local/bin/cheat \
-            && cd $HOME
-        yes | cheat
+            && cd "${HOME}" || return 1
+        yes | cheat || true
     else
         echo -e "\n${YELLOW}########## ${GREEN}${BOLD}Cheat${RESET}${YELLOW} is already installed ##########${RESET}"
     fi
@@ -80,14 +83,13 @@ function install_cheat {
 function install_rust_tools {
     if ! command -v cargo &>/dev/null; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Rust Toolchain${RESET}${YELLOW} (accept '${RED}default${RESET}${YELLOW}') ####################${RESET}"
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-        echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Rust pkgs${RESET}${YELLOW} ####################${RESET}"
-        $HOME/.cargo/bin/cargo install bat bottom eza git-delta zoxide  # fd-find
-    else
-        echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Rust pkgs${RESET}${YELLOW} ####################${RESET}"
-        $HOME/.cargo/bin/cargo install bat bottom eza git-delta zoxide  # fd-find
-        $HOME/.cargo/bin/cargo install --locked yazi-fm
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y || true
+        # echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Rust pkgs${RESET}${YELLOW} ####################${RESET}"
+        # "${HOME}/.cargo/bin/cargo" install bat bottom eza git-delta zoxide  # fd-find
     fi
+    echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Rust pkgs${RESET}${YELLOW} ####################${RESET}"
+    "${HOME}/.cargo/bin/cargo" install bat bottom cargo-update eza fd-find git-delta jwt-cli mdcat zoxide
+    "${HOME}/.cargo/bin/cargo" install --locked yazi-fm
 }
 
 function install_golang_tools {    # Golang == zsh only atm
@@ -97,14 +99,14 @@ function install_golang_tools {    # Golang == zsh only atm
             && wget -c https://golang.org/dl/go1.21.0.linux-amd64.tar.gz \
             && sudo rm -rf /usr/local/go \
             && sudo tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz  # \ && cd $HOME && source ~/dotfiles/zsh/golang.zsh &>/dev/null
-        echo "
+        echo '
 export GOPATH=\$HOME/go
 export GOBIN=\$GOPATH/bin
 if [[ ":\$PATH:" != *":\$GOBIN:"* ]]; then
     export PATH=\$PATH:\$GOBIN
     export PATH=\$PATH:/usr/local/go/bin
 fi
-" >> $HOME/.${current_shell}rc
+' >> "${HOME}/.${current_shell}rc"
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Golang${RESET}${YELLOW} tools ####################${RESET}"
         /usr/local/go/bin/go install github.com/junegunn/fzf@latest
         env CGO_ENABLED=0 /usr/local/go/bin/go install -ldflags="-s -w" github.com/gokcehan/lf@latest
@@ -123,9 +125,9 @@ function install_vscodium {
         wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg \
             | gpg --dearmor \
             | sudo dd of=/usr/share/keyrings/vscodium-archive-keyring.gpg
-        echo 'deb [ signed-by=/usr/share/keyrings/vscodium-archive-keyring.gpg ] https://download.vscodium.com/debs vscodium main' \
+        echo 'deb [ signed-by=/usr/share/keyrings/vscodium-archive-keyring.gpg arch=amd64] https://download.vscodium.com/debs vscodium main' \
             | sudo tee /etc/apt/sources.list.d/vscodium.list
-        $sa_update && $sa_install codium
+        ${sa_update} && ${sa_install} codium
     else
         echo -e "\n${YELLOW}########## ${GREEN}${BOLD}VSCodium${RESET}${YELLOW} is already installed ##########${RESET}"
     fi
@@ -139,7 +141,7 @@ function install_brave {
         echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] \
             https://brave-browser-apt-release.s3.brave.com/ stable main" \
             | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-        $sa_update && $sa_install brave-browser
+        ${sa_update} && ${sa_install} brave-browser
     else
         echo -e "\n${YELLOW}########## ${GREEN}${BOLD}Brave${RESET}${YELLOW} is already installed ##########${RESET}"
     fi
@@ -163,9 +165,10 @@ function install_nerdfonts {
 function install_alacritty {
     if ! command -v alacritty &>/dev/null; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Alacritty${RESET}${YELLOW} ####################${RESET}"
-        case $distro in
-            "ubuntu") sudo add-apt-repository ppa:aslatter/ppa -y &&  $sa_update && $sa_install alacritty ;;
-            "debian" | "pop") $sa_update && $sa_install alacritty ;;
+        case ${distro} in
+            "ubuntu") sudo add-apt-repository ppa:aslatter/ppa -y &&  ${sa_update} && ${sa_install} alacritty ;;
+            "debian" | "pop") ${sa_update} && ${sa_install} alacritty ;;
+            *) return 1 ;;
         esac
     else
         echo -e "\n${YELLOW}########## ${GREEN}${BOLD}Alacritty${RESET}${YELLOW} is already installed ##########${RESET}"
@@ -175,11 +178,11 @@ function install_alacritty {
 function install_powershell_ubupop {
     if ! command -v pwsh &>/dev/null; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Powershell${RESET}${YELLOW} ####################${RESET}"
-        $sa_update && $sa_install wget apt-transport-https software-properties-common
-        wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+        ${sa_update} && ${sa_install} wget apt-transport-https software-properties-common
+        wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb" || true
         sudo dpkg -i packages-microsoft-prod.deb
         rm packages-microsoft-prod.deb
-        $sa_update && $sa_install powershell
+        ${sa_update} && ${sa_install} powershell
     else
         echo -e "\n${YELLOW}########## ${GREEN}${BOLD}Powershell${RESET}${YELLOW} is already installed ##########${RESET}"
     fi
@@ -192,17 +195,17 @@ function install_docker {
     if ! command -v docker &>/dev/null; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}Docker${RESET}${YELLOW} ####################${RESET}"
         # https://docs.docker.com/desktop/install/ubuntu/
-        $sa_update && $sa_install ca-certificates curl gnupg  # gnome-terminal
+        ${sa_update} && ${sa_install} ca-certificates curl gnupg  # gnome-terminal
         sudo install -m 0755 -d /etc/apt/keyrings
-        curl -fsSL https://download.docker.com/linux/$docker_distro/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        curl -fsSL "https://download.docker.com/linux/${docker_distro}/gpg" | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg || true
         sudo chmod a+r /etc/apt/keyrings/docker.gpg
         echo \
             "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/$docker_distro \
             "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
             sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-        $sa_update && $sa_install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+        ${sa_update} && ${sa_install} docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
             # docker compose version; docker --version; docker version; sudo docker run hello-world     # systemctl status docker
-            sudo usermod -aG docker $USER
+            sudo usermod -aG docker "${USER}"
             # newgrp docker
         # wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.24.2-amd64.deb
         # $sa_update && $sa_install ./docker-desktop-4.24.2-amd64.deb && rm docker-desktop-4.24.2-amd64.deb
@@ -215,31 +218,31 @@ function install_docker {
 function build_neovim {
     if ! command -v nvim &>/dev/null; then
         echo -e "\n${YELLOW}########## Building ${RED}${BOLD}Neovim${RESET}${YELLOW} ####################${RESET}\n"
-        $sa_install build-essential cmake gettext ninja-build unzip
-        cd $HOME && git clone --depth 1 https://github.com/neovim/neovim.git
+        ${sa_install} build-essential cmake gettext ninja-build unzip
+        cd "${HOME}" && git clone --depth 1 https://github.com/neovim/neovim.git
         cd neovim && make CMAKE_BUILD_TYPE=Release      # RelWithDebInfo OK too
         sudo make install
-        cd $HOME && sudo rm -rf neovim
+        cd "${HOME}" && sudo rm -rf neovim
     else
         echo -e "\n${YELLOW}########## ${GREEN}${BOLD}Neovim${RESET}${YELLOW} is already installed ##########${RESET}\n"
     fi
 }
 
 function dotfiles_shell {
-    if [[ ! -d $HOME/dotfiles ]]; then
-        git clone --depth 1 https://github.com/pabloqpacin/dotfiles $HOME/dotfiles
+    if [[ ! -d ${HOME}/dotfiles ]]; then
+        git clone --depth 1 https://github.com/pabloqpacin/dotfiles "${HOME}/dotfiles"
         # zoxide add dotfiles
     fi
-    if [[ ! -L $HOME/.zshrc ]]; then
-        echo ""; read -p "Apply ZSH configuration? [Y/n] " opt
-        if [[ $opt == "Y" || $opt == "y" || $opt = "" ]]; then
-            yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    if [[ ! -L ${HOME}/.zshrc ]]; then
+        echo ""; read -r -p "Apply ZSH configuration? [Y/n] " opt
+        if [[ ${opt} == "Y" || ${opt} == "y" || ${opt} = "" ]]; then
+            yes | sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
             rm ~/.zshrc && ln -s ~/dotfiles/.zshrc ~/
-            mkdir $HOME/dotfiles/zsh/plugins
-            git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions $HOME/dotfiles/zsh/plugins/zsh-autosuggestions
-            git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting $HOME/dotfiles/zsh/plugins/zsh-syntax-highlighting
-            bash $HOME/dotfiles/scripts/setup/omz-msg_random_theme.sh
-            sudo chsh -s $(which zsh) $USER
+            mkdir "${HOME}/dotfiles/zsh/plugins"
+            git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions "${HOME}/dotfiles/zsh/plugins/zsh-autosuggestions"
+            git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting "${HOME}/dotfiles/zsh/plugins/zsh-syntax-highlighting"
+            bash "${HOME}/dotfiles/scripts/setup/omz-msg_random_theme.sh"
+            sudo chsh -s "$(command -v zsh)" "${USER}" || true
             zoxide add dotfiles
         dotfiles_config         # TODO: take this function call outta this function asap
         # else
@@ -251,7 +254,7 @@ function dotfiles_shell {
 ######## TODO: proper condition statements bout symlinks and such -- ATM called by Question/Prompt above
 function dotfiles_config {
     # Fix cheat --  source ~/dotfiles/scripts/setup/cheat_symlink.sh
-    bash $HOME/dotfiles/scripts/setup/cheat-symlink.sh
+    bash "${HOME}/dotfiles/scripts/setup/cheat-symlink.sh"
 
     # Simple configs
     ln -s ~/dotfiles/.gitconfig ~/
@@ -262,15 +265,15 @@ function dotfiles_config {
 
     # Tmux
     ln -s ~/dotfiles/.config/tmux ~/.config
-    if [[ ! -d $HOME/.tmux/plugins ]]; then
+    if [[ ! -d ${HOME}/.tmux/plugins ]]; then
         git clone --depth 1 https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
         # tmux    # $ C-b + I --> Install plugins
     fi
 
     # Powershell
-    if command -v pwsh &>/dev/null && [ ! -e $HOME/.local/bin/oh-my-posh ]; then
-        mkdir -p $HOME/.local/bin &>/dev/null
-        curl -s https://ohmyposh.dev/install.sh | bash -s -- -d $HOME/.local/bin
+    if command -v pwsh &>/dev/null && [[ ! -e ${HOME}/.local/bin/oh-my-posh ]]; then
+        mkdir -p "${HOME}/.local/bin" &>/dev/null
+        curl -s https://ohmyposh.dev/install.sh | bash -s -- -d "${HOME}/.local/bin" || true
         ln -s ~/dotfiles/.config/powershell ~/.config
     fi
 
@@ -278,7 +281,7 @@ function dotfiles_config {
     if command -v codium &>/dev/null && command -v devilspie &>/dev/null; then
         ln -s ~/dotfiles/.devilspie ~/
         ln -s ~/dotfiles/.config/autostart ~/.config
-        bash $HOME/dotfiles/scripts/setup/codium-extensions.sh
+        bash "${HOME}/dotfiles/scripts/setup/codium-extensions.sh"
         codium &
         sleep 2 && pkill codium
         # rm $HOME/.config/VSCodium/User/settings.json && \
@@ -290,7 +293,7 @@ function dotfiles_config {
 function dotfiles_neovim {
     if ! command -v npm &>/dev/null; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}npm${RESET}${YELLOW} ####################${RESET}"
-        $sa_install npm
+        ${sa_install} npm
 
             ### ISSUE: Ubuntu version is too old for nvim.bashls
             ### main PopOS box --> node --version && npm --version == 20.5.0  - 9.8.0
@@ -304,22 +307,25 @@ function dotfiles_neovim {
     fi
     if ! command -v deno &>/dev/null; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}deno${RESET}${YELLOW} ####################${RESET}"
-        curl -fsSL https://deno.land/x/install/install.sh | sh
+        curl -fsSL https://deno.land/x/install/install.sh | sh || true
     else
         echo -e "\n${YELLOW}########## ${GREEN}${BOLD}deno${RESET}${YELLOW} is already installed ##########${RESET}"
     fi
-    if [[ ! -d $HOME/.local/share/nvim/site/pack/packer ]]; then
+    if [[ ! -d ${HOME}/.local/share/nvim/site/pack/packer ]]; then
         git clone --depth 1 https://github.com/wbthomason/packer.nvim \
          ~/.local/share/nvim/site/pack/packer/start/packer.nvim
     fi
-    ln -s $HOME/dotfiles/.config/nvim $HOME/.config
-    read -p "Skip error messages with <Enter>, then do :so :PackerSync :qa " null
-    cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua; cd $HOME
-    # # $ :so && :PackerSync && :PackerCompile && :MasonUpdate
+    ln -s "${HOME}/dotfiles/.config/nvim" "${HOME}/.config"
+    read -r -p "Skip error messages with <Enter>, then do :so :PackerSync :qa " null
+    case ${null} in
+        *) cd ~/.config/nvim && nvim lua/pabloqpacin/packer.lua ;;
+        # # $ :so && :PackerSync && :PackerCompile && :MasonUpdate
+    esac
+    cd "${HOME}" || return 1
 }
 
 function setup_chicago95 {
-    $sa_install xfce4-panel-profiles
+    ${sa_install} xfce4-panel-profiles
     xfconf-query -c xfce4-keyboard-shortcuts -p "/commands/custom/Super_L" -n -t string -s "xfce4-popup-whiskermenu"
     git clone https://github.com/grassmunk/Chicago95
     ./Chicago95/installer.py
@@ -342,13 +348,14 @@ function debian_devilspie {
 # xset -dpms        # Turn off power management
 
 distro=$(grep "^ID=" /etc/os-release | awk -F '=' '{print $2}')
-current_shell=$(echo $SHELL | awk -F '/' '{print $NF}')
+current_shell=$(echo "${SHELL}" | awk -F '/' '{print $NF}')
 # current_shell=$(ps -p $$ -o comm= | awk '{print $1}')
-desktop=$XDG_CURRENT_DESKTOP
+desktop=${XDG_CURRENT_DESKTOP}
 docker_distro=""
-case $distro in
+case ${distro} in
     "debian") docker_distro='debian' ;;
     "ubuntu" | "pop") docker_distro='ubuntu' ;;
+    *) echo "Distro not supported: ${distro}" && exit 1 ;;
 esac
 
 # Tested on:
@@ -357,7 +364,7 @@ esac
 #   - Ubuntu ---------> ubuntu --- ubuntu:GNOME
 #   - PopOS ----------> pop ------ pop:GNOME
 
-start_time=$SECONDS
+start_time=${SECONDS}
 df_log='/tmp/autosetup-base.log'
 
 RESET='\e[0m'
@@ -373,8 +380,8 @@ sa_update="sudo apt-get update"
 echo -e "\n${CYAN}### Logging ${RED}${BOLD}STARTING${RESET}${CYAN} disk usage to '${RED}${BOLD}$df_log${RESET}${CYAN}' ###${RESET}\n"
 log_df
 
-read -p "Do you want to skip all 'sudo apt-get install <package>' prompts? [Y/n] " opt
-if [[ $opt == "Y" || $opt == "y" || $opt = "" ]]
+read -r -p "Do you want to skip all 'sudo apt-get install <package>' prompts? [Y/n] " opt
+if [[ ${opt} == "Y" || ${opt} == "y" || ${opt} = "" ]]
     then sa_install="sudo apt-get install -y"
     else sa_install="sudo apt-get install"
 fi
@@ -390,27 +397,29 @@ install_brave
 install_nerdfonts
 install_alacritty
 install_docker
-case $distro in
+case ${distro} in
     # "debian") install_powershell_deb ;;
     "ubuntu" | "pop") install_powershell_ubupop ;;
+    *) return 1 ;;
 esac
 build_neovim
 dotfiles_shell
     # dotfiles_config
     # dotfiles_neovim
-if [[ $desktop == "XFCE" && $(xfconf-query -c xfwm4 -p /general/theme) != 'Chicago95' ]]; then
+if [[ ${desktop} == "XFCE" && $(xfconf-query -c xfwm4 -p /general/theme) != 'Chicago95' ]]; then
     setup_chicago95
-    case $distro in
+    case ${distro} in
         "debian") debian_devilspie ;;
+        *) return 1 ;;
     esac
 fi
 
-echo -e "\n${CYAN}### Logging ${RED}${BOLD}FINAL${RESET}${CYAN} disk usage to '${RED}${BOLD}$df_log${RESET}${CYAN}' ###${RESET}"
+echo -e "\n${CYAN}### Logging ${RED}${BOLD}FINAL${RESET}${CYAN} disk usage to '${RED}${BOLD}${df_log}${RESET}${CYAN}' ###${RESET}"
 log_df
 
 end_time=$((SECONDS - start_time))
-secs_to_mins $end_time
-echo -e "\n${GREEN}# Script execution time: ${RED}${BOLD}$end_time${RESET}${GREEN} seconds, (${RED}${BOLD}$end_time_minutes${RESET}${GREEN} minutes). #${RESET}\n"
+secs_to_mins "${end_time}"
+echo -e "\n${GREEN}# Script execution time: ${RED}${BOLD}${end_time}${RESET}${GREEN} seconds, (${RED}${BOLD}${end_time_minutes}${RESET}${GREEN} minutes). #${RESET}\n"
 
 # xset s on         # Turn on screen saver
 # xset +dpms        # Turn on power management

@@ -12,36 +12,36 @@ echo -e   "-----############################################################----
 # NOTE 4: ojo... https://gitlab.com/Arszilla/kali-i3
 
 set_variables() {
-    should_reboot=0
+    # should_reboot=0
     sa_update="sudo apt-get update"
 
-    read -p "Skip all 'apt install <package>' prompts? [y/N] " opt
-    case $opt in
+    read -r -p "Skip all 'apt install <package>' prompts? [y/N] " opt
+    case ${opt} in
         'Y'|'y') sa_install="sudo apt-get install -y" ;;
               *) sa_install="sudo apt-get install" ;;
     esac
 }
 
 apt_update_install(){
-    if [ ! -e "/etc/apt/apt.conf.d/99show-versions" ]; then
+    if [[ ! -e "/etc/apt/apt.conf.d/99show-versions" ]]; then
         echo 'APT::Get::Show-Versions "true";' | sudo tee /etc/apt/apt.conf.d/99show-versions
     fi
 
-    $sa_update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean
+    ${sa_update} && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean
 
-    $sa_install xclip wl-clipboard xsel                                         # OJO
-    $sa_install --no-install-recommends neofetch
-    $sa_install bat cht.sh eza fzf git-delta grc jq lf ripgrep                  # btm ipcalc
+    ${sa_install} xclip wl-clipboard xsel                                         # OJO
+    ${sa_install} --no-install-recommends neofetch
+    ${sa_install} bat cht.sh eza fzf git-delta grc jq lf ripgrep                  # btm ipcalc
 
     if ! command -v bat &>/dev/null && command -v batcat &>/dev/null; then
-        sudo mv $(which batcat) /usr/bin/bat
+        sudo mv "$(command -v batcat)" /usr/bin/bat || true
     fi
 
     if ! command -v tldr &>/dev/null; then
-        read -p "Install tldr [y/N]? " opt_tldr
-        if [[ $opt_tldr == 'y' ]]; then
-            $sa_install tldr
-            if [ ! -d ~/.local/share ]; then
+        read -r -p "Install tldr [y/N]? " opt_tldr
+        if [[ ${opt_tldr} == 'y' ]]; then
+            ${sa_install} tldr
+            if [[ ! -d ~/.local/share ]]; then
                 mkdir ~/.local/share
             fi
             tldr --update
@@ -50,22 +50,22 @@ apt_update_install(){
 }
 
 clone_symlink_dotfiles() {
-    if [ ! -d ~/dotfiles ]; then
+    if [[ ! -d ~/dotfiles ]]; then
         git clone --depth 1 https://github.com/pabloqpacin/dotfiles ~/dotfiles
     fi
-    if [ ! -L ~/.gitconfig ]; then
+    if [[ ! -L ~/.gitconfig ]]; then
         ln -s ~/dotfiles/.gitconfig ~/                                          # OJO: 'pabloqpacin'
     fi
-    if [ ! -L ~/.config/tmux ]; then
+    if [[ ! -L ~/.config/tmux ]]; then
         ln -s ~/dotfiles/.config/tmux ~/.config
     fi
-    if [ ! -L ~/.config/bat ]; then
+    if [[ ! -L ~/.config/bat ]]; then
         ln -s ~/dotfiles/.config/bat ~/.config
     fi
-    if [ ! -L ~/.config/lf ]; then
+    if [[ ! -L ~/.config/lf ]]; then
         ln -s ~/dotfiles/.config/lf ~/.config
     fi
-    if [ ! -L ~/.vimrc ]; then
+    if [[ ! -L ~/.vimrc ]]; then
         sed -i "s/nvim'/vim'/g" ~/dotfiles/.zshrc
         sudo ln -s ~/dotfiles/.vimrc /root/ &&
             ln -s ~/dotfiles/.vimrc ~/
@@ -73,11 +73,11 @@ clone_symlink_dotfiles() {
 }
 
 setup_nerdfonts(){
-    if [ ! -d ~/.fonts ]; then mkdir ~/.fonts; fi
+    if [[ ! -d ~/.fonts ]]; then mkdir ~/.fonts; fi
 
     if ! fc-cache -v | grep -q 'FiraCodeNerdFont'; then
         local FCNF_URL='https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/FiraCode.zip'
-        wget -qO /tmp/FiraCode.zip $FCNF_URL &&
+        wget -qO /tmp/FiraCode.zip "${FCNF_URL}" &&
             unzip /tmp/FiraCode.zip -d ~/.fonts/FiraCodeNerdFont &&
             fc-cache -f
     fi
@@ -110,16 +110,16 @@ tweak_zsh(){
 setup_docker(){
     # https://computingforgeeks.com/install-docker-and-docker-compose-on-kali-linux/ -- https://www.kali.org/docs/containers/installing-docker-on-kali/
     if ! docker &>/dev/null; then
-        $sa_update && $sa_install \
+        ${sa_update} && ${sa_install} \
             curl gnupg2 apt-transport-https software-properties-common ca-certificates
         curl -fsSL https://download.docker.com/linux/debian/gpg | \
             sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker-archive-keyring.gpg
         echo "deb [arch=amd64] https://download.docker.com/linux/debian bullseye stable" | \
             sudo tee  /etc/apt/sources.list.d/docker.list
 
-        $sa_update && $sa_install \
+        ${sa_update} && ${sa_install} \
             docker-ce docker-ce-cli containerd.io docker-compose-plugin
-        sudo usermod -aG docker $USER   # && newgrp docker
+        sudo usermod -aG docker "${USER}"   # && newgrp docker
     fi
 }
 
@@ -130,7 +130,7 @@ install_brave() {
         echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] \
             https://brave-browser-apt-release.s3.brave.com/ stable main" \
             | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-        $sa_update && $sa_install brave-browser
+        ${sa_update} && ${sa_install} brave-browser
     fi
 }
 
@@ -140,7 +140,7 @@ install_brave() {
 
 # ---
 
-if [ $(systemctl is-enabled ssh) != 'enabled' ]; then
+if [[ $(systemctl is-enabled ssh) != 'enabled' ]]; then
     sudo systemctl enable --now ssh
     echo ""
 fi
@@ -156,7 +156,7 @@ setup_docker
 install_brave
 
 echo "" && neofetch
-[ -f /var/run/reboot-required ] && echo -e "\nKindly reboot."
+[[ -f /var/run/reboot-required ]] && echo -e "\nKindly reboot."
 
 
 

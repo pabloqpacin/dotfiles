@@ -1,5 +1,7 @@
 # Windows 11 Pro
 
+> https://www.tomshardware.com/how-to/install-windows-11-without-microsoft-account
+
 
 - [Windows 11 Pro](#windows-11-pro)
   - [live-installation](#live-installation)
@@ -11,6 +13,7 @@
       - [Docker](#docker)
       - [Hyper-V ](#hyper-v-)
       - [AppLocker](#applocker)
+    - [Office Suite](#office-suite)
 
 
 > - **NOTE 1:** `winget`-heavy approach
@@ -535,4 +538,20 @@ Add shortcut to desktop: no
 
 ```ps1
 winget install mobaxterm
+```
+
+```ps1
+winget install wireguard.wireguard
+
+```
+
+---
+
+### Office Suite
+
+```yaml
+Start:
+    Microsoft 365 (Office):
+        Create account:
+        #     - Email: no@thankyou.com
 ```

@@ -17,18 +17,20 @@
     "editor.rulers": [
         80, 115       
     ],
+    "window.titleBarStyle": "native",
     "window.menuBarVisibility": "toggle",
+    "window.customTitleBarVisibility": "never",
     "workbench.iconTheme": "vscode-icons",
     "workbench.colorTheme": "One Dark Pro",
     // "workbench.colorTheme": "Rosé Pine Moon",
     "vsicons.dontShowNewVersionMessage": true,
     "files.exclude": {
-        "**/.git": false
-        // "**/.svn": true,
-        // "**/.hg": true,
-        // "**/CVS": true,
-        // "**/.DS_Store": true,
-        // "**/Thumbs.db": true
+        "**/.git": false,
+        "**/.trunk/*actions/": true,
+        "**/.trunk/*logs/": true,
+        "**/.trunk/*notifications/": true,
+        "**/.trunk/*out/": true,
+        "**/.trunk/*plugins/": true
     },
     // "editor.fontSize": 13,
     // "terminal.integrated.fontSize": 13,
@@ -37,30 +39,24 @@
     // "window.titleBarStyle": "custom",
     "markdown-pdf.headerTemplate": "<div style=\"font-size: 9px; margin-left: 1cm;\">Pablo Quevedo Pacin</div> <div style=\"font-size: 9px; margin-left: auto; margin-right: 1cm; \">%%ISO-DATE%%</div>",
     "redhat.telemetry.enabled": false,
-    "window.zoomLevel": -0.8,
+    "window.zoomLevel": -0.7,
     "update.showReleaseNotes": false,
     // "[markdown]": { "editor.autoClosingBrackets": "always" }
     // "editor.autoClosingOvertype": "always"
-    "[html]": {
-        "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "files.watcherExclude": {
+        "**/.trunk/*actions/": true,
+        "**/.trunk/*logs/": true,
+        "**/.trunk/*notifications/": true,
+        "**/.trunk/*out/": true,
+        "**/.trunk/*plugins/": true
     },
-    "[astro]": {
-        "editor.tabSize": 2
+    "editor.defaultFormatter": "trunk.io",
+    "sonarlint.rules": {
+        "secrets:S6706": {
+            "level": "on"
+        }
     },
-    "[svelte]": {
-        "editor.tabSize": 2
-    },
-    "[markdown]": {
-        "editor.tabSize": 2,
-        // "editor.wordWrap": "bounded"
-        // "editor.wordWrapColumn": 80
-    },
-    "[json]": {
-        "editor.tabSize": 2
-    },
-    "[tf]": {
-        "editor.tabSize": 2
-    }
 }
 
 // https://stackoverflow.com/questions/64080471/one-or-more-containers-do-not-have-resource-limits-warning-in-vs-code-kubernet

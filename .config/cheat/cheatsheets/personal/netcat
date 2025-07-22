@@ -1,0 +1,6 @@
+# On the sender (host) machine
+nc -l -p 12345 < myfile.txt
+
+# On the receiver (client) machine
+nc 192.168.1.X 12345 > received_file.txt
+

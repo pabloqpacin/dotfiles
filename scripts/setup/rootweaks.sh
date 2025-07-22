@@ -4,15 +4,15 @@
 home_user='/home/pabloqpacin'
 
 ## Become root
-if [[ $HOME != "/root" ]]
-    then echo "ye aint root -- run with 'sudo' or do 'sudo su' before execution"
+if [[ ${HOME} != "/root" ]]
+    then echo "ye aint root -- run with 'sudo' or do 'sudo su' before execution" && exit 1
     else echo "yer root aye"
 fi
 
 ## Symlink .vimrc for a decent Neovim experiences
 #mkdir -p $HOME/.config/nvim
 #ln -s $home_user/dotfiles/.vimrc $HOME/.config/nvim/init.vim
-ln -s $home_user/dotfiles/.vimrc $HOME/
+ln -s "${home_user}/dotfiles/.vimrc" "${HOME}/"
 
 ## Add cargo & go binaries to Root's $PATH
 echo '
@@ -26,13 +26,13 @@ for path in "${paths_to_add[@]}"; do
         export PATH="$PATH:$path"
     fi
 done
-' >> $HOME/rootweaks.sh
-echo -e "\nsource $HOME/rootweaks.sh" >> $HOME/.bashrc
+' >> "${HOME}/rootweaks.sh"
+echo -e "\nsource ${HOME}/rootweaks.sh" >> "${HOME}/.bashrc"
 
 # Symlink some BS
-ln -s $home_user/dotfiles/.config/lf $HOME/.config
-ln -s $home_user/dotfiles/.config/bat $HOME/.config
-ln -s $home_user/dotfiles/.config/tmux $HOME/.config
+ln -s "${home_user}/dotfiles/.config/lf" "${HOME}/.config"
+ln -s "${home_user}/dotfiles/.config/bat" "${HOME}/.config"
+ln -s "${home_user}/dotfiles/.config/tmux" "${HOME}/.config"
 
 
 #### TODO: conditional error checking

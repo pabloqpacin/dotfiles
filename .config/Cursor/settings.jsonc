@@ -1,6 +1,8 @@
 // ln -s $0 ~/.config/Cursor/User/settings.json
 {
-    "window.menuBarVisibility": "compact",
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "window.menuBarVisibility": "toggle",
     "window.commandCenter": false,
     "window.zoomLevel": -0.5,
     "editor.rulers": [
@@ -10,5 +12,31 @@
     "workbench.colorTheme": "One Dark Pro Darker",
     "editor.fontFamily": "FiraCode Nerd Font",
     "workbench.iconTheme": "vscode-icons",
+    "vsicons.dontShowNewVersionMessage": true,
+    "[markdown]": {
+        "editor.tabSize": 2
+    },
+    "files.exclude": {
+        "**/.trunk/*actions/": true,
+        "**/.trunk/*logs/": true,
+        "**/.trunk/*notifications/": true,
+        "**/.trunk/*out/": true,
+        "**/.trunk/*plugins/": true
+    },
+    "files.watcherExclude": {
+        "**/.trunk/*actions/": true,
+        "**/.trunk/*logs/": true,
+        "**/.trunk/*notifications/": true,
+        "**/.trunk/*out/": true,
+        "**/.trunk/*plugins/": true
+    },
+    "editor.defaultFormatter": "trunk.io",
+    "cursor.cpp.disabledLanguages": [
+        "plaintext"
+    ],
+    "terminal.integrated.shellIntegration.enabled": false,
+    "terminal.integrated.automationProfile.linux": null,
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "editor.minimap.enabled": true
 }
 

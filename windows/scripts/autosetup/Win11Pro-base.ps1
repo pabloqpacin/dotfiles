@@ -83,6 +83,7 @@ winget install jftuga.less sharkdp.bat clement.bottom `
                dandavison.delta eza-community.eza fzf `
                golang.go gitui gokcehan.lf `
                'ripgrep gnu' tldr zoxide `
+               insecure.nmap
                # gnuwin32.findutils sharkdp.fd          # need fix nvim.telescope
 
     reloadPath
