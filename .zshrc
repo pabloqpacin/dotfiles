@@ -29,7 +29,7 @@ esac
 
 # Them Baddest themes
 ZSH_THEME_RANDOM_CANDIDATES=( 'afowler' 'alanpeabody' 'dpoggi' 'eastwood' 'fletcherm'
-  'gallois' 'macovsky' 'mh' 'muse' 'nanotech' 'theunraveler' 'tonotdo' 'wedisagree'
+  'gallois' 'macovsky' 'mh' 'muse' 'tonotdo' 'wedisagree'
 )
 
 # Set custom folder for personal aliases, plugins and themes
@@ -131,6 +131,6 @@ fi
   # vboxmanage list systemproperties | grep machine
   # vboxmanage setproperty machinefolder /path/where/you/want/VirtualboxVMs
 
-if [[ "${COMPOSE_PROJECT_NAME}" != '' ]]; then
-    COMPOSE_PROJECT_NAME=''
-fi
+# if [[ "${COMPOSE_PROJECT_NAME}" != '' ]]; then
+#     COMPOSE_PROJECT_NAME=''
+# fi

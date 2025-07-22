@@ -2,6 +2,10 @@
 
 # alias rm='mv $1 /tmp/$1'
 
+# Golang
+alias gor='go run .'
+alias got='go test'
+
 function cursor() {
     if [ -z "$1" ]; then
         echo "Se requiere un parámetro para la ruta del cursor."
@@ -14,6 +18,7 @@ PATH() {
     echo $PATH | tr ':' '\n' | sort
 }
 
+alias yql='yq -C | less -R'
 alias jql='jq -C | less -R'
 jq_docker_ip(){
     $@ | jq '.[0].NetworkSettings.Networks["poc-test_default"].IPAddress'
@@ -213,6 +218,7 @@ alias glf="glods --follow"  #$1
 # alias gs='git stash'
 alias gstun='git status --untracked-files=no'
 alias gsp='git stash push'  # -m "wip"
+alias gtn='git tag -n'
 
 alias vrv='virt-host-validate'      # KVM
 
