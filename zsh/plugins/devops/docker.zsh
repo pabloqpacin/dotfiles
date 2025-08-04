@@ -3,6 +3,35 @@ if command -v grc &>/dev/null; then
     alias docker="grc docker"
 fi
 
+
+dcdd() {
+    if [ -n "$1" ]; then
+        docker compose -f "$1" down --rmi local -v
+    else
+        docker compose down --rmi local -v # --remove-orphans
+    fi
+}
+
+dcud() {
+    if [ -n "$1" ]; then
+        docker compose -f "$1" up -d
+    else
+        docker compose up -d
+    fi
+}
+
+dclf() {
+    if [ -n "$1" ]; then
+        docker compose -f "$1" logs -f
+    else
+        docker compose logs -f
+    fi
+}
+
+
+alias dcr='docker compose run'
+alias drrt='docker run --rm --tty'
+
 alias dps='docker ps'
 alias dlf='docker logs -f'
 alias dils='docker image ls'
@@ -19,11 +48,10 @@ alias dcu='docker compose up'
 alias dcps='docker compose ps'
 alias dcls='docker compose ls'
 alias dcl='docker compose logs'
-alias dclf='docker compose logs -f'
 alias dcs='docker compose stop'
 alias dcd='docker compose down'
 alias dcdv='docker compose down -v'
-alias dcdd='docker compose down --rmi local -v --remove-orphans'
+# alias dcdd='docker compose down --rmi local -v --remove-orphans'
 
 alias dbls='docker buildx ls'
 

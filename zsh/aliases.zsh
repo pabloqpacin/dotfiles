@@ -1,5 +1,9 @@
 # # omz plugins' aliases: agu aguu agi, gst ga gd gds, ...
 
+asciiquarium(){
+  docker run --rm --tty asciiquarium
+}
+
 # alias rm='mv $1 /tmp/$1'
 
 # Golang
@@ -207,6 +211,7 @@ alias py='python3'
 
 alias xpaste='xclip -o -sel clip'
 
+alias cgba='clear && git branch -a'
 alias gfap='git fetch --all --prune'
 alias grmc='git rm --cached'    # $1
 alias grv='git remote -v'
