@@ -72,7 +72,7 @@ showpath() { echo $PATH | tr ':' '\n' | sort }
 
 alias fcl="fortune | cowsay -f dragon | lolcat"
 alias supdawg="echo 'not much wbu'"
-dc() { echo -e "\U0001F198" }
+alias dc='cd'
 alias cbon='cbonsai -lt 1'
 alias clera="echo 'wtf'"
 alias claer="echo 'wtf'"
