@@ -93,8 +93,12 @@ fi
 alias fzfp="fzf --preview 'bat --color=always {}'"
 alias fzfv="fzf --preview 'bat --color=always {}' --bind 'enter:execute(nvim {})'"
 fzfhv() { local file
-   file=$(rg --files --hidden | fzf --preview 'bat --color=always {}')
-   [[ -n "$file" ]] && nvim "$file"
+    file=$(rg --files --hidden | fzf --preview 'bat --color=always {}')
+    if command -v nvim &>/dev/null; then
+        [[ -n "$file" ]] && nvim "$file"
+    else
+        [[ -n "$file" ]] && vim "$file"
+    fi
 }
 
 alias mdp="mdp -i"
