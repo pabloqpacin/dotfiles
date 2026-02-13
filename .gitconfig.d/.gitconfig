@@ -1,20 +1,13 @@
 [user]
 	name = pabloqpacin
 	email = 110383181+pabloqpacin@users.noreply.github.com
-[safe]
-    directory = C:/Users/pabloqpacin/dotfiles
-    directory = C:/Users/Pablo/dotfiles
+[includeIf "gitdir:~/repos/Setenova/"]
+	path = ~/dotfiles/.gitconfig.d/setenova.gitconfig
+
 [init]
 	defaultBranch = main
 [http]
 	version = HTTP/2
-# [alias] --- ZSH
-#     gglf = log --follow #$1
-#     sup = log --graph --pretty=format:'%C(auto)%h%d (%cs) %s' --decorate
-#     a = "!git status --short | peco | awk '{print $2}' | xargs git add"
-#     edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
-#     add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
-
 
 [core]
     pager = delta
@@ -23,7 +16,7 @@
 [include]
     path = ~/dotfiles/.config/delta/themes.gitconfig
 [delta]
-    # features = calochortus-lyallii                 # https://github.com/dandavison/delta/blob/main/themes.gitconfig
+    # features = calochortus-lyallii    # https://github.com/dandavison/delta/blob/main/themes.gitconfig
     # side-by-side = true
     line-numbers = true
     navigate = true

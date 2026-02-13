@@ -87,8 +87,8 @@ ssh -T git@github-setenova
 # git@github.com:pabloqpacin/dotfiles.git
 git clone git@github-personal:pabloqpacin/dotfiles.git
 
-# git@github.com:pquevedo-setenova/test-setenova-github-multiaccount.git
-git clone git@github-setenova:pquevedo-setenova/test-setenova-github-multiaccount.git
+# git@github.com:pquevedo-stnv/test-setenova-github-multiaccount.git
+git clone git@github-setenova:pquevedo-stnv/test-setenova-github-multiaccount.git
 
 # ---
 
