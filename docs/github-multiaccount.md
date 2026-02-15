@@ -48,11 +48,11 @@ GitHub Personal:
       - Title: github_personal-PopOS_GL76
         Key: ~/.ssh/github_personal.pub
 
-GitHub Personal:
+GitHub Setenova:
   Settings:
     SSH and GPG keys:
       - Title: github_setenova-PopOS_GL76
-        Key: ~/.ssh/github_{personal,setenova}.pub
+        Key: ~/.ssh/github_setenova.pub
 ```
 
 ### 5. Configure SSH for Multiple Accounts
@@ -81,7 +81,7 @@ ssh -T git@github-personal
 ssh -T git@github-setenova
 ```
 
-### 7. Use Different Accoutns for Different Repositories
+### 7. Use Different Accounts for Different Repositories
 
 ```sh
 # git@github.com:pabloqpacin/dotfiles.git
