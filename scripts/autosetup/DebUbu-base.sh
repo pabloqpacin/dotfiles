@@ -150,10 +150,10 @@ function install_brave {
 function install_nerdfonts {
     if [[ ! -d /usr/share/fonts/FiraCodeNerd && ! -d /usr/share/fonts/CascadiaCodeNerd ]]; then
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}FiraCode Nerd Font${RESET}${YELLOW} ####################${RESET}"
-        wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/FiraCode.zip
+        wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip
         sudo unzip FiraCode.zip -d /usr/share/fonts/FiraCodeNerd && rm FiraCode.zip
         echo -e "\n${YELLOW}########## Installing ${RED}${BOLD}CaskaydiaCove Nerd Font${RESET}${YELLOW} ####################${RESET}"
-        wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/CascadiaCode.zip
+        wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/CascadiaCode.zip
         sudo unzip CascadiaCode.zip -d /usr/share/fonts/CascadiaCodeNerd && rm CascadiaCode.zip
         fc-cache -f
     else
