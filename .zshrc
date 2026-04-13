@@ -28,7 +28,7 @@ case $distro in
 esac
 
 # Them Baddest themes
-ZSH_THEME_RANDOM_CANDIDATES=( 'afowler' 'alanpeabody' 'dpoggi' 'eastwood' 'fletcherm'
+ZSH_THEME_RANDOM_CANDIDATES=( 'afowler' 'dpoggi' 'eastwood' 'fletcherm'
   'gallois' 'macovsky' 'mh' 'muse' 'tonotdo' 'wedisagree'
 )
 
@@ -124,6 +124,9 @@ if command -v vagrant &>/dev/null; then
   export ANSIBLE_NOCOWS=1
   case $VAGRANT_HOME in
     '/var/vagrant.d') echo 'OK' > /dev/null ;;
+    # EX2511
+    # # "media/$USER/devops-101") echo 'OK' > /dev/null ;; # echo "La variable VAGRANT_HOME ya es media/$USER/devops-101"
+    # # '' | '~/.vagrant.d' | *) export VAGRANT_HOME="media/$USER/devops-101"
     '' | '~/.vagrant.d' | *) export VAGRANT_HOME='/var/vagrant.d' ;;
   esac
 fi
@@ -134,3 +137,26 @@ fi
 # if [[ "${COMPOSE_PROJECT_NAME}" != '' ]]; then
 #     COMPOSE_PROJECT_NAME=''
 # fi
+
+# # bun completions
+# [ -s "/home/pabloqpacin/.bun/_bun" ] && source "/home/pabloqpacin/.bun/_bun"
+
+# # bun
+# export BUN_INSTALL="$HOME/.bun"
+# export PATH="$BUN_INSTALL/bin:$PATH"
+
+# # >>> conda initialize >>>
+# # !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/home/pabloqpacin/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/home/pabloqpacin/miniconda3/etc/profile.d/conda.sh" ]; then
+#         . "/home/pabloqpacin/miniconda3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/home/pabloqpacin/miniconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# # <<< conda initialize <<<
+
