@@ -1,54 +1,63 @@
-local lsp = require('lsp-zero')
+local lsp_zero = require('lsp-zero')
 
--- Fix Undefined global 'vim'
-lsp.nvim_workspace()
+lsp_zero.preset('recommended')
 
-lsp.preset('recommended')
-
-lsp.ensure_installed ({
---  'ansiblels',
---  'arduino_language_server',
-    'bashls',
---  'bash-debug-adapter',       -- works alright
---  'clangd',
---  'cpptools',                 -- requires DAP bs
-    'cssls',
---  'denols',
-    'dockerls',
-    'docker_compose_language_service',
-    'emmet_ls',                 -- provides :html:5
---  'gopls',
-    'html',
-    'lua_ls',
-    'marksman',                 -- provides :vws :vca=>TOC
---  'phpactor',                 -- requires composer pkg
---  'phpstan',                  -- requires manual Mason installation
-    'powershell_es',
-    'pylsp',                    -- requires 'python3-venv'
-    'rust_analyzer',
---  'sqlls',                    -- https://github.com/joe-re/sql-language-server
---  'tsserver',
-    'yamlls',
+-- Configure Mason
+require('mason').setup({})
+require('mason-lspconfig').setup({
+    ensure_installed = {
+        -- 'ansiblels',
+        -- 'arduino_language_server',
+        'bashls',
+        -- 'bash-debug-adapter',       -- works alright
+        -- 'clangd',
+        -- 'cpptools',                 -- requires DAP bs
+        'cssls',
+        -- 'denols',
+        'dockerls',
+        'docker_compose_language_service',
+        'emmet_ls',                 -- provides :html:5
+        -- 'gopls',
+        'html',
+        'lua_ls',
+        'marksman',                 -- provides :vws :vca=>TOC
+        -- 'phpactor',                 -- requires composer pkg
+        -- 'phpstan',                  -- requires manual Mason installation
+        'powershell_es',
+        'pylsp',                    -- requires 'python3-venv'
+        'rust_analyzer',
+        -- 'sqlls',                    -- https://github.com/joe-re/sql-language-server
+        -- 'tsserver',
+        'yamlls',
+    },
+    handlers = {
+        lsp_zero.default_setup,
+        lua_ls = function()
+            local lua_opts = lsp_zero.nvim_lua_ls()
+            require('lspconfig').lua_ls.setup(lua_opts)
+        end,
+    }
 })
 
+-- Configure nvim-cmp
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
+local cmp_mappings = lsp_zero.defaults.cmp_mappings({
     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
     ['<C-y>'] = cmp.mapping.confirm({ select = true }),
     ['<C-Space>'] = cmp.mapping.complete(),
 })
 
-lsp.set_preferences({
+lsp_zero.set_preferences({
     sign_icons = { }
 })
 
-lsp.setup_nvim_cmp({
+cmp.setup({
     mapping = cmp_mappings
 })
 
-lsp.on_attach(function(client, bufnr)
+lsp_zero.on_attach(function(client, bufnr)
         print("help")
     local opts = { buffer = bufnr, remap = false }
 
@@ -65,6 +74,5 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set('i', '<C-h>', function() vim.lsp.buf.signature_help() end, opts)
 end)
 
-
-lsp.setup()
+lsp_zero.setup()
 
