@@ -24,3 +24,8 @@
     conflictstyle = diff3
 [diff]
     colorMoved = default
+# # Auto-added by 'gh auth login' cuando los rulesets...
+# [credential "https://github.com"]
+# 	helper = !/usr/bin/gh auth git-credential
+# [credential "https://gist.github.com"]
+# 	helper = !/usr/bin/gh auth git-credential
