@@ -4,7 +4,7 @@
     "explorer.confirmDragAndDrop": false,
     "window.menuBarVisibility": "toggle",
     "window.commandCenter": false,
-    "window.zoomLevel": -0.5,
+    "window.zoomLevel": -0.3,
     "editor.rulers": [
         80,
         115
@@ -14,6 +14,9 @@
     "workbench.iconTheme": "vscode-icons",
     "vsicons.dontShowNewVersionMessage": true,
     "[markdown]": {
+        "editor.tabSize": 2
+    },
+    "[json]":{
         "editor.tabSize": 2
     },
     "files.exclude": {
@@ -37,6 +40,15 @@
     "terminal.integrated.shellIntegration.enabled": false,
     "terminal.integrated.automationProfile.linux": null,
     "terminal.integrated.defaultProfile.linux": "bash",
+    "[dockercompose]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[github-actions-workflow]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
     "editor.minimap.enabled": true
 }
 

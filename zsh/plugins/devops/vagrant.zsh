@@ -5,6 +5,7 @@ alias vst='vagrant status'
 alias vpro='vagrant provision'
 alias vdestroy='vagrant destroy'
 alias vhalt='vagrant halt'
+alias vreload='vagrant reload'
 
 alias vpl='vagrant plugin list'
 alias vbl='vagrant box list'

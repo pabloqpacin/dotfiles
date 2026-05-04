@@ -1,5 +1,9 @@
 # # omz plugins' aliases: agu aguu agi, gst ga gd gds, ...
 
+asciiquarium(){
+  docker run --rm --tty asciiquarium
+}
+
 # alias rm='mv $1 /tmp/$1'
 
 # Golang
@@ -68,7 +72,7 @@ showpath() { echo $PATH | tr ':' '\n' | sort }
 
 alias fcl="fortune | cowsay -f dragon | lolcat"
 alias supdawg="echo 'not much wbu'"
-dc() { echo -e "\U0001F198" }
+alias dc='cd'
 alias cbon='cbonsai -lt 1'
 alias clera="echo 'wtf'"
 alias claer="echo 'wtf'"
@@ -89,8 +93,12 @@ fi
 alias fzfp="fzf --preview 'bat --color=always {}'"
 alias fzfv="fzf --preview 'bat --color=always {}' --bind 'enter:execute(nvim {})'"
 fzfhv() { local file
-   file=$(rg --files --hidden | fzf --preview 'bat --color=always {}')
-   [[ -n "$file" ]] && nvim "$file"
+    file=$(rg --files --hidden | fzf --preview 'bat --color=always {}')
+    if command -v nvim &>/dev/null; then
+        [[ -n "$file" ]] && nvim "$file"
+    else
+        [[ -n "$file" ]] && vim "$file"
+    fi
 }
 
 alias mdp="mdp -i"
@@ -207,6 +215,7 @@ alias py='python3'
 
 alias xpaste='xclip -o -sel clip'
 
+alias cgba='clear && git branch -a'
 alias gfap='git fetch --all --prune'
 alias grmc='git rm --cached'    # $1
 alias grv='git remote -v'

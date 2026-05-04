@@ -134,6 +134,8 @@ sudo apt install acpi cbonsai gnome-tweaks devilspie unclutter-xfixes
 unclutter -idle 3 &
 ln -s ~/dotfiles/.devilspie ~/
 ln -s ~/dotfiles/.config/autostart ~/.config
+
+sudo apt install install chrome-gnome-shell
 ```
 <!-- gnome-session-properties -->
 
@@ -533,9 +535,9 @@ echo \
 $sa_update && $sa_install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     # docker compose version; docker --version; docker version; sudo docker run hello-world
     sudo usermod -aG docker $USER
-wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.24.2-amd64.deb
-$sa_update && $sa_install ./docker-desktop-4.24.2-amd64.deb && rm docker-desktop-4.24.2-amd64.deb
-    # systemctl --user start docker-desktop || systemctl --user enable docker-desktop
+# wget https://desktop.docker.com/linux/main/amd64/docker-desktop-4.24.2-amd64.deb
+# $sa_update && $sa_install ./docker-desktop-4.24.2-amd64.deb && rm docker-desktop-4.24.2-amd64.deb
+#     # systemctl --user start docker-desktop || systemctl --user enable docker-desktop
 ```
 
 <!-- ```txt
