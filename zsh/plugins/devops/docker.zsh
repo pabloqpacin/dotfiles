@@ -20,6 +20,15 @@ dcud() {
     fi
 }
 
+# # que acepte como parámetro un --profile foo
+# dcpu() {
+#     if [ -n "$1" ]; then
+#         docker compose -f "$1" up -d
+#     else
+#         docker compose up -d
+#     fi
+# }
+
 dclf() {
     if [ -n "$1" ]; then
         docker compose -f "$1" logs -f

@@ -1,12 +1,11 @@
-# Diff Vs Yaml: Decorations & Maximized
 
-import = ["/home/pabloqpacin/.config/alacritty/themes/campbell.toml"]
+# https://alacritty.org/config-alacritty.html
 
 [colors]
 draw_bold_text_with_bright_colors = true
 
 [font]
-size = 9.5
+size = 9
 
 [font.bold]
 family = "CaskaydiaCove Nerd Font"
@@ -41,7 +40,8 @@ multiplier = 5
 
 [window]
 opacity = 0.8
-startup_mode = "Maximized"
+startup_mode = "Windowed"
+# dimensions = { columns = 80, lines = 60 }
 
 [window.class]
 general = "Alacritty"
@@ -50,3 +50,8 @@ instance = "Alacritty"
 [window.padding]
 x = 5
 y = 5
+
+[general]
+# Diff Vs Yaml: Decorations & Maximized
+
+import = ["/home/pabloqpacin/.config/alacritty/themes/campbell.toml"]
