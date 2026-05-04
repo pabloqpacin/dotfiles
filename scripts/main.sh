@@ -14,6 +14,8 @@ source "${DETECTIONS_DIR}/detect-head.sh"
 source "${DETECTIONS_DIR}/detect-shell.sh"
 # shellcheck source=modules/package-manager/config-apt.sh
 source "${MODULES_DIR}/package-manager/config-apt.sh"
+# shellcheck source=modules/cli-basics/cli-basics.sh
+source "${MODULES_DIR}/cli-basics/cli-basics.sh"
 
 echo "=== DETECTIONS ==="
 DISTRO="$(detect_distro)"
@@ -31,11 +33,6 @@ echo "Zsh installed: ${ZSH_INSTALLED}"
 echo "Oh My Zsh installed: ${OH_MY_ZSH_INSTALLED}"
 echo "====="
 
-
-if [[ "${DISTRO}" == "debian" || "${DISTRO}" == "ubuntu" || "${DISTRO}" == "popos" ]]; then
-  echo "=== APT defaults ==="
-  configure_apt_defaults
-  echo "APT defaults configured: yes"
-else
-  echo "APT defaults configured: n/a for distro ${DISTRO}"
-fi
+echo "=== CLI BASICS INSTALL ==="
+install_cli_basics
+echo "CLI basics installed: yes"
