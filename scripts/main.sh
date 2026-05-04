@@ -20,6 +20,12 @@ source "${MODULES_DIR}/cli-basics/cli-basics.sh"
 source "${MODULES_DIR}/dotfiles/dotfiles-clone.sh"
 # shellcheck source=modules/dotfiles/dotfiles-symlink.sh
 source "${MODULES_DIR}/dotfiles/dotfiles-symlink.sh"
+# shellcheck source=modules/desktop-basics/setup-brave.sh
+source "${MODULES_DIR}/desktop-basics/setup-brave.sh"
+# shellcheck source=modules/desktop-basics/setup-alacritty.sh
+source "${MODULES_DIR}/desktop-basics/setup-alacritty.sh"
+# shellcheck source=modules/desktop-basics/setup-nerdfonts.sh
+source "${MODULES_DIR}/desktop-basics/setup-nerdfonts.sh"
 
 echo "=== DETECTIONS ==="
 DISTRO="$(detect_distro)"
@@ -45,3 +51,9 @@ echo "=== DOTFILES SETUP ==="
 clone_dotfiles_repo
 create_dotfiles_symlinks
 echo "Dotfiles cloned/symlinked: yes"
+
+echo "=== DESKTOP BASICS ==="
+setup_nerdfonts
+setup_alacritty
+setup_brave
+echo "Desktop basics installed/configured: yes"
