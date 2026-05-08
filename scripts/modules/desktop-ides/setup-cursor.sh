@@ -2,11 +2,23 @@
 
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+HELPER_EXTENSIONS_MODULE="${SCRIPT_DIR}/helper/vscode-extensions.sh"
+HELPER_SETTINGS_MODULE="${SCRIPT_DIR}/helper/ide-settings.sh"
 CURSOR_API_BASE="https://api2.cursor.sh/updates/download"
 CURSOR_CHANNEL="${CURSOR_CHANNEL:-golden}"
 CURSOR_VERSION="${CURSOR_VERSION:-3.3}"
 INSTALL_DIR_APPIMAGE="${HOME}/.local/bin"
 APPIMAGE_TARGET="${INSTALL_DIR_APPIMAGE}/cursor.appimage"
+
+if [[ -r "${HELPER_EXTENSIONS_MODULE}" ]]; then
+  # shellcheck disable=SC1090
+  source "${HELPER_EXTENSIONS_MODULE}"
+fi
+if [[ -r "${HELPER_SETTINGS_MODULE}" ]]; then
+  # shellcheck disable=SC1090
+  source "${HELPER_SETTINGS_MODULE}"
+fi
 
 detect_pkg_manager() {
   if command -v apt-get >/dev/null 2>&1; then
@@ -115,31 +127,37 @@ install_cursor_appimage() {
 setup_cursor() {
   if command -v cursor >/dev/null 2>&1; then
     echo "Cursor is already installed"
-    return 0
+  else
+    local arch
+    arch="$(detect_cursor_arch)"
+    if [[ "${arch}" == "unsupported" ]]; then
+      echo "Unsupported CPU architecture: $(uname -m)"
+      return 1
+    fi
+
+    case "$(detect_pkg_manager)" in
+      apt)
+        install_cursor_deb "${arch}"
+        ;;
+      dnf)
+        install_cursor_rpm_dnf "${arch}"
+        ;;
+      zypper)
+        install_cursor_rpm_zypper "${arch}"
+        ;;
+      *)
+        echo "No supported package manager detected. Falling back to AppImage."
+        install_cursor_appimage "${arch}"
+        ;;
+    esac
   fi
 
-  local arch
-  arch="$(detect_cursor_arch)"
-  if [[ "${arch}" == "unsupported" ]]; then
-    echo "Unsupported CPU architecture: $(uname -m)"
-    return 1
+  if declare -F setup_vscode_extensions >/dev/null 2>&1; then
+    setup_vscode_extensions "cursor"
   fi
-
-  case "$(detect_pkg_manager)" in
-    apt)
-      install_cursor_deb "${arch}"
-      ;;
-    dnf)
-      install_cursor_rpm_dnf "${arch}"
-      ;;
-    zypper)
-      install_cursor_rpm_zypper "${arch}"
-      ;;
-    *)
-      echo "No supported package manager detected. Falling back to AppImage."
-      install_cursor_appimage "${arch}"
-      ;;
-  esac
+  if declare -F setup_ide_settings >/dev/null 2>&1; then
+    setup_ide_settings "cursor"
+  fi
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then

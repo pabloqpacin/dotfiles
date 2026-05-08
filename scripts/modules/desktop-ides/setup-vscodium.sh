@@ -4,10 +4,20 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PKG_MANAGER_MODULE="${SCRIPT_DIR}/../package-manager/config-apt.sh"
+HELPER_EXTENSIONS_MODULE="${SCRIPT_DIR}/helper/vscode-extensions.sh"
+HELPER_SETTINGS_MODULE="${SCRIPT_DIR}/helper/ide-settings.sh"
 
 if [[ -r "${PKG_MANAGER_MODULE}" ]]; then
   # shellcheck disable=SC1090
   source "${PKG_MANAGER_MODULE}"
+fi
+if [[ -r "${HELPER_EXTENSIONS_MODULE}" ]]; then
+  # shellcheck disable=SC1090
+  source "${HELPER_EXTENSIONS_MODULE}"
+fi
+if [[ -r "${HELPER_SETTINGS_MODULE}" ]]; then
+  # shellcheck disable=SC1090
+  source "${HELPER_SETTINGS_MODULE}"
 fi
 
 detect_pkg_manager() {
@@ -82,22 +92,28 @@ install_vscodium_dnf() {
 setup_vscodium() {
   if command -v codium >/dev/null 2>&1; then
     echo "VSCodium is already installed"
-    return 0
+  else
+    case "$(detect_pkg_manager)" in
+      apt)
+        install_vscodium_apt
+        ;;
+      dnf)
+        install_vscodium_dnf
+        ;;
+      *)
+        echo "Unsupported package manager for VSCodium automatic install"
+        echo "See: https://vscodium.com/#install"
+        return 1
+        ;;
+    esac
   fi
 
-  case "$(detect_pkg_manager)" in
-    apt)
-      install_vscodium_apt
-      ;;
-    dnf)
-      install_vscodium_dnf
-      ;;
-    *)
-      echo "Unsupported package manager for VSCodium automatic install"
-      echo "See: https://vscodium.com/#install"
-      return 1
-      ;;
-  esac
+  if declare -F setup_vscode_extensions >/dev/null 2>&1; then
+    setup_vscode_extensions "vscodium"
+  fi
+  if declare -F setup_ide_settings >/dev/null 2>&1; then
+    setup_ide_settings "vscodium"
+  fi
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
