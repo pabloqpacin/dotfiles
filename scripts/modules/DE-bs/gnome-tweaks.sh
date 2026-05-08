@@ -6,6 +6,7 @@ set -euo pipefail
 ENABLE_FLATPAK_PLUGIN="${ENABLE_FLATPAK_PLUGIN:-yes}"
 DISABLE_AUTO_SUSPEND_ON_AC="${DISABLE_AUTO_SUSPEND_ON_AC:-yes}"
 ENABLE_DARK_MODE="${ENABLE_DARK_MODE:-yes}"
+HIDE_TOP_BAR_UUID="hidetopbar@mathieu.bidon.ca"
 
 detect_pkg_manager() {
   if command -v apt-get >/dev/null 2>&1; then
@@ -25,7 +26,8 @@ install_gnome_packages() {
       export DEBIAN_FRONTEND=noninteractive
       sudo apt-get update
       sudo apt-get install -y --no-install-recommends \
-        gnome-tweaks gnome-shell-extensions gnome-shell-extension-manager dconf-cli
+        gnome-tweaks gnome-shell-extensions gnome-shell-extension-manager dconf-cli \
+        gnome-shell-extension-autohidetopbar
       if [[ "${ENABLE_FLATPAK_PLUGIN}" == "yes" ]]; then
         sudo apt-get install -y --no-install-recommends gnome-software-plugin-flatpak
       fi
@@ -45,6 +47,31 @@ install_gnome_packages() {
 
 is_gnome_session() {
   [[ "${XDG_CURRENT_DESKTOP:-}" == *GNOME* ]] || [[ "${DESKTOP_SESSION:-}" == *gnome* ]]
+}
+
+enable_hide_top_bar_extension() {
+  if ! is_gnome_session; then
+    return 0
+  fi
+  if ! command -v gnome-extensions >/dev/null 2>&1; then
+    return 0
+  fi
+
+  if ! gnome-extensions enable "${HIDE_TOP_BAR_UUID}" >/dev/null 2>&1; then
+    local desktop_dir="${HOME}/Desktop"
+    local reminder_file="${desktop_dir}/hidetopbar-reminder.txt"
+    if [[ -d "${desktop_dir}" ]]; then
+      cat > "${reminder_file}" <<EOF
+Could not enable ${HIDE_TOP_BAR_UUID} in current session.
+
+After logging out/in, run:
+  gnome-extensions enable ${HIDE_TOP_BAR_UUID}
+EOF
+    fi
+    echo "Could not enable ${HIDE_TOP_BAR_UUID} in current session."
+    echo "After logging out/in, run:"
+    echo "  gnome-extensions enable ${HIDE_TOP_BAR_UUID}"
+  fi
 }
 
 apply_gnome_settings() {
@@ -80,11 +107,44 @@ apply_gnome_settings() {
   if [[ "${DISABLE_AUTO_SUSPEND_ON_AC}" == "yes" ]]; then
     gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type "nothing"
   fi
+
+  # Custom keyboard shortcuts.
+  local path_brave="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom90/"
+  local path_term="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom91/"
+  local current_list
+  current_list="$(gsettings get org.gnome.settings-daemon.plugins.media-keys custom-keybindings)"
+  current_list="${current_list#@as }"
+
+  if [[ "${current_list}" != *"'${path_brave}'"* ]]; then
+    if [[ "${current_list}" == "[]" ]]; then
+      current_list="['${path_brave}']"
+    else
+      current_list="${current_list%]}"
+      current_list="${current_list}, '${path_brave}']"
+    fi
+  fi
+  if [[ "${current_list}" != *"'${path_term}'"* ]]; then
+    if [[ "${current_list}" == "[]" ]]; then
+      current_list="['${path_term}']"
+    else
+      current_list="${current_list%]}"
+      current_list="${current_list}, '${path_term}']"
+    fi
+  fi
+  gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "${current_list}"
+
+  gsettings set "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${path_brave}" name "Brave Browser"
+  gsettings set "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${path_brave}" command "brave-browser"
+  gsettings set "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${path_brave}" binding "<Super>b"
+  gsettings set "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${path_term}" name "Alacritty"
+  gsettings set "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${path_term}" command "alacritty"
+  gsettings set "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${path_term}" binding "<Super>t"
 }
 
 setup_gnome_tweaks() {
   install_gnome_packages
   apply_gnome_settings
+  enable_hide_top_bar_extension
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
