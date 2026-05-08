@@ -108,7 +108,7 @@ run_oh_my_zsh_theme_helper() {
   fi
 
   grep -e "loaded" "${file}" || true
-  sed -i '/loaded/s/^/# /' "${file}"
+  sed -i '/loaded/ { /^[[:space:]]*#/! s/^/# /; }' "${file}"
   grep -e "loaded" "${file}" || true
 }
 
