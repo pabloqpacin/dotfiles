@@ -4,7 +4,7 @@
     "explorer.confirmDragAndDrop": false,
     "window.menuBarVisibility": "toggle",
     "window.commandCenter": false,
-    "window.zoomLevel": -0.3,
+    "window.zoomLevel": 0,
     "editor.rulers": [
         80,
         115
