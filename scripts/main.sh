@@ -34,6 +34,8 @@ source "${MODULES_DIR}/vim-nvim/setup-vim.sh"
 source "${MODULES_DIR}/desktop-ides/setup-vscodium.sh"
 # shellcheck source=modules/desktop-ides/setup-cursor.sh
 source "${MODULES_DIR}/desktop-ides/setup-cursor.sh"
+# shellcheck source=modules/DE-bs/gnome-tweaks.sh
+source "${MODULES_DIR}/DE-bs/gnome-tweaks.sh"
 
 echo "=== DETECTIONS ==="
 DISTRO="$(detect_distro)"
@@ -78,3 +80,11 @@ echo "=== DESKTOP IDES ==="
 setup_vscodium
 setup_cursor
 echo "Desktop IDEs installed/configured: yes"
+
+if [[ "${HEAD_MODE}" == "desktop" && "${XDG_CURRENT_DESKTOP:-}" == *GNOME* ]]; then
+  echo "=== GNOME TWEAKS ==="
+  setup_gnome_tweaks
+  echo "GNOME tweaks applied: yes"
+else
+  echo "GNOME tweaks skipped: non-GNOME desktop or headless"
+fi
