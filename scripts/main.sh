@@ -30,6 +30,8 @@ source "${MODULES_DIR}/desktop-basics/setup-nerdfonts.sh"
 source "${MODULES_DIR}/shell/setup-zsh.sh"
 # shellcheck source=modules/vim-nvim/setup-vim.sh
 source "${MODULES_DIR}/vim-nvim/setup-vim.sh"
+# shellcheck source=modules/desktop-ides/setup-vscodium.sh
+source "${MODULES_DIR}/desktop-ides/setup-vscodium.sh"
 
 echo "=== DETECTIONS ==="
 DISTRO="$(detect_distro)"
@@ -56,12 +58,6 @@ clone_dotfiles_repo
 create_dotfiles_symlinks
 echo "Dotfiles cloned/symlinked: yes"
 
-echo "=== DESKTOP BASICS ==="
-setup_nerdfonts
-setup_alacritty
-setup_brave
-echo "Desktop basics installed/configured: yes"
-
 echo "=== SHELL SETUP ==="
 setup_zsh
 echo "Shell configured: yes"
@@ -69,3 +65,13 @@ echo "Shell configured: yes"
 echo "=== VIM SETUP ==="
 setup_vim
 echo "Vim installed/configured: yes"
+
+echo "=== DESKTOP BASICS ==="
+setup_nerdfonts
+setup_alacritty
+setup_brave
+echo "Desktop basics installed/configured: yes"
+
+echo "=== DESKTOP IDES ==="
+setup_vscodium
+echo "Desktop IDEs installed/configured: yes"
