@@ -36,6 +36,8 @@ source "${MODULES_DIR}/desktop-ides/setup-vscodium.sh"
 source "${MODULES_DIR}/desktop-ides/setup-cursor.sh"
 # shellcheck source=modules/DE-bs/gnome-tweaks.sh
 source "${MODULES_DIR}/DE-bs/gnome-tweaks.sh"
+# shellcheck source=modules/containers/setup-docker.sh
+source "${MODULES_DIR}/containers/setup-docker.sh"
 
 echo "=== DETECTIONS ==="
 DISTRO="$(detect_distro)"
@@ -80,6 +82,10 @@ echo "=== DESKTOP IDES ==="
 setup_vscodium
 setup_cursor
 echo "Desktop IDEs installed/configured: yes"
+
+echo "=== CONTAINERS ==="
+setup_docker
+echo "Containers installed/configured: yes"
 
 if [[ "${HEAD_MODE}" == "desktop" && "${XDG_CURRENT_DESKTOP:-}" == *GNOME* ]]; then
   echo "=== GNOME TWEAKS ==="

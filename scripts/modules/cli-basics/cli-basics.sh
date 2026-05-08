@@ -49,25 +49,37 @@ install_cli_basics() {
       fi
       sudo apt-get update
       if declare -F apt_install >/dev/null 2>&1; then
-        apt_install python3-pip python3-venv bat eza fzf git git-delta grc jq lf ripgrep nmap tmux tree yq
+        apt_install python3-pip python3-venv \
+          bat btop btm eza fastfetch fzf git git-delta grc htop jq lf \
+          nmap ripgrep tealdeer tmux tree yq
       else
         sudo apt-get install -y --no-install-recommends \
-          python3-pip python3-venv bat eza fzf git git-delta grc jq lf ripgrep nmap tmux tree yq
+          python3-pip python3-venv \
+          bat btop btm eza fastfetch fzf git git-delta grc htop jq lf \
+          nmap ripgrep tealdeer tmux tree yq
       fi
       ;;
     dnf)
-      sudo dnf install -y python3-pip bat eza fzf git delta grc jq lf ripgrep nmap tmux tree yq
+      sudo dnf install -y python3-pip \
+        bat btop btm eza fastfetch fzf git delta grc htop jq lf \
+        nmap ripgrep tealdeer tmux tree yq
       ;;
     pacman)
-      sudo pacman -S --noconfirm python-pip bat eza fzf git git-delta grc jq lf ripgrep nmap tmux tree yq
+      sudo pacman -S --noconfirm python-pip \
+        bat btop btm eza fastfetch fzf git git-delta grc htop jq lf \
+        nmap ripgrep tealdeer tmux tree yq
       ;;
     *)
-      echo "Unsupported package manager. Install manually: bat eza fzf git git-delta grc jq lf ripgrep nmap tmux tree yq"
+      echo "Unsupported package manager. Install manually: bat btop btm fastfetch htop tealdeer eza fzf git git-delta grc jq lf ripgrep nmap tmux tree yq"
       return 1
       ;;
   esac
 
   ensure_bat_command
+
+  if command -v tldr >/dev/null 2>&1; then
+    tldr --update || true
+  fi
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
