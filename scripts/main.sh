@@ -32,6 +32,8 @@ source "${MODULES_DIR}/shell/setup-zsh.sh"
 source "${MODULES_DIR}/vim-nvim/setup-vim.sh"
 # shellcheck source=modules/desktop-ides/setup-vscodium.sh
 source "${MODULES_DIR}/desktop-ides/setup-vscodium.sh"
+# shellcheck source=modules/desktop-ides/setup-cursor.sh
+source "${MODULES_DIR}/desktop-ides/setup-cursor.sh"
 
 echo "=== DETECTIONS ==="
 DISTRO="$(detect_distro)"
@@ -74,4 +76,5 @@ echo "Desktop basics installed/configured: yes"
 
 echo "=== DESKTOP IDES ==="
 setup_vscodium
+setup_cursor
 echo "Desktop IDEs installed/configured: yes"

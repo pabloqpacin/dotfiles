@@ -49,20 +49,20 @@ install_cli_basics() {
       fi
       sudo apt-get update
       if declare -F apt_install >/dev/null 2>&1; then
-        apt_install python3-pip python3-venv bat fzf git grc jq lf ripgrep nmap tmux tree yq
+        apt_install python3-pip python3-venv bat fzf git git-delta grc jq lf ripgrep nmap tmux tree yq
       else
         sudo apt-get install -y --no-install-recommends \
-          python3-pip python3-venv bat fzf git grc jq lf ripgrep nmap tmux tree yq
+          python3-pip python3-venv bat fzf git git-delta grc jq lf ripgrep nmap tmux tree yq
       fi
       ;;
     dnf)
-      sudo dnf install -y python3-pip bat fzf git grc jq lf ripgrep nmap tmux tree yq
+      sudo dnf install -y python3-pip bat fzf git delta grc jq lf ripgrep nmap tmux tree yq
       ;;
     pacman)
-      sudo pacman -S --noconfirm python-pip bat fzf git grc jq lf ripgrep nmap tmux tree yq
+      sudo pacman -S --noconfirm python-pip bat fzf git git-delta grc jq lf ripgrep nmap tmux tree yq
       ;;
     *)
-      echo "Unsupported package manager. Install manually: bat fzf git grc jq lf ripgrep nmap tmux tree yq"
+      echo "Unsupported package manager. Install manually: bat fzf git git-delta grc jq lf ripgrep nmap tmux tree yq"
       return 1
       ;;
   esac
