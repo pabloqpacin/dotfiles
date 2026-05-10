@@ -20,12 +20,8 @@ source "${MODULES_DIR}/cli-basics/cli-basics.sh"
 source "${MODULES_DIR}/dotfiles/dotfiles-clone.sh"
 # shellcheck source=modules/dotfiles/dotfiles-symlink.sh
 source "${MODULES_DIR}/dotfiles/dotfiles-symlink.sh"
-# shellcheck source=modules/desktop-basics/setup-brave.sh
-source "${MODULES_DIR}/desktop-basics/setup-brave.sh"
-# shellcheck source=modules/desktop-basics/setup-alacritty.sh
-source "${MODULES_DIR}/desktop-basics/setup-alacritty.sh"
-# shellcheck source=modules/desktop-basics/setup-nerdfonts.sh
-source "${MODULES_DIR}/desktop-basics/setup-nerdfonts.sh"
+# shellcheck source=modules/desktop-basics/init.sh
+source "${MODULES_DIR}/desktop-basics/init.sh"
 # shellcheck source=modules/shell/setup-zsh.sh
 source "${MODULES_DIR}/shell/setup-zsh.sh"
 # shellcheck source=modules/vim-nvim/setup-vim.sh
@@ -73,9 +69,7 @@ setup_vim
 echo "Vim installed/configured: yes"
 
 echo "=== DESKTOP BASICS ==="
-setup_nerdfonts
-setup_alacritty
-setup_brave
+setup_desktop_basics
 echo "Desktop basics installed/configured: yes"
 
 echo "=== DESKTOP IDES ==="
