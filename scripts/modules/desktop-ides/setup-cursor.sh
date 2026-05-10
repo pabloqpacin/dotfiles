@@ -81,9 +81,20 @@ install_cursor_deb() {
 
   export DEBIAN_FRONTEND=noninteractive
   sudo apt-get update
-  sudo apt-get install -y --no-install-recommends curl ca-certificates
+  sudo apt-get install -y --no-install-recommends curl ca-certificates debconf-utils
   download_file "${pkg_url}" "${tmp_pkg}"
-  sudo apt-get install -y "${tmp_pkg}"
+
+  # Preseed Cursor debconf questions to avoid interactive TUI prompts.
+  if command -v debconf-set-selections >/dev/null 2>&1; then
+    printf '%s\n' \
+      "cursor cursor/add-apt-repository boolean true" \
+      "cursor cursor/add-repo boolean true" \
+      "cursor cursor/add-repository boolean true" \
+      | sudo debconf-set-selections || true
+  fi
+
+  sudo DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true \
+    apt-get install -y "${tmp_pkg}"
   rm -f "${tmp_pkg}"
 }
 
