@@ -38,6 +38,7 @@ install_spotify() {
       install_spotify_debian
       ;;
     *)
+      # Ref: https://asamalik.fedorapeople.org/tmp-docs-preview/quick-docs/installing-spotify/
       echo "Spotify module currently supports Debian apt flow only."
       return 1
       ;;

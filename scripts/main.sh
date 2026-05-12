@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# NOTA: se asume que Timeshift ya ha sido instalado y configurado en la máquina.
+# TODO: diferenciar instalación para desktop personal vs servidor desktop (ojo desktop-basics/).
+
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
