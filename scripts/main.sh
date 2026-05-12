@@ -32,8 +32,8 @@ source "${MODULES_DIR}/vim-nvim/setup-vim.sh"
 source "${MODULES_DIR}/desktop-ides/setup-vscodium.sh"
 # shellcheck source=modules/desktop-ides/setup-cursor.sh
 source "${MODULES_DIR}/desktop-ides/setup-cursor.sh"
-# shellcheck source=modules/DE-bs/gnome-tweaks.sh
-source "${MODULES_DIR}/DE-bs/gnome-tweaks.sh"
+# shellcheck source=modules/desktop-environments/gnome-tweaks.sh
+source "${MODULES_DIR}/desktop-environments/gnome-tweaks.sh"
 # shellcheck source=modules/containers/setup-docker.sh
 source "${MODULES_DIR}/containers/setup-docker.sh"
 
