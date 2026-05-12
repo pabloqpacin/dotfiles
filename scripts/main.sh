@@ -39,6 +39,10 @@ source "${MODULES_DIR}/desktop-ides/setup-cursor.sh"
 source "${MODULES_DIR}/desktop-environments/gnome-tweaks.sh"
 # shellcheck source=modules/containers/setup-docker.sh
 source "${MODULES_DIR}/containers/setup-docker.sh"
+# shellcheck source=modules/hardening_management/setup-firewall.sh
+source "${MODULES_DIR}/hardening_management/setup-firewall.sh"
+# shellcheck source=modules/hardening_management/setup-cockpit.sh
+source "${MODULES_DIR}/hardening_management/setup-cockpit.sh"
 
 echo "=== DETECTIONS ==="
 DISTRO="$(detect_distro)"
@@ -86,6 +90,11 @@ echo "Desktop IDEs installed/configured: yes"
 echo "=== CONTAINERS ==="
 setup_docker
 echo "Containers installed/configured: yes"
+
+echo "=== HARDENING & MANAGEMENT ==="
+setup_firewall
+setup_cockpit
+echo "Management services installed/configured: yes"
 
 if [[ "${HEAD_MODE}" == "desktop" && "${XDG_CURRENT_DESKTOP:-}" == *GNOME* ]]; then
   echo "=== GNOME TWEAKS ==="
