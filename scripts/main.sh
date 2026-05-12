@@ -16,12 +16,12 @@ source "${DETECTIONS_DIR}/detect-shell.sh"
 source "${MODULES_DIR}/package-manager/config-apt.sh"
 # shellcheck source=modules/cli-basics/cli-basics.sh
 source "${MODULES_DIR}/cli-basics/cli-basics.sh"
-# shellcheck source=modules/cli-basics/git-delta.sh
-source "${MODULES_DIR}/cli-basics/git-delta.sh"
 # shellcheck source=modules/dotfiles/dotfiles-clone.sh
 source "${MODULES_DIR}/dotfiles/dotfiles-clone.sh"
 # shellcheck source=modules/dotfiles/dotfiles-symlink.sh
 source "${MODULES_DIR}/dotfiles/dotfiles-symlink.sh"
+# shellcheck source=modules/dotfiles/git-config.sh
+source "${MODULES_DIR}/dotfiles/git-config.sh"
 # shellcheck source=modules/desktop-basics/init.sh
 source "${MODULES_DIR}/desktop-basics/init.sh"
 # shellcheck source=modules/shell/setup-zsh.sh
@@ -55,12 +55,12 @@ echo "====="
 
 echo "=== CLI BASICS INSTALL ==="
 install_cli_basics
-setup_gitdelta
 echo "CLI basics installed: yes"
 
 echo "=== DOTFILES SETUP ==="
 clone_dotfiles_repo
 create_dotfiles_symlinks
+setup_gitconfig
 echo "Dotfiles cloned/symlinked: yes"
 
 echo "=== SHELL SETUP ==="

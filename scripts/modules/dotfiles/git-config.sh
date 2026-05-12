@@ -2,8 +2,9 @@
 
 set -euo pipefail
 
-write_gitdelta_file() {
-  cat > "${HOME}/.gitdelta" <<'EOF'
+write_gitconfig_file() {
+  echo "[git-delta] Writing ~/.gitconfig from embedded template"
+  cat > "${HOME}/.gitconfig" <<'EOF'
 [init]
 	defaultBranch = main
 [http]
@@ -32,7 +33,8 @@ link_gitconfig_for_personal_users() {
   script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
   dotfiles_dir="$(cd "${script_dir}/../../.." && pwd)"
   source="${dotfiles_dir}/.gitconfig.d/.gitconfig"
-  target="${HOME}/.gitdelta"
+  target="${HOME}/.gitconfig"
+  echo "[git-delta] Personal user detected, linking ${target} -> ${source}"
 
   if [[ ! -f "${source}" ]]; then
     echo "Source gitconfig not found: ${source}" >&2
@@ -40,24 +42,28 @@ link_gitconfig_for_personal_users() {
   fi
 
   if [[ -L "${target}" ]] && [[ "$(readlink -f "${target}")" == "${source}" ]]; then
+    echo "[git-delta] Symlink already configured"
     return 0
   fi
 
   rm -f "${target}"
   ln -s "${source}" "${target}"
+  echo "[git-delta] Symlink created successfully"
 }
 
-setup_gitdelta() {
+setup_gitconfig() {
+  echo "[git-delta] Starting setup for user: ${USER:-unknown}"
   case "${USER:-}" in
     pquevedo|pabloqpacin)
       link_gitconfig_for_personal_users
       ;;
     *)
-      write_gitdelta_file
+      write_gitconfig_file
       ;;
   esac
+  echo "[git-delta] Setup complete"
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-  setup_gitdelta
+  setup_gitconfig
 fi
