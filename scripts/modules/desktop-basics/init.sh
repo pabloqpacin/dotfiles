@@ -16,6 +16,10 @@ source "${SCRIPT_DIR}/install-keepassxc.sh"
 source "${SCRIPT_DIR}/install-wireshark.sh"
 # shellcheck source=install-spotify.sh
 source "${SCRIPT_DIR}/install-spotify.sh"
+# shellcheck source=install-steam.sh
+source "${SCRIPT_DIR}/install-steam.sh"
+# shellcheck source=install-obs.sh
+source "${SCRIPT_DIR}/install-obs.sh"
 
 setup_desktop_basics() {
   # Core desktop baseline.
@@ -25,6 +29,8 @@ setup_desktop_basics() {
   install_keepassxc
   install_wireshark
   install_spotify
+  install_steam
+  install_obs
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
