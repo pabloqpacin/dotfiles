@@ -6,15 +6,15 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-DETECTIONS_DIR="${SCRIPT_DIR}/detections"
+COMMON_DIR="${SCRIPT_DIR}/common"
 MODULES_DIR="${SCRIPT_DIR}/modules"
 
-# shellcheck source=detect-distro.sh
-source "${DETECTIONS_DIR}/detect-distro.sh"
-# shellcheck source=detect-head.sh
-source "${DETECTIONS_DIR}/detect-head.sh"
-# shellcheck source=detect-shell.sh
-source "${DETECTIONS_DIR}/detect-shell.sh"
+# shellcheck source=check-distro.sh
+source "${COMMON_DIR}/check-distro.sh"
+# shellcheck source=check-headless_or_desktop.sh
+source "${COMMON_DIR}/check-headless_or_desktop.sh"
+# shellcheck source=check-shell.sh
+source "${COMMON_DIR}/check-shell.sh"
 # shellcheck source=modules/package-manager/config-apt.sh
 source "${MODULES_DIR}/package-manager/config-apt.sh"
 # shellcheck source=modules/cli-basics/cli-basics.sh

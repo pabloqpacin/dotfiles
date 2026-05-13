@@ -58,6 +58,27 @@ ensure_download_dependencies() {
   esac
 }
 
+ensure_appimage_runtime_dependencies() {
+  case "$(detect_pkg_manager)" in
+    apt)
+      export DEBIAN_FRONTEND=noninteractive
+      sudo apt-get update
+      # Debian/Ubuntu naming differs depending on release.
+      sudo apt-get install -y --no-install-recommends libfuse2 \
+        || sudo apt-get install -y --no-install-recommends libfuse2t64 \
+        || true
+      ;;
+    dnf)
+      sudo dnf install -y fuse-libs || true
+      ;;
+    pacman)
+      sudo pacman -S --noconfirm fuse2 || true
+      ;;
+    *)
+      ;;
+  esac
+}
+
 download_file() {
   local url="${1:?url required}"
   local output="${2:?output path required}"
@@ -103,6 +124,24 @@ StartupNotify=true
 EOF
 }
 
+create_marktext_launcher() {
+  cat >"${MARKTEXT_LAUNCHER}" <<EOF
+#!/usr/bin/env bash
+set -euo pipefail
+
+appimage_path="${MARKTEXT_APPIMAGE_TARGET}"
+
+if command -v ldconfig >/dev/null 2>&1 && ldconfig -p 2>/dev/null | rg -q 'libfuse\.so\.2'; then
+  exec "\${appimage_path}" "\$@"
+fi
+
+echo "libfuse.so.2 not detected. Running MarkText with AppImage extract mode."
+exec "\${appimage_path}" --appimage-extract-and-run "\$@"
+EOF
+
+  chmod +x "${MARKTEXT_LAUNCHER}"
+}
+
 install_marktext() {
   if command -v marktext >/dev/null 2>&1; then
     echo "MarkText is already installed"
@@ -117,6 +156,7 @@ install_marktext() {
   fi
 
   ensure_download_dependencies
+  ensure_appimage_runtime_dependencies
 
   local appimage_url
   local tmp_appimage
@@ -128,7 +168,7 @@ install_marktext() {
   mv "${tmp_appimage}" "${MARKTEXT_APPIMAGE_TARGET}"
   chmod +x "${MARKTEXT_APPIMAGE_TARGET}"
 
-  ln -sf "${MARKTEXT_APPIMAGE_TARGET}" "${MARKTEXT_LAUNCHER}"
+  create_marktext_launcher
   create_marktext_desktop_entry
 
   echo "MarkText AppImage installed at ${MARKTEXT_APPIMAGE_TARGET}"
