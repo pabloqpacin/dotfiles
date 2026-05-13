@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# NOTA: se asume que Timeshift ya ha sido instalado y configurado en la máquina.
+# NOTA: lo primero que se hace es instalar y confgurar Timeshift (ojo con config. discos durante instalación OS...).
 # TODO: diferenciar instalación para desktop personal vs servidor desktop (ojo desktop-basics/).
 
 set -euo pipefail
@@ -17,6 +17,8 @@ source "${COMMON_DIR}/check-headless_or_desktop.sh"
 source "${COMMON_DIR}/check-shell.sh"
 # shellcheck source=modules/package-manager/config-apt.sh
 source "${MODULES_DIR}/package-manager/config-apt.sh"
+# shellcheck source=modules/hardening_management/setup-timeshift.sh
+source "${MODULES_DIR}/hardening_management/setup-timeshift.sh"
 # shellcheck source=modules/cli-basics/cli-basics.sh
 source "${MODULES_DIR}/cli-basics/cli-basics.sh"
 # shellcheck source=modules/dotfiles/dotfiles-clone.sh
@@ -57,6 +59,10 @@ echo "Current shell: ${CURRENT_SHELL}"
 echo "Zsh installed: ${ZSH_INSTALLED}"
 echo "Oh My Zsh installed: ${OH_MY_ZSH_INSTALLED}"
 echo "====="
+
+echo "=== SYSTEM SNAPSHOTS ==="
+setup_timeshift
+echo "Timeshift installed/configured: yes"
 
 echo "=== CLI BASICS INSTALL ==="
 install_cli_basics
