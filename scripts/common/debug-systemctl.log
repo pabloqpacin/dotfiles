@@ -1,0 +1,21 @@
+[pquevedo:~/dotfiles]$ systemctl list-unit-files --type=service --type=socket
+UNIT FILE                                    STATE           PRESET
+accounts-daemon.service                      enabled         enabled
+alsa-restore.service                         static          -
+alsa-state.service                           static          -
+alsa-utils.service                           masked          enabled
+anacron.service                              enabled         enabled
+apparmor.service                             enabled         enabled
+apt-daily-upgrade.service                    static          -
+apt-daily.service                            static          -
+apt-listchanges.service                      static          -
+autovt@.service                              alias           -
+avahi-daemon.service                         enabled         enabled
+bluetooth.service                            enabled         enabled
+bolt.service                                 static          -
+capsule@.service                             static          -
+cockpit-issue.service                        static          -
+cockpit-session-socket-user.service          static          -
+cockpit-session@.service                     static          -
+cockpit-wsinstance-http.service              static          -
+lines 1-19
