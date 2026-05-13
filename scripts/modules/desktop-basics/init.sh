@@ -22,6 +22,8 @@ source "${SCRIPT_DIR}/install-steam.sh"
 source "${SCRIPT_DIR}/install-obs.sh"
 # shellcheck source=install-marktext.sh
 source "${SCRIPT_DIR}/install-marktext.sh"
+# shellcheck source=install-vlc.sh
+source "${SCRIPT_DIR}/install-vlc.sh"
 
 
 setup_desktop_basics() {
@@ -35,6 +37,7 @@ setup_desktop_basics() {
   install_steam
   install_obs
   install_marktext
+  install_vlc
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
