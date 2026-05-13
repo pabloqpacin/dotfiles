@@ -20,6 +20,9 @@ source "${SCRIPT_DIR}/install-spotify.sh"
 source "${SCRIPT_DIR}/install-steam.sh"
 # shellcheck source=install-obs.sh
 source "${SCRIPT_DIR}/install-obs.sh"
+# shellcheck source=install-marktext.sh
+source "${SCRIPT_DIR}/install-marktext.sh"
+
 
 setup_desktop_basics() {
   # Core desktop baseline.
@@ -31,6 +34,7 @@ setup_desktop_basics() {
   install_spotify
   install_steam
   install_obs
+  install_marktext
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
