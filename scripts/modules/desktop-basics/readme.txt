@@ -9,3 +9,4 @@ Todo esto NO es para headless servers.
 
 DOCUMENTACIÓN AUXILIAR
 - docs-appimages.md
+- docs-xorg_vs_wayland.txt
