@@ -35,8 +35,8 @@ source "${MODULES_DIR}/vim-nvim/setup-vim.sh"
 source "${MODULES_DIR}/desktop-ides/setup-vscodium.sh"
 # shellcheck source=modules/desktop-ides/setup-cursor.sh
 source "${MODULES_DIR}/desktop-ides/setup-cursor.sh"
-# shellcheck source=modules/desktop-environments/gnome-tweaks.sh
-source "${MODULES_DIR}/desktop-environments/gnome-tweaks.sh"
+# shellcheck source=modules/desktop-environments/gnome-init.sh
+source "${MODULES_DIR}/desktop-environments/gnome-init.sh"
 # shellcheck source=modules/containers/setup-docker.sh
 source "${MODULES_DIR}/containers/setup-docker.sh"
 # shellcheck source=modules/hardening_management/init.sh
@@ -94,9 +94,9 @@ setup_hardening_management
 echo "Management services installed/configured: yes"
 
 if [[ "${HEAD_MODE}" == "desktop" && "${XDG_CURRENT_DESKTOP:-}" == *GNOME* ]]; then
-  echo "=== GNOME TWEAKS ==="
-  setup_gnome_tweaks
-  echo "GNOME tweaks applied: yes"
+  echo "=== GNOME INIT ==="
+  setup_gnome_init
+  echo "GNOME init applied: yes"
 else
-  echo "GNOME tweaks skipped: non-GNOME desktop or headless"
+  echo "GNOME init skipped: non-GNOME desktop or headless"
 fi
