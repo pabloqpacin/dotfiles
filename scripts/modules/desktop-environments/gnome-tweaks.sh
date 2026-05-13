@@ -7,6 +7,8 @@ ENABLE_FLATPAK_PLUGIN="${ENABLE_FLATPAK_PLUGIN:-yes}"
 DISABLE_AUTO_SUSPEND_ON_AC="${DISABLE_AUTO_SUSPEND_ON_AC:-yes}"
 ENABLE_DARK_MODE="${ENABLE_DARK_MODE:-yes}"
 HIDE_TOP_BAR_UUID="hidetopbar@mathieu.bidon.ca"
+TRANSPARENT_WINDOW_UUID="transparent-window@pbxqdown.github.com"
+TRANSPARENT_WINDOW_OPACITY="${TRANSPARENT_WINDOW_OPACITY:-95}"
 
 detect_pkg_manager() {
   if command -v apt-get >/dev/null 2>&1; then
@@ -72,6 +74,72 @@ EOF
     echo "After logging out/in, run:"
     echo "  gnome-extensions enable ${HIDE_TOP_BAR_UUID}"
   fi
+}
+
+install_transparent_window_extension() {
+  if ! is_gnome_session; then
+    return 0
+  fi
+  if ! command -v gnome-extensions >/dev/null 2>&1; then
+    return 0
+  fi
+  if gnome-extensions info "${TRANSPARENT_WINDOW_UUID}" >/dev/null 2>&1; then
+    return 0
+  fi
+  if ! command -v gdbus >/dev/null 2>&1; then
+    echo "gdbus is required to install ${TRANSPARENT_WINDOW_UUID}" >&2
+    return 1
+  fi
+
+  # This path is non-interactive in the script itself. If GNOME policy prompts
+  # the user for trust/consent, that decision is enforced by the shell.
+  if ! gdbus call --session \
+    --dest org.gnome.Shell.Extensions \
+    --object-path /org/gnome/Shell/Extensions \
+    --method org.gnome.Shell.Extensions.InstallRemoteExtension \
+    "${TRANSPARENT_WINDOW_UUID}" >/dev/null 2>&1; then
+    echo "Could not install ${TRANSPARENT_WINDOW_UUID} via GNOME Shell D-Bus." >&2
+    return 1
+  fi
+}
+
+enable_transparent_window_extension() {
+  if ! is_gnome_session; then
+    return 0
+  fi
+  if ! command -v gnome-extensions >/dev/null 2>&1; then
+    return 0
+  fi
+
+  if ! gnome-extensions enable "${TRANSPARENT_WINDOW_UUID}" >/dev/null 2>&1; then
+    echo "Could not enable ${TRANSPARENT_WINDOW_UUID} in current session."
+    echo "After logging out/in, run:"
+    echo "  gnome-extensions enable ${TRANSPARENT_WINDOW_UUID}"
+  fi
+}
+
+configure_transparent_window_opacity() {
+  if ! is_gnome_session; then
+    return 0
+  fi
+  if ! command -v gsettings >/dev/null 2>&1; then
+    return 0
+  fi
+
+  # Extension settings schema/key can differ by version, so apply best-effort.
+  gsettings set org.gnome.shell.extensions.transparent-window opacity "${TRANSPARENT_WINDOW_OPACITY}" >/dev/null 2>&1 || true
+  if command -v dconf >/dev/null 2>&1; then
+    dconf write /org/gnome/shell/extensions/transparent-window/opacity "${TRANSPARENT_WINDOW_OPACITY}" >/dev/null 2>&1 || true
+  fi
+}
+
+print_transparent_window_notes() {
+  if ! is_gnome_session; then
+    return 0
+  fi
+
+  echo "Transparent Window extension target opacity: ${TRANSPARENT_WINDOW_OPACITY}%."
+  echo "Note: applying transparency only to Cursor by default is not reliably supported in GNOME Wayland."
 }
 
 apply_gnome_settings() {
@@ -143,8 +211,12 @@ apply_gnome_settings() {
 
 setup_gnome_tweaks() {
   install_gnome_packages
+  install_transparent_window_extension
   apply_gnome_settings
   enable_hide_top_bar_extension
+  enable_transparent_window_extension
+  configure_transparent_window_opacity
+  print_transparent_window_notes
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
