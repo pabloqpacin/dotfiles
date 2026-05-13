@@ -6,6 +6,7 @@ build_extensions_list() {
   local -a extensions=(
     "zhuangtongfa.material-theme"
     "vscode-icons-team.vscode-icons"
+    "eamodio.gitlens"
     "yzhang.markdown-all-in-one"
     "yzane.markdown-pdf"
     "tomoki1207.pdf"
