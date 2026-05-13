@@ -19,7 +19,7 @@ detect_pkg_manager() {
 install_cockpit_apt() {
   export DEBIAN_FRONTEND=noninteractive
   sudo apt-get update
-  sudo apt-get install -y --no-install-recommends cockpit
+  sudo apt-get install -y --no-install-recommends cockpit pcp cockpit-storaged # udisks2-lvm2 udisks2-btrfs mdadm
 }
 
 install_cockpit_dnf() {
