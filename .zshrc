@@ -12,12 +12,13 @@ if [[ $distro != "NixOS" ]]; then
 fi
 
 # Display man pages with Bat highlighting
-if command -v bat &>/dev/null; then
-  case $distro in
-    "arch"|"ubuntu"|"fedora") export MANPAGER="bat -l man -p --theme=Nord" ;;
-    *) export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'" ;;
-  esac
-fi
+export MANPAGER="bat -l man -p --theme=Nord"
+# if command -v bat &>/dev/null; then
+#   case $distro in
+#     "arch"|"ubuntu"|"fedora") export MANPAGER="bat -l man -p --theme=Nord" ;;
+#     *) export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'" ;;
+#   esac
+# fi
 
 # Set $RANDOM_THEME
 case $distro in
