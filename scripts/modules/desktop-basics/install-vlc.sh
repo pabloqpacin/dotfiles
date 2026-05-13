@@ -16,8 +16,15 @@ detect_pkg_manager() {
 
 install_vlc_apt() {
   export DEBIAN_FRONTEND=noninteractive
-  sudo apt-get update
-  sudo apt-get install -y --no-install-recommends vlc
+  if ! command -v flatpak >/dev/null 2>&1; then
+    sudo apt-get update
+    sudo apt-get install -y --no-install-recommends flatpak
+  fi
+
+  # Use Flatpak on Debian to avoid missing RTSP/live555 libs in distro package.
+  sudo flatpak remote-add --if-not-exists flathub \
+    https://flathub.org/repo/flathub.flatpakrepo
+  sudo flatpak install -y flathub org.videolan.VLC
 }
 
 install_vlc_dnf() {
@@ -29,7 +36,8 @@ install_vlc_pacman() {
 }
 
 install_vlc() {
-  if command -v vlc >/dev/null 2>&1; then
+  if command -v vlc >/dev/null 2>&1 || \
+    flatpak info org.videolan.VLC >/dev/null 2>&1; then
     echo "VLC is already installed"
     return 0
   fi
