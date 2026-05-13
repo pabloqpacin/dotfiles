@@ -50,6 +50,7 @@
     "[github-actions-workflow]": {
         "editor.defaultFormatter": "redhat.vscode-yaml"
     },
-    "editor.minimap.enabled": true
+    "editor.minimap.enabled": true,
+    "editor.autoDetectColorScheme": true
 }
 
