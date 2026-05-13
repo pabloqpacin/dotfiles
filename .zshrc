@@ -26,10 +26,11 @@ case $distro in
   *)        ZSH_THEME="random" ;;
 esac
 
-# Them Baddest themes
-ZSH_THEME_RANDOM_CANDIDATES=( 'afowler' 'dpoggi' 'eastwood' 'fletcherm'
-  'gallois' 'macovsky' 'mh' 'muse' 'tonotdo' 'wedisagree'
-)
+# # Favorite themes
+# ZSH_THEME_RANDOM_CANDIDATES=(
+#   'afowler' 'dpoggi' 'eastwood' 'fletcherm' 'gallois'
+#   'macovsky' 'mh' 'muse' 'tonotdo' 'wedisagree'
+# )
 
 # Set custom folder for personal aliases, plugins and themes
 ZSH_CUSTOM="$HOME/dotfiles/zsh"
