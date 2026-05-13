@@ -209,7 +209,7 @@ apply_gnome_settings() {
   gsettings set "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${path_term}" binding "<Super>t"
 }
 
-setup_gnome_tweaks() {
+setup_gnome_extensions() {
   install_gnome_packages
   install_transparent_window_extension
   apply_gnome_settings
@@ -220,5 +220,5 @@ setup_gnome_tweaks() {
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-  setup_gnome_tweaks
+  setup_gnome_extensions
 fi

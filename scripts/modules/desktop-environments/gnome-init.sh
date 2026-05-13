@@ -4,8 +4,8 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# shellcheck source=gnome-tweaks.sh
-source "${SCRIPT_DIR}/gnome-tweaks.sh"
+# shellcheck source=gnome-extensions.sh
+source "${SCRIPT_DIR}/gnome-extensions.sh"
 # shellcheck source=gnome-wallpapers.sh
 source "${SCRIPT_DIR}/gnome-wallpapers.sh"
 
@@ -19,7 +19,7 @@ setup_gnome_init() {
     return 0
   fi
 
-  setup_gnome_tweaks
+  setup_gnome_extensions
   setup_gnome_wallpapers
 }
 
