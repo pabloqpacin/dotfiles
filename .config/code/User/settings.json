@@ -15,7 +15,7 @@
     "workbench.startupEditor": "none",
     "editor.fontFamily": "FiraCode Nerd Font",
     "editor.rulers": [
-        80, 115       
+        60, 80, 115       
     ],
     "window.titleBarStyle": "native",
     "window.menuBarVisibility": "toggle",

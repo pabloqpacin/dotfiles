@@ -6,6 +6,7 @@
     "window.commandCenter": false,
     "window.zoomLevel": 0,
     "editor.rulers": [
+        60,
         80,
         115
     ],
