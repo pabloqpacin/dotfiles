@@ -2,9 +2,8 @@
 
 set -euo pipefail
 
-write_gitconfig_file() {
-  echo "[git-delta] Writing ~/.gitconfig from embedded template"
-  cat > "${HOME}/.gitconfig" <<'EOF'
+render_gitconfig_template() {
+  cat <<'EOF'
 [init]
 	defaultBranch = main
 [http]
@@ -26,6 +25,18 @@ write_gitconfig_file() {
 [diff]
     colorMoved = default
 EOF
+}
+
+write_gitconfig_file() {
+  local target="${1:-${HOME}/.gitconfig}"
+  echo "[git-delta] Writing ${target} from embedded template"
+
+  if [[ "${target}" == "/root/.gitconfig" && "${USER:-}" != "root" ]]; then
+    render_gitconfig_template | sudo tee "${target}" >/dev/null
+    return 0
+  fi
+
+  render_gitconfig_template > "${target}"
 }
 
 link_gitconfig_for_personal_users() {
@@ -61,6 +72,7 @@ setup_gitconfig() {
       write_gitconfig_file
       ;;
   esac
+  write_gitconfig_file "/root/.gitconfig"
   echo "[git-delta] Setup complete"
 }
 
