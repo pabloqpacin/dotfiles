@@ -41,6 +41,8 @@ source "${MODULES_DIR}/desktop-ides/setup-cursor.sh"
 source "${MODULES_DIR}/desktop-environments/gnome-init.sh"
 # shellcheck source=modules/containers/setup-docker.sh
 source "${MODULES_DIR}/containers/setup-docker.sh"
+# shellcheck source=modules/devops-programs/init.sh
+source "${MODULES_DIR}/devops-programs/init.sh"
 # shellcheck source=modules/hardening_management/init.sh
 source "${MODULES_DIR}/hardening_management/init.sh"
 
@@ -94,6 +96,10 @@ echo "Desktop IDEs installed/configured: yes"
 echo "=== CONTAINERS ==="
 setup_docker
 echo "Containers installed/configured: yes"
+
+echo "=== DEVOPS PROGRAMS ==="
+setup_devops_programs
+echo "DevOps programs installed/configured: yes"
 
 echo "=== HARDENING & MANAGEMENT ==="
 setup_hardening_management
