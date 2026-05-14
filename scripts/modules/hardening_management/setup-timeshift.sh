@@ -209,3 +209,28 @@ setup_timeshift() {
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   setup_timeshift
 fi
+
+# -----------------------------------------------------------------------------
+# Ops notes (commented on purpose)
+# -----------------------------------------------------------------------------
+# Existing snapshots:
+#   sudo timeshift --list
+#   sudo timeshift --list-devices
+#
+# Scheduled policy (what Timeshift is configured to create/retain):
+#   sudo rg -n '"schedule_(hourly|daily|weekly|monthly|boot)"|"count_(hourly|daily|weekly|monthly|boot)"' /etc/timeshift/timeshift.json
+#
+# Trigger mechanism (cron/systemd):
+#   sudo rg -n "timeshift" /etc/cron.d /etc/cron.daily /etc/anacrontab
+#   systemctl list-timers --all | rg -i timeshift
+#
+# Manual check cycle (safe way to validate daily creation):
+#   sudo timeshift --check --scripted
+#   sudo timeshift --list
+#
+# Useful troubleshooting:
+#   # Timeshift does not usually expose an exact "next run at" timestamp.
+#   # Daily snapshots become eligible roughly 24h after the previous daily point.
+#   sudo journalctl -u cron --since "today" | rg -i timeshift
+#   sudo journalctl --since "today" | rg -i timeshift
+#   df -h
