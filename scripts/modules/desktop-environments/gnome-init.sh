@@ -6,6 +6,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # shellcheck source=gnome-extensions.sh
 source "${SCRIPT_DIR}/gnome-extensions.sh"
+# shellcheck source=gnome-settings.sh
+source "${SCRIPT_DIR}/gnome-settings.sh"
 # shellcheck source=gnome-wallpapers.sh
 source "${SCRIPT_DIR}/gnome-wallpapers.sh"
 
@@ -19,6 +21,7 @@ setup_gnome_init() {
     return 0
   fi
 
+  setup_gnome_settings
   setup_gnome_extensions
   setup_gnome_wallpapers
 }

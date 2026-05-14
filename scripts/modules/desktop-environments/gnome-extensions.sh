@@ -4,8 +4,6 @@ set -euo pipefail
 
 # Optional feature flags (override with env vars before running).
 ENABLE_FLATPAK_PLUGIN="${ENABLE_FLATPAK_PLUGIN:-yes}"
-DISABLE_AUTO_SUSPEND_ON_AC="${DISABLE_AUTO_SUSPEND_ON_AC:-yes}"
-ENABLE_DARK_MODE="${ENABLE_DARK_MODE:-yes}"
 HIDE_TOP_BAR_UUID="hidetopbar@mathieu.bidon.ca"
 TRANSPARENT_WINDOW_UUID="transparent-window@pbxqdown.github.com"
 TRANSPARENT_WINDOW_OPACITY="${TRANSPARENT_WINDOW_OPACITY:-95}"
@@ -142,77 +140,9 @@ print_transparent_window_notes() {
   echo "Note: applying transparency only to Cursor by default is not reliably supported in GNOME Wayland."
 }
 
-apply_gnome_settings() {
-  if ! command -v gsettings >/dev/null 2>&1; then
-    echo "gsettings not available, skipping GNOME runtime settings"
-    return 0
-  fi
-
-  if ! is_gnome_session; then
-    echo "Not running a GNOME session, skipping runtime gsettings tweaks"
-    return 0
-  fi
-
-  # Windows and focus behavior.
-  gsettings set org.gnome.desktop.wm.preferences button-layout "appmenu:minimize,maximize,close"
-  # gsettings set org.gnome.desktop.wm.preferences focus-mode "click"
-
-  # Usability defaults.
-  gsettings set org.gnome.desktop.interface clock-format "24h"
-  gsettings set org.gnome.desktop.peripherals.keyboard delay 250
-  gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 25
-  # gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape']"
-  gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
-  gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
-
-  # Top bar / shell quality-of-life.
-  gsettings set org.gnome.desktop.interface show-battery-percentage true
-
-  if [[ "${ENABLE_DARK_MODE}" == "yes" ]]; then
-    gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-  fi
-
-  if [[ "${DISABLE_AUTO_SUSPEND_ON_AC}" == "yes" ]]; then
-    gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type "nothing"
-  fi
-
-  # Custom keyboard shortcuts.
-  local path_brave="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom90/"
-  local path_term="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom91/"
-  local current_list
-  current_list="$(gsettings get org.gnome.settings-daemon.plugins.media-keys custom-keybindings)"
-  current_list="${current_list#@as }"
-
-  if [[ "${current_list}" != *"'${path_brave}'"* ]]; then
-    if [[ "${current_list}" == "[]" ]]; then
-      current_list="['${path_brave}']"
-    else
-      current_list="${current_list%]}"
-      current_list="${current_list}, '${path_brave}']"
-    fi
-  fi
-  if [[ "${current_list}" != *"'${path_term}'"* ]]; then
-    if [[ "${current_list}" == "[]" ]]; then
-      current_list="['${path_term}']"
-    else
-      current_list="${current_list%]}"
-      current_list="${current_list}, '${path_term}']"
-    fi
-  fi
-  gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "${current_list}"
-
-  gsettings set "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${path_brave}" name "Brave Browser"
-  gsettings set "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${path_brave}" command "brave-browser"
-  gsettings set "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${path_brave}" binding "<Super>b"
-  gsettings set "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${path_term}" name "Alacritty"
-  gsettings set "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${path_term}" command "alacritty"
-  gsettings set "org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:${path_term}" binding "<Super>t"
-}
-
 setup_gnome_extensions() {
   install_gnome_packages
   install_transparent_window_extension
-  apply_gnome_settings
   enable_hide_top_bar_extension
   enable_transparent_window_extension
   configure_transparent_window_opacity
