@@ -35,6 +35,42 @@ detect_apt_docker_repo_distro() {
   esac
 }
 
+are_all_packages_installed_apt() {
+  local pkg
+  for pkg in "$@"; do
+    if ! dpkg-query -W -f='${Status}' "${pkg}" 2>/dev/null | rg -q "install ok installed"; then
+      return 1
+    fi
+  done
+  return 0
+}
+
+are_all_packages_installed_dnf() {
+  local pkg
+  for pkg in "$@"; do
+    if ! rpm -q "${pkg}" >/dev/null 2>&1; then
+      return 1
+    fi
+  done
+  return 0
+}
+
+is_docker_stack_installed() {
+  case "$(detect_pkg_manager)" in
+    apt)
+      are_all_packages_installed_apt \
+        docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+      ;;
+    dnf)
+      are_all_packages_installed_dnf \
+        docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
+
 install_docker_apt() {
   local docker_repo_distro
   docker_repo_distro="$(detect_apt_docker_repo_distro)"
@@ -106,18 +142,22 @@ configure_docker_group() {
 }
 
 setup_docker() {
-  case "$(detect_pkg_manager)" in
-    apt)
-      install_docker_apt
-      ;;
-    dnf)
-      install_docker_dnf
-      ;;
-    *)
-      echo "Unsupported package manager for automated Docker setup."
-      return 1
-      ;;
-  esac
+  if is_docker_stack_installed; then
+    echo "Docker packages already installed; skipping package installation."
+  else
+    case "$(detect_pkg_manager)" in
+      apt)
+        install_docker_apt
+        ;;
+      dnf)
+        install_docker_dnf
+        ;;
+      *)
+        echo "Unsupported package manager for automated Docker setup."
+        return 1
+        ;;
+    esac
+  fi
 
   configure_docker_service
   configure_docker_group
