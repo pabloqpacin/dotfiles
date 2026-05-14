@@ -44,7 +44,7 @@ setup_terraform_apt() {
 
   export DEBIAN_FRONTEND=noninteractive
   sudo apt-get update
-  sudo apt-get install -y --no-install-recommends gnupg software-properties-common wget
+  sudo apt-get install -y --no-install-recommends gnupg wget
   codename="$(detect_apt_codename)"
   arch="$(dpkg --print-architecture)"
 
@@ -70,6 +70,11 @@ setup_terraform_dnf() {
 }
 
 setup_terraform() {
+  if command -v terraform >/dev/null 2>&1; then
+    echo "terraform is already installed"
+    return 0
+  fi
+
   case "$(detect_pkg_manager)" in
     apt)
       setup_terraform_apt

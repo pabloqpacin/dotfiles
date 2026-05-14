@@ -45,13 +45,14 @@ setup_vagrant_apt() {
 
   export DEBIAN_FRONTEND=noninteractive
   sudo apt-get update
-  sudo apt-get install -y --no-install-recommends gnupg software-properties-common wget
+  sudo apt-get install -y --no-install-recommends gnupg wget
 
   codename="$(detect_apt_codename)"
   arch="$(dpkg --print-architecture)"
 
   wget -O - https://apt.releases.hashicorp.com/gpg \
-    | sudo gpg --dearmor -o "${HASHICORP_KEYRING_PATH}"
+    | gpg --dearmor \
+    | sudo tee "${HASHICORP_KEYRING_PATH}" >/dev/null
 
   echo "deb [arch=${arch} signed-by=${HASHICORP_KEYRING_PATH}] https://apt.releases.hashicorp.com ${codename} main" \
     | sudo tee "${HASHICORP_REPO_LIST_PATH}" >/dev/null
@@ -71,6 +72,11 @@ setup_vagrant_dnf() {
 }
 
 setup_vagrant() {
+  if command -v vagrant >/dev/null 2>&1; then
+    echo "vagrant is already installed"
+    return 0
+  fi
+
   case "$(detect_pkg_manager)" in
     apt)
       setup_vagrant_apt
