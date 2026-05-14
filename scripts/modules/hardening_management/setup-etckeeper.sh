@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# NOTE: $ sudo etckeeper vcs log
-
 set -euo pipefail
 
 detect_pkg_manager() {
@@ -90,3 +88,35 @@ setup_etckeeper() {
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   setup_etckeeper
 fi
+
+# Quick status:
+#   sudo etckeeper vcs status
+#   sudo etckeeper vcs status --porcelain
+#
+# View history (newest first):
+#   sudo etckeeper vcs log --oneline --decorate --graph -n 20
+#
+# Inspect what changed in /etc:
+#   sudo etckeeper vcs diff
+#   sudo etckeeper vcs diff -- /etc/ssh/sshd_config
+#
+# Create a manual commit (recommended before risky edits):
+#   sudo etckeeper commit "Describe why this /etc change is needed"
+#
+# Automatic commits (daily):
+#   # Config file:
+#   sudo rg -n "AVOID_DAILY_AUTOCOMMITS|AVOID_COMMIT_BEFORE_INSTALL" /etc/etckeeper/etckeeper.conf
+#   # By default, cron.daily may run automatic commits:
+#   ls -l /etc/cron.daily/etckeeper
+#   # Optional systemd timer (usually disabled unless explicitly enabled):
+#   systemctl is-enabled etckeeper.timer
+#   systemctl status etckeeper.timer --no-pager
+#   # Enable timer if you prefer systemd scheduling:
+#   sudo systemctl enable --now etckeeper.timer
+#
+# Show last commit details:
+#   sudo etckeeper vcs show --name-status --stat HEAD
+#
+# Restore a file from previous commit:
+#   sudo etckeeper vcs checkout HEAD~1 -- /etc/<path-to-file>
+#   # Then verify and commit the restore operation if desired.
