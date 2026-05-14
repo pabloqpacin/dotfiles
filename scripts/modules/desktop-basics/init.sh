@@ -24,6 +24,8 @@ source "${SCRIPT_DIR}/install-obs.sh"
 source "${SCRIPT_DIR}/install-marktext.sh"
 # shellcheck source=install-vlc.sh
 source "${SCRIPT_DIR}/install-vlc.sh"
+# shellcheck source=setup-remmina.sh
+source "${SCRIPT_DIR}/setup-remmina.sh"
 
 
 setup_desktop_basics() {
@@ -38,6 +40,7 @@ setup_desktop_basics() {
   install_obs
   install_marktext
   install_vlc
+  setup_remmina
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then

@@ -51,26 +51,26 @@ install_cli_basics() {
       if declare -F apt_install >/dev/null 2>&1; then
         apt_install python3-pip python3-venv \
           bat btop btm eza fastfetch fzf git git-delta grc htop jq lf \
-          nmap ripgrep tealdeer tmux tree yq
+          nmap pgcli ripgrep tealdeer tmux tree yq
       else
         sudo apt-get install -y --no-install-recommends \
           python3-pip python3-venv \
           bat btop btm eza fastfetch fzf git git-delta grc htop jq lf \
-          nmap ripgrep tealdeer tmux tree yq
+          nmap pgcli ripgrep tealdeer tmux tree yq
       fi
       ;;
     dnf)
       sudo dnf install -y python3-pip \
         bat btop btm eza fastfetch fzf git delta grc htop jq lf \
-        nmap ripgrep tealdeer tmux tree yq
+        nmap pgcli ripgrep tealdeer tmux tree yq
       ;;
     pacman)
       sudo pacman -S --noconfirm python-pip \
         bat btop btm eza fastfetch fzf git git-delta grc htop jq lf \
-        nmap ripgrep tealdeer tmux tree yq
+        nmap pgcli ripgrep tealdeer tmux tree yq
       ;;
     *)
-      echo "Unsupported package manager. Install manually: bat btop btm fastfetch htop tealdeer eza fzf git git-delta grc jq lf ripgrep nmap tmux tree yq"
+      echo "Unsupported package manager. Install manually: bat btop btm fastfetch htop tealdeer eza fzf git git-delta grc jq lf pgcli ripgrep nmap tmux tree yq"
       return 1
       ;;
   esac

@@ -26,6 +26,12 @@ create_dotfiles_symlinks() {
       ln -s "${source_root}/btop" "${target_root}/btop"
     fi
   fi
+
+  if command -v pgcli >/dev/null 2>&1; then
+    if [[ ! -L "${target_root}/pgcli" ]]; then
+      ln -s "${source_root}/pgcli" "${target_root}/pgcli"
+    fi
+  fi
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
