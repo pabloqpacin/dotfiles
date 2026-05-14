@@ -19,3 +19,34 @@ cockpit-session-socket-user.service          static          -
 cockpit-session@.service                     static          -
 cockpit-wsinstance-http.service              static          -
 lines 1-19
+
+
+@tp-debian ➜ dotfiles git:(feat/refactor-scripts) systemctl list-timers --all
+
+NEXT                             LEFT LAST                               PASSED UNIT                         ACTIVATES
+Wed 2026-05-13 11:20:23 CEST    35min Wed 2026-05-13 10:16:37 CEST     8min ago fwupd-refresh.timer          fwupd-refresh.service
+Wed 2026-05-13 11:33:19 CEST    48min Wed 2026-05-13 10:42:54 CEST 2min 21s ago anacron.timer                anacron.service
+Wed 2026-05-13 13:02:49 CEST 2h 17min Wed 2026-05-13 01:59:07 CEST            - apt-daily.timer              apt-daily.service
+Thu 2026-05-14 00:00:00 CEST      13h Wed 2026-05-13 01:06:35 CEST            - dpkg-db-backup.timer         dpkg-db-backup.service
+Thu 2026-05-14 00:54:42 CEST      14h Wed 2026-05-13 01:17:49 CEST            - logrotate.timer              logrotate.service
+Thu 2026-05-14 06:52:12 CEST      20h Wed 2026-05-13 09:16:17 CEST            - apt-daily-upgrade.timer      apt-daily-upgrade.service
+Thu 2026-05-14 09:23:10 CEST      22h Wed 2026-05-13 02:50:35 CEST            - man-db.timer                 man-db.service
+Thu 2026-05-14 10:37:02 CEST      23h Wed 2026-05-13 10:16:26 CEST     8min ago systemd-tmpfiles-clean.timer systemd-tmpfiles-clean.service
+Sun 2026-05-17 03:10:51 CEST   3 days Sun 2026-05-10 03:10:20 CEST            - e2scrub_all.timer            e2scrub_all.service
+Mon 2026-05-18 00:28:00 CEST   4 days Mon 2026-05-11 19:33:33 CEST            - fstrim.timer                 fstrim.service
+
+10 timers listed.
+
+
+tp-debian 福 ~/dotfiles ➤ 4b0ddbf|feat/refactor-scripts⚡
+554 ± : systemctl --user status gnome-wallpaper-carousel.timer --no-pager                                                                                               [21m] ✭
+
+● gnome-wallpaper-carousel.timer - Rotate GNOME wallpaper periodically
+     Loaded: loaded (/home/pquevedo/.config/systemd/user/gnome-wallpaper-carousel.timer; enabled; preset: enabled)
+     Active: active (waiting) since Wed 2026-05-13 13:08:00 CEST; 19min ago
+ Invocation: 8be9977369f74e30968a9d7fb4310e97
+    Trigger: Wed 2026-05-13 13:42:47 CEST; 14min left
+   Triggers: ● gnome-wallpaper-carousel.service
+
+May 13 13:08:00 tp-debian systemd[2744]: Started gnome-wallpaper-carousel.timer - Rotate GNOME wallpaper periodically.
+
