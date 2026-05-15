@@ -4,9 +4,31 @@ set -euo pipefail
 
 DISABLE_AUTO_SUSPEND_ON_AC="${DISABLE_AUTO_SUSPEND_ON_AC:-yes}"
 ENABLE_DARK_MODE="${ENABLE_DARK_MODE:-yes}"
+DISABLE_BLUETOOTH_ON_BOOT="${DISABLE_BLUETOOTH_ON_BOOT:-yes}"
+BLUETOOTH_MAIN_CONF_PATH="${BLUETOOTH_MAIN_CONF_PATH:-/etc/bluetooth/main.conf}"
 
 is_gnome_session_for_settings() {
   [[ "${XDG_CURRENT_DESKTOP:-}" == *GNOME* ]] || [[ "${DESKTOP_SESSION:-}" == *gnome* ]]
+}
+
+enforce_bluetooth_autoenable_off() {
+  if [[ "${DISABLE_BLUETOOTH_ON_BOOT}" != "yes" ]]; then
+    return 0
+  fi
+
+  if ! sudo test -f "${BLUETOOTH_MAIN_CONF_PATH}"; then
+    echo "Bluetooth config not found: ${BLUETOOTH_MAIN_CONF_PATH}"
+    return 0
+  fi
+
+  # Match both "AutoEnable=..." and "#AutoEnable=..." with optional spaces/tabs.
+  if sudo rg -q "^[[:space:]]*#?[[:space:]]*AutoEnable[[:space:]]*=" "${BLUETOOTH_MAIN_CONF_PATH}"; then
+    sudo sed -E -i \
+      's/^[[:space:]]*#?[[:space:]]*AutoEnable[[:space:]]*=.*/AutoEnable=false/' \
+      "${BLUETOOTH_MAIN_CONF_PATH}"
+  else
+    echo "AutoEnable=false" | sudo tee -a "${BLUETOOTH_MAIN_CONF_PATH}" >/dev/null
+  fi
 }
 
 setup_gnome_settings() {
@@ -42,6 +64,8 @@ setup_gnome_settings() {
   if [[ "${DISABLE_AUTO_SUSPEND_ON_AC}" == "yes" ]]; then
     gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type "nothing"
   fi
+
+  enforce_bluetooth_autoenable_off
 
   # Custom keyboard shortcuts.
   local path_brave="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom90/"
@@ -91,3 +115,6 @@ setup_gnome_settings() {
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   setup_gnome_settings
 fi
+
+
+# TODO?: gsettings get org.gnome.shell.extensions.dash-to-dock dash-max-icon-size
