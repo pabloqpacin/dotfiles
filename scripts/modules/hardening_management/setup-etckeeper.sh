@@ -63,7 +63,15 @@ cleanup_stale_etckeeper_lock() {
   sudo rm -f "${lock_file}"
 }
 
+has_etckeeper_commits() {
+  sudo etckeeper vcs rev-parse --verify HEAD >/dev/null 2>&1
+}
+
 create_initial_etckeeper_commit_if_needed() {
+  if has_etckeeper_commits; then
+    return 0
+  fi
+
   local pending_changes
   pending_changes="$(sudo etckeeper vcs status --porcelain 2>/dev/null || true)"
 
@@ -75,14 +83,21 @@ create_initial_etckeeper_commit_if_needed() {
 setup_etckeeper() {
   install_etckeeper_package
 
+  local just_initialized=false
   if ! is_etckeeper_repo_initialized; then
     sudo etckeeper init
+    just_initialized=true
   else
     echo "etckeeper repository already initialized at /etc/.git"
   fi
 
   cleanup_stale_etckeeper_lock
-  create_initial_etckeeper_commit_if_needed
+
+  # Only snapshot right after first init; later /etc changes from main.sh are
+  # picked up by etckeeper apt hooks and cron.daily autocommits.
+  if [[ "${just_initialized}" == "true" ]]; then
+    create_initial_etckeeper_commit_if_needed
+  fi
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
