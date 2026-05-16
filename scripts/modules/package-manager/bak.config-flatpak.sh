@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # NOTA: no se usa, convendría revisarlo y asegurarnos de que cumple lo que queremos
+# TODO: flatseal (?)
 
 set -euo pipefail
 
