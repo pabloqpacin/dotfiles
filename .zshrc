@@ -31,8 +31,9 @@ esac
 #   'afowler' 'dpoggi' 'eastwood' 'fletcherm' 'gallois'
 #   'macovsky' 'mh' 'muse' 'tonotdo' 'wedisagree' 'wezm'
 #   # Con hostname:
-#   'alanpeabody' 'bira' 'candy-kingdom' 'daveverwer' 'essembeh' 'fishy' 'gallifrey' 'gianu'
-#   'jaischeema' 'josh' 'kphoen'
+#   'alanpeabody' 'bira' 'candy-kingdom' 'daveverwer' 'essembeh' 'fishy'
+#   'gallifrey' 'gianu' 'gnzh' 'jaischeema' 'josh' 'kphoen' 'mlh' 'norm'
+#   'pmcgee' 'obraun' 'tjkirch'
 # )
 
 # Set custom folder for personal aliases, plugins and themes
