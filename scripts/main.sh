@@ -45,6 +45,9 @@ source "${MODULES_DIR}/containers/setup-docker.sh"
 source "${MODULES_DIR}/devops-programs/init.sh"
 # shellcheck source=modules/hardening_management/init.sh
 source "${MODULES_DIR}/hardening_management/init.sh"
+# shellcheck source=modules/development/install-conda.sh
+source "${MODULES_DIR}/development/install-conda.sh"
+
 
 echo "=== DETECTIONS ==="
 DISTRO="$(detect_distro)"
@@ -112,3 +115,12 @@ if [[ "${HEAD_MODE}" == "desktop" && "${XDG_CURRENT_DESKTOP:-}" == *GNOME* ]]; t
 else
   echo "GNOME init skipped: non-GNOME desktop or headless"
 fi
+
+
+#############
+# MSC - PoC #
+#############
+
+echo "=== DEVELOPMENT ==="
+install_conda
+echo "Conda installed/configured: yes"
