@@ -26,6 +26,8 @@ source "${SCRIPT_DIR}/install-marktext.sh"
 source "${SCRIPT_DIR}/install-vlc.sh"
 # shellcheck source=setup-remmina.sh
 source "${SCRIPT_DIR}/setup-remmina.sh"
+# shellcheck source=install-discord.sh
+source "${SCRIPT_DIR}/install-discord.sh"
 
 
 setup_desktop_basics() {
@@ -41,6 +43,7 @@ setup_desktop_basics() {
   install_marktext
   install_vlc
   setup_remmina
+  install_discord
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
