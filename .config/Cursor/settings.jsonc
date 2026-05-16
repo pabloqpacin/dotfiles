@@ -4,7 +4,8 @@
     "explorer.confirmDragAndDrop": false,
     "window.menuBarVisibility": "toggle",
     "window.commandCenter": false,
-    "window.zoomLevel": 0,
+    "window.zoomLevel": -0.5,
+    "terminal.integrated.fontSize": 12,
     "editor.rulers": [
         60,
         80,
