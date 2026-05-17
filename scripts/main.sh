@@ -47,6 +47,8 @@ source "${MODULES_DIR}/devops-programs/init.sh"
 source "${MODULES_DIR}/hardening_management/init.sh"
 # shellcheck source=modules/development/install-conda.sh
 source "${MODULES_DIR}/development/install-conda.sh"
+# shellcheck source=modules/vpn/install-openconnect.sh
+source "${MODULES_DIR}/vpn/install-openconnect.sh"
 
 
 echo "=== DETECTIONS ==="
@@ -123,4 +125,5 @@ fi
 
 echo "=== DEVELOPMENT ==="
 install_conda
+install_openconnect
 echo "Conda installed/configured: yes"
