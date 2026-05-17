@@ -14,8 +14,8 @@ fi
 # Display man pages with Bat highlighting
 if command -v bat &>/dev/null; then
   case $distro in
-    "arch"|"ubuntu"|"fedora") export MANPAGER="bat -l man -p --theme=Nord" ;;
-    *) export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'" ;;
+    "pop") export MANPAGER="sh -c 'col -bx | bat -l man -p --theme=Nord'" ;;
+    *) export MANPAGER="bat -l man -p --theme=Nord" ;;
   esac
 fi
 
@@ -26,10 +26,15 @@ case $distro in
   *)        ZSH_THEME="random" ;;
 esac
 
-# Them Baddest themes
-ZSH_THEME_RANDOM_CANDIDATES=( 'afowler' 'dpoggi' 'eastwood' 'fletcherm'
-  'gallois' 'macovsky' 'mh' 'muse' 'tonotdo' 'wedisagree'
-)
+# # Favorite themes
+# ZSH_THEME_RANDOM_CANDIDATES=(
+#   'afowler' 'dpoggi' 'eastwood' 'fletcherm' 'gallois'
+#   'macovsky' 'mh' 'muse' 'tonotdo' 'wedisagree' 'wezm'
+#   # Con hostname:
+#   'alanpeabody' 'bira' 'candy-kingdom' 'daveverwer' 'essembeh' 'fishy'
+#   'gallifrey' 'gianu' 'gnzh' 'jaischeema' 'josh' 'kphoen' 'mlh' 'norm'
+#   'pmcgee' 'obraun' 'tjkirch'
+# )
 
 # Set custom folder for personal aliases, plugins and themes
 ZSH_CUSTOM="$HOME/dotfiles/zsh"
@@ -159,3 +164,25 @@ fi
 # unset __conda_setup
 # # <<< conda initialize <<<
 
+
+# bun completions
+[ -s "/home/pabloqpacin/.bun/_bun" ] && source "/home/pabloqpacin/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/pquevedo/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/pquevedo/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/pquevedo/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/pquevedo/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
