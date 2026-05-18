@@ -17,7 +17,8 @@ setup_nvidia_drivers() {
   sudo apt-get install -y \
     linux-headers-"$(uname -r)" \
     dkms build-essential \
-    nvidia-open
+    nvidia-open \
+    nvtop
 
   sudo dkms autoinstall -k "$(uname -r)"
   sudo modprobe nvidia
