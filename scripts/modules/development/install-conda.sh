@@ -47,23 +47,22 @@ ensure_build_essentials(){
     fi
 }
 
-# ---
+install_conda() {
+    ensure_build_essentials
 
-ensure_build_essentials
-
-if ! command -v conda &> /dev/null; then
-    download_install_conda_for_user
-    enable_conda_on_shell
-else
-    echo "=== Conda ya debería estar instalado ==="
-    echo "---"
-    type -a conda
-    echo "---"
-    conda --version
-    echo "---"
-    conda env list || conda info --envs
-    # echo "---" && conda info -a
-fi
+    if ! command -v conda &> /dev/null; then
+        download_install_conda_for_user
+        enable_conda_on_shell
+    else
+        echo "=== Conda ya debería estar instalado ==="
+        echo "---"
+        type -a conda
+        echo "---"
+        conda --version
+        echo "---"
+        conda env list || conda info --envs
+    fi
+}
 
 # ---
 # NOTE: opcionalmente podríamos instalar el binario en /opt/miniconda3 y luego crear este archivo para tener environments por usuario:

@@ -49,6 +49,8 @@ source "${MODULES_DIR}/hardening_management/init.sh"
 source "${MODULES_DIR}/development/install-conda.sh"
 # shellcheck source=modules/vpn/install-openconnect.sh
 source "${MODULES_DIR}/vpn/install-openconnect.sh"
+# shellcheck source=modules/hardware-drivers/setup-nvidia_drivers.sh
+source "${MODULES_DIR}/hardware-drivers/setup-nvidia_drivers.sh"
 
 
 echo "=== DETECTIONS ==="
@@ -126,4 +128,5 @@ fi
 echo "=== DEVELOPMENT ==="
 install_conda
 install_openconnect
+setup_nvidia_drivers
 echo "Conda installed/configured: yes"
