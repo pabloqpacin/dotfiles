@@ -23,7 +23,7 @@ fi
 case $distro in
   "parrot") ZSH_THEME="parrot"; export PATH=$PATH:/sbin ;;
   # "termux") ZSH_THEME="kennethreitz"; echo '\e[3 q' ;;
-  *)        ZSH_THEME="random" ;;
+  *)        ZSH_THEME="obraun" ;;
 esac
 
 # # Favorite themes
