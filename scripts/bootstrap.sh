@@ -5,7 +5,7 @@
 set -euo pipefail
 
 REPO_URL="${REPO_URL:-https://github.com/pabloqpacin/dotfiles.git}"
-REPO_BRANCH="${REPO_BRANCH:-feat/refactor-scripts}"
+REPO_BRANCH="${REPO_BRANCH:-feat/scripts-server-MSC}"
 TARGET_DIR="${TARGET_DIR:-${HOME}/dotfiles}"
 
 if [[ ! -d "${TARGET_DIR}/.git" ]]; then

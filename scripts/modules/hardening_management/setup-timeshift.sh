@@ -79,8 +79,8 @@ detect_backup_device_uuid() {
   # Last-resort fallback: keep working if current config UUID is still valid.
   local config_uuid=""
   if [[ -r "${TIMESHIFT_CONFIG_FILE}" ]]; then
-    config_uuid="$(sudo rg -o "\"backup_device_uuid\"\\s*:\\s*\"[^\"]+\"" "${TIMESHIFT_CONFIG_FILE}" \
-      | rg -o "[0-9a-fA-F-]{8}-[0-9a-fA-F-]{4}-[0-9a-fA-F-]{4}-[0-9a-fA-F-]{4}-[0-9a-fA-F-]{12}" \
+    config_uuid="$(sudo grep -oE '"backup_device_uuid"[[:space:]]*:[[:space:]]*"[^"]+"' "${TIMESHIFT_CONFIG_FILE}" \
+      | grep -oE '[0-9a-fA-F-]{8}-[0-9a-fA-F-]{4}-[0-9a-fA-F-]{4}-[0-9a-fA-F-]{4}-[0-9a-fA-F-]{12}' \
       | head -n 1 || true)"
   fi
   if [[ -n "${config_uuid}" ]] && sudo blkid -U "${config_uuid}" >/dev/null 2>&1; then
@@ -176,7 +176,7 @@ ensure_snapshot_mountpoint_not_active() {
 }
 
 has_any_snapshot() {
-  sudo timeshift --list 2>/dev/null | rg -q "[0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2}"
+  sudo timeshift --list 2>/dev/null | grep -qE '[0-9]{4}-[0-9]{2}-[0-9]{2}_[0-9]{2}-[0-9]{2}-[0-9]{2}'
 }
 
 create_initial_snapshot_if_needed() {
@@ -218,11 +218,11 @@ fi
 #   sudo timeshift --list-devices
 #
 # Scheduled policy (what Timeshift is configured to create/retain):
-#   sudo rg -n '"schedule_(hourly|daily|weekly|monthly|boot)"|"count_(hourly|daily|weekly|monthly|boot)"' /etc/timeshift/timeshift.json
+#   sudo grep -nE '"schedule_(hourly|daily|weekly|monthly|boot)"|"count_(hourly|daily|weekly|monthly|boot)"' /etc/timeshift/timeshift.json
 #
 # Trigger mechanism (cron/systemd):
-#   sudo rg -n "timeshift" /etc/cron.d /etc/cron.daily /etc/anacrontab
-#   systemctl list-timers --all | rg -i timeshift
+#   sudo grep -n "timeshift" /etc/cron.d /etc/cron.daily /etc/anacrontab
+#   systemctl list-timers --all | grep -i timeshift
 #
 # Manual check cycle (safe way to validate daily creation):
 #   sudo timeshift --check --scripted
@@ -231,6 +231,6 @@ fi
 # Useful troubleshooting:
 #   # Timeshift does not usually expose an exact "next run at" timestamp.
 #   # Daily snapshots become eligible roughly 24h after the previous daily point.
-#   sudo journalctl -u cron --since "today" | rg -i timeshift
-#   sudo journalctl --since "today" | rg -i timeshift
+#   sudo journalctl -u cron --since "today" | grep -i timeshift
+#   sudo journalctl --since "today" | grep -i timeshift
 #   df -h

@@ -45,6 +45,13 @@ source "${MODULES_DIR}/containers/setup-docker.sh"
 source "${MODULES_DIR}/devops-programs/init.sh"
 # shellcheck source=modules/hardening_management/init.sh
 source "${MODULES_DIR}/hardening_management/init.sh"
+# shellcheck source=modules/development/install-conda.sh
+source "${MODULES_DIR}/development/install-conda.sh"
+# shellcheck source=modules/vpn/install-openconnect.sh
+source "${MODULES_DIR}/vpn/install-openconnect.sh"
+# shellcheck source=modules/hardware-drivers/setup-nvidia_drivers.sh
+source "${MODULES_DIR}/hardware-drivers/setup-nvidia_drivers.sh"
+
 
 echo "=== DETECTIONS ==="
 DISTRO="$(detect_distro)"
@@ -112,3 +119,14 @@ if [[ "${HEAD_MODE}" == "desktop" && "${XDG_CURRENT_DESKTOP:-}" == *GNOME* ]]; t
 else
   echo "GNOME init skipped: non-GNOME desktop or headless"
 fi
+
+
+#############
+# MSC - PoC #
+#############
+
+echo "=== DEVELOPMENT ==="
+install_conda
+install_openconnect
+setup_nvidia_drivers
+echo "Conda installed/configured: yes"
