@@ -74,9 +74,15 @@ configure_anydesk_uinput_access() {
   fi
 }
 
+print_anydesk_post_install_notes() {
+  echo "AnyDesk note: open AnyDesk -> Settings -> Security and enable unattended access."
+  echo "Set a password there, otherwise remote users will not be able to connect unattended."
+}
+
 setup_anydesk() {
   install_anydesk
   configure_anydesk_uinput_access
+  print_anydesk_post_install_notes
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
