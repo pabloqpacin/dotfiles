@@ -23,7 +23,7 @@ fi
 case $distro in
   "parrot") ZSH_THEME="parrot"; export PATH=$PATH:/sbin ;;
   # "termux") ZSH_THEME="kennethreitz"; echo '\e[3 q' ;;
-  *)        ZSH_THEME="obraun" ;;
+  *)        ZSH_THEME="random" ;;
 esac
 
 # Favorite themes
@@ -31,9 +31,9 @@ ZSH_THEME_RANDOM_CANDIDATES=(
   'afowler' 'dpoggi' 'eastwood' 'fletcherm' 'gallois'
   'macovsky' 'mh' 'muse' 'tonotdo' 'wedisagree' 'wezm'
   # Con hostname:
-  'alanpeabody' 'bira' 'candy-kingdom' 'daveverwer' 'essembeh' 'fishy'
-  'gallifrey' 'gianu' 'gnzh' 'jaischeema' 'josh' 'kphoen' 'mlh' 'norm'
-  'pmcgee' 'obraun' 'tjkirch'
+  'alanpeabody' 'bira' 'daveverwer' 'essembeh' 'fishy'
+  'gallifrey' 'gnzh' 'jaischeema' 'josh' 'kphoen' 'mlh'
+  'norm' 'obraun' 'tjkirch'
 )
 
 # Set custom folder for personal aliases, plugins and themes

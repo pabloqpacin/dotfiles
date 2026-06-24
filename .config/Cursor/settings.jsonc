@@ -4,7 +4,7 @@
     "explorer.confirmDragAndDrop": false,
     "window.menuBarVisibility": "toggle",
     "window.commandCenter": false,
-    "window.zoomLevel": -0.7,
+    "window.zoomLevel": 0,
     "terminal.integrated.fontSize": 12,
     "editor.rulers": [
         60,
@@ -52,6 +52,7 @@
         "editor.defaultFormatter": "redhat.vscode-yaml"
     },
     "editor.minimap.enabled": true,
-    "editor.autoDetectColorScheme": true
+    "editor.autoDetectColorScheme": true,
+    "window.autoDetectColorScheme": false
 }
 
