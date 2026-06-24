@@ -25,7 +25,7 @@ install_remmina_dnf() {
 }
 
 install_remmina_pacman() {
-  sudo pacman -S --noconfirm remmina
+  sudo pacman -S --noconfirm remmina freerdp
 }
 
 setup_remmina() {
