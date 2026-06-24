@@ -5,7 +5,7 @@
 set -euo pipefail
 
 REPO_URL="${REPO_URL:-https://github.com/pabloqpacin/dotfiles.git}"
-REPO_BRANCH="${REPO_BRANCH:-feat/scripts-server-MSC}"
+REPO_BRANCH="${REPO_BRANCH:-develop}"   # || bak/MSC-Debian-setup
 TARGET_DIR="${TARGET_DIR:-${HOME}/dotfiles}"
 
 if [[ ! -d "${TARGET_DIR}/.git" ]]; then
