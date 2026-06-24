@@ -1,0 +1,3 @@
+# Tema overcommit memory de Valkey
+$ sudo sysctl -a
+$ sudo sysctl vm.overcommit_memory

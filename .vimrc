@@ -1,5 +1,5 @@
 set number
-" set relativenumber
+set relativenumber
 syntax on && syntax enable
 
 set nowrap

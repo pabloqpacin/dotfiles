@@ -1,0 +1,32 @@
+gnome workspace navigation keyboard can do Super+3 for example to go to the third one?
+
+Yes, **Super+3** (and similar Super+number combinations) can be configured to switch to the third workspace in GNOME, but this requires manual configuration because GNOME Shell often binds these keys to launch docked applications by default.
+
+To enable this, you must disable the application launch shortcuts and explicitly assign the workspace switching bindings using the terminal:
+
+1.  **Disable application launch shortcuts** for numbers 1–9:
+    ```bash
+    for i in {1..9}; do gsettings set "org.gnome.shell.keybindings" "switch-to-application-${i}" "[]"; done
+    ```
+
+2.  **Assign Super+Number to switch workspaces** (and Super+Shift+Number to move windows):
+    ```bash
+    for i in {1..9}; do
+      gsettings set "org.gnome.desktop.wm.keybindings" "switch-to-workspace-${i}" "['<Super>${i}']"
+      gsettings set "org.gnome.desktop.wm.keybindings" "move-to-workspace-${i}" "['<Super><Shift>${i}']"
+    done
+    ```
+
+3.  **Ensure static workspaces are enabled** (optional but recommended for predictable numbering):
+    ```bash
+    gsettings set org.gnome.mutter dynamic-workspaces false
+    gsettings set org.gnome.desktop.wm.preferences num-workspaces 9
+    ```
+
+If you use the **Dash to Dock** extension, you may also need to disable its specific app hotkeys:
+```bash
+for i in {1..9}; do
+  gsettings set "org.gnome.shell.extensions.dash-to-dock" "app-hotkey-${i}" "[]"
+done
+```
+
