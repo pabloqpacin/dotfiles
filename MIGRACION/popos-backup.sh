@@ -1,5 +1,39 @@
 #!/usr/bin/env bash
+
+# Usage:
+#   bash MIGRACION/popos-backup.sh              # full backup to DEST
+#   CRITICAL_BUNDLE_GPG=/path/to/critical-bundle.tar.gz.gpg \
+#     [CRITICAL_RESTORE_DIR=/tmp/critical-restore] bash MIGRACION/popos-backup.sh decrypt
+
 set -euo pipefail
+
+decrypt_critical_bundle() {
+  local gpg_file="${CRITICAL_BUNDLE_GPG:?Set CRITICAL_BUNDLE_GPG to the .gpg path}"
+  local restore_dir="${CRITICAL_RESTORE_DIR:-/tmp/critical-restore}"
+  local bundle="/tmp/critical-bundle.tar.gz"
+
+  [[ -s "$gpg_file" ]] || { echo "ERROR: missing or empty: $gpg_file" >&2; return 1; }
+
+  echo "Decrypting: $gpg_file"
+  gpg -o "$bundle" -d "$gpg_file"
+  [[ -s "$bundle" ]] || { echo "ERROR: decrypt produced empty archive" >&2; return 1; }
+
+  echo "Contents:"
+  tar tzf "$bundle"
+
+  mkdir -p "$restore_dir"
+  tar xzf "$bundle" -C "$restore_dir"
+  echo "Extracted to: $restore_dir"
+  ls -la "$restore_dir"
+
+  shred -u "$bundle"
+  echo "Wiped plaintext archive. Remove restore dir when done: rm -rf $restore_dir"
+}
+
+if [[ "${1:-}" == decrypt ]]; then
+  decrypt_critical_bundle
+  exit 0
+fi
 
 DEST="/media/pabloqpacin/Seagate Portable Drive/PopOS-GL76/migration"
 mkdir -p "$DEST"/{critical,bulk-data,repos-dirty,reference,packed-ntfs-unsafe}
