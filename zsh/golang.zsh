@@ -1,11 +1,23 @@
 # https://www.tecmint.com/install-go-in-linux/
 # https://go.dev/doc/install
 
-# cd /tmp \
-#  && wget -c https://golang.org/dl/go1.21.0.linux-amd64.tar.gz \
-#  && sudo rm -rf /usr/local/go \
-#  && sudo tar -C /usr/local -xzf go1.21.0.linux-amd64.tar.gz \
-#  && source ~/dotfiles/zsh/golang.zsh
+# # ---
+# #!/usr/bin/env bash
+# 
+# set -euo pipefail
+# 
+# version=$(curl -fsSL 'https://go.dev/VERSION?m=text' | head -1)
+# url="https://go.dev/dl/${version}.linux-amd64.tar.gz"
+# 
+# echo "Installing ${version}..."
+# curl -fsSL "$url" -o /tmp/go.tar.gz
+# sudo rm -rf /usr/local/go
+# sudo tar -C /usr/local -xzf /tmp/go.tar.gz
+# rm /tmp/go.tar.gz
+# 
+# /usr/local/go/bin/go version
+# # ---
+
 
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin

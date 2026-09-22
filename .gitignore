@@ -9,11 +9,12 @@ packer_compiled.lua
 btop.log
 
 # Clutter
+*tmp*
 private/
 # *.todo
 *test*
 *mock*
-py/
+# py/
 
 # Hypr
 *vanilla*
