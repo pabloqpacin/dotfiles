@@ -1,0 +1,18 @@
+#!/bin/sh
+
+file=$(
+    rg --files --hidden |
+        fzf --preview 'bat --color=always {}'
+)
+
+[ -n "$file" ] || exit 0
+
+if command -v nvim >/dev/null 2>&1; then
+    exec nvim "$file"
+elif command -v vim >/dev/null 2>&1; then
+    exec vim "$file"
+else
+    printf '%s\n' 'fzfhv: neither nvim nor vim is installed' >&2
+    exit 127
+fi
+
