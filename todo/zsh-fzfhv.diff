@@ -1,0 +1,14 @@
+Δ .zshrc
+───────────────────────────────────────────────────────────────────────────────────────────────────────
+
+─────┐
+• 1: │
+─────┘
+    ⋮  1 │# Shell utils
+    ⋮  2 │# export PATH="$HOME/src/dotfiles/bin:$PATH"
+    ⋮  3 │export PATH="$HOME/dotfiles/bin:$PATH"
+    ⋮  4 │
+  1 ⋮  5 │# Remote shells fix
+  2 ⋮  6 │export TERM=xterm-256color
+  3 ⋮  7 │export COLORTERM=truecolor
+
