@@ -1,2 +1,9 @@
 [shell]
 polkit_agent = true
+
+# https://docs.noctalia.dev/noctalia/bar/?section=smart-auto-hide#smart-auto-hide
+
+[bar.default]
+position  = "top"
+smart_auto_hide = true
+
